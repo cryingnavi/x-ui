@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+<meta charset='utf-8'>
+<head>
+	<link rel="stylesheet" type="text/css" href="./libs/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./libs/bootstrap/css/bootstrap-responsive.min.css" />
+
+
+	<link href="./libs/syntaxhighlighter_3.0.83/styles/shCore.css" rel="stylesheet" type="text/css">
+	<link type="text/css" rel="Stylesheet" href="./libs/syntaxhighlighter_3.0.83/styles/shThemeRDark.css"/>
+	
+	<script src="./libs/syntaxhighlighter_3.0.83/scripts/shCore.js" type="text/javascript"></script>
+	<script src="./libs/syntaxhighlighter_3.0.83/scripts/shAutoloader.js" type="text/javascript"></script>
+	<script src="./libs/syntaxhighlighter_3.0.83/scripts/shBrushXml.js" type="text/javascript"></script>
+	<script src="./libs/syntaxhighlighter_3.0.83/scripts/shBrushJScript.js" type="text/javascript"></script>
+	<script src="./libs/syntaxhighlighter_3.0.83/scripts/shBrushCss.js" type="text/javascript"></script>
+
+	<style>
+		.well{
+			padding: 10px;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+		.nav-header{
+			text-transform: none !important;
+			background-color: #d3d3d3;
+			color: #333;
+			margin-top: 0;
+		}
+		.breadcrumb{
+			padding: 10px;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			border: 1px solid #e3e3e3;
+		}
+	</style>
+
+	<script type="text/javascript" src="./libs/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="./js/index.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="span3" id="leftMenu">
+				<ul class="nav nav-list well">
+					<li class="nav-header">Core</li>
+					<li><a href="#" rel="core/emptyFn">emptyFn</a></li>
+					<li><a href="#" rel="core/extend">extend</a></li>
+					<li><a href="#" rel="core/type">type</a></li>
+					<li><a href="#" rel="core/getOrientation">getOrientation</a></li>
+					<li><a href="#" rel="core/getBody">getBody</a></li>
+					<li><a href="#" rel="core/getDoc">getDoc</a></li>
+					<li><a href="#" rel="core/getWindow">getWindow</a></li>
+					<li><a href="#" rel="core/getWindowSize">getWindowSize</a></li>
+				</ul>
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.util.ComponentManager(X.util.cm)</li>
+					<li><a href="#" rel="cm/get">get</a></li>
+				</ul>
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.util.Draggable</li>
+					<li><a href="#" rel="draggable/config">config</a></li>
+					<li><a href="#" rel="draggable/events">events</a></li>
+				</ul>
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.util.Droppable</li>
+					<li><a href="#" rel="droppable/config">config</a></li>
+					<li><a href="#" rel="droppable/events">events</a></li>
+				</ul>
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.util.ViewControllerManager(X.util.vcm)</li>
+					<li><a href="#" rel="vcm/get">get</a></li>
+					<li><a href="#" rel="vcm/setErrorMsg">setErrorMsg</a></li>
+					<li><a href="#" rel="vcm/setLoadingMsg">setLoadingMsg</a></li>
+					<li><a href="#" rel="vcm/enabledTransition">enabledTransition</a></li>
+					<li><a href="#" rel="vcm/disabledTransition">disabledTransition</a></li>
+				</ul>
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.util.LocalViewController</li>
+					<li><a href="#" rel="lvc/config">config</a></li>
+					<li><a href="#" rel="lvc/events">events</a></li>
+					<li><a href="#" rel="lvc/nextPage">nextPage</a></li>
+					<li><a href="#" rel="lvc/prevPage">prevPage</a></li>
+					<li><a href="#" rel="lvc/backPage">backPage</a></li>
+					<li><a href="#" rel="lvc/appendView">appendView</a></li>
+					<li><a href="#" rel="lvc/removeView">removeView</a></li>
+					<li><a href="#" rel="lvc/getActiveView">getActiveView</a></li>
+					<li><a href="#" rel="lvc/getActiveIndex">getActiveIndex</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.util.RemoteViewController</li>
+					<li><a href="#" rel="rvc/config">config</a></li>
+					<li><a href="#" rel="rvc/events">events</a></li>
+					<li><a href="#" rel="rvc/initPage">initPage</a></li>
+					<li><a href="#" rel="rvc/nextPage">nextPage</a></li>
+					<li><a href="#" rel="rvc/prevPage">prevPage</a></li>
+					<li><a href="#" rel="rvc/backPage">backPage</a></li>
+					<li><a href="#" rel="rvc/getActiveView">getActiveView</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.View</li>
+					<li><a href="#" rel="view/config">config</a></li>
+					<li><a href="#" rel="view/events">events</a></li>
+					<li><a href="#" rel="view/render">render</a></li>
+					<li><a href="#" rel="view/scrollRefresh">scrollRefresh</a></li>
+					<li><a href="#" rel="view/panelsOpen">panelsOpen</a></li>
+					<li><a href="#" rel="view/panelsClose">panelsClose</a></li>
+					<li><a href="#" rel="view/panelsToggle">panelsToggle</a></li>
+					<li><a href="#" rel="view/setContent">setContent</a></li>
+					<li><a href="#" rel="view/setLayout">setLayout</a></li>
+					<li><a href="#" rel="view/setFlexible">setFlexible</a></li>
+					<li><a href="#" rel="view/setWidth">setWidth</a></li>
+					<li><a href="#" rel="view/setHeight">setHeight</a></li>
+					<li><a href="#" rel="view/getWidth">getWidth</a></li>
+					<li><a href="#" rel="view/getHeight">getHeight</a></li>
+					<li><a href="#" rel="view/scrollDestroy">scrollDestroy</a></li>
+					<li><a href="#" rel="view/show">show</a></li>
+					<li><a href="#" rel="view/hide">hide</a></li>
+					<li><a href="#" rel="view/toggle">toggle</a></li>
+					<li><a href="#" rel="view/getEl">getEl</a></li>
+					<li><a href="#" rel="view/getId">getId</a></li>
+					<li><a href="#" rel="view/getViewController">getViewController</a></li>
+					<li><a href="#" rel="view/setViewController">setViewController</a></li>
+					<li><a href="#" rel="view/destroy">destroy</a></li>
+					<li><a href="#" rel="view/add">add</a></li>
+					<li><a href="#" rel="view/remove">remove</a></li>
+					<li><a href="#" rel="view/addToolbar">addToolbar</a></li>
+					<li><a href="#" rel="view/setFloating">setFloating</a></li>
+					<li><a href="#" rel="view/setOverlay">setOverlay</a></li>
+					<li><a href="#" rel="view/createHtmlComponent">createHtmlComponent</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.ui.ListView</li>
+					<li><a href="#">options</a></li>
+					<li><a href="#">events</a></li>
+					<li><a href="#">render</a></li>
+					<li><a href="#">append</a></li>
+					<li><a href="#">prepend</a></li>
+					<li><a href="#">replaceWith</a></li>
+					<li><a href="#">remove</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.ui.Accordion</li>
+					<li><a href="#">options</a></li>
+					<li><a href="#">events</a></li>
+					<li><a href="#">render</a></li>
+					<li><a href="#">change</a></li>
+					<li><a href="#">append</a></li>
+					<li><a href="#">prepend</a></li>
+					<li><a href="#">remove</a></li>
+					<li><a href="#">removeAll</a></li>
+					<li><a href="#">changeTitle</a></li>
+					<li><a href="#">getItem</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.ui.Toolbar</li>
+					<li><a href="#">options</a></li>
+					<li><a href="#">events</a></li>
+					<li><a href="#">render</a></li>
+					<li><a href="#">setTitle</a></li>
+					<li><a href="#">getTitle</a></li>
+					<li><a href="#">destroy</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.ui.Tabs</li>
+					<li><a href="#">options</a></li>
+					<li><a href="#">events</a></li>
+					<li><a href="#">render</a></li>
+					<li><a href="#">change</a></li>
+					<li><a href="#">getActiveView</a></li>
+					<li><a href="#">getView</a></li>
+					<li><a href="#">append</a></li>
+					<li><a href="#">prepend</a></li>
+					<li><a href="#">remove</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.ui.Carousel</li>
+					<li><a href="#">options</a></li>
+					<li><a href="#">events</a></li>
+					<li><a href="#">render</a></li>
+					<li><a href="#">getActiveView</a></li>
+					<li><a href="#">append</a></li>
+					<li><a href="#">remove</a></li>
+					<li><a href="#">next</a></li>
+					<li><a href="#">prev</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.ui.FormView</li>
+					<li><a href="#">options</a></li>
+					<li><a href="#">events</a></li>
+					<li><a href="#">render</a></li>
+					<li><a href="#">serialize</a></li>
+					<li><a href="#">getJSON</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.ui.Form</li>
+					<li><a href="#">options</a></li>
+					<li><a href="#">events</a></li>
+					<li><a href="#">render</a></li>
+					<li><a href="#">getName</a></li>
+					<li><a href="#">setValue</a></li>
+					<li><a href="#">getValue</a></li>
+					<li><a href="#">show</a></li>
+					<li><a href="#">hide</a></li>
+					<li><a href="#">toggle</a></li>
+					<li><a href="#">getEl</a></li>
+					<li><a href="#">getId</a></li>
+					<li><a href="#">disabled</a></li>
+					<li><a href="#">enabled</a></li>
+					<li><a href="#">destroy</a></li>
+				</ul>
+
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.ui.TextBox</li>
+					<li><a href="#">options</a></li>
+					<li><a href="#">events</a></li>
+					<li><a href="#">setPlaceholder</a></li>
+					<li><a href="#">setType</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.ui.Slider</li>
+					<li><a href="#">options</a></li>
+					<li><a href="#">events</a></li>
+					<li><a href="#">setMin</a></li>
+					<li><a href="#">setMax</a></li>
+					<li><a href="#">getMin</a></li>
+					<li><a href="#">getMax</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.ui.Progressbar</li>
+					<li><a href="#">options</a></li>
+					<li><a href="#">events</a></li>
+					<li><a href="#">setMax</a></li>
+					<li><a href="#">getMax</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.ui.Spinner</li>
+					<li><a href="#">options</a></li>
+					<li><a href="#">events</a></li>
+					<li><a href="#">setMax</a></li>
+					<li><a href="#">setMin</a></li>
+					<li><a href="#">getMax</a></li>
+					<li><a href="#">getMin</a></li>
+					<li><a href="#">setStep</a></li>
+				</ul>
+
+				<ul class="nav nav-list well">
+					<li class="nav-header">X.ui.SwitchBox</li>
+					<li><a href="#">options</a></li>
+					<li><a href="#">events</a></li>
+					<li><a href="#">setOn</a></li>
+					<li><a href="#">setOff</a></li>
+					<li><a href="#">toggleChecked</a></li>
+					<li><a href="#">checked</a></li>
+					<li><a href="#">unchecked</a></li>
+				</ul>
+			</div>
+			<div class="span9">
+				<ul class="breadcrumb">
+					<li>
+						<a href="#">Core</a>
+						<span class="divider">/</span>
+					</li>
+					<li>
+						<a href="#">option</a>
+					</li>
+				</ul>
+				<div class="content" id="content">
+					<h1>Title</h1>
+					<div>
+						<h2>sub title</h2>
+						<div class="description">
+							asdfadfadsfadsfasdfadsadsads
+						</div>
+						<h2>sub title</h2>
+						<div class="description">
+							<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;a&gt;</span></li><li class="L1"><span class="tag">&lt;/a&gt;</span></li></ol></pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

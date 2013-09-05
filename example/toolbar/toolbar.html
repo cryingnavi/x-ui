@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../../libs/x-ui/css/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../libs/x-ui/css/x-ui-theme.css" />
+
+	<script src="../../libs/x-ui/js/jquery-1.10.2.min.js"></script>
+	<script src="../../libs/x-ui/js/x-ui.js"></script>
+	<script src="../../libs/x-ui/js/x-event.js"></script>
+	<script src="../../libs/x-ui/js/x-scroll.js"></script>
+	<script src="../../libs/x-ui/js/x-template.js"></script>
+
+	<script>
+		X.App({
+			viewConfig:{
+				toolbars:[
+					new X.ui.Toolbar({
+						position: "bottom",
+						title: '<a href="#" style="position: absolute;left: 10px;">left</a>App<a href="#" style="position: absolute;right: 10px;">right</a>'
+					})
+				]
+			},
+			ready: function(appView){
+				appView.setContent();
+			}
+		});
+	</script>
+</head>
+<body>
+	<div data-role="toolbar">
+		<a href="#" style="position: absolute;left: 10px;">left</a>
+		test
+		<a href="#" style="position: absolute;right: 10px;">right</a>
+	</div>
+	<div data-role="accordion" data-active-index="1">
+		<div data-role="view" data-title="Tabs 1" style="background-color: red;">
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+		</div>
+		<div data-role="view" data-title="Tabs 2" style="background-color: blue;">Tabs 2</div>
+		<div data-role="view" data-title="Tabs 3" style="background-color: green;">Tabs 3</div>
+	</div>
+	<div data-role="toolbar">
+		<h3>test1</h3>
+	</div>
+</body>
+</html>

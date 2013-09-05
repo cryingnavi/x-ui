@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../../libs/x-ui/css/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../libs/x-ui/css/x-ui-theme.css" />
+
+	<script src="../../libs/x-ui/js/jquery-1.10.2.min.js"></script>
+	<script src="../../libs/x-ui/js/x-ui.js"></script>
+	<script src="../../libs/x-ui/js/x-event.js"></script>
+	<script src="../../libs/x-ui/js/x-scroll.js"></script>
+	<script src="../../libs/x-ui/js/x-template.js"></script>
+
+	<script>
+		X.App({
+			ready: function(appView){
+				appView.setContent();
+				appView.add([
+					X.util.cm.get("a1"),
+					X.util.cm.get("a2"),
+					X.util.cm.get("a3"),
+					X.util.cm.get("a4"),
+					X.util.cm.get("a5")
+				]);
+
+				appView.setViewController(new X.util.LocalViewController({
+					
+				}));
+
+				appView.getViewController().nextPage({
+					index: 1,
+					transition: 'slidedown'
+				});
+
+				window.setTimeout(function(){
+					appView.getViewController().nextPage({
+						index: 2,
+						transition: 'fade'
+					});
+				}, 1000);
+
+
+				window.setTimeout(function(){
+					appView.getViewController().nextPage({
+						index: 3,
+						transition: 'pop'
+					});
+				}, 4000);
+			}
+		});
+	</script>
+</head>
+<body>
+	<div data-role="toolbar" data-scroll="true">
+		<h3>test</h3>
+	</div>
+	<div data-role="view" data-scroll="true" id="a1" style="background:red;">
+		test1
+	</div>
+	<div data-role="view" data-scroll="true" id="a2" style="background:blue;">
+		test2
+	</div>
+	<div data-role="view" data-scroll="true" id="a3" style="background:yellow;">
+		test3
+	</div>
+	<div data-role="view" data-scroll="true" id="a4" style="background:green;">
+		test4
+	</div>
+	<div data-role="view" data-scroll="true" id="a5" style="background:pink;">
+		test5
+	</div>
+</body>
+</html>

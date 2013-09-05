@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>x script test</title>
+
+<link rel="stylesheet" type="text/css" href="../../css/x.css">
+<script src="../../jslib/x-touch.js" type="text/javascript"></script>
+<script src="../../jslib/event.js" type="text/javascript"></script>
+<script src="../../jslib/jsTemplate.js" type="text/javascript"></script>
+<script src="../../jslib/scrollview.js" type="text/javascript"></script>
+<script>
+var data = [];
+for(var i=0; i<100; i++){
+	data.push({subject: "제목"+i, desc: "내용"+i, author: i+''});
+}
+
+var datasource = new X.data.DataSource({
+	provider: new X.data.JsonProvider({
+		realData: {totalCount: 100,	topics: data},
+		totalCount: 100,
+		dataRows: 'topics',
+		columns: [
+			{name: 'a', mapping: 'subject'}
+		]
+	})
+});
+
+
+datasource.loadFixedData(data);
+
+
+X.App({
+	id: 'test',
+	iconsize: 114,
+	viewport: true,
+	fullscreen: true,
+	statusbar: 'green',
+	viewConfig: {
+		scroll: false,
+		items: [
+			new X.ui.LayoutView({
+				autoSize: true,
+				maxSize: { west: 700, east: 700 }, 
+				regions : {
+					west: new X.View({
+						autoSize: false,
+						scroll: false,
+						toolbar: [
+							new X.ui.Toolbar({
+								title: 'bbbbb'
+							})
+						],
+						items: [
+							new X.ui.ListView({
+								id: 'west01',
+								border: false,
+								autoSize: true,
+								dataSource: datasource,
+								columns: [
+									{mapping: 'a'}
+								],
+								tpl: '<div>{a}</div>'
+							})
+						]
+					}),
+					center: new X.View({
+						toolbar: [
+							new X.ui.Toolbar({
+								title: 'bbbbb'
+							})
+						],
+						autoSize: true,
+						items: [
+							new X.ui.ListView({
+								id: 'center01',
+								border: false,
+								autoSize: true,
+								dataSource: datasource,
+								tpl: '<div>{a}</div>'
+							})
+						]
+					})
+				},
+				listener: {
+					resize: function(){
+
+					}
+				}
+			})
+		]
+	},
+	ready: function(appView){
+		
+	}
+});
+
+
+
+</script>
+
+
+
+</head>
+<body>
+
+</body>
+</html>
+
+

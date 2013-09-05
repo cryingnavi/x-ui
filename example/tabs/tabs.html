@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../../libs/x-ui/css/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../libs/x-ui/css/x-ui-theme.css" />
+
+	<script src="../../libs/x-ui/js/jquery-1.10.2.min.js"></script>
+	<script src="../../libs/x-ui/js/x-ui.js"></script>
+	<script src="../../libs/x-ui/js/x-event.js"></script>
+	<script src="../../libs/x-ui/js/x-scroll.js"></script>
+
+	<script>
+		X.App({
+			ready: function(appView){
+				appView.setContent();
+			}
+		});
+	</script>
+</head>
+<body>
+	<div data-role="toolbar" data-scroll="true">
+		<h3>test</h3>
+	</div>
+	<div data-role="tabs">
+		<div data-role="view" data-title="Tabs 1" style="background:red;"> Tabs 1</div>
+		<div data-role="view" data-title="Tabs 2" style="background:blue;"> Tabs 2</div>
+		<div data-role="view" data-title="Tabs 3" style="background:yellow;"> Tabs 3</div>
+	</div>
+</body>
+</html>
