@@ -3,7 +3,7 @@ var html = '<h1>getBody</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
-		'document 객체를 반환한다. 인자로 true를 넘기면 body element 를 반환하고 아니면 jquery("body") 를 반환한다.' +
+		'document body 객체를 반환한다. 인자로 true를 넘기면 body element 를 반환하고 아니면 jquery("body") 를 반환한다.' +
 	'</div>' +
 
 	'<h3>Parameters</h3>' +

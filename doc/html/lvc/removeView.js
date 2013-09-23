@@ -1,17 +1,17 @@
 (function(){
-var html = '<h1>get</h1>' +
+var html = '<h1>removeView</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
-		'생성된 viewController 의 객체를 반환한다.' +
+		'viewController 에서 view 하나를 삭제 한다.' +
 	'</div>' +
 
 	'<h3>Parameters</h3>' +
 	'<div class="description">' +
 		'<ul>' +
 			'<li>' +
-				'<span>id : String</span>' +
-				'<div><p>viewController의 id 를 문자열로 넘긴다.</p></div>' +
+				'<span>index : Number or id : String</span>' +
+				'<div><p>index 나 view 에 속하는 id를 넘겨 해당 view를 viewController에서 삭제 한다.</p></div>' +
 			'</li>' +
 		'</ul>' +
 	'</div>' +
@@ -20,7 +20,7 @@ var html = '<h1>get</h1>' +
 	'<div class="description">' +
 		'<ul>' +
 			'<li>' +
-				'<span>vc</span> : viewController' +
+				'<span>view</span> : X.View' +
 			'</li>' +
 		'</ul>' +
 	'</div>' +
@@ -43,12 +43,12 @@ var html = '<h1>get</h1>' +
 	'</div>' +
 '</div>';
 
-window["vcm/get"] = {
+window["vcm/removeView"] = {
 	render: function(){
 		$("#content").html(html);
 		SyntaxHighlighter.highlight();
 	}
 };
 
-window["vcm/get"].render();
+window["vcm/removeView"].render();
 })();

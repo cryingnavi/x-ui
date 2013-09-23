@@ -3,14 +3,14 @@ var html = '<h1>backPage</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
-		'' +
+		'바로 이전 페이지로 돌아간다' +
 	'</div>' +
 
 	'<h3>Parameters</h3>' +
 	'<div class="description">' +
 		'<ul>' +
 			'<li>' +
-				'<span>view</span> : X.View' +
+				'<span>없음</span>' +
 			'</li>' +
 		'</ul>' +
 	'</div>' +
@@ -19,7 +19,7 @@ var html = '<h1>backPage</h1>' +
 	'<div class="description">' +
 		'<ul>' +
 			'<li>' +
-				'<span>view</span> : X.View' +
+				'<span>void</span>' +
 			'</li>' +
 		'</ul>' +
 	'</div>' +

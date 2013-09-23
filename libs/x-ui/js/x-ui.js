@@ -1247,8 +1247,7 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 		var i=0,
 			views = this.views,
 			len = views.length,
-			array = [],
-			id = view.getId();
+			array = [];
 		
 		for(; i<len; i++){
 			if(views[i] !== view){

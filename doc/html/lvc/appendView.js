@@ -3,7 +3,7 @@ var html = '<h1>appendView</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
-		'' +
+		'viewController 에 이동할 수 있는 새로운 view 를 추가한다.' +
 	'</div>' +
 
 	'<h3>Parameters</h3>' +
@@ -28,10 +28,15 @@ var html = '<h1>appendView</h1>' +
 	'<div class="description">' +
 		'<pre class="brush: js" name="code">' + 
 			'var view = new X.View({\n' + 
-			'	viewController: new X.util.localViewController()\n'+
+			'	viewController: new X.util.localViewController(),\n'+
+			'	items: [\n' + 
+			'		new X.View()' +
+			'	]\n'+
 			'});\n' +
+			'var newView = X.View();\n' +
+			'view.add(newView);\n' +
 			'var vc = view.getViewController();\n' +
-			'vc.appendView(new X.View());\n' +
+			'vc.appendView(newView);\n' +
 		'</pre>' +
 	'</div>' +
 '</div>';

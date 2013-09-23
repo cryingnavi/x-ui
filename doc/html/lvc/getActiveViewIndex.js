@@ -3,7 +3,7 @@ var html = '<h1>getActiveViewIndex</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
-		'화면을 불러오지 못 했을 경우 띄워줄 에러 메시지를 지정한다.' +
+		'현재 활성화된 view의 index를 반환한다.' +
 	'</div>' +
 
 	'<h3>Parameters</h3>' +

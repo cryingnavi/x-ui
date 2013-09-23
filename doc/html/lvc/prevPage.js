@@ -3,15 +3,15 @@ var html = '<h1>prevPage</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
-		'생성된 viewController 의 객체를 반환한다.' +
+		'이전 페이지를 불러온다.' +
 	'</div>' +
 
 	'<h3>Parameters</h3>' +
 	'<div class="description">' +
 		'<ul>' +
 			'<li>' +
-				'<span>id : String</span>' +
-				'<div><p>viewController의 id 를 문자열로 넘긴다.</p></div>' +
+				'<span>index : Number</span>' +
+				'<div><p>이전 페이지로 돌아갈 view의 index를 기술한다.</p></div>' +
 			'</li>' +
 		'</ul>' +
 	'</div>' +
@@ -20,7 +20,7 @@ var html = '<h1>prevPage</h1>' +
 	'<div class="description">' +
 		'<ul>' +
 			'<li>' +
-				'<span>vc</span> : viewController' +
+				'<span>void</span>' +
 			'</li>' +
 		'</ul>' +
 	'</div>' +
