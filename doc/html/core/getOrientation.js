@@ -1,5 +1,5 @@
 (function(){
-var html = '<h1>type</h1>' +
+var html = '<h1>getOrientation</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
