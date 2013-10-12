@@ -3,14 +3,15 @@ var html = '<h1>initPage</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
-		'' +
+		'초기 페이지를 불러온다' +
 	'</div>' +
 
 	'<h3>Parameters</h3>' +
 	'<div class="description">' +
 		'<ul>' +
 			'<li>' +
-				'<span>view</span> : X.View' +
+				'<span>config</span> : Object' +
+				'<div>url 을 프로퍼티로 갖는 객체를 넘긴다.</div>' + 
 			'</li>' +
 		'</ul>' +
 	'</div>' +

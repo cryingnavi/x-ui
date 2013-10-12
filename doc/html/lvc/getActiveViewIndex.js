@@ -39,6 +39,7 @@ var html = '<h1>getActiveViewIndex</h1>' +
 window["lvc/getActiveViewIndex"] = {
 	render: function(){
 		$("#content").html(html);
+		SyntaxHighlighter.highlight();
 	}
 };
 

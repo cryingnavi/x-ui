@@ -50,6 +50,7 @@ var html = '<h1>prevPage</h1>' +
 window["lvc/prevPage"] = {
 	render: function(){
 		$("#content").html(html);
+		SyntaxHighlighter.highlight();
 	}
 };
 

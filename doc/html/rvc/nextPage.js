@@ -1,5 +1,5 @@
 (function(){
-var html = '<h1>initPage</h1>' +
+var html = '<h1>nextPage</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
@@ -10,7 +10,8 @@ var html = '<h1>initPage</h1>' +
 	'<div class="description">' +
 		'<ul>' +
 			'<li>' +
-				'<span>view</span> : X.View' +
+				'<span>config</span> : Object' +
+				'<div>url, history, transition, revers, params 을 프로퍼티로 갖는 객체를 넘긴다.</div>' + 
 			'</li>' +
 		'</ul>' +
 	'</div>' +
@@ -34,6 +35,7 @@ var html = '<h1>initPage</h1>' +
 			'vc.initPage({\n' +
 			'	url: "a.html"\n' +
 			'});\n' +
+			'//특정 이벤트에 아래 코드를 적용한다.\n' +
 			'vc.nextPage({\n' +
 			'	url: "b.html"\n' +
 			'});\n' +
@@ -41,11 +43,12 @@ var html = '<h1>initPage</h1>' +
 	'</div>' +
 '</div>';
 
-window["vcm/setErrorMsg"] = {
+window["rvc/nextPage"] = {
 	render: function(){
 		$("#content").html(html);
+		SyntaxHighlighter.highlight();
 	}
 };
 
-window["vcm/setErrorMsg"].render();
+window["rvc/nextPage"].render();
 })();

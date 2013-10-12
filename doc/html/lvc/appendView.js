@@ -30,7 +30,7 @@ var html = '<h1>appendView</h1>' +
 			'var view = new X.View({\n' + 
 			'	viewController: new X.util.localViewController(),\n'+
 			'	items: [\n' + 
-			'		new X.View()' +
+			'		new X.View()\n' +
 			'	]\n'+
 			'});\n' +
 			'var newView = X.View();\n' +
@@ -45,6 +45,7 @@ var html = '<h1>appendView</h1>' +
 window["lvc/appendView"] = {
 	render: function(){
 		$("#content").html(html);
+		SyntaxHighlighter.highlight();
 	}
 };
 

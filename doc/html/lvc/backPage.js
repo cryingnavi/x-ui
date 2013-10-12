@@ -47,6 +47,7 @@ var html = '<h1>backPage</h1>' +
 window["lvc/backPage"] = {
 	render: function(){
 		$("#content").html(html);
+		SyntaxHighlighter.highlight();
 	}
 };
 
