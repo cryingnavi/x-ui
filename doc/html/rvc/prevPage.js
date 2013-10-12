@@ -38,6 +38,7 @@ var html = '<h1>prevPage</h1>' +
 			'vc.nextPage({\n' +
 			'	url: "b.html"\n' +
 			'});\n' +
+			'//특정 이벤트에 아래 코드를 적용한다.\n' +
 			'vc.prevPage({\n' +
 			'	url: "a.html"\n' +
 			'});\n' 
@@ -48,6 +49,7 @@ var html = '<h1>prevPage</h1>' +
 window["rvc/prevPage"] = {
 	render: function(){
 		$("#content").html(html);
+		SyntaxHighlighter.highlight();
 	}
 };
 
