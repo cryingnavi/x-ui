@@ -2105,7 +2105,7 @@ X.util.cm.addCString('view', X.View);
 
 X.ui = { };
 
-/*
+
 
 X.ui.ListView = X.extend(X.View, {
 	initialize: function(config){
@@ -2194,7 +2194,7 @@ X.ui.ListView = X.extend(X.View, {
 
 X.util.cm.addCString('listview', X.ui.ListView);
 
-*/
+/*
 X.ui.ListView = X.extend(X.View, {
 	initialize: function(config){
 		this.config = {
@@ -2304,7 +2304,7 @@ X.ui.ListView = X.extend(X.View, {
 });
 
 X.util.cm.addCString('listview', X.ui.ListView);
-
+*/
 
 
 

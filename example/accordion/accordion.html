@@ -8,7 +8,6 @@
 	<script src="../../libs/x-ui/js/x-ui.js"></script>
 	<script src="../../libs/x-ui/js/x-event.js"></script>
 	<script src="../../libs/x-ui/js/x-scroll.js"></script>
-	<script src="../../libs/x-ui/js/x-template.js"></script>
 
 	<script>
 		X.App({
@@ -17,29 +16,176 @@
 			}
 		});
 	</script>
+
+	<style>
+		.container{
+			padding: 20px;
+		}
+		.car-list{
+			border: 1px solid #ccc;
+			border-radius: 0.6em;
+		}
+
+		.car-list li{
+			padding: 10px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		.car-list li:nth-child(even){
+			background-color: #f7f7f7;
+		}
+
+		.car-list li:last-child{
+			border-bottom: none;
+			border-radius: 0.6em;
+		}
+	</style>
 </head>
 <body>
 	<div data-role="toolbar" data-scroll="true">
 		<h3>test</h3>
 	</div>
 	<div data-role="accordion" data-active-index="1">
-		<div data-role="view" data-title="Tabs 1" style="background-color: red;">
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
-			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+		<div data-role="view" data-title="Tabs 1" data-scroll="false">
+			<div data-role="listview">
+				<ul>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+				</ul>
+			</div>
 		</div>
-		<div data-role="view" data-title="Tabs 2" style="background-color: blue;">Tabs 2</div>
-		<div data-role="view" data-title="Tabs 3" style="background-color: green;">Tabs 3</div>
+		<div data-role="view" data-title="Tabs 2">
+			<div class="container">
+				<ul class="car-list">
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="view" data-title="Tabs 3" data-scroll="false">
+			<div data-role="view" data-scroll="true" style="background: #8E8E93;">
+				test1
+			</div>
+			<div data-role="view" data-scroll="true" style="background: #34AADC;">
+				test2
+			</div>
+		</div>
 	</div>
 </body>
 </html>
