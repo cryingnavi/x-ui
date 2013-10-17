@@ -3122,9 +3122,9 @@ X.ui.TextBox = X.extend(X.ui.Form, {
 		this.el.addClass('ui-textbox');
 		this.formCreate();
 		
-		this.form.bind('focus keypress blur keydown keyup', {me: this}, this.fireEvent);
+		this.form.bind('focus keypress blur keydown keyup', {me: this}, this.elementEvent);
 		
-		this.fireEvent(this, 'afterrender', []);
+		this.fireEvent(this, 'afterrender', [this]);
 	},
 	formCreate: function(){
 		this.form = X.util.em.get({
@@ -3144,12 +3144,12 @@ X.ui.TextBox = X.extend(X.ui.Form, {
 		this.config.placeholder = placeholder;
 		this.form.attr('placeholder', placeholder);
 	},
-	fireEvent: function(e){
+	elementEvent: function(e){
 		var me = e.data.me,
 			val = me.getValue(),
 			type =  e.type;
 
-		me.fireEvent(me, type, [val, e]);
+		me.fireEvent(me, type, [me, val, e]);
 	}
 });
 
