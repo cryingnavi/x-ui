@@ -3,7 +3,7 @@ var html = '<h1>prevPage</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
-		'' +
+		'이전 페이지들 중 특정페이지로 돌아간다.' +
 	'</div>' +
 
 	'<h3>Parameters</h3>' +

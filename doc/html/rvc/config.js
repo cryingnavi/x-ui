@@ -1,5 +1,5 @@
 (function(){
-var html = '<h1>disabledTransition</h1>' +
+var html = '<h1>config</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
@@ -35,11 +35,11 @@ var html = '<h1>disabledTransition</h1>' +
 	'</table>' +
 '</div>';
 
-window["vcm/disabledTransition"] = {
+window["rvc/config"] = {
 	render: function(){
 		$("#content").html(html);
 	}
 };
 
-window["vcm/disabledTransition"].render();
+window["rvc/config"].render();
 })();

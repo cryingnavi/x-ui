@@ -3,7 +3,7 @@ var html = '<h1>events</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
-		'화면 전환시 애니메이션을 사용하도록 설정한다' +
+		'view controller 가 제공하는 이벤트' +
 	'</div>' +
 
 	'<h3>Usags</h3>' +

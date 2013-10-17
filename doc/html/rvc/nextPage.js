@@ -3,7 +3,7 @@ var html = '<h1>nextPage</h1>' +
 '<div>' +
 	'<h3>Description</h3>' +
 	'<div class="description">' +
-		'' +
+		'다음 페이지로 전환한다.' +
 	'</div>' +
 
 	'<h3>Parameters</h3>' +
