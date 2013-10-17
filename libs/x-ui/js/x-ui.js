@@ -1048,6 +1048,7 @@ X.util.ViewController = X.extend(X.util.Observer, {
 
 		this.fireEvent(this, 'beforeprevchange', [fromView, toView, config.params || null]);
 
+		toView.show();
 		promise = this.transitionStart(fromView, toView, config.transition, config.reverse);
 		promise.done(function(){
 			X.util.vcm.changing = false;
@@ -2122,8 +2123,9 @@ X.ui.ListView = X.extend(X.View, {
 		this.el.addClass('ui-listview');
 
 		this.ul = this.body.children('.ui-scrollview-view').children('ul');
-		this.lis = this.ul.children('li').addClass('ui-listview-item');
+		this.ul.children('li').addClass('ui-listview-item');
 
+		this.ul.on('vclick', 'li', {me: this}, this.rowClick);
 		this.scrollEvent();
 	},
 	scrollEvent: function(){
@@ -2143,6 +2145,10 @@ X.ui.ListView = X.extend(X.View, {
 		this.scroll.options.onScrollEnd = function(){
 			
 		};
+	},
+	rowClick: function(e){
+		var me = e.data.me;
+		me.fireEvent(me, 'rowclick', [me, this]);
 	},
 	append: function(rows){
 		var type = X.type(row);

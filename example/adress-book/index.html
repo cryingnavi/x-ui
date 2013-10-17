@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="../../libs/x-ui/css/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../libs/x-ui/css/x-ui-theme.css" />
+	<link rel="stylesheet" type="text/css" href="./css/address-book.css" />
+
+	<script src="../../libs/x-ui/js/jquery-1.10.2.min.js"></script>
+	<script src="../../libs/x-ui/js/x-ui.js"></script>
+	<script src="../../libs/x-ui/js/x-event.js"></script>
+	<script src="../../libs/x-ui/js/x-scroll.js"></script>
+	<script>
+		var AddressBookApp = {
+			mainView: null
+		};
+		X.App({
+			ready: function(appView){
+				appView.setContent();
+
+				AddressBookApp.mainView = X.util.cm.get("main-view");
+				AddressBookApp.mainView.setViewController(new X.util.RemoteViewController({
+					initPage: { url: "lists.html" }
+				}));
+			}
+		});
+	</script>
+</head>
+<body>
+	<div data-role="view" data-scroll="false" id="main-view">
+		
+	</div>
+</body>
+</html>
