@@ -8,8 +8,9 @@ require.config({
         "x-ui": "../../../libs/x-ui/js/x-ui",
         "x-event": "../../../libs/x-ui/js/x-event",
         "x-sroll": "../../../libs/x-ui/js/x-scroll",
-        "underscore": "./libs/underscore-min",
-        "backbone": "./libs/backbone-min"
+        "underscore": "../libs/underscore-min",
+        "backbone": "../libs/backbone-min",
+        "text": "../libs/text"
     },
     shim: {
         "x-ui": {
@@ -20,14 +21,17 @@ require.config({
             exports: "iScroll"
         },
         "underscore": {
-            exports: function() { return _; }
+            exports: "_"
         },
-        'backbone': {
+        "backbone": {
             deps: ["underscore", "jquery"],
             exports: "Backbone"
         }
     }
 });
+
+
+
 
 require(["app"], function(app){
 	app.initialize();
