@@ -2111,6 +2111,7 @@ X.ui = { };
 X.ui.ListView = X.extend(X.View, {
 	initialize: function(config){
 		this.config = {
+		    activeRow: true,
 			scrollConfig: {
 				direction: 'y'
 			}
@@ -2148,6 +2149,11 @@ X.ui.ListView = X.extend(X.View, {
 	},
 	rowClick: function(e){
 		var me = e.data.me;
+		if(me.config.activeRow){
+		    me.ul.children('li').removeClass('active');
+		    this.className = this.className + ' active';
+		}
+		
 		me.fireEvent(me, 'rowclick', [me, this]);
 	},
 	append: function(rows){
@@ -2195,6 +2201,10 @@ X.ui.ListView = X.extend(X.View, {
 		}
 		this.ul.children('li:eq(' + index + ')').remove();
 		this.scrollRefresh();
+	},
+	removeAll: function(){
+	    this.ul.children('li').remove();
+	    this.scrollRefresh();
 	}
 });
 

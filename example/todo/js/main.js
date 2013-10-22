@@ -15,7 +15,7 @@ require.config({
     },
     shim: {
         "x-ui": {
-            deps: ["jquery", "x-scroll"],
+            deps: ["jquery", "x-scroll", "x-event"],
             exports: "X"
         },
         "x-scroll": {

@@ -2,6 +2,7 @@
     <h1>
         Todos
     </h1>
+    <button class="btn-clear" id="btn-clear">clear All</button>
 </div>
 
 <div class="form-container" data-role="view" data-scroll="false" data-flexible="false">
@@ -12,12 +13,12 @@
 
 <div class="list-container" data-role="view" data-scroll="false">
     <div data-role="listview" id="listview">
-        <ul></ul>
+        <ul style="height: 100%;"></ul>
     </div>
 </div>
 
-<div data-role="toolbar" data-position="bottom">
-    <h1>
-        Todos
-    </h1>
+<div data-role="toolbar" data-position="bottom" class="bottom">
+    <div class="count-container">
+        <span>Items : </span><span class="color-blue" id="count">0</span><span> 개</span>
+    </div>
 </div>
