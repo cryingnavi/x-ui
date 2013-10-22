@@ -7,14 +7,15 @@ require.config({
         "jquery": "../../../libs/x-ui/js/jquery-1.10.2.min",
         "x-ui": "../../../libs/x-ui/js/x-ui",
         "x-event": "../../../libs/x-ui/js/x-event",
-        "x-sroll": "../../../libs/x-ui/js/x-scroll",
+        "x-scroll": "../../../libs/x-ui/js/x-scroll",
         "underscore": "../libs/underscore-min",
         "backbone": "../libs/backbone-min",
-        "text": "../libs/text"
+        "text": "../libs/text",
+        "backbone.localStorage": "../libs/backbone.localStorage-min"
     },
     shim: {
         "x-ui": {
-            deps: ["jquery"],
+            deps: ["jquery", "x-scroll"],
             exports: "X"
         },
         "x-scroll": {
@@ -25,6 +26,10 @@ require.config({
         },
         "backbone": {
             deps: ["underscore", "jquery"],
+            exports: "Backbone"
+        },
+        "backbone.localStorage": {
+            deps: ["backbone"],
             exports: "Backbone"
         }
     }

@@ -2,7 +2,7 @@ define([
     "jquery",
 	"underscore",
 	"backbone",
-	"./views/main",
+	"./views/mainView",
 ], function($, _, Backbone, mainView){
     var Router = Backbone.Router.extend({
         

@@ -2151,7 +2151,7 @@ X.ui.ListView = X.extend(X.View, {
 		me.fireEvent(me, 'rowclick', [me, this]);
 	},
 	append: function(rows){
-		var type = X.type(row);
+		var type = X.type(rows);
 		if(type === 'string'){
 			rows = $(rows).addClass('ui-listview-item');
 		}
