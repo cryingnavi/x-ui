@@ -1,14 +1,15 @@
 define([
     "x-ui",
-    "router"
-], function(X, router){
+    "./views/mainView",
+], function(X, mainView){
     return {
         initialize: function(){
             X.App({
                 ready: function(appView){
         			appView.setContent();
         			
-        			router.initialize();
+        			var o = new mainView();
+		            o.render();
         		}
             });
         }

@@ -10,21 +10,9 @@
 	<script src="../../libs/x-ui/js/x-ui.js"></script>
 	<script src="../../libs/x-ui/js/x-event.js"></script>
 	<script src="../../libs/x-ui/js/x-scroll.js"></script>
-	<script>
-		var AddressBookApp = {
-			mainView: null
-		};
-		X.App({
-			ready: function(appView){
-				appView.setContent();
-
-				AddressBookApp.mainView = X.util.cm.get("main-view");
-				AddressBookApp.mainView.setViewController(new X.util.RemoteViewController({
-					initPage: { url: "lists.html" }
-				}));
-			}
-		});
-	</script>
+	
+	<script src="./libs/require.js" data-main="./js/main"></script>
+	
 </head>
 <body>
 	<div data-role="view" data-scroll="false" id="main-view">

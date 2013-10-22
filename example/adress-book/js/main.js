@@ -1,3 +1,7 @@
+if(!window.Todo){
+    Todo = { };
+}
+
 require.config({
     paths: {
         "jquery": "../../../libs/x-ui/js/jquery-1.10.2.min",
