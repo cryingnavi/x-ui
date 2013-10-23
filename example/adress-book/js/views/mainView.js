@@ -13,15 +13,6 @@ define([
             this.listenTo(Users, "add", this.onAdd);
         },
         render: function(){
-            var view = X.util.cm.get("main-view");
-            var newView = new X.View({
-                scroll: false,
-                content: mainTpl
-            });
-            
-            view.add([newView]);
-            view.getViewController().appendView(newView);
-            
             this.onCreate();
         },
         onCreate: function(){
@@ -35,7 +26,6 @@ define([
             X.util.cm.get("address-list").append(r.$el);
         }
     });
-    
-    
+
     return View;
 })

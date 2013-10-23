@@ -1085,6 +1085,12 @@ X.util.ViewController = X.extend(X.util.Observer, {
 			me.history.nextPageSave(toView.getId(), toView, config.transition);
 			me.fireEvent(me, 'afternextchange', [fromView, toView, config.params || null]);
 
+			if(config.callback){
+			    if(config.callback.success){
+                    config.callback.success.apply(config.callback.scope || me, [fromView, toView, config.params || null]);  
+			    }
+			}
+
 			me = null, fromView = null, toView = null, config = null;
 		});
 	},
@@ -1514,6 +1520,9 @@ X.util.ViewUpdater = X.extend(X.util.Observer,{
 		}
 		if(config.hasOwnProperty('history')){
 			params.history = config.history;
+		}
+		if(config.hasOwnProperty('callback')){
+		    params.callback = config.callback;
 		}
 		xhr.params = params;
 	},

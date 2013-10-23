@@ -14,11 +14,26 @@ define([
         },
         render: function(){
             this.$el.html(this.template(this.model.toJSON()));
+            /*
+            var me = this;
+            X.util.cm.get("main-view").getViewController().on({
+                afternextchange: function(){
+                    me.afterNextChange();
+                }
+            });
+            */
         },
         rowClick: function(){
             X.util.cm.get("main-view").getViewController().nextPage({
-                url: "./tpl/detailTpl.html"
+                url: "./tpl/detailTpl.html",
+                callback: {
+                    scope: this,
+                    success: this.afterNextChange
+                }
             });
+        },
+        afterNextChange: function(){
+            alert(this.model);
         }
     });
 
