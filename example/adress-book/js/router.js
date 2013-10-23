@@ -1,7 +1,8 @@
 define([
     "underscore",
-    "backbone"
-], function(_, Backbone){
+    "backbone",
+    "./views/mainView"
+], function(_, Backbone, MainView){
     var Router = Backbone.Router.extend({
         routes: {
 			//url router
@@ -10,7 +11,8 @@ define([
 			"*actions": "defaultRoute"
 		},
 		defaultRoute: function(){
-		    
+		   var v = new MainView();
+		   v.render();
 		},
 		showAdd: function(){
 		    

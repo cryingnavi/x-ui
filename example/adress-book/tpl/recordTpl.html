@@ -1,46 +1,6 @@
-<div data-role="toolbar">
-	<h3>주소록</h3>
-</div>	
-<div data-role="listview" id="address-list">
-	<ul>
-		<li>
-			<div class="pic" style="background-image:url(./images/1.jpeg);"></div>
-			<span class="name">김하나</span>
-		</li>
-		<li>
-			<div class="pic" style="background-image:url(./images/2.jpeg);"></div>
-			<span class="name">김하나</span>
-		</li>
-		<li>
-			<div class="pic" style="background-image:url(./images/3.jpeg);"></div>
-			<span class="name">김하나</span>
-		</li>
-		<li>
-			<div class="pic" style="background-image:url(./images/4.jpeg);"></div>
-			<span class="name">김하나</span>
-		</li>
-		<li>
-			<div class="pic" style="background-image:url(./images/5.jpeg);"></div>
-			<span class="name">김하나</span>
-		</li>
-		<li>
-			<div class="pic" style="background-image:url(./images/6.jpeg);"></div>
-			<span class="name">김하나</span>
-		</li>
-		<li>
-			<div class="pic" style="background-image:url(./images/7.jpeg);"></div>
-			<span class="name">김하나</span>
-		</li>
-	</ul>
-</div>
-<script type="text/javascript">
-var listview = X.util.cm.get("address-list");
-listview.on({
-	rowclick: function(){
-		var vc = AddressBookApp.mainView.getViewController();
-		vc.nextPage({
-			url: "detail.html"
-		});
-	}
-});
+<script type="text/template" id="item-template">
+    <li>
+        <div class="pic" style="background-image:url(./images/<%- pic %>);"></div>
+		<span class="name"><%- name %></span>
+    </li>
 </script>

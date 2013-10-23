@@ -5,8 +5,21 @@ define([
 ], function(X, Backbone, Router){
     return {
         initialize: function(){
-            new Router();
-            Backbone.history.start();
+            X.App({
+                ready: function(appView){
+        			appView.setContent();
+        			
+        			
+        			var mainViwe = X.util.cm.get("main-view");
+        			mainViwe.setViewController(new X.util.RemoteViewController());
+        			mainViwe.getViewController().initPage({
+        			    url: ""
+        			});
+        			
+        			//new Router();
+                    //Backbone.history.start();
+        		}
+            });
         }
     };
 });
