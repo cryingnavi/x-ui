@@ -1046,7 +1046,12 @@ X.util.ViewController = X.extend(X.util.Observer, {
 			config.transition = 'none';
 		}
 
-		this.fireEvent(this, 'beforeprevchange', [fromView, toView, config.params || null]);
+		this.fireEvent(this, 'beforeprevchange', [fromView, toView]);
+		if(config.listener){
+		    if(config.listener.beforeprevchange){
+                config.listener.beforeprevchange.apply(config.listener.scope || me, [fromView, toView]);  
+		    }
+		}
 
 		toView.show();
 		promise = this.transitionStart(fromView, toView, config.transition, config.reverse);
@@ -1056,7 +1061,12 @@ X.util.ViewController = X.extend(X.util.Observer, {
 			me.setActiveView(toView);
 			me.history.prevPageSave(toView.getId());
 
-			me.fireEvent(me, 'afterprevchange', [fromView, toView, config.params || null]);
+			me.fireEvent(me, 'afterprevchange', [fromView, toView]);
+			if(config.listener){
+			    if(config.listener.afterprevchange){
+                    config.listener.afterprevchange.apply(config.listener.scope || me, [fromView, toView]);  
+			    }
+			}
 
 			me = null, fromView = null, toView = null, config = null;
 		});
@@ -1075,7 +1085,12 @@ X.util.ViewController = X.extend(X.util.Observer, {
 			config.transition = 'none';
 		}
 
-		this.fireEvent(this, 'beforenextchange', [fromView, toView, config.params || null]);
+		this.fireEvent(this, 'beforenextchange', [fromView, toView]);
+		if(config.listener){
+		    if(config.listener.beforenextchange){
+                config.listener.beforenextchange.apply(config.listener.scope || me, [fromView, toView]);  
+		    }
+		}
 
 		promise = this.transitionStart(fromView, toView, config.transition, config.reverse);
 		promise.done(function(){
@@ -1083,11 +1098,11 @@ X.util.ViewController = X.extend(X.util.Observer, {
 			
 			me.setActiveView(toView);
 			me.history.nextPageSave(toView.getId(), toView, config.transition);
-			me.fireEvent(me, 'afternextchange', [fromView, toView, config.params || null]);
+			me.fireEvent(me, 'afternextchange', [fromView, toView]);
 
-			if(config.callback){
-			    if(config.callback.success){
-                    config.callback.success.apply(config.callback.scope || me, [fromView, toView, config.params || null]);  
+			if(config.listener){
+			    if(config.listener.afternextchange){
+                    config.listener.afternextchange.apply(config.listener.scope || me, [fromView, toView]);  
 			    }
 			}
 
@@ -1406,6 +1421,11 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 		toView.body.append(data.script);
 
 		this.fireEvent(this, 'afterinit', [this.getActiveView()]);
+		if(config.listener){
+		    if(config.listener.afterinit){
+		        config.listener.afterinit.apply(config.listener.scope || this, [this.getActiveView()]);  
+		    }
+		}
 	},
 	nextSuccess: function(data, toView, config){
 		var fromView = this.getActiveView({
@@ -1521,8 +1541,8 @@ X.util.ViewUpdater = X.extend(X.util.Observer,{
 		if(config.hasOwnProperty('history')){
 			params.history = config.history;
 		}
-		if(config.hasOwnProperty('callback')){
-		    params.callback = config.callback;
+		if(config.hasOwnProperty('listener')){
+		    params.listener = config.listener;
 		}
 		xhr.params = params;
 	},
@@ -4148,17 +4168,6 @@ X.util.cm.addCString('layoutview', X.ui.LayoutView);
 					return;
 				}
 				
-				if(rel === "external"){
-					if(!X.platform.isDesktop){
-						var href = el.attr("href");
-						href = href.replace("emulIndex", "mssIndex");
-						
-						el.attr("href", href);
-					}
-					
-					return true;
-				}
-				
 				if(href.match(/^tel\:/)){
 					return true;
 				}
@@ -4186,7 +4195,6 @@ X.util.cm.addCString('layoutview', X.ui.LayoutView);
 					vc.prevPage({ url: href });
 					return false;
 				}
-	
 	
 				if(href === '#' || !href){
 					return false;
