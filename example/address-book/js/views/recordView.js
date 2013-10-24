@@ -15,8 +15,6 @@ define([
             this.$el.html(this.template(this.model.toJSON()));
         },
         rowClick: function(){
-            
-            
             X.util.cm.get("main-view").getViewController().nextPage({
                 url: "./html/detail.html",
                 transition: transition[i],
