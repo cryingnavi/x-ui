@@ -1092,6 +1092,7 @@ X.util.ViewController = X.extend(X.util.Observer, {
 		    }
 		}
 
+        toView.show();
 		promise = this.transitionStart(fromView, toView, config.transition, config.reverse);
 		promise.done(function(){
 			X.util.vcm.changing = false;
@@ -1318,6 +1319,10 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 		if(X.util.vcm.changing){
 			return;
 		}
+		if(this.isActive(config.url)){
+		   return; 
+		}
+		
 		X.util.ViewController.changing = true;
 		this.callMethod = 'nextSuccess';
 		
@@ -1327,9 +1332,8 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 		if(X.util.vcm.changing){
 			return false;
 		}
-		
-		if(!config){
-			return false;
+		if(this.isActive(config.url)){
+		   return; 
 		}
 
 		var fromView = this.getActiveView(),
@@ -1504,6 +1508,14 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 			div.remove();
 			div = null;
 		});
+	},
+	isActive: function(url){
+	    if(this.history.stack.length){
+    	    if(this.history.stack[this.history.stack.length - 1] === url){
+    	        return true;
+    	    }
+	    }
+	    return false;
 	}
 });
 
@@ -4197,7 +4209,7 @@ X.util.cm.addCString('layoutview', X.ui.LayoutView);
 				}
 	
 				if(href === '#' || !href){
-					return false;
+					return true;
 				}
 				
 				vc.nextPage({
