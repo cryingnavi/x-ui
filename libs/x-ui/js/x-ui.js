@@ -1520,7 +1520,7 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 });
 
 
-X.util.ViewUpdater = X.extend(X.util.Observer,{
+X.util.ViewUpdater = X.extend(X.util.Observer, {
 	initialize: function(config){
 		this.config = {
 			clear: true,
