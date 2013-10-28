@@ -983,14 +983,6 @@ X.util.ViewController = X.extend(X.util.Observer, {
 	init: function(view){
 		this.view = view;
 	},
-	valid: function(fromView, toView){
-		if(fromView === toView){
-			return true;
-		}
-		else{
-			return false;
-		}
-	},
 	transitionStart: function(fromView, toView, transition, reverse){
 		var deferred = new $.Deferred();
 
@@ -1196,6 +1188,14 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 
 		activeView.show();
 	},
+	valid: function(fromView, toView){
+		if(fromView === toView){
+			return true;
+		}
+		else{
+			return false;
+		}
+	},
 	getActiveIndex: function(){
 		var active = this.getActiveView();
 		for(var i=0; i<this.views.length; i++){
@@ -1319,7 +1319,12 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 		if(X.util.vcm.changing){
 			return;
 		}
-		if(this.isActive(config.url)){
+		
+		if(!config){
+			return false;
+		}
+		
+		if(this.valid(config.url)){
 		   return; 
 		}
 		
@@ -1332,7 +1337,12 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 		if(X.util.vcm.changing){
 			return false;
 		}
-		if(this.isActive(config.url)){
+		
+		if(!config){
+			return false;
+		}
+		
+		if(this.valid(config.url)){
 		   return; 
 		}
 
@@ -1509,7 +1519,7 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 			div = null;
 		});
 	},
-	isActive: function(url){
+	valid: function(url){
 	    if(this.history.stack.length){
     	    if(this.history.stack[this.history.stack.length - 1] === url){
     	        return true;
