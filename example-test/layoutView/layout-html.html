@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>x script test</title>
+
+<link rel="stylesheet" type="text/css" href="../../libs/x-ui/css/x-ui.css" />
+<link rel="stylesheet" type="text/css" href="../../libs/x-ui/css/x-ui-theme.css" />
+
+<script src="../../libs/x-ui/js/jquery-1.10.2.min.js"></script>
+<script src="../../libs/x-ui/js/x-ui.js"></script>
+<script src="../../libs/x-ui/js/x-event.js"></script>
+<script src="../../libs/x-ui/js/x-scroll.js"></script>
+<style>
+	h1{
+		font-size: 40px;
+		font-weight: bold;
+		text-align: center;
+	}
+	p{
+		font-size: 20px;
+		text-align: center;
+	}
+</style>
+<script>
+
+X.App({
+	id: 'test',
+	iconsize: 114,
+	viewport: true,
+	fullscreen: true,
+	statusbar: 'green',
+	viewConfig: {
+        		
+	},
+	ready: function(appView){
+		appView.setContent();
+	}
+});
+
+
+
+</script>
+
+
+
+</head>
+<body>
+<div data-role="layoutview">
+    <div data-role="view" data-regions="west" data-auto-size="false">
+        test1
+    </div>
+    <div data-role="view" data-regions="center">
+        Test2
+    </div>
+</div>
+</body>
+</html>
