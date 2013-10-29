@@ -1097,17 +1097,16 @@ Built by David Kaneda and maintained by Jonathan Stark.
 }
 
 .ui-view .ui-view-body.ui-view-body-vertical > div.ui-scrollview-view{
-	/*
+    /*
 	display: -webkit-box;
 	display: box;
 	-webkit-box-orient: vertical;
 	-webkit-box-flex: 1;
-	height: 100%;
 	*/
 }
 
 .ui-view .ui-view-body.ui-view-body-horizontal > div.ui-scrollview-view{
-	/*
+    /*
 	display: -webkit-box;
 	display: box;
 	-webkit-box-orient: horizontal;
@@ -1466,6 +1465,9 @@ Built by David Kaneda and maintained by Jonathan Stark.
 	-webkit-box-orient: vertical;
 	-moz-box-orient: vertical;
 	box-orient: vertical;
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	box-flex: 1;
 }
 
 .ui-slider-y .ui-form-container{ }

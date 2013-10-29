@@ -607,8 +607,8 @@ X.util.Draggable = X.extend(X.util.Observer, {
 				});
 			}
 
-			X.getDoc().off(X.events.move, me.onMove);
-			X.getDoc().off(X.events.end, me.onEnd);
+			X.getDoc().off(X.events.move);
+			X.getDoc().off(X.events.end);
 			
 			me = null;
 			target = null;
@@ -1693,21 +1693,36 @@ X.View = X.extend(X.util.Observer, {
 			
 			X.util.cm.create(this.panelsRight, [panels.right]);
 		}		
-		
+
 		this.body.addClass('ui-view-panels ui-view-panels-close');
+		
+		this.currentPanel = null;
 	},
 	panelsOpen: function(type){
 		if(this.panelsRight || this.panelsLeft){
-			this.body.removeClass('ui-view-panels-close').addClass('ui-view-panels-open-' + type);
+    		this.body.removeClass('ui-view-panels-close').addClass('ui-view-panels-open-' + type);
 			
-			this.fireEvent(this, 'panelsopen', [this]);
+			this.currentPanel = type;
+			this.fireEvent(this, 'panelsopen', [this, this.currentPanel]);
+			
+			this.body.on('vclick', { me: this }, function(e){
+    		    var me = e.data.me;
+    		    if(me.currentPanel){
+    		        me.panelsClose();
+    		    }
+    		    
+    		    return false;
+    		});
 		}
 	},
 	panelsClose: function(){
 		if(this.panelsRight || this.panelsLeft){
-			this.body.removeClass('ui-view-panels-open').addClass('ui-view-panels-close');
+			this.body.removeClass('ui-view-panels-open ui-view-panels-open-left ui-view-panels-open-right').addClass('ui-view-panels-close');
 			
+			this.currentPanel = null
 			this.fireEvent(this, 'panelsclose', [this]);
+			
+			this.body.off('vclick');
 		}
 	},
 	panelsToggle: function(type){
@@ -1994,7 +2009,6 @@ X.View = X.extend(X.util.Observer, {
 
 			view.panelsCreate(panels);
 		});
-		
 
 		var	comps = this.el.find('[data-role]').not('[data-role="view"]');
 		var charts = [];
@@ -3303,8 +3317,8 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			return false;
 		}
 
-		X.getDoc().off(X.events.move, {me: me}, me.move);
-		X.getDoc().off(X.events.end, {me: me}, me.end);
+		X.getDoc().off(X.events.move);
+		X.getDoc().off(X.events.end);
 	},
 	formCreate: function(){
 		this.form = X.util.em.get({

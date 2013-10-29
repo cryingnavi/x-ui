@@ -90,3 +90,29 @@ body{
     border: 1px solid #c8c8c8;
 }
 
+
+.toolbar-btn{
+    border: 1px solid #ccc;
+    border-radius: 0.6em;
+    background: #c9c9c9;
+    width: 60px;
+    height: 20px;
+}
+
+.toolbar-btn:active{
+    background: red;
+}
+
+.slider-sample{
+    padding: 20px;
+}
+
+.slider-vertical{
+    display: -webkit-box;
+}
+
+.slider-vertical fieldset{
+    float: left;
+    width: 25%;
+    height: 100%;
+}

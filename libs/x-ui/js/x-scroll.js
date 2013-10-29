@@ -352,6 +352,10 @@ iScroll.prototype = {
 			c1, c2;
 
 		if (!that.enabled) return;
+		
+		if(e.target.className === 'ui-slider-handle' || e.target.className === 'ui-slider-subhandle'){
+		    return;
+		}
 
 		that.refresh();
 
