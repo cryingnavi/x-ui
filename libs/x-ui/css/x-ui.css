@@ -848,8 +848,6 @@ input, textarea {
     100% { -moz-transform: translateX(0) scale(1); }
 }
 @keyframes flowinfromleft {
-
-
     0% { transform: translateX(-100%) scale(.7); }
 	30%, 40% { transform: translateX(0) scale(.7); }
     100% { transform: translateX(0) scale(1); }

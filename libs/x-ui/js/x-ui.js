@@ -607,8 +607,8 @@ X.util.Draggable = X.extend(X.util.Observer, {
 				});
 			}
 
-			X.getDoc().off(X.events.move);
-			X.getDoc().off(X.events.end);
+			X.getDoc().off(X.events.move, me.onMove);
+			X.getDoc().off(X.events.end, me.onEnd);
 			
 			me = null;
 			target = null;
@@ -2987,9 +2987,9 @@ X.ui.Carousel = X.extend(X.View, {
 
 		me.fireEvent(me, 'change', [me, me.config.activeIndex, me.getActiveView()]);
 
-		me.carouselBody.off(X.events.move);
-		me.carouselBody.off(X.events.end);
-
+		me.carouselBody.off(X.events.move, me.onMove);
+		me.carouselBody.off(X.events.end, me.onEnd);
+		
 		me.dragging = false;
 	},
 	getActiveView: function(){
@@ -3270,9 +3270,10 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			
 			me.dragging = true;
 			me.subdragging = false;
+			
 
-			X.getDoc().on(X.events.move, {me: me}, me.move);
-			X.getDoc().on(X.events.end, {me: me}, me.end);
+			X.getDoc().on(X.events.move, {me: me}, me.onMove);
+			X.getDoc().on(X.events.end, {me: me}, me.onEnd);
 			return false;
 		});
 
@@ -3289,8 +3290,8 @@ X.ui.Slider = X.extend(X.ui.Form, {
 				me.dragging = true;
 				me.subdragging = true;
 
-				X.getDoc().on(X.events.move, {me: me}, me.move);
-				X.getDoc().on(X.events.end, {me: me}, me.end);
+				X.getDoc().on(X.events.move, {me: me}, me.onMove);
+				X.getDoc().on(X.events.end, {me: me}, me.onEnd);
 				return false;
 			});
 		}
@@ -3298,14 +3299,14 @@ X.ui.Slider = X.extend(X.ui.Form, {
 		this.setValue(this.config.defaultValue);
 		this.fireEvent(this, 'afterrender', [this]);
 	},
-	move: function(e){
+	onMove: function(e){
 		var me = e.data.me;
 		if ( me.dragging ) {
 			me.setValue( e );
 			return false;
 		}
 	},
-	end: function(e){
+	onEnd: function(e){
 		var me = e.data.me;
 		if ( me.dragging ) {
 			me.dragging = false;
@@ -3314,8 +3315,8 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			return false;
 		}
 
-		X.getDoc().off(X.events.move);
-		X.getDoc().off(X.events.end);
+		X.getDoc().off(X.events.move, me.onMove);
+		X.getDoc().off(X.events.end, me.onEnd);
 	},
 	formCreate: function(){
 		this.form = X.util.em.get({
@@ -3365,9 +3366,9 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			if(this.config.direction === 'x'){
 				var w = this.formcontin.width(),
 					l = this.formcontin.offset().left,
-					x = e.originalEvent.pageX;
-				
-				if ( !this.dragging || x < l - tol || x > l + w + tol ) {
+					x = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.originalEvent.pageX;
+		
+    			if ( !this.dragging || x < l - tol || x > l + w + tol ) {
 					return;
 				}
 
@@ -3376,7 +3377,7 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			if(this.config.direction === 'y'){
 				var h = this.formcontin.height(),
 					t = this.formcontin.offset().top,
-					y = e.originalEvent.pageY;
+					y = e.originalEvent.touches ? e.originalEvent.touches[0].pageY : e.originalEvent.pageY;
 					
 				if ( !this.dragging || y < t - tol || y > t + h + tol ) {
 					return;
@@ -3668,8 +3669,8 @@ X.ui.Spinner = X.extend(X.ui.Form, {
 
 		this.formcontin.append(minus);
 		
-		plus.bind(X.events.start, { me: this }, this.plus);
-		minus.bind(X.events.start, { me: this }, this.minus);
+		plus.on(X.events.start, { me: this }, this.plus);
+		minus.on(X.events.start, { me: this }, this.minus);
 	},
 	end: function(e){
 		var me = e.data.me;
@@ -3681,9 +3682,9 @@ X.ui.Spinner = X.extend(X.ui.Form, {
 		if(this.interval){
 			window.clearInterval(this.interval);
 			this.interval = null;
+			
+			X.getDoc().off(X.events.end, this.end);
 		}
-
-		X.getDoc().off(X.events.end, {me: this}, this.end);
 	},
 	timer: function(e, flag){
 		if(!this.interval){
@@ -3691,6 +3692,8 @@ X.ui.Spinner = X.extend(X.ui.Form, {
 			this.interval = window.setInterval(function(){
 				me[flag](e);
 			}, 100);
+			
+			X.getDoc().on(X.events.end, {me: this}, this.end);
 		}
 	},
 	plus: function(e){
@@ -3707,8 +3710,6 @@ X.ui.Spinner = X.extend(X.ui.Form, {
 		me.form.val(result);
 
 		me.timer(e, 'plus');
-		
-		X.getDoc().on(X.events.end, {me: me}, me.end);
 		return false;
 	},
 	minus: function(e){
@@ -3725,8 +3726,6 @@ X.ui.Spinner = X.extend(X.ui.Form, {
 		me.form.val(result);
 		
 		me.timer(e, 'minus');
-
-		X.getDoc().on(X.events.end, {me: me}, me.end);
 		return false;
 	},
 	setValue: function(val){
@@ -3805,7 +3804,7 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 		this.formcontin.append(this.text)
 			.append(this.handle);
 		
-		this.el.bind('vclick', { me: this }, this._change);
+		this.formcontin.on('vclick', { me: this }, this._change);
 
 		if(this.config.checked){
 			this.el.addClass('on');
@@ -3840,6 +3839,8 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 		else{
 			me.checked();
 		}
+		
+		return false;
 	},
 	setOn: function(on){
 		this.config.on = on;
@@ -4106,7 +4107,7 @@ X.util.cm.addCString('layoutview', X.ui.LayoutView);
 		meta.attr('name', name);
 		meta.attr('content', content);
 		head.eq(0).append(meta);
-	}
+    }
 	
 	
 	// Non-Retina iPhone, iPod touch, and Android devices
