@@ -116,7 +116,7 @@ X = {
 	//animation complete callback
 	$.fn.animationComplete = function( callback, data ){
 		if('WebKitTransitionEvent' in window){
-			return $(this).one('webkitAnimationEnd', data, callback);
+			return $(this).one('webkitAnimationEnd transitionend', data, callback);
 		}
 		else{
 			// defer execution for consistency between webkit/non webkit
@@ -989,7 +989,7 @@ X.util.ViewController = X.extend(X.util.Observer, {
 		function transitionHandler(fromView, toView, transition, reverse){
 			var viewIn = function(){
 				var tel = toView.getEl();
-				tel.addClass(transition + ' in ' + reverse + ' ui-transitioning ui-vc-active');
+				tel.addClass(transition + ' in ' + reverse + ' ui-transitioning ui-vc-active').removeClass('ui-view-hide');
 
 				var fel = fromView.getEl();
 				fel.addClass(transition + ' out ' + reverse + ' ui-transitioning');
@@ -1045,7 +1045,6 @@ X.util.ViewController = X.extend(X.util.Observer, {
 		    }
 		}
 
-		toView.show();
 		promise = this.transitionStart(fromView, toView, config.transition, config.reverse);
 		promise.done(function(){
 			X.util.vcm.changing = false;
@@ -1084,7 +1083,6 @@ X.util.ViewController = X.extend(X.util.Observer, {
 		    }
 		}
 
-        toView.show();
 		promise = this.transitionStart(fromView, toView, config.transition, config.reverse);
 		promise.done(function(){
 			X.util.vcm.changing = false;
@@ -2709,8 +2707,7 @@ X.ui.Tabs = X.extend(X.View, {
 		function transitionHandler(fromView, toView, transition, reverse){
 			var viewIn = function(){
 				var tel = toView.getEl();
-				toView.show();
-				tel.show().addClass(transition + ' in ' + reverse + ' ui-transitioning');
+				tel.addClass(transition + ' in ' + reverse + ' ui-transitioning').removeClass('ui-view-hide');
 
 				var fel = fromView.getEl();
 				fel.addClass(transition + ' out ' + reverse + ' ui-transitioning');

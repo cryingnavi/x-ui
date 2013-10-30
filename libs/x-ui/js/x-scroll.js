@@ -269,13 +269,15 @@ iScroll.prototype = {
 		}
 
 		if (dir == 'h') {
-			that.hScrollbarSize = that.hScrollbarWrapper.clientWidth;
+			//that.hScrollbarSize = that.hScrollbarWrapper.clientWidth;
+			that.hScrollbarSize = that.wrapperW;
 			that.hScrollbarIndicatorSize = m.max(m.round(that.hScrollbarSize * that.hScrollbarSize / that.scrollerW), 8);
 			that.hScrollbarIndicator.style.width = that.hScrollbarIndicatorSize + 'px';
 			that.hScrollbarMaxScroll = that.hScrollbarSize - that.hScrollbarIndicatorSize;
 			that.hScrollbarProp = that.hScrollbarMaxScroll / that.maxScrollX;
 		} else {
-			that.vScrollbarSize = that.vScrollbarWrapper.clientHeight;
+			//that.vScrollbarSize = that.vScrollbarWrapper.clientHeight;
+			that.vScrollbarSize = that.wrapperH;
 			that.vScrollbarIndicatorSize = m.max(m.round(that.vScrollbarSize * that.vScrollbarSize / that.scrollerH), 8);
 			that.vScrollbarIndicator.style.height = that.vScrollbarIndicatorSize + 'px';
 			that.vScrollbarMaxScroll = that.vScrollbarSize - that.vScrollbarIndicatorSize;
