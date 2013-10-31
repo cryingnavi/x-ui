@@ -1,8 +1,5 @@
-body{
-    /*
-    background: #eaeaea;
-    */
-    background: #E9E9E8;
+#main-view, #main-view > .ui-view-body{
+    background-color: #E9E9E8;
 }
 
 .form-container{
@@ -41,6 +38,10 @@ body{
     line-height: 42px;
     padding: 0 15px;
     position: relative;
+}
+
+.ui-listview .ui-listview-item:nth-child(even){
+    background-color: #eee;
 }
 
 .ui-listview .ui-listview-item.active {
