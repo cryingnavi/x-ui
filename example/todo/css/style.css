@@ -1,5 +1,5 @@
-#main-view, #main-view > .ui-view-body{
-    background-color: #E9E9E8;
+body{
+    background-color: #E9E9E8 !important;
 }
 
 .form-container{

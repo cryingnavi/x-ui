@@ -957,8 +957,6 @@ X.util.History = X.extend(X.util.Observer, {
 	}
 });
 
-
-
 X.util.ViewController = X.extend(X.util.Observer, {
 	initialize: function(config){
 		this.config = {
@@ -1283,8 +1281,6 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 		return view;
 	}
 });
-
-
 X.util.cm.addCString('localviewcontroller', X.util.LocalViewController);
 
 
