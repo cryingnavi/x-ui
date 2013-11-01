@@ -1960,13 +1960,13 @@ X.View = X.extend(X.util.Observer, {
 			var el = $(this);
 
 			var dataset = this.dataset,
-				config = { }, val, panels = { };
+				config = { }, attr, val;
 			
 			for(attr in dataset){
 				if(dataset[attr] === "true" 
 					|| dataset[attr] === "false"
 					|| parseFloat(dataset[attr])
-					|| /^\{(.*?)\}$/.test(attr)){
+					|| /^\{(.*?)\}$/.test(dataset[attr])){
 					val = JSON.parse(dataset[attr]);
 				}
 				else{
@@ -2012,13 +2012,13 @@ X.View = X.extend(X.util.Observer, {
 				comp = el.data('role');
 
 			var dataset = this.dataset,
-				config = { }, val;
+				config = { }, attr, val;
 			
 			for(attr in dataset){
 				if(dataset[attr] === "true" 
 					|| dataset[attr] === "false"
 					|| parseFloat(dataset[attr])
-					|| /^\{(.*?)\}$/.test(attr)){
+					|| /^\{(.*?)\}$/.test(dataset[attr])){
 					val = JSON.parse(dataset[attr]);
 				}
 				else{
@@ -2114,6 +2114,45 @@ X.View = X.extend(X.util.Observer, {
 			
 			if(comp === 'selectbox'){
 				new X.ui.SelectBox(config);
+			}
+			
+			if(comp === 'layoutview'){
+			    var east = el.children('[data-regions="east"]').get(0),
+			        west = el.children('[data-regions="west"]').get(0),
+			        south = el.children('[data-regions="south"]').get(0),
+			        nouth = el.children('[data-regions="nouth"]').get(0),
+			        center = el.children('[data-regions="center"]').get(0);
+
+                east = X.util.cm.get(east ? east.id : null);
+                if(east){
+                    east.setWidth(false);
+                }
+                
+                west = X.util.cm.get(west ? west.id : null);
+                if(west){
+                    west.setWidth(false);
+                }
+                
+                south = X.util.cm.get(south ? south.id : null);
+                if(south){
+                    south.setHeight(false);
+                }
+                
+                nouth = X.util.cm.get(nouth ? nouth.id : null);
+                if(nouth){
+                    nouth.setHeight(false);
+                }
+                
+                center = X.util.cm.get(center ? center.id : null);
+
+                config.regions = { };
+			    config.regions.east = east;
+			    config.regions.west = west;
+			    config.regions.south = south;
+			    config.regions.nouth = nouth;
+			    config.regions.center = center;
+
+			    new X.ui.LayoutView(config);
 			}
 		});
 
@@ -3954,6 +3993,22 @@ X.ui.LayoutView = X.extend(X.View, {
 		
 		this.contain = X.util.em.get().addClass('ui-layout-contain');
 		this.body.append(this.contain);
+		
+		if(this.config.minSize.west > this.config.size.west){
+		    this.config.size.west = this.config.minSize.west;
+		}
+		
+		if(this.config.minSize.east > this.config.size.east){
+		    this.config.size.east = this.config.minSize.east;
+		}
+
+		if(this.config.minSize.south > this.config.size.south){
+		    this.config.size.south = this.config.minSize.south;
+		}
+		
+		if(this.config.minSize.nouth > this.config.size.nouth){
+		    this.config.size.nouth = this.config.minSize.nouth;
+		}
 
 		this.createView();
 		
@@ -3970,7 +4025,6 @@ X.ui.LayoutView = X.extend(X.View, {
 			}
 			this.createSpliter(attr);
 		}
-		
 		
 		if(X.platform.hasTouch){
 			X.getWindow().bind('orientationchange', { me: this }, function(){
@@ -4008,7 +4062,6 @@ X.ui.LayoutView = X.extend(X.View, {
 				vViews.push(regions[attr]);
 			}
 		}
-		
 
 		if(regions.center){
 			hViews.push(regions.center);
@@ -4062,20 +4115,20 @@ X.ui.LayoutView = X.extend(X.View, {
 			view = me[region];
 
 		if(region === 'west'){
-			var originW = view.getWidth() + view.getEl().offset().left,
+			var left = view.getEl().offset().left,
+			    originW = view.getWidth() + left,
 				ww = 0;
-			
-			
+
 			//left
 			if(originW > pageX){
 				ww = originW - pageX;
-				ww = originW - ww + 5;
+				ww = (originW - ww + 5) - left;
 			}
 
 			//right
 			if(originW < pageX){
 				ww = Math.abs(originW - pageX);
-				ww = originW + ww + 5;
+				ww = (originW + ww + 5) - left;
 			}
 
 			if(ww < me.config.maxSize.west && ww > me.config.minSize.west){
@@ -4083,7 +4136,7 @@ X.ui.LayoutView = X.extend(X.View, {
 			}
 		}
 		
-		if(region === 'east'){
+		else if(region === 'east'){
 			var left = view.getEl().offset().left,
 				originW = view.getWidth(),
 				ww = 0;
@@ -4096,11 +4149,51 @@ X.ui.LayoutView = X.extend(X.View, {
 			//right
 			if(left < pageX){
 				ww = originW - Math.abs(left - pageX);
-				console.log(ww);
 			}
 			
 			if(ww < me.config.maxSize.east && ww > me.config.minSize.east){
 				view.setWidth(ww);
+			}
+		}
+		
+		else if(region === 'nouth'){
+		    var top = view.getEl().offset().top
+		        originH = view.getHeight() + top,
+				hh = 0;
+
+			if(originH < pageY){
+				hh = Math.abs(originH - pageY);
+				hh = (originH + hh) - top;
+			}
+
+			if(originH > pageY){
+				hh = Math.abs(originH - pageY);
+				hh = (originH - hh) - top;
+			}
+
+			if(hh < me.config.maxSize.nouth && hh > me.config.minSize.nouth){
+				view.setHeight(hh);
+			}
+		}
+		
+		else if(region === 'south'){
+		    var originH = view.getEl().offset().top,
+				hh = 0;
+
+			if(originH < pageY){
+				hh = Math.abs(originH - pageY);
+				hh = view.getHeight() - hh;
+			}
+
+			if(originH > pageY){
+				hh = Math.abs(originH - pageY);
+				hh = view.getHeight() + hh;
+			}
+			
+			console.log(hh);
+
+			if(hh < me.config.maxSize.south && hh > me.config.minSize.south){
+				view.setHeight(hh);
 			}
 		}
 
