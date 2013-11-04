@@ -189,16 +189,17 @@ X.util.Observer = X.extend(X.emptyFn, {
 	},
 	addEvent: function(){
 		var a = arguments,
-			i = a.length;
+			i = a.length,
+			eventTypes = this.eventTypes;
 
 		while(i--) {
 			for (var attr in a[i]){
-				if(this.eventTypes[attr]){
-					if(X.type(this.eventTypes[attr]) === 'array'){
+				if(eventTypes[attr]){
+					if(X.type(eventTypes[attr]) === 'array'){
 						this.eventTypes[attr].push(a[i][attr]);
 					}
 					else{
-						this.eventTypes[attr] = [this.eventTypes[attr], a[i][attr]];
+						this.eventTypes[attr] = [eventTypes[attr], a[i][attr]];
 					}
 				}
 				else{
@@ -208,19 +209,20 @@ X.util.Observer = X.extend(X.emptyFn, {
 		}
 	},
 	fireEvent: function(o, type, args){
-		var params = o.config ? o.config.params || [] : [];
+		var params = o.config ? o.config.params || [] : [],
+		    eventTypes = this.eventTypes;
 		
-		if (this.eventTypes[type]) {
+		if (eventTypes[type]) {
 			args = args || [];
-			if(X.type(this.eventTypes[type]) === 'object'){
-				var event = this.eventTypes[type];
+			if(X.type(eventTypes[type]) === 'object'){
+				var event = eventTypes[type];
 				params = event.params ? params.concat(event.params) : params;
 				
 				return event.fn.apply(event.scope || o, args.concat(params));
 			}
-			else if(X.type(this.eventTypes[type]) === 'array'){
-				for(var i=0, len = this.eventTypes[type].length; i<len; i++){
-					var event = this.eventTypes[type][i],
+			else if(X.type(eventTypes[type]) === 'array'){
+				for(var i=0, len = eventTypes[type].length; i<len; i++){
+					var event = eventTypes[type][i],
 						result = false;
 
 					result = event.apply(o.config ? o.config.scope || o : o, args.concat(params));
@@ -228,7 +230,7 @@ X.util.Observer = X.extend(X.emptyFn, {
 				return result;
 			}
 			else{
-				return this.eventTypes[type].apply(o.config ? o.config.scope || o : o, args.concat(params));
+				return eventTypes[type].apply(o.config ? o.config.scope || o : o, args.concat(params));
 			}
 			return false;
 		}
@@ -463,12 +465,14 @@ X.util.Draggable = X.extend(X.util.Observer, {
 		var me = this,
 			initialRegion = me.initialRegion,
 			startPos = me.startPosition || { x: 0, y: 0 },
-			target = me.active_el.get(0);
+			target = me.active_el.get(0),
+			style = target.style,
+			translate = 'translate3d(' + x + 'px, ' + y + 'px' + ', 0px)';
 		
 
-		target.style.webkitTransform = 'translate3d(' + x + 'px, ' + y + 'px' + ', 0px)';
-		target.style.msTransform = 'translate3d(' + x + 'px, ' + y + 'px' + ', 0px)';
-		target.style.transform = 'translate3d(' + x + 'px, ' + y + 'px' + ', 0px)';
+		style.webkitTransform = translate;
+		style.msTransform = translate;
+		style.transform = translate;
 
 		me.transform = { x: x, y: y };
 		me.position = {
