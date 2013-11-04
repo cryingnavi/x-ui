@@ -868,9 +868,10 @@ X.util.History = X.extend(X.util.Observer, {
 		this.stack.push(key);
 	},
 	prevPageSave: function(key){
-		var reverse = this.stack.reverse();
-		var len = 0;
-		var removeView = [];
+		var reverse = this.stack.reverse(),
+		    len = 0,
+		    removeView = [],
+		    viewMap = this.viewMap;
 
 		for(var i=0; i<reverse.length; i++){
 			if(key === reverse[i]){
@@ -883,8 +884,8 @@ X.util.History = X.extend(X.util.Observer, {
 		}
 
 		for(var i=0; i<removeView.length; i++){
-			if(this.viewMap[removeView[i]]){
-				this.viewMap[removeView[i]].view.destroy();
+			if(viewMap[removeView[i]]){
+				viewMap[removeView[i]].view.destroy();
 				this.removeViewMap(removeView[i]);
 			}
 		}
@@ -910,12 +911,15 @@ X.util.History = X.extend(X.util.Observer, {
 		this.stack = array;
 	},
 	getBackPageInfo: function(){
-		if(this.stack.length < 2){
+	    var stack = this.stack,
+	        len = stack.length;
+		
+		if(stack.length < 2){
 			return false;
 		}
 		
-		var from = this.stack[this.stack.length - 1];
-		var to = this.stack[this.stack.length - 2];
+		var from = stack[len - 1];
+		var to = stack[len - 2];
 		
 		var fromView = this.viewMap[from];
 		var toView = this.viewMap[to];
@@ -945,10 +949,12 @@ X.util.History = X.extend(X.util.Observer, {
 		return null;
 	},
 	clear: function(){
-		var removeView = this.stack;
+		var removeView = this.stack, 
+		    viewMap = this.viewMap;
+		
 		for(var i=0; i<removeView.length; i++){
-			if(this.viewMap[removeView[i]]){
-				this.viewMap[removeView[i]].view.destroy();
+			if(viewMap[removeView[i]]){
+				viewMap[removeView[i]].view.destroy();
 			}
 		}
 
