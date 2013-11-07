@@ -1,5 +1,0 @@
-{"ts":1382335076547,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
-{"contributors":[],"silentsave":false,"ts":1382335099133,"patch":[[{"diffs":[[1,"define([\"jquery\"], function($){\n    return {\n        \n    };\n});"]],"start1":0,"start2":0,"length1":0,"length2":64}]],"length":64,"saved":false}
-{"ts":1382340502505,"patch":[[{"diffs":[[0,"e([\""],[-1,"jqu"],[1,"rout"],[0,"er"],[-1,"y"],[0,"\"], "]],"start1":5,"start2":5,"length1":14,"length2":14}]],"length":64,"saved":false}
-{"ts":1382340533048,"patch":[[{"diffs":[[0,"        "],[1,"initialize: function(){\n            \n        }"],[0,"\n    };\n"]],"start1":45,"start2":45,"length1":16,"length2":62}]],"length":110,"saved":false}
-{"ts":1382340555550,"patch":[[{"diffs":[[0,"ion("],[-1,"$"],[1,"router"],[0,"){\n "]],"start1":24,"start2":24,"length1":9,"length2":14},{"diffs":[[0,"        "],[1,"router.initialize();"],[0,"\n       "]],"start1":86,"start2":86,"length1":16,"length2":36}]],"length":135,"saved":false}

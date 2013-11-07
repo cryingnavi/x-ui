@@ -1,9 +1,9 @@
 require.config({
     paths: {
-        "jquery": "../../../libs/x-ui/js/jquery-1.10.2.min",
-        "x-ui": "../../../libs/x-ui/js/x-ui",
-        "x-event": "../../../libs/x-ui/js/x-event",
-        "x-scroll": "../../../libs/x-ui/js/x-scroll",
+        "jquery": "../../../libs/jquery-1.10.2.min",
+        "x-ui": "../../../build/x-ui.min",
+        "x-event": "../../../build/x-event.min",
+        "x-scroll": "../../../build/x-scroll.min",
         "underscore": "../libs/underscore-min",
         "backbone": "../libs/backbone-min",
         "text": "../libs/text",
@@ -33,9 +33,6 @@ require.config({
         }
     }
 });
-
-
-
 
 require(["app"], function(app){
 	app.initialize();
