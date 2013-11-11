@@ -213,8 +213,7 @@ X.View = X.extend(X.util.Observer, {
 		if(X.type(height) !== 'boolean' || height !== true){
 			this.setFlexible(false);
 			var h = height || this.config.height;
-			this.el.height(h)
-				.css('min-height', h);
+			this.el.css('min-height', 'none').height(h);
 		}
 	},
 	getWidth: function(){

@@ -5,14 +5,14 @@ X.ui.LayoutView = X.extend(X.View, {
 			minSize: {
 				west: 100,
 				east: 100,
-				south: 100,
-				nouth: 100
+				south: 50,
+				nouth: 50
 			},
 			maxSize: {
 				west: 400,
 				east: 400,
-				south: 200,
-				nouth: 200
+				south: 150,
+				nouth: 150
 			},
 			size: {
 				west: 200,
@@ -24,6 +24,12 @@ X.ui.LayoutView = X.extend(X.View, {
 			scroll: false
 		};
 		X.apply(true, this.config, config);
+		
+		this.resizeing = false;
+		this.region = null;
+		this.spliters = { };
+		this.currentResizeing = null;
+
 		X.ui.LayoutView.base.initialize.call(this, this.config);
 	},
 	render: function(){
@@ -53,11 +59,7 @@ X.ui.LayoutView = X.extend(X.View, {
 		
 		this.maxWidth = this.el.width();
 		this.maxHeight = this.el.height();
-		
-		this.resizeing = false;
-		this.region = null;
-		
-		this.spliters = { };		
+
 		for(var attr in this.config.regions){
 			if(attr === 'center'){
 				continue;
@@ -66,17 +68,16 @@ X.ui.LayoutView = X.extend(X.View, {
 		}
 		
 		if(X.platform.hasTouch){
-			X.getWindow().bind('orientationchange', { me: this }, function(){
-				return false;
-			});
+			X.getWindow().bind('orientationchange', { me: this }, this.orientationChange);
 		}
 		else{
-			X.getWindow().bind('resize', { me: this }, function(e){
-				var me = e.data.me;
-				me.fire(me, 'resize', []);
-				return false;
-			});
+			X.getWindow().bind('resize', { me: this }, this.orientationChange);
 		}
+	},
+	orientationChange: function(e){
+	    var me = e.data.me;
+	    me.resizeSplitter();
+	    me.fire(me, 'orientationchange', [me]);
 	},
 	createView: function(){
 		var hViews = [], vViews = [], 
@@ -119,131 +120,175 @@ X.ui.LayoutView = X.extend(X.View, {
 		for(var attr in regions){
 			regions[attr].el.addClass('ui-layout-items ' + attr);
 		}
-		
-		this.el.bind('mousemove', { me: this }, this.mousemove);
-		this.el.bind('mouseup', { me: this }, this.mouseup);
 	},
 	createSpliter: function(region){
-		var div = X.util.em.get()
-			.addClass('ui-layout-spliter ' + region);
+		var position,
+		    direction,
+		    div = X.util.em.get()
+			    .addClass('ui-layout-spliter ' + region);
+			
+		if(region === 'west'){
+		    position = 'left';
+		    direction = 'x';
+		}
+		else if(region === 'east'){
+		    position = 'right';
+		    direction = 'x';
+		}
+		else if(region === 'south'){
+		    position = 'bottom';
+		    direction = 'y';
+		}
+		else{
+		    position = 'top';
+		    direction = 'y';
+		}
+		
+		this.resizeSplitter();
+		
+		div.css(position, this.config.size[region] - 10);
 
 		this.spliters[region] = div;
-		this.config.regions[region].el.prepend(div);
+		this.el.append(div);
 
-		this.spliters[region].bind('mousedown', {me: this, region: region}, this.mousedown);
-	},
-	mousedown: function(e){
-		var me = e.data.me,
-			region = e.data.region;
-
-		me.resizeing = true;		
-		me.region = region;
-	},
-	mousemove: function(e){
-		var me = e.data.me;
-		if(!me.resizeing || !me.region){
-			return;
-		}
-
-		var pageX = e.originalEvent.touches ? 
-				e.originalEvent.touches[0].pageX : e.originalEvent.pageX,
-			pageY = e.originalEvent.touches ? 
-				e.originalEvent.touches[0].pageY : e.originalEvent.pageY;
-
-		var region = me.region,
-			view = me[region];
-
-		if(region === 'west'){
-			var left = view.getEl().offset().left,
-			    originW = view.getWidth() + left,
-				ww = 0;
-
-			//left
-			if(originW > pageX){
-				ww = originW - pageX;
-				ww = (originW - ww + 5) - left;
-			}
-
-			//right
-			if(originW < pageX){
-				ww = Math.abs(originW - pageX);
-				ww = (originW + ww + 5) - left;
-			}
-
-			if(ww < me.config.maxSize.west && ww > me.config.minSize.west){
-				view.setWidth(ww);
-			}
-		}
+		new X.util.Draggable({
+		    el: div,
+		    direction: direction,
+		    scope: this,
+		    listener: {
+		        start: this.onStart,
+		        move: this.onMove,
+		        end: this.onEnd
+		    },
+		    constrain: this.el
+		});
 		
-		else if(region === 'east'){
-			var left = view.getEl().offset().left,
-				originW = view.getWidth(),
-				ww = 0;
-			
-			//left
-			if(left > pageX){
-				ww = originW + Math.abs(left - pageX);
-			}
-			
-			//right
-			if(left < pageX){
-				ww = originW - Math.abs(left - pageX);
-			}
-			
-			if(ww < me.config.maxSize.east && ww > me.config.minSize.east){
-				view.setWidth(ww);
-			}
-		}
 		
-		else if(region === 'nouth'){
-		    var top = view.getEl().offset().top
-		        originH = view.getHeight() + top,
-				hh = 0;
-
-			if(originH < pageY){
-				hh = Math.abs(originH - pageY);
-				hh = (originH + hh) - top;
-			}
-
-			if(originH > pageY){
-				hh = Math.abs(originH - pageY);
-				hh = (originH - hh) - top;
-			}
-
-			if(hh < me.config.maxSize.nouth && hh > me.config.minSize.nouth){
-				view.setHeight(hh);
-			}
-		}
 		
-		else if(region === 'south'){
-		    var originH = view.getEl().offset().top,
-				hh = 0;
-
-			if(originH < pageY){
-				hh = Math.abs(originH - pageY);
-				hh = view.getHeight() - hh;
-			}
-
-			if(originH > pageY){
-				hh = Math.abs(originH - pageY);
-				hh = view.getHeight() + hh;
-			}
-			
-			console.log(hh);
-
-			if(hh < me.config.maxSize.south && hh > me.config.minSize.south){
-				view.setHeight(hh);
-			}
-		}
-
-		me.fireEvent(me, 'resize', []);
+		this[region].el.on('webkitTransitionEnd', {me: this}, function(e){
+		    var me = e.data.me;
+		    me.resizeSplitter();
+            return false;
+        });
 	},
-	mouseup: function(e){
-		var me = e.data.me;
-		me.resizeing = false;
-		me.region = null;
+	resizeSplitter: function(){
+	    var west = this.spliters.west,
+	        east = this.spliters.east;
+
+	    if(west){
+	        west.css({
+                height: this.west.getHeight(),
+                top: this.west.el.offset().top
+            });
+	    }
+	    
+	    if(east){
+	        east.css({
+                height: this.east.getHeight(),
+                top: this.east.el.offset().top
+            });
+	    }
+	    
+	},
+	onStart: function(drag){
+	    var currentResizeing;
+	    if(drag.el.hasClass('west')){
+	        currentResizeing = 'west';
+	    }
+	    else if(drag.el.hasClass('east')){
+	        currentResizeing = 'east';
+	    }
+	    else if(drag.el.hasClass('nouth')){
+	        currentResizeing = 'nouth';
+	    }
+	    else{
+	        currentResizeing = 'south';
+	    }
+	    this.currentResizeing = currentResizeing;
+	},
+	onMove: function(drag, region){
+	    if(this.currentResizeing === 'west'){
+	        if(region.r <= this.config.minSize.west || region.r >= this.config.maxSize.west){
+	           return false;
+	        }
+	    }
+	    else if(this.currentResizeing === 'east'){
+            var l = this.getWidth() - region.l;
+	        if(l <= this.config.minSize.east || l >= this.config.maxSize.east){
+				return false;
+			}
+	    }
+	    else if(this.currentResizeing === 'nouth'){
+	        if(region.b <= this.config.minSize.nouth || region.b >= this.config.maxSize.nouth){
+				return false;
+			}
+	    }
+	    else {
+	        var t = this.getHeight() - region.t;
+	        if(t <= this.config.minSize.south || t >= this.config.maxSize.south){
+				return false;
+			}
+	    }
+    },
+	onEnd: function(drag, region){
+	    var size = 0,
+	        resizeView = null;
+
+        if(this.currentResizeing === 'west'){
+	        if(region.r <= this.config.minSize.west){
+	           size = this.config.minSize.west;
+	        }
+	        else if(region.r >= this.config.maxSize.west){
+	            size = this.config.maxSize.west;
+	        }
+	        else{
+	            size = region.r;
+	        }
+	        this.west.setWidth(size);
+	        resizeView = this.west;
+	    }
+	    else if(this.currentResizeing === 'east'){
+	        var l = this.getWidth() - region.l;
+            if(l <= this.config.minSize.east){
+	           size = this.config.minSize.east;
+	        }
+	        else if(l >= this.config.maxSize.east){
+	            size = this.config.maxSize.east;
+	        }
+	        else{
+	            size = l;
+	        }
+	        this.east.setWidth(size);
+	        resizeView = this.east;
+	    }
+	    else if(this.currentResizeing === 'nouth'){
+	        if(region.b <= this.config.minSize.nouth){
+	           size = this.config.minSize.nouth;
+	        }
+	        else if(region.b >= this.config.maxSize.nouth){
+	            size = this.config.maxSize.nouth;
+	        }
+	        else{
+	            size = region.b;
+	        }
+	        this.nouth.setHeight(size);
+	        resizeView = this.nouth;
+	    }
+	    else {
+	        var t = this.getHeight() - region.t;
+            if(t <= this.config.minSize.south){
+	           size = this.config.minSize.south;
+	        }
+	        else if(t >= this.config.maxSize.south){
+	            size = this.config.maxSize.south;
+	        }
+	        else{
+	            size = t;
+	        }
+	        this.south.setHeight(size);
+	        resizeView = this.south;
+        }
+
+	    this.fireEvent(this, 'resize', [this, resizeView]);
 	}
 });
-
-
-X.util.cm.addCString('layoutview', X.ui.LayoutView);

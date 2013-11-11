@@ -1666,7 +1666,15 @@ input, textarea {
 
 
 .ui-layout .ui-layout-items.west, .ui-layout .ui-layout-items.east{
-	
+	-webkit-transition: width 0.2s ease-in-out;
+	-moz-transition: width 0.2s ease-in-out;
+	transition: width 0.2s ease-in-out;
+}
+
+.ui-layout .ui-layout-items.south, .ui-layout .ui-layout-items.nouth{
+    -webkit-transition: height 0.2s ease-in-out;
+	-moz-transition: height 0.2s ease-in-out;
+	transition: height 0.2s ease-in-out;
 }
 
 
@@ -1674,11 +1682,7 @@ input, textarea {
 .ui-layout-spliter{
 	position: absolute;
 	z-index: 90;
-}
-
-.ui-layout-spliter:hover{
 	background-color: gray;
-	opacity: 0.6;
 }
 
 .ui-layout-spliter:active{
@@ -1695,7 +1699,7 @@ input, textarea {
 
 .ui-layout-spliter.east{
 	cursor: col-resize;
-	left: 0;
+	right: 0;
 	bottom: 0;
 	width: 10px;
 	height: 100%;
@@ -1704,14 +1708,14 @@ input, textarea {
 .ui-layout-spliter.nouth{
 	cursor: row-resize;
 	left: 0;
-	bottom: 0;
+	top: 0;
 	width: 100%;
 	height: 10px;
 }
 
 .ui-layout-spliter.south{
 	cursor: row-resize;
-	top: 0;
+	bottom: 0;
     left: 0;
 	width: 100%;
 	height: 10px;

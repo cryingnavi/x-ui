@@ -10,8 +10,13 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			revertDuration: 200,
 			scroll: null // 구현안됨
 		};
-		X.apply(this.config, config);		
-		X.util.Draggable.base.initialize.call(this, this.config);
+		X.apply(this.config, config);
+	
+		var listener = {};
+		if(this.config.listener){
+			listener = this.config.listener;
+		}
+		X.util.Draggable.base.initialize.call(this, listener);
 
 		this.active_el = null;
 		this.init();
@@ -125,13 +130,6 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			x: startPos.x + x,
 			y: startPos.y + y
 		};
-
-		me.region = {
-			t: initialRegion.t + y,
-			r: initialRegion.r + x,
-			b: initialRegion.b + y,
-			l: initialRegion.l + x
-		};
 	},
 	onStart: function(e){
 		var me = e.data.me;
@@ -205,15 +203,23 @@ X.util.Draggable = X.extend(X.util.Observer, {
 					}
 				}
 			}
-
-			me.transformTo(x, y, target);
 			
-			me.fireEvent(me, 'move', [me, me.region]);
-			if(X.util.ddm){
-				X.util.ddm.move({
-					x: pageX,
-					y: pageY
-				});
+			me.region = {
+    			t: initialRegion.t + y,
+    			r: initialRegion.r + x,
+    			b: initialRegion.b + y,
+    			l: initialRegion.l + x
+    		};
+			
+			if(me.fireEvent(me, 'move', [me, me.region]) !== false){
+                me.transformTo(x, y, target);
+			
+    			if(X.util.ddm){
+    				X.util.ddm.move({
+    					x: pageX,
+    					y: pageY
+    				});
+    			}
 			}
 		}
 		
@@ -227,11 +233,11 @@ X.util.Draggable = X.extend(X.util.Observer, {
 
 		var target = me.el,
 			pageX = e.originalEvent.touches ? 
-				e.originalEvent.touches[0].pageX : e.originalEvent.pageX,
+				e.originalEvent.changedTouches[0].pageX : e.originalEvent.pageX,
 			pageY = e.originalEvent.touches ? 
-				e.originalEvent.touches[0].pageY : e.originalEvent.pageY,
+				e.originalEvent.changedTouches[0].pageY : e.originalEvent.pageY,
 			fn, endFn
-
+			
 		me.dragging = false;
 		me.active_el.removeClass('ui-dragging');
 		
@@ -249,7 +255,7 @@ X.util.Draggable = X.extend(X.util.Observer, {
 				style.top = me.position.y + 'px';
 			}
 
-			me.fireEvent(me, 'end', [me]);
+			me.fireEvent(me, 'end', [me, me.region]);
 			if(X.util.ddm){
 				X.util.ddm.end({
 					x: pageX,
@@ -283,7 +289,6 @@ X.util.Draggable = X.extend(X.util.Observer, {
 				endFn = null;
 			};
 		}
-		
 		fn();	
 
 		return false;
