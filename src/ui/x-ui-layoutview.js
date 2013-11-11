@@ -67,17 +67,16 @@ X.ui.LayoutView = X.extend(X.View, {
 			this.createSpliter(attr);
 		}
 		
-		if(X.platform.hasTouch){
-			X.getWindow().bind('orientationchange', { me: this }, this.orientationChange);
-		}
-		else{
-			X.getWindow().bind('resize', { me: this }, this.orientationChange);
-		}
+		X.getWindow().on(x.events.orientationchange, { me: this }, this.orientationChange);
 	},
 	orientationChange: function(e){
 	    var me = e.data.me;
 	    me.resizeSplitter();
 	    me.fire(me, 'orientationchange', [me]);
+	},
+	destroy: function(){
+		X.ui.LayoutView.base.destroy.call(this);
+		X.getWindow().off(X.events.orientationchange, this.orientationChange);
 	},
 	createView: function(){
 		var hViews = [], vViews = [], 

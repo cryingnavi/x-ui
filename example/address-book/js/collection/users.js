@@ -21,7 +21,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "박",
 	    lastName: "지성",
 	    cellPhone: "010-1234-1234",
@@ -32,7 +36,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "원",
 	    lastName: "빈",
 	    cellPhone: "010-1234-1234",
@@ -43,7 +51,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "장",
 	    lastName: "동건",
 	    cellPhone: "010-1234-1234",
@@ -54,7 +66,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "반",
 	    lastName: "기문",
 	    cellPhone: "010-1234-1234",
@@ -65,7 +81,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "박",
 	    lastName: "찬호",
 	    cellPhone: "010-1234-1234",
@@ -76,7 +96,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "손",
 	    lastName: "흥민",
 	    cellPhone: "010-1234-1234",
@@ -87,7 +111,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "유",
 	    lastName: "재석",
 	    cellPhone: "010-1234-1234",
@@ -98,7 +126,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "박",
 	    lastName: "명수",
 	    cellPhone: "010-1234-1234",
@@ -109,7 +141,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "홍",
 	    lastName: "명보",
 	    cellPhone: "010-1234-1234",
@@ -120,7 +156,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "한",
 	    lastName: "가인",
 	    cellPhone: "010-1234-1234",
@@ -131,7 +171,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "손",
 	    lastName: "예진",
 	    cellPhone: "010-1234-1234",
@@ -142,7 +186,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "권",
 	    lastName: "지용",
 	    cellPhone: "010-1234-1234",
@@ -153,7 +201,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "이",
 	    lastName: "하늬",
 	    cellPhone: "010-1234-1234",
@@ -164,7 +216,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "조",
 	    lastName: "인성",
 	    cellPhone: "010-1234-1234",
@@ -175,7 +231,11 @@ define([
 	});
 	
 	users.add({
+<<<<<<< HEAD
 	    pic: "8.jpeg",
+=======
+	    pic: "8.jpg",
+>>>>>>> v1.x.x
 	    firstName: "조",
 	    lastName: "용필",
 	    cellPhone: "010-1234-1234",

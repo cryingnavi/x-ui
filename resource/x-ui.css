@@ -73,6 +73,7 @@ input, textarea {
 /* animation default */
 .ui-transitioning { 
 	-webkit-perspective: 1000;
+	-webkit-backface-visibility: hidden;
 	position: absolute !important;
 	z-index: 0;
 }
@@ -1420,6 +1421,8 @@ input, textarea {
 	-webkit-transform-style : preserve-3d;
 	-moz-transform-style : preserve-3d;
 	transform-style : preserve-3d;
+	-webkit-perspective: 1000;
+	-webkit-backface-visibility: hidden;  
 	position: absolute;
 }
 

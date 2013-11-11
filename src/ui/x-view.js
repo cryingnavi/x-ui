@@ -325,6 +325,7 @@ X.View = X.extend(X.util.Observer, {
 		this.fireEvent(this, 'destroy', [this]);
 	},
 	createInitItems: function(){
+<<<<<<< HEAD
 	    var el = this.body.children('.ui-scrollview-view');
 		if(el.length < 1){
 			el = this.body;
@@ -333,6 +334,16 @@ X.View = X.extend(X.util.Observer, {
 
 		this.config.items = comps;
 	},
+=======
+    	var el = this.body.children('.ui-scrollview-view');
+    	if(el.length < 1){
+    		el = this.body;
+    	}
+    	var comps = X.util.cm.create(el, this.config.items);
+    
+    	this.config.items = comps;
+    },
+>>>>>>> v1.x.x
 	add: function(comps){
 		var el = this.body.children('.ui-scrollview-view');
 		if(el.length < 1){

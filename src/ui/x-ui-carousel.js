@@ -59,9 +59,9 @@ X.ui.Carousel = X.extend(X.View, {
 
 		this.carouselBody.bind(X.events.start, {me: this}, this.onStart);
 		
-		X.getWindow().on(X.events.orientationchange, { me: this }, this.resize);
+		X.getWindow().on(X.events.orientationchange, { me: this }, this.orientationChange);
 	},
-	resize: function(e){
+	orientationChange: function(e){
 		var me = e.data.me,
 		    endPos = me.endPos,
 		    style;
@@ -212,7 +212,7 @@ X.ui.Carousel = X.extend(X.View, {
 	},
 	destroy: function(){
 		X.ui.Carousel.base.destroy.call(this);
-		X.getWindow().off(X.events.orientationchange, { me: this }, this.resize);
+		X.getWindow().off(X.events.orientationchange, this.orientationChange);
 	},
 	next: function(){
 		var index = this.activeIndex + 1,
