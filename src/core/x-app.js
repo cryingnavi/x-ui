@@ -42,7 +42,8 @@
 			initialScale: 1,
 			maximumScale: 1,
 			minimumScale: 1,
-			userScalable: 'no'
+			userScalable: 'no',
+			targetDensityDpi: 'device-dpi'
 		};
 		config = X.apply(default_config, config);
 
@@ -50,7 +51,8 @@
 			SetMeta('viewport', 'initial-scale=' + default_config.initialScale + 
 					', maximum-scale=' + default_config.maximumScale + 
 					', minimum-scale=' + default_config.minimumScale + 
-					', user-scalable=' + default_config.userScalable);
+					', user-scalable=' + default_config.userScalable +
+					', target-densitydpi=' + default_config.targetDensityDpi);
 		}
 		if(config.fullscreen){
 			SetMeta('apple-mobile-web-app-capable', 'yes');

@@ -7,7 +7,7 @@
  * 
  * project: x-ui
  * version: 1.0.0
- * Date: 2013-11-10 11:11 
+ * Date: 2013-11-11 02:11 
  */
 X = {
     version : '1.0.0'
@@ -1693,7 +1693,7 @@ X.View = X.extend(X.util.Observer, {
 		}
 		
 		if(this.config.items.length > 0){
-			this.add(this.config.items);
+			this.createInitItems();
 		}
 
 		if(this.config.viewController){
@@ -1949,6 +1949,15 @@ X.View = X.extend(X.util.Observer, {
 
 		this.fireEvent(this, 'destroy', [this]);
 	},
+	createInitItems: function(){
+    	var el = this.body.children('.ui-scrollview-view');
+    	if(el.length < 1){
+    		el = this.body;
+    	}
+    	var comps = X.util.cm.create(el, this.config.items);
+    
+    	this.config.items = comps;
+    },
 	add: function(comps){
 		var el = this.body.children('.ui-scrollview-view');
 		if(el.length < 1){
@@ -4204,7 +4213,8 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
 			initialScale: 1,
 			maximumScale: 1,
 			minimumScale: 1,
-			userScalable: 'no'
+			userScalable: 'no',
+			targetDensityDpi: 'device-dpi'
 		};
 		config = X.apply(default_config, config);
 
@@ -4212,7 +4222,8 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
 			SetMeta('viewport', 'initial-scale=' + default_config.initialScale + 
 					', maximum-scale=' + default_config.maximumScale + 
 					', minimum-scale=' + default_config.minimumScale + 
-					', user-scalable=' + default_config.userScalable);
+					', user-scalable=' + default_config.userScalable +
+					', target-densitydpi=' + default_config.targetDensityDpi);
 		}
 		if(config.fullscreen){
 			SetMeta('apple-mobile-web-app-capable', 'yes');
