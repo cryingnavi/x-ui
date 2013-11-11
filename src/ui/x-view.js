@@ -68,7 +68,7 @@ X.View = X.extend(X.util.Observer, {
 		}
 		
 		if(this.config.items.length > 0){
-			this.createItems();
+			this.createInitItems();
 		}
 
 		if(this.config.viewController){
@@ -324,7 +324,7 @@ X.View = X.extend(X.util.Observer, {
 
 		this.fireEvent(this, 'destroy', [this]);
 	},
-	createItems: function(){
+	createInitItems: function(){
 	    var el = this.body.children('.ui-scrollview-view');
 		if(el.length < 1){
 			el = this.body;
