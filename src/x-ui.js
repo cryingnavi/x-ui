@@ -7,7 +7,7 @@
  * 
  * project: x-ui
  * version: 1.0.0
- * Date: 2013-11-11 02:11 
+ * Date: 2013-11-11 03:11 
  */
 X = {
     version : '1.0.0'
@@ -2467,9 +2467,9 @@ X.ui.Carousel = X.extend(X.View, {
 
 		this.carouselBody.bind(X.events.start, {me: this}, this.onStart);
 		
-		X.getWindow().on(X.events.orientationchange, { me: this }, this.resize);
+		X.getWindow().on(X.events.orientationchange, { me: this }, this.orientationChange);
 	},
-	resize: function(e){
+	orientationChange: function(e){
 		var me = e.data.me,
 		    endPos = me.endPos,
 		    style;
@@ -2620,7 +2620,7 @@ X.ui.Carousel = X.extend(X.View, {
 	},
 	destroy: function(){
 		X.ui.Carousel.base.destroy.call(this);
-		X.getWindow().off(X.events.orientationchange, { me: this }, this.resize);
+		X.getWindow().off(X.events.orientationchange, this.orientationChange);
 	},
 	next: function(){
 		var index = this.activeIndex + 1,
@@ -3102,17 +3102,16 @@ X.ui.LayoutView = X.extend(X.View, {
 			this.createSpliter(attr);
 		}
 		
-		if(X.platform.hasTouch){
-			X.getWindow().bind('orientationchange', { me: this }, this.orientationChange);
-		}
-		else{
-			X.getWindow().bind('resize', { me: this }, this.orientationChange);
-		}
+		X.getWindow().on(x.events.orientationchange, { me: this }, this.orientationChange);
 	},
 	orientationChange: function(e){
 	    var me = e.data.me;
 	    me.resizeSplitter();
 	    me.fire(me, 'orientationchange', [me]);
+	},
+	destroy: function(){
+		X.ui.LayoutView.base.destroy.call(this);
+		X.getWindow().off(X.events.orientationchange, this.orientationChange);
 	},
 	createView: function(){
 		var hViews = [], vViews = [], 
