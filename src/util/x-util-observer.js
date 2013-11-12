@@ -50,9 +50,7 @@ X.util.Observer = X.extend(X.emptyFn, {
 			else{
 				return eventTypes[type].apply(o.config ? o.config.scope || o : o, args.concat(params));
 			}
-			return false;
 		}
-		return false;
 	},
 	removeEvent: function(type){
 		if (this.eventTypes[type]) {

@@ -40,51 +40,33 @@
 		X.App({
 			ready: function(appView){
 				appView.setContent();
-
-				$("a").click(function(){
-					X.util.cm.get("list").remove(0);
-					return false;
+				var view1 = new X.View({
+					content: "Test1",
+					style: {
+						background: "red"
+					}
 				});
-				
+
+				var view2 = new X.View({
+					content: "Test2",
+					style: {
+						background: "blue"
+					}
+				});
+
+				appView.add([view1, view2]);
+
+				var toolbar = new X.ui.Toolbar({
+					title: "new",
+					position: "bottom"
+				});
+
+				appView.addToolbar([toolbar]);
 			}
 		});
 	</script>
-	<style>
-		a{
-			position: absolute;
-			left: 10px;
-			top: 0;
-		}
-	</style>
 </head>
 <body>
-	<div data-role="toolbar" data-scroll="true">
-		<h3>test</h3>
-		<a>remove</a>
-	</div>
-	<div data-role="listview" id="list">
-		<ul>
-			<li>Acura</li>
-			<li>Audi</li>
-			<li>BMW</li>
-			<li>Cadillac</li>
-			<li>Ferrari</li>
-			<li>Acura</li>
-			<li>Audi</li>
-			<li>BMW</li>
-			<li>Cadillac</li>
-			<li>Ferrari</li>
-			<li>Acura</li>
-			<li>Audi</li>
-			<li>BMW</li>
-			<li>Cadillac</li>
-			<li>Ferrari</li>
-			<li>Acura</li>
-			<li>Audi</li>
-			<li>BMW</li>
-			<li>Cadillac</li>
-			<li>Ferrari</li>
-		</ul>
-	</div>
+
 </body>
 </html>

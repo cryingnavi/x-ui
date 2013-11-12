@@ -65,6 +65,8 @@ X.App({
 	}
 });
 
+
+
 </script>
 
 
@@ -72,7 +74,7 @@ X.App({
 </head>
 <body>
 
-<div data-role="layoutview" data-max-size='{"west": 800, "east": 800}'>
+<div data-role="layoutview" data-max-size='{"west": 800}' data-size='{"west": 300}'>
     <div data-role="view" data-regions="nouth" style="background-color:green;" data-height="100">
         test1
     </div>
@@ -85,10 +87,31 @@ X.App({
     <div data-role="view" data-regions="east" style="background-color:yellow;">
         Test2
     </div>
-    <div data-role="view" data-regions="center" style="background-color:blue;">
-        Test2
+    <div data-role="view" data-regions="center" data-scroll="false">
+        
+            
+        <div data-role="layoutview">
+            <div data-role="view" data-regions="nouth" style="background-color:pink;" data-height="100">
+                test1
+            </div>
+            <div data-role="view" data-regions="south" style="background-color:#ccc;" data-height="100">
+                test1
+            </div>
+            <div data-role="view" data-regions="west" style="background-color:#gagaga;">
+                test1
+            </div>
+            <div data-role="view" data-regions="east" style="background-color:#c9c9c9;">
+                Test2
+            </div>
+            <div data-role="view" data-regions="center" style="background-color:black;">
+                
+                    
+                
+                
+            </div>
+        </div>
+        
     </div>
-    
 </div>
 
 </body>
