@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui-theme.css" />
+
+	<script src="../../libs/jquery-1.10.2.min.js"></script>
+	<script src="../../build/x-ui.min.js"></script>
+	<script src="../../build/x-event.min.js"></script>
+	<script src="../../build/x-scroll.min.js"></script>
+
+	<script>
+		X.App({
+			viewConfig: {
+				items: [
+					new X.View({
+						style: {
+							background: "red"
+						}
+					})
+				],
+				panels: {
+					left: new X.View({
+						style: {
+							background: "blue"
+						}
+					}),
+					right: new X.View({
+						style: {
+							background: "green"
+						}
+					})
+				}
+			},
+			ready: function(appView){
+				
+			}
+		});
+	</script>
+</head>
+<body>
+
+</body>
+</html>

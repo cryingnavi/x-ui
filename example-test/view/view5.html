@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui-theme.css" />
+
+	<script src="../../libs/jquery-1.10.2.min.js"></script>
+	<script src="../../build/x-ui.min.js"></script>
+	<script src="../../build/x-event.min.js"></script>
+	<script src="../../build/x-scroll.min.js"></script>
+
+	<script>
+		X.App({
+			ready: function(appView){
+				appView.setContent();
+			}
+		});
+	</script>
+</head>
+<body>
+<div data-role="view" data-panels="true" data-scroll="false" id="panels">
+	<div data-role="view" style="background:red;">
+
+	</div>
+	<div data-role="view" data-panels="left" style="background:blue;">
+
+	</div>
+	<div data-role="view" data-panels="right" style="background:green;">
+
+	</div>
+</div>
+</body>
+</html>

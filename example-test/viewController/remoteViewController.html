@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui-theme.css" />
+
+	<script src="../../libs/jquery-1.10.2.min.js"></script>
+	<script src="../../build/x-ui.min.js"></script>
+	<script src="../../build/x-event.min.js"></script>
+	<script src="../../build/x-scroll.min.js"></script>
+
+	<script>
+		X.App({
+			ready: function(appView){
+				appView.setContent();
+
+				appView.setViewController(new X.util.RemoteViewController({
+					
+				}));
+
+				appView.getViewController().initPage({
+					url: "./vc/view1.html"
+				});
+
+				window.setTimeout(function(){
+					appView.getViewController().nextPage({
+						url: "./vc/view2.html",
+						transition: "none"
+					});
+				}, 3000);
+				
+				window.setTimeout(function(){
+					debugger;
+					appView.getViewController().nextPage({
+						url: "./vc/view3.html",
+						transition: "pop"
+					});
+				}, 6000);
+				window.setTimeout(function(){
+					appView.getViewController().nextPage({
+						url: "./vc/view4.html",
+						transition: "fade"
+					});
+				}, 9000);
+
+				window.setTimeout(function(){
+					appView.getViewController().nextPage({
+						url: "./vc/view5.html",
+						transition: "slideup"
+					});
+				}, 12000);
+			}
+		});
+	</script>
+</head>
+<body>
+	<div data-role="toolbar" data-scroll="true">
+		<h3>test</h3>
+	</div>
+</body>
+</html>
