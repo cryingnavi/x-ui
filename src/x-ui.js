@@ -6,10 +6,10 @@
  * Dual licensed under the MIT or GPL Version 2 licenses
  * 
  * project: x-ui
- * version: 1.0.0
+ * version: 1.0.1
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2013-11-11 10:11 
+ * Date: 2013-11-12 09:11 
  */
 X = {
     version : '1.0.0'
@@ -226,9 +226,7 @@ X.util.Observer = X.extend(X.emptyFn, {
 			else{
 				return eventTypes[type].apply(o.config ? o.config.scope || o : o, args.concat(params));
 			}
-			return false;
 		}
-		return false;
 	},
 	removeEvent: function(type){
 		if (this.eventTypes[type]) {
@@ -1161,9 +1159,9 @@ X.util.Draggable = X.extend(X.util.Observer, {
 	},
 	reset: function(){
 		var el = this.active_el,
-			offset = el.offset(),
-			l = offset.left,
-			t = offset.top,
+			position = el.position(),
+			l = position.left,
+			t = position.top,
 			r = l + el.width(),
 			b = t + el.height();
 		
@@ -3104,7 +3102,7 @@ X.ui.LayoutView = X.extend(X.View, {
 			this.createSpliter(attr);
 		}
 		
-		X.getWindow().on(x.events.orientationchange, { me: this }, this.orientationChange);
+		X.getWindow().on(X.events.orientationchange, { me: this }, this.orientationChange);
 	},
 	orientationChange: function(e){
 	    var me = e.data.me;
@@ -3214,14 +3212,14 @@ X.ui.LayoutView = X.extend(X.View, {
 	    if(west){
 	        west.css({
                 height: this.west.getHeight(),
-                top: this.west.el.offset().top
+                top: this.west.el.position().top
             });
 	    }
 	    
 	    if(east){
 	        east.css({
                 height: this.east.getHeight(),
-                top: this.east.el.offset().top
+                top: this.east.el.position().top
             });
 	    }
 	    
