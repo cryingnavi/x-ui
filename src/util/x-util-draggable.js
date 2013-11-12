@@ -68,9 +68,9 @@ X.util.Draggable = X.extend(X.util.Observer, {
 	},
 	reset: function(){
 		var el = this.active_el,
-			offset = el.offset(),
-			l = offset.left,
-			t = offset.top,
+			position = el.position(),
+			l = position.left,
+			t = position.top,
 			r = l + el.width(),
 			b = t + el.height();
 		
