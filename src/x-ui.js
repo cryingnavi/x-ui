@@ -7,7 +7,9 @@
  * 
  * project: x-ui
  * version: 1.0.0
- * Date: 2013-11-11 08:11 
+ * repository: git://github.com/cryingnavi/x-ui.git
+ * contact: cryingnavi@gmail.com
+ * Date: 2013-11-11 10:11 
  */
 X = {
     version : '1.0.0'

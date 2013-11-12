@@ -8,6 +8,8 @@ module.exports = function(grunt){
         ' * \n' +
         ' * project: <%= pkg.name %>\n' +
         ' * version: <%=pkg.version%>\n'+
+        ' * repository: <%=pkg.repository.url%>\n' +
+        ' * contact: <%=pkg.author_email%>\n' +
         ' * Date: <%= grunt.template.today("yyyy-mm-dd hh:mm") %> \n'+
         ' */\n';
 
