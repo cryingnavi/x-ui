@@ -124,7 +124,7 @@ X.util.Draggable = X.extend(X.util.Observer, {
 		style.webkitTransform = translate;
 		style.msTransform = translate;
 		style.transform = translate;
-
+		
 		me.transform = { x: x, y: y };
 		me.position = {
 			x: startPos.x + x,

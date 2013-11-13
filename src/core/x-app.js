@@ -8,16 +8,12 @@
 		head.eq(0).append(meta);
     }
 	
-	
-	// Non-Retina iPhone, iPod touch, and Android devices
-	//57
-	// Non-Retina iPad
-	//72
-	// Retina iPhone and iPod touch
-	//114
-	// Retina iPad
-	//144
-	
+	/*
+	    144×144 (iPad retina)
+        114×114 (iPhone retina)
+        72×72 (iPad)
+        57×57 (iPhone, Android)
+	*/
 	function SetLink(rel, icon, size){
 		var link = $('<link />');
 		link.attr('rel', rel);

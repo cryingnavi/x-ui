@@ -1694,7 +1694,7 @@ input, textarea {
 
 .ui-layout-spliter.west{
 	cursor: col-resize;
-	right: 0;
+	left: 0;
 	bottom: 0;
 	width: 10px;
 	height: 100%;
