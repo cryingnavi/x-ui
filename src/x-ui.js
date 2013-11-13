@@ -12,7 +12,7 @@
  * Date: 2013-11-13 09:11 
  */
 X = {
-    version : '1.0.0'
+    version : '1.0.1'
 };
 
 (function(){
