@@ -31,6 +31,7 @@ X.ui.LayoutView = X.extend(X.View, {
 		this.currentResizeing = null;
 
 		X.ui.LayoutView.base.initialize.call(this, this.config);
+		X.ui.LayoutView.Manager.add(this);
 	},
 	render: function(){
 		X.ui.LayoutView.base.render.call(this);
@@ -67,7 +68,9 @@ X.ui.LayoutView = X.extend(X.View, {
 			this.createSpliter(attr);
 		}
 		
-		X.getWindow().on(x.events.orientationchange, { me: this }, this.orientationChange);
+		this.resizeSplitter();
+		
+		X.getWindow().on(X.events.orientationchange, { me: this }, this.orientationChange);
 	},
 	orientationChange: function(e){
 	    var me = e.data.me;
@@ -76,6 +79,7 @@ X.ui.LayoutView = X.extend(X.View, {
 	},
 	destroy: function(){
 		X.ui.LayoutView.base.destroy.call(this);
+		X.ui.LayoutView.Manager.remove(this);
 		X.getWindow().off(X.events.orientationchange, this.orientationChange);
 	},
 	createView: function(){
@@ -121,31 +125,17 @@ X.ui.LayoutView = X.extend(X.View, {
 		}
 	},
 	createSpliter: function(region){
-		var position,
-		    direction,
-		    div = X.util.em.get()
-			    .addClass('ui-layout-spliter ' + region);
-			
-		if(region === 'west'){
-		    position = 'left';
-		    direction = 'x';
-		}
-		else if(region === 'east'){
-		    position = 'right';
-		    direction = 'x';
-		}
-		else if(region === 'south'){
-		    position = 'bottom';
-		    direction = 'y';
-		}
-		else{
-		    position = 'top';
-		    direction = 'y';
-		}
-		
-		this.resizeSplitter();
-		
-		div.css(position, this.config.size[region] - 10);
+		var direction,
+            div = X.util.em.get()
+                .addClass('ui-layout-spliter ' + region);
+                
+        if(region === 'west' || region === 'east'){
+            direction = 'x';
+        }
+        else if(region === 'nouth' || region === 'south'){
+            direction = 'y';
+        }
+        
 
 		this.spliters[region] = div;
 		this.el.append(div);
@@ -161,33 +151,59 @@ X.ui.LayoutView = X.extend(X.View, {
 		    },
 		    constrain: this.el
 		});
-		
-		
-		
-		this[region].el.on('webkitTransitionEnd', {me: this}, function(e){
-		    var me = e.data.me;
-		    me.resizeSplitter();
-            return false;
-        });
+
+		this[region].el.on('webkitTransitionEnd', {me: this}, this.animationEnd);
+	},
+	animationEnd: function(e){
+        var me = e.data.me;
+        X.ui.LayoutView.Manager.notice();
+        
+        me.fireEvent(me, 'resize', [me]);
+        return false;
 	},
 	resizeSplitter: function(){
-	    var west = this.spliters.west,
-	        east = this.spliters.east;
+	    var view = null,
+	        position = null,
+	        style = null,
+	        sw = this.spliters.west,
+	        se = this.spliters.east,
+	        sn = this.spliters.nouth,
+	        ss = this.spliters.south;
 
-	    if(west){
-	        west.css({
-                height: this.west.getHeight(),
-                top: this.west.el.offset().top
-            });
+	    if(sw){
+	        view = this.west;
+	        position = view.el.position();
+	        
+	        style = sw.get(0).style;
+	        style.height = view.getHeight() + 'px';
+	        style.top = position.top + 'px';
+	        style.left = (view.getWidth() - 10) + 'px';
+	    }
+
+	    if(se){
+	        view = this.east;
+	        position = view.el.position();
+
+            style = se.get(0).style;
+	        style.height = view.getHeight() + 'px';
+	        style.top = position.top + 'px';
+	        style.left = position.left + 'px';
 	    }
 	    
-	    if(east){
-	        east.css({
-                height: this.east.getHeight(),
-                top: this.east.el.offset().top
-            });
+	    if(sn){
+	        view = this.nouth;
+
+            style = sn.get(0).style;
+	        style.top = (view.getHeight() - 10) + 'px';
 	    }
 	    
+	    if(ss){
+	        view = this.south;
+	        position = view.el.position();
+
+            style = ss.get(0).style;
+	        style.top = position.top + 'px';
+	    }
 	},
 	onStart: function(drag){
 	    var currentResizeing;
@@ -230,8 +246,7 @@ X.ui.LayoutView = X.extend(X.View, {
 	    }
     },
 	onEnd: function(drag, region){
-	    var size = 0,
-	        resizeView = null;
+	    var size = 0;
 
         if(this.currentResizeing === 'west'){
 	        if(region.r <= this.config.minSize.west){
@@ -244,7 +259,6 @@ X.ui.LayoutView = X.extend(X.View, {
 	            size = region.r;
 	        }
 	        this.west.setWidth(size);
-	        resizeView = this.west;
 	    }
 	    else if(this.currentResizeing === 'east'){
 	        var l = this.getWidth() - region.l;
@@ -258,7 +272,6 @@ X.ui.LayoutView = X.extend(X.View, {
 	            size = l;
 	        }
 	        this.east.setWidth(size);
-	        resizeView = this.east;
 	    }
 	    else if(this.currentResizeing === 'nouth'){
 	        if(region.b <= this.config.minSize.nouth){
@@ -271,7 +284,6 @@ X.ui.LayoutView = X.extend(X.View, {
 	            size = region.b;
 	        }
 	        this.nouth.setHeight(size);
-	        resizeView = this.nouth;
 	    }
 	    else {
 	        var t = this.getHeight() - region.t;
@@ -285,9 +297,25 @@ X.ui.LayoutView = X.extend(X.View, {
 	            size = t;
 	        }
 	        this.south.setHeight(size);
-	        resizeView = this.south;
         }
-
-	    this.fireEvent(this, 'resize', [this, resizeView]);
 	}
 });
+
+
+X.ui.LayoutView.Manager = {
+    views: { },
+    add: function(view){
+        var id = view.getId();
+        this.views[id] = view;
+    },
+    remove: function(view){
+        var id = view.getId();
+        delete this.views[id];
+    },
+    notice: function(){
+        var views = this.views;
+        for(var view in views){
+            views[view].resizeSplitter();
+        }
+    }
+};
