@@ -1,3 +1,7 @@
+/**
+ * X.util.Observer 클래스는 custom 이벤트를 발생시켜주며 대부분의 클래스의 최상위 클래스로 존재한다.
+ * @class
+ */
 X.util.Observer = X.extend(X.emptyFn, {
 	initialize: function(listener){
 		this.eventTypes = this.eventTypes || {};
@@ -5,6 +9,29 @@ X.util.Observer = X.extend(X.emptyFn, {
 			this.eventTypes[attr] = listener[attr];
 		}
 	},
+	/**
+     * custom 이벤트를 등록한다.
+     * @param {args} ... 
+     * @example 
+     * var observer = new X.util.Observer();
+     * observer.addEvent({
+     *  success: function(){ }
+     *  error: function(){ }
+     * });
+     * 
+     * observer.addEvent({
+     *  success: {
+     *      scope: window,
+     *      params: [ ].
+     *      fn: function(){ }
+     *  },
+     *  error: {
+     *      scope: window,
+     *      params: [ ].
+     *      fn: function(){ }
+     *  }
+     * });
+     */
 	addEvent: function(){
 		var a = arguments,
 			i = a.length,
@@ -26,6 +53,12 @@ X.util.Observer = X.extend(X.emptyFn, {
 			}
 		}
 	},
+	/**
+     * custom 이벤트를 발생시킨다.
+     * @param {Object} o
+     * @param {String} type 
+     * @param {args} args
+     */
 	fireEvent: function(o, type, args){
 		var params = o.config ? o.config.params || [] : [],
 		    eventTypes = this.eventTypes;
@@ -52,16 +85,35 @@ X.util.Observer = X.extend(X.emptyFn, {
 			}
 		}
 	},
+	/**
+     * custom 이벤트를 삭제한다
+     * @param {String} type
+     */
 	removeEvent: function(type){
 		if (this.eventTypes[type]) {
 			delete this.eventTypes[type];
 		}
 	},
+	/**
+     * 등록한 custom 이벤트를 모두 삭제한다
+     */
 	clear: function(){
-		this.eventTypes = {};
+		this.eventTypes = { };
 	}
 });
 
+/**
+ * @method on
+ * @alias addEvent#on
+ */
 X.util.Observer.prototype.on = X.util.Observer.prototype.addEvent;
+/**
+ * @method off
+ * @alias removeEvent#off
+ */
 X.util.Observer.prototype.off = X.util.Observer.prototype.removeEvent;
+/**
+ * @method fire
+ * @alias fireEvent#fire
+ */
 X.util.Observer.prototype.fire = X.util.Observer.prototype.fireEvent;

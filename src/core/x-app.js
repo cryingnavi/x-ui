@@ -153,6 +153,11 @@
 		});
 	};
 	
+	
+	/**
+     * Application 생성 후 가장 최상위에 생성되는 View를 반환한다.
+     * @returns {X.View} X.View 를 반환한다.
+     */
 	X.getApp = function(){
 		if(X.App.View){
 			return X.App.View;
