@@ -55,9 +55,9 @@ X.util.Observer = X.extend(X.emptyFn, {
 	},
 	/**
      * custom 이벤트를 발생시킨다.
-     * @param {Object} o
-     * @param {String} type 
-     * @param {args} args
+     * @param {Object} 이벤트 핸들러의 scope
+     * @param {String} type 커스텀 이벤트의 이름 
+     * @param {args} args 이벤트 핸들러에 전달될 argument.
      */
 	fireEvent: function(o, type, args){
 		var params = o.config ? o.config.params || [] : [],

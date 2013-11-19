@@ -1,3 +1,7 @@
+/**
+ * 
+ * @static
+ */
 X.util.ComponentManager = X.util.cm = {
 	map: { },
 	cString: { },
