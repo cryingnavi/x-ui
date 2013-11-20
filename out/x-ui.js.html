@@ -1,4 +1,31 @@
-/*! 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: x-ui.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: x-ui.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/*! 
  * x-ui Javascript UI FrameWork
  * jQuery Mobile Event Plugin, jQuery Mobile Animation used and iScroll 4 used.
  * 
@@ -50,7 +77,7 @@ X = {
 		format: function(str){
 			var args = arguments, len = args.length;
 			var reg;
-			for(var i=0; i<len; i++){
+			for(var i=0; i&lt;len; i++){
 				reg = new RegExp('\\{'+i+'\\}', 'g');
 				str = str.replace(reg, args[i+1]);
 			}
@@ -98,8 +125,8 @@ X = {
          * @desc 객체의 타입을 문자열로 반환한다.
          * @param {object} o 타입을 검사할 객체
          * @returns {string} t 객체의 타입
-         * <br><u>dom:</u> 객체가 HtmlElement 이면 dom 을 반환한다.
-         * <br><u>jquery:</u> 객체가 jquery 이면 jquery 를 반환한다.
+         * &lt;br>&lt;u>dom:&lt;/u> 객체가 HtmlElement 이면 dom 을 반환한다.
+         * &lt;br>&lt;u>jquery:&lt;/u> 객체가 jquery 이면 jquery 를 반환한다.
          */
 		type: function(o){
 			var t = $.type(o);
@@ -119,8 +146,8 @@ X = {
 		 * @memberof X
          * @desc 디바이스의 방향을 문자열로 반환한다.
          * @returns {string} orientation 디바이스의 방향
-         * <br><u>portrait:</u> 세로
-         * <br><u>landscape:</u> 가로
+         * &lt;br>&lt;u>portrait:&lt;/u> 세로
+         * &lt;br>&lt;u>landscape:&lt;/u> 가로
          */
 		getOrientation: function(){
 			var ori = window.orientation;
@@ -200,17 +227,17 @@ X = {
      * @static
      * @memberof X
      * @desc 현재 플랫폼에 대한 각종 정보를 반환한다.
-     * <b>X.platform.isIos</b>          : ios 일 경우 true. <br/>
-     * <b>X.platform.isWindows</b>      : window 일 경우 true. <br/>
-     * <b>X.platform.isMac</b>          : mac 일 경우 true. <br/>
-     * <b>X.platform.isLinux</b>        : linux 일 경우 true. <br/>
-     * <b>X.platform.isDesktop</b>      : desktop 일 경우 true. <br/>
-     * <b>X.platform.iPod</b>           : ipod 일 경우 true. <br/>
-     * <b>X.platform.iPhone</b>         : iphone 일 경우 true. <br/>
-     * <b>X.platform.iPad</b>           : ipad 일 경우 true. <br/>
-     * <b>X.platform.android</b>        : android 일 경우 true. <br/>
-     * <b>X.platform.androidVersion</b> : android version 정보를 담음. <br/>
-     * <b>X.platform.hasTouch</b>       : touch 가 가능 한 기기일 경우 true. <br/>
+     * &lt;b>X.platform.isIos&lt;/b>          : ios 일 경우 true. &lt;br/>
+     * &lt;b>X.platform.isWindows&lt;/b>      : window 일 경우 true. &lt;br/>
+     * &lt;b>X.platform.isMac&lt;/b>          : mac 일 경우 true. &lt;br/>
+     * &lt;b>X.platform.isLinux&lt;/b>        : linux 일 경우 true. &lt;br/>
+     * &lt;b>X.platform.isDesktop&lt;/b>      : desktop 일 경우 true. &lt;br/>
+     * &lt;b>X.platform.iPod&lt;/b>           : ipod 일 경우 true. &lt;br/>
+     * &lt;b>X.platform.iPhone&lt;/b>         : iphone 일 경우 true. &lt;br/>
+     * &lt;b>X.platform.iPad&lt;/b>           : ipad 일 경우 true. &lt;br/>
+     * &lt;b>X.platform.android&lt;/b>        : android 일 경우 true. &lt;br/>
+     * &lt;b>X.platform.androidVersion&lt;/b> : android version 정보를 담음. &lt;br/>
+     * &lt;b>X.platform.hasTouch&lt;/b>       : touch 가 가능 한 기기일 경우 true. &lt;br/>
      */
 	X.platform = (function(){
 		var userAgent = navigator.userAgent.toLowerCase();
@@ -233,7 +260,7 @@ X = {
 			isWindows: win,
 			isMac: mac,
 			isLinux: linux,
-			isDesktop: win || (!android && linux) || mac,
+			isDesktop: win || (!android &amp;&amp; linux) || mac,
 			iPod: iPod,
 			iPhone: iPhone,
 			iPad: iPad,
@@ -247,10 +274,10 @@ X = {
      * @static
      * @memberof X
      * @desc 터치 가능 환경에 따라 이벤트를 분기한다.
-     * <b>X.events.start</b>                : touchstart or vmousedown <br/>
-     * <b>X.events.move</b>                 : touchmove or vmousemove <br/>
-     * <b>X.events.end</b>                  : touchend or vmouseup <br/>
-     * <b>X.platform.orientationchange</b>  : orientationchange or resize <br/>
+     * &lt;b>X.events.start&lt;/b>                : touchstart or vmousedown &lt;br/>
+     * &lt;b>X.events.move&lt;/b>                 : touchmove or vmousemove &lt;br/>
+     * &lt;b>X.events.end&lt;/b>                  : touchend or vmouseup &lt;br/>
+     * &lt;b>X.platform.orientationchange&lt;/b>  : orientationchange or resize &lt;br/>
      */
 	X.events = (function(){
 		var hasTouch = X.platform.hasTouch ? true : false;
@@ -267,7 +294,7 @@ X = {
 X.apply(Array.prototype, {
 	remove: function(from, to){
 		var rest = this.slice((to || from) + 1 || this.length);
-		this.length = from < 0 ? this.length + from : from;
+		this.length = from &lt; 0 ? this.length + from : from;
 		return this.push.apply(this, rest);
 	}
 });
@@ -364,7 +391,7 @@ X.util.Observer = X.extend(X.emptyFn, {
 				return event.fn.apply(event.scope || o, args.concat(params));
 			}
 			else if(X.type(eventTypes[type]) === 'array'){
-				for(var i=0, len = eventTypes[type].length; i<len; i++){
+				for(var i=0, len = eventTypes[type].length; i&lt;len; i++){
 					var event = eventTypes[type][i],
 						result = false;
 
@@ -449,10 +476,10 @@ X.util.ElementManager = X.util.em = {
 		config = config || {};
 		delete config.tag;
 		if(tag){
-			el = $('<' + tag + ' />', config);
+			el = $('&lt;' + tag + ' />', config);
 		}
 		else{
-			el = $('<div />', config);
+			el = $('&lt;div />', config);
 		}
 
 		if(config.id){
@@ -473,7 +500,7 @@ X.util.ComponentManager = X.util.cm = {
 	map: { },
 	cString: { },
 	create: function(contain, items){
-		for(var i=0, len=items.length; i<len; i++){
+		for(var i=0, len=items.length; i&lt;len; i++){
 			if(!items[i].render){
 				items[i] = new this.cString[items[i].cString](items[i]);
 			}
@@ -551,7 +578,7 @@ X.util.History = X.extend(X.util.Observer, {
 		    removeView = [],
 		    viewMap = this.viewMap;
 
-		for(var i=0; i<reverse.length; i++){
+		for(var i=0; i&lt;reverse.length; i++){
 			if(key === reverse[i]){
 				len = i;
 				break;
@@ -561,7 +588,7 @@ X.util.History = X.extend(X.util.Observer, {
 			}
 		}
 
-		for(var i=0; i<removeView.length; i++){
+		for(var i=0; i&lt;removeView.length; i++){
 			if(viewMap[removeView[i]]){
 				viewMap[removeView[i]].view.destroy();
 				this.removeViewMap(removeView[i]);
@@ -580,7 +607,7 @@ X.util.History = X.extend(X.util.Observer, {
 			stack = this.stack,
 			len = stack.length,
 			array = [];
-		for(;i<len;i++){
+		for(;i&lt;len;i++){
 			if(stack[i] !== key){
 				array.push(stack[i]);
 			}
@@ -592,7 +619,7 @@ X.util.History = X.extend(X.util.Observer, {
 	    var stack = this.stack,
 	        len = stack.length;
 		
-		if(stack.length < 2){
+		if(stack.length &lt; 2){
 			return false;
 		}
 		
@@ -630,7 +657,7 @@ X.util.History = X.extend(X.util.Observer, {
 		var removeView = this.stack, 
 		    viewMap = this.viewMap;
 		
-		for(var i=0; i<removeView.length; i++){
+		for(var i=0; i&lt;removeView.length; i++){
 			if(viewMap[removeView[i]]){
 				viewMap[removeView[i]].view.destroy();
 			}
@@ -787,7 +814,7 @@ X.util.ViewController = X.extend(X.util.Observer, {
 		});
 	},
 	backPage: function(){
-		if(this.history.getStackLength() < 2){
+		if(this.history.getStackLength() &lt; 2){
 			return false;
 		}
 		var o = this.history.getBackPageInfo();
@@ -849,7 +876,7 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 		this.viewsInit();
 	},
 	viewsInit: function(){
-		if(this.views.length < 1){
+		if(this.views.length &lt; 1){
 			return false;
 		}
 		
@@ -880,14 +907,14 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 	},
 	getActiveIndex: function(){
 		var active = this.getActiveView();
-		for(var i=0; i<this.views.length; i++){
+		for(var i=0; i&lt;this.views.length; i++){
 			if(active === this.views[i]){
 				return i;
 			}
 		}
 	},
 	getView: function(index){
-		if(this.views.length < 1){
+		if(this.views.length &lt; 1){
 			return null;
 		}
 		
@@ -954,7 +981,7 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 			len = views.length,
 			array = [];
 		
-		for(; i<len; i++){
+		for(; i&lt;len; i++){
 			if(views[i] !== view){
 				array.push(views[i]);
 			}
@@ -1054,7 +1081,7 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 			X.getBody().prepend(this.loading);
 			this.loading.addClass('ui-popup in');
 
-			if(this.updater && config.url){
+			if(this.updater &amp;&amp; config.url){
 				if(config.url){
 					this.updater.send(config);
 				}
@@ -1462,7 +1489,7 @@ X.util.Draggable = X.extend(X.util.Observer, {
 
 			if (me.config.constrain) {
 				if (me.config.horizontal) {
-					if (initialRegion.l + x < constrainRegion.l) {
+					if (initialRegion.l + x &lt; constrainRegion.l) {
 						x = constrainRegion.l - initialRegion.l;
 					}
 					if (initialRegion.r + x > constrainRegion.r) {
@@ -1470,7 +1497,7 @@ X.util.Draggable = X.extend(X.util.Observer, {
 					}
 				}
 				if (me.config.vertical) {
-					if (initialRegion.t + y < constrainRegion.t) {
+					if (initialRegion.t + y &lt; constrainRegion.t) {
 						y = constrainRegion.t - initialRegion.t;
 					}
 					if (initialRegion.b + y > constrainRegion.b) {
@@ -1572,7 +1599,7 @@ X.util.Draggable = X.extend(X.util.Observer, {
 		this.ghost = target.clone();
 
 		this.active_el.before(this.ghost);
-		if(this.ghost.get(0) !== target.get(0) && !(/(fixed|absolute)/).test(this.ghost.css('position'))){
+		if(this.ghost.get(0) !== target.get(0) &amp;&amp; !(/(fixed|absolute)/).test(this.ghost.css('position'))){
 			var offset = target.offset();
 			this.ghost.css({
 				position: 'absolute',
@@ -1701,9 +1728,9 @@ X.util.Droppable = X.extend(X.util.Observer, {
 		var pageY = pageXY.y;
 		
 		if(pageX > this.left 
-				&& pageY > this.top 
-				&& pageX < this.left + this.width 
-				&& pageY < this.top + this.height) {
+				&amp;&amp; pageY > this.top 
+				&amp;&amp; pageX &lt; this.left + this.width 
+				&amp;&amp; pageY &lt; this.top + this.height) {
 			
 			return true;
 		}
@@ -1986,7 +2013,7 @@ X.View = X.extend(X.util.Observer, {
 	},
 	setContent: function(content){
 		var reg = /^#/;
-		if(X.type(content) === 'string' && reg.test(content)){
+		if(X.type(content) === 'string' &amp;&amp; reg.test(content)){
 			content = $(content);
 			if(this.body.children('.ui-scrollview-view').length > 0){
 				this.body.children('.ui-scrollview-view').html(content);
@@ -2111,7 +2138,7 @@ X.View = X.extend(X.util.Observer, {
 		}
 		
 		
-		if(this.config.floating && this.overlay){
+		if(this.config.floating &amp;&amp; this.overlay){
 			this.overlay.hide();
 		}
 
@@ -2155,7 +2182,7 @@ X.View = X.extend(X.util.Observer, {
 	},
 	createInitItems: function(){
     	var el = this.body.children('.ui-scrollview-view');
-    	if(el.length < 1){
+    	if(el.length &lt; 1){
     		el = this.body;
     	}
     	var comps = X.util.cm.create(el, this.config.items);
@@ -2164,7 +2191,7 @@ X.View = X.extend(X.util.Observer, {
     },
 	add: function(comps){
 		var el = this.body.children('.ui-scrollview-view');
-		if(el.length < 1){
+		if(el.length &lt; 1){
 			el = this.body;
 		}
 		comps = X.util.cm.create(el, comps);
@@ -2992,7 +3019,7 @@ X.ui.Tabs = X.extend(X.View, {
 			.addClass('ui-tabs-bar-items-active');
 		
 		this.activeView = this.config.items[activeIndex];
-		for(var i=0,len=this.config.items.length; i<len; i++){
+		for(var i=0,len=this.config.items.length; i&lt;len; i++){
 			if(i === activeIndex){
 				continue;
 			}
@@ -3008,8 +3035,8 @@ X.ui.Tabs = X.extend(X.View, {
 			len = items.length,
 			o, html = '';
 
-		for(var i=0; i<len; i++){
-			html += '<div class="ui-tabs-bar-items"><span>' + items[i].config.title + '</span></div>'; 
+		for(var i=0; i&lt;len; i++){
+			html += '&lt;div class="ui-tabs-bar-items">&lt;span>' + items[i].config.title + '&lt;/span>&lt;/div>'; 
 		}
 		this.tabBar.html(html);
 		
@@ -3096,7 +3123,7 @@ X.ui.Tabs = X.extend(X.View, {
 	},
 	getActiveViewIndex: function(){
 		var active = this.getActiveView();
-		for(var i=0; i<this.config.items.length; i++){
+		for(var i=0; i&lt;this.config.items.length; i++){
 			if(active === this.config.items[i]){
 				return i;
 			}
@@ -3136,7 +3163,7 @@ X.ui.Tabs = X.extend(X.View, {
 
 		var titleDiv = X.util.em.get()
 			.addClass('ui-tabs-bar-items')
-			.html('<span>' + title + '</span>');
+			.html('&lt;span>' + title + '&lt;/span>');
 
 		this.tabBar.append(titleDiv);
 		return [comp[0], title];
@@ -3149,7 +3176,7 @@ X.ui.Tabs = X.extend(X.View, {
 
 		var titleDiv = X.util.em.get()
 			.addClass('ui-tabs-bar-items')
-			.html('<span>' + title + '</span>');
+			.html('&lt;span>' + title + '&lt;/span>');
 
 		this.tabBar.prepend(titleDiv);
 		return [comp[0], title];
@@ -3462,24 +3489,24 @@ X.ui.LayoutView = X.extend(X.View, {
 	},
 	onMove: function(drag, region){
 	    if(this.currentResizeing === 'west'){
-	        if(region.r <= this.config.minSize.west || region.r >= this.config.maxSize.west){
+	        if(region.r &lt;= this.config.minSize.west || region.r >= this.config.maxSize.west){
 	           return false;
 	        }
 	    }
 	    else if(this.currentResizeing === 'east'){
             var l = this.getWidth() - region.l;
-	        if(l <= this.config.minSize.east || l >= this.config.maxSize.east){
+	        if(l &lt;= this.config.minSize.east || l >= this.config.maxSize.east){
 				return false;
 			}
 	    }
 	    else if(this.currentResizeing === 'nouth'){
-	        if(region.b <= this.config.minSize.nouth || region.b >= this.config.maxSize.nouth){
+	        if(region.b &lt;= this.config.minSize.nouth || region.b >= this.config.maxSize.nouth){
 				return false;
 			}
 	    }
 	    else {
 	        var t = this.getHeight() - region.t;
-	        if(t <= this.config.minSize.south || t >= this.config.maxSize.south){
+	        if(t &lt;= this.config.minSize.south || t >= this.config.maxSize.south){
 				return false;
 			}
 	    }
@@ -3488,7 +3515,7 @@ X.ui.LayoutView = X.extend(X.View, {
 	    var size = 0;
 
         if(this.currentResizeing === 'west'){
-	        if(region.r <= this.config.minSize.west){
+	        if(region.r &lt;= this.config.minSize.west){
 	           size = this.config.minSize.west;
 	        }
 	        else if(region.r >= this.config.maxSize.west){
@@ -3501,7 +3528,7 @@ X.ui.LayoutView = X.extend(X.View, {
 	    }
 	    else if(this.currentResizeing === 'east'){
 	        var l = this.getWidth() - region.l;
-            if(l <= this.config.minSize.east){
+            if(l &lt;= this.config.minSize.east){
 	           size = this.config.minSize.east;
 	        }
 	        else if(l >= this.config.maxSize.east){
@@ -3513,7 +3540,7 @@ X.ui.LayoutView = X.extend(X.View, {
 	        this.east.setWidth(size);
 	    }
 	    else if(this.currentResizeing === 'nouth'){
-	        if(region.b <= this.config.minSize.nouth){
+	        if(region.b &lt;= this.config.minSize.nouth){
 	           size = this.config.minSize.nouth;
 	        }
 	        else if(region.b >= this.config.maxSize.nouth){
@@ -3526,7 +3553,7 @@ X.ui.LayoutView = X.extend(X.View, {
 	    }
 	    else {
 	        var t = this.getHeight() - region.t;
-            if(t <= this.config.minSize.south){
+            if(t &lt;= this.config.minSize.south){
 	           size = this.config.minSize.south;
 	        }
 	        else if(t >= this.config.maxSize.south){
@@ -3685,7 +3712,7 @@ X.ui.FormView = X.extend(X.View, {
 			items = this.config.items,
 			len = items.length;
 		
-		for(var i=0; i<len; i++){
+		for(var i=0; i&lt;len; i++){
 			params[items[i].getName()] = items[i].getValue();
 		}
 
@@ -3873,7 +3900,7 @@ X.ui.Slider = X.extend(X.ui.Form, {
 					l = this.formcontin.offset().left,
 					x = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.originalEvent.pageX;
 		
-    			if ( !this.dragging || x < l - tol || x > l + w + tol ) {
+    			if ( !this.dragging || x &lt; l - tol || x > l + w + tol ) {
 					return;
 				}
 
@@ -3884,7 +3911,7 @@ X.ui.Slider = X.extend(X.ui.Form, {
 					t = this.formcontin.offset().top,
 					y = e.originalEvent.touches ? e.originalEvent.touches[0].pageY : e.originalEvent.pageY;
 					
-				if ( !this.dragging || y < t - tol || y > t + h + tol ) {
+				if ( !this.dragging || y &lt; t - tol || y > t + h + tol ) {
 					return;
 				}
 
@@ -3906,13 +3933,13 @@ X.ui.Slider = X.extend(X.ui.Form, {
 
 			if(data){
 				data = parseInt(data);
-				if(newval < data){
+				if(newval &lt; data){
 					return;
 				}
 			}
 		}
 
-		if(!this.subdragging && this.subhandle){
+		if(!this.subdragging &amp;&amp; this.subhandle){
 			var data = this.subhandle.data('data');
 			if(data){
 				data = parseInt(data);
@@ -3957,7 +3984,7 @@ X.ui.Slider = X.extend(X.ui.Form, {
 		var min = this.getMin(),
 			max = this.getMax();
 
-		if ( val <= min ) {
+		if ( val &lt;= min ) {
 			return min;
 		}
 		if ( val >= max ) {
@@ -3982,7 +4009,7 @@ X.ui.Slider = X.extend(X.ui.Form, {
 		if(isNaN(percent)){
 			return 0;
 		}
-		if (percent < 0) { 
+		if (percent &lt; 0) { 
 			percent = 0; 
 		}
 		if (percent > 100) { 
@@ -4070,7 +4097,7 @@ X.ui.Spinner = X.extend(X.ui.Form, {
 		var me = e.data.me,
 			val = parseFloat(me.form.val(), 10) || 0;
 		
-		if(val < me.config.min){
+		if(val &lt; me.config.min){
 			val = me.config.min
 			me.form.val(val);
 		}
@@ -4142,7 +4169,7 @@ X.ui.Spinner = X.extend(X.ui.Form, {
 		
 		var result = val - me.config.step;
 		
-		if(result < me.config.min){
+		if(result &lt; me.config.min){
 			result = me.config.min;
 		}
 		
@@ -4160,7 +4187,7 @@ X.ui.Spinner = X.extend(X.ui.Form, {
 			val = 0;
 		}
 
-		if(val < this.config.min){
+		if(val &lt; this.config.min){
 			val = this.config.min;
 		}
 		if(val > this.config.max){
@@ -4253,7 +4280,7 @@ X.ui.Progressbar = X.extend(X.ui.Form, {
 			percent = w;
 		}		
 		
-		if(val < 0){
+		if(val &lt; 0){
 			val = 0;
 		}
 		
@@ -4404,7 +4431,7 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
 	
 	var head = $('head');
 	function SetMeta(name, content){
-		var meta = $('<meta />');
+		var meta = $('&lt;meta />');
 		meta.attr('name', name);
 		meta.attr('content', content);
 		head.eq(0).append(meta);
@@ -4417,7 +4444,7 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
         57×57 (iPhone, Android)
 	*/
 	function SetLink(rel, icon, size){
-		var link = $('<link />');
+		var link = $('&lt;link />');
 		link.attr('rel', rel);
 		link.attr('href', icon);
 		
@@ -4519,12 +4546,12 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
 					return false;
 				}
 
-				if(back && href === '#'){
+				if(back &amp;&amp; href === '#'){
 					vc.backPage();
 					return false;
 				}
 				
-				if(href !== '#' && back){
+				if(href !== '#' &amp;&amp; back){
 					vc.prevPage({ url: href });
 					return false;
 				}
@@ -4566,4 +4593,26 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
 		}
 		return null;
 	};
-})();
+})();</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="X.util.Draggable.html">Draggable</a></li><li><a href="X.util.Droppable.html">Droppable</a></li><li><a href="X.util.Observer.html">Observer</a></li></ul><h3>Namespaces</h3><ul><li><a href="X.html">X</a></li><li><a href="X.util.html">util</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a> on Wed Nov 20 2013 03:51:37 GMT-0500 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

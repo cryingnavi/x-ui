@@ -1,6 +1,13 @@
 /**
- * X.util.Observer 클래스는 custom 이벤트를 발생시켜주며 대부분의 클래스의 최상위 클래스로 존재한다.
- * @class
+ * @class 
+ * @classdesc X.util.Observer 클래스는 custom 이벤트를 발생시켜주며 대부분의 클래스의 최상위 클래스로 존재한다.
+ * @constructor
+ * @param {Object} listener 등록할 커스텀 이벤트
+ * @example
+ * var observer = new X.util.Observer({
+ *      success: function(){ },
+ *      error: function(){ }
+ * });
  */
 X.util.Observer = X.extend(X.emptyFn, {
 	initialize: function(listener){
@@ -10,7 +17,10 @@ X.util.Observer = X.extend(X.emptyFn, {
 		}
 	},
 	/**
-     * custom 이벤트를 등록한다.
+     * @desc custom 이벤트를 등록한다.
+     * @memberof X.util.Observer
+     * @method addEvent
+     * @alias Observer#on
      * @param {args} ... 
      * @example 
      * var observer = new X.util.Observer();
@@ -54,10 +64,14 @@ X.util.Observer = X.extend(X.emptyFn, {
 		}
 	},
 	/**
-     * custom 이벤트를 발생시킨다.
+     * @desc custom 이벤트를 발생시킨다.
+     * @memberof X.util.Observer
+     * @method fireEvent
+     * @alias Observer#fire
      * @param {Object} 이벤트 핸들러의 scope
      * @param {String} type 커스텀 이벤트의 이름 
      * @param {args} args 이벤트 핸들러에 전달될 argument.
+     * @return {Object} 이벤트 핸들러가 return 한 무언가를 반환함.
      */
 	fireEvent: function(o, type, args){
 		var params = o.config ? o.config.params || [] : [],
@@ -86,7 +100,10 @@ X.util.Observer = X.extend(X.emptyFn, {
 		}
 	},
 	/**
-     * custom 이벤트를 삭제한다
+     * @desc custom 이벤트를 삭제한다
+     * @memberof X.util.Observer
+     * @method removeEvent
+     * @alias Observer#off
      * @param {String} type
      */
 	removeEvent: function(type){
@@ -95,25 +112,16 @@ X.util.Observer = X.extend(X.emptyFn, {
 		}
 	},
 	/**
-     * 등록한 custom 이벤트를 모두 삭제한다
+     * @desc 등록한 custom 이벤트를 모두 삭제한다
+     * @memberof X.util.Observer
+     * @method clear
      */
 	clear: function(){
 		this.eventTypes = { };
 	}
 });
 
-/**
- * @method on
- * @alias addEvent#on
- */
+
 X.util.Observer.prototype.on = X.util.Observer.prototype.addEvent;
-/**
- * @method off
- * @alias removeEvent#off
- */
 X.util.Observer.prototype.off = X.util.Observer.prototype.removeEvent;
-/**
- * @method fire
- * @alias fireEvent#fire
- */
 X.util.Observer.prototype.fire = X.util.Observer.prototype.fireEvent;

@@ -10,7 +10,7 @@
  *      }
  * });
  * 
- * @property {String} direction both | x | y 셋 중 하나의 값을 가지며 각각 양방향, 가로, 세로 방향으로 움직이게끔 지정한다.
+ * @property {String} direction both or x or y 셋 중 하나의 값을 가지며 각각 양방향, 가로, 세로 방향으로 움직이게끔 지정한다.
  * @property {Boolen} constrain 드래그가 가능한 범위를 설정한다. 셀렉터로 설정가능하며 해당 셀렉터로 검색된 엘리먼트를 범위로 갖는다. 기본값은 false 이다. false 일 경우 범위가 존재하지 않는다.
  * @property {Object} handle 드래그 객체 내의 특정 영역을 handle 로 지정한다. 지정할 시 해당 영역을 클릭하여야 드래그가 시작된다. 기본값은 null 이다.
  * @property {Boolen} revert 드래그가 끝났을 경우 원래 위치로 되돌아 갈지 여부이다. 기본값은 false 이다.

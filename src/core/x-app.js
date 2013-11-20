@@ -7,13 +7,7 @@
 		meta.attr('content', content);
 		head.eq(0).append(meta);
     }
-	
-	/*
-	    144×144 (iPad retina)
-        114×114 (iPhone retina)
-        72×72 (iPad)
-        57×57 (iPhone, Android)
-	*/
+
 	function SetLink(rel, icon, size){
 		var link = $('<link />');
 		link.attr('rel', rel);
@@ -25,6 +19,23 @@
 		head.eq(0).append(link);
 	}	
 	
+	/**
+     * @static
+     * @memberof X
+     * @desc x ui Application 을 시작한다.
+     * @param {Object} application 에 대한 configuration 을 지정한다.
+     * <b>icon</b>              : 아이콘을 지정한다. <br/>
+     * <b>iconsize</b>          : 아이콘 사이즈를 지정한다. 144×144 (iPad retina), 114×114 (iPhone retina), 72×72 (iPad), 57×57 (iPhone, Android) <br/>
+     * <b>splash</b>            : 스플래시 이미지를 지정한다. <br/>
+     * <b>viewport</b>          : viewport 를 사용할지를 지정한다. <br/>
+     * <b>statusbar</b>         : statusbar 색상을 지정한다. <br/>
+     * <b>ready</b>             : application 생성이 준비되면 호출되는 함수를 지정한다. <br/>
+     * <b>initialScale</b>      : initialScale 을 지정한다. <br/>
+     * <b>maximumScale</b>      : maximumScale 을 지정한다. <br/>
+     * <b>minimumScale</b>      : minimumScale 을 지정한다. <br/>
+     * <b>userScalable</b>      : userScalable 을 지정한다. <br/>
+     * <b>targetDensityDpi</b>  : 안드로이드에서 사용되는 targetDensityDpi 을 지정한다. <br/>
+     */
 	X.App = function(config){
 		var default_config = {
 			name: 'Application',
@@ -153,9 +164,10 @@
 		});
 	};
 	
-	
 	/**
-     * Application 생성 후 가장 최상위에 생성되는 View를 반환한다.
+     * @static
+     * @memberof X
+     * @desc Application 생성 후 가장 최상위에 생성되는 View를 반환한다.
      * @returns {X.View} X.View 를 반환한다.
      */
 	X.getApp = function(){
