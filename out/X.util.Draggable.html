@@ -1,30 +1,103 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>JSDoc: Class: Draggable</title>
-    
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+	<meta charset="utf-8">
+	<title>Documentation Class: Draggable</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	
+	<link type="text/css" rel="stylesheet" href="styles/site.simplex.css">
+	
 </head>
 
 <body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top ">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">Documentation</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b
+						class="caret"></b></a>
 
-<div id="main">
-    
-    <h1 class="page-title">Class: Draggable</h1>
-    
-    
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="X.html">X</a>
+						</li>
+						
+						<li>
+							<a href="X.util.html">util</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="X.ui.Accordion.html">Accordion</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.Carousel.html">Carousel</a>
+						</li>
+						
+						<li>
+							<a href="X.util.Draggable.html">Draggable</a>
+						</li>
+						
+						<li>
+							<a href="X.util.Droppable.html">Droppable</a>
+						</li>
+						
+						<li>
+							<a href="X.util.LocalViewController.html">LocalViewController</a>
+						</li>
+						
+						<li>
+							<a href="X.util.Observer.html">Observer</a>
+						</li>
+						
+						<li>
+							<a href="X.util.RemoteViewController.html">RemoteViewController</a>
+						</li>
+						
+						<li>
+							<a href="X.util.ViewController.html">ViewController</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+		<div class="span8">
+			
+				<div id="main">
+					
 
 
-
+	<h1 class="page-title">Class: Draggable</h1>
 <section>
-    
+
 <header>
     <h2>
         <span class="ancestors"><a href="X.html">X</a><a href="X.util.html">.util</a>.</span>
@@ -32,12 +105,15 @@
     Draggable
     </h2>
     
-</header>  
+        <div class="class-description">X.util.Draggable 클래스는 엘리먼트를 드래그 가능 엘리먼트로 생성한다.
+ both or x or y 셋 중 하나의 값을 가지며 각각 양방향, 가로, 세로 방향으로 움직이게끔 지정한다.</div>
+    
+</header>
 
 <article>
     <div class="container-overview">
     
-    
+
     
         
 <dt>
@@ -47,10 +123,6 @@
 </dt>
 <dd>
     
-    
-    <div class="description">
-        X.util.Draggable 클래스는 엘리먼트를 드래그 가능 엘리먼트로 생성한다.
-    </div>
     
 
     
@@ -62,59 +134,36 @@
     
 <dl class="details">
     
-        
+
         <h5 class="subsection-title">Properties:</h5>
-        
+
         <dl>
 
-<table class="props">
+<table class="props table table-striped">
     <thead>
 	<tr>
 		
 		<th>Name</th>
 		
-		
+
 		<th>Type</th>
+
 		
+
 		
-		
-		
-		
+
 		<th class="last">Description</th>
 	</tr>
 	</thead>
-	
+
 	<tbody>
 	
-	
+
         <tr>
             
-                <td class="name"><code>direction</code></td>
+                <td class="name"><code>config.constrain</code></td>
             
-            
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
 
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">both or x or y 셋 중 하나의 값을 가지며 각각 양방향, 가로, 세로 방향으로 움직이게끔 지정한다.</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>constrain</code></td>
-            
-            
             <td class="type">
             
                 
@@ -123,21 +172,21 @@
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">드래그가 가능한 범위를 설정한다. 셀렉터로 설정가능하며 해당 셀렉터로 검색된 엘리먼트를 범위로 갖는다. 기본값은 false 이다. false 일 경우 범위가 존재하지 않는다.</td>
         </tr>
+
 	
-	
-	
+
         <tr>
             
-                <td class="name"><code>handle</code></td>
+                <td class="name"><code>config.handle</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -146,21 +195,21 @@
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">드래그 객체 내의 특정 영역을 handle 로 지정한다. 지정할 시 해당 영역을 클릭하여야 드래그가 시작된다. 기본값은 null 이다.</td>
         </tr>
+
 	
-	
-	
+
         <tr>
             
-                <td class="name"><code>revert</code></td>
+                <td class="name"><code>config.revert</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -169,21 +218,21 @@
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">드래그가 끝났을 경우 원래 위치로 되돌아 갈지 여부이다. 기본값은 false 이다.</td>
         </tr>
+
 	
-	
-	
+
         <tr>
             
-                <td class="name"><code>revertDuration</code></td>
+                <td class="name"><code>config.revertDuration</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -192,47 +241,48 @@
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">rever가 true 시 애니메이션 속도를 지정한다. 기본값은 200 이다. 0 지정시 애니메이션이 눈에 보이지 않는다.</td>
         </tr>
-	
+
 	
 	</tbody>
-</table></dl>
-        
-    
-        
-    
-    
+</table>
+</dl>
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
-    
-    
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>, <a href="x-ui.js.html#line1276">line 1276</a>
+        <a href="x-ui.js.html">x-ui.js</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
@@ -250,57 +300,95 @@
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>var drag = new X.util.Draggable({
+    <pre class="sunlight-highlight-javascript">var drag = new X.util.Draggable({
      listener: {
          start: function(){ //drag 가 시작될 때 }
          move: function(){ //drag 가 지속 되고 있을 때 }
          end: function(){ //drag 가 끝날 때 }
      }
-});</code></pre>
+});</pre>
+
 
     
 </dd>
 
     
     </div>
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
 </article>
 
-</section>  
+</section>
 
 
 
 
-</div>
+				</div>
 
-<nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="X.util.Draggable.html">Draggable</a></li><li><a href="X.util.Droppable.html">Droppable</a></li><li><a href="X.util.Observer.html">Observer</a></li></ul><h3>Namespaces</h3><ul><li><a href="X.html">X</a></li><li><a href="X.util.html">util</a></li></ul>
-</nav>
+				<div class="clearfix"></div>
+				<footer>
+					
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a>
+		on Mon Nov 25 2013 09:59:35 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
 
-<br clear="both">
+			
+			<div class="span3">
+				<div id="toc"></div>
+			</div>
+			
+			<br clear="both">
+		</div>
 
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a> on Wed Nov 20 2013 03:51:37 GMT-0500 (EST)
-</footer>
+	</div>
+	<script src="scripts/sunlight.js"></script>
+	<script src="scripts/sunlight.javascript.js"></script>
+	<script src="scripts/sunlight-plugin.doclinks.js"></script>
+	<script src="scripts/sunlight-plugin.linenumbers.js"></script>
+	<script src="scripts/sunlight-plugin.menu.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/jquery.scrollTo.js"></script>
+	<script src="scripts/jquery.localScroll.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+
+	<script>  Sunlight.highlightAll({lineNumbers:,  showMenu: true, enableDoclinks :true}); </script>
+
+	<script>
+		$( function () {
+			$( "#toc" ).toc( {
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : 60
+			} );
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+
+		} );
+	</script>
+
+	
+
 </body>
 </html>

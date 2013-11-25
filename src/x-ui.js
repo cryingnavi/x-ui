@@ -9,7 +9,7 @@
  * version: 1.0.1
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2013-11-20 03:11 
+ * Date: 2013-11-25 09:11 
  */
 /**
  * X namespace
@@ -119,8 +119,8 @@ X = {
 		 * @memberof X
          * @desc 디바이스의 방향을 문자열로 반환한다.
          * @returns {string} orientation 디바이스의 방향
-         * <br><u>portrait:</u> 세로
-         * <br><u>landscape:</u> 가로
+         * <b>portrait</b> : 세로<br />
+         * <b>landscape</b> : 가로
          */
 		getOrientation: function(){
 			var ori = window.orientation;
@@ -279,8 +279,7 @@ X.util = { };
 /**
  * @class 
  * @classdesc X.util.Observer 클래스는 custom 이벤트를 발생시켜주며 대부분의 클래스의 최상위 클래스로 존재한다.
- * @constructor
- * @param {Object} listener 등록할 커스텀 이벤트
+ * @property {Object} config.listener 등록할 커스텀 이벤트
  * @example
  * var observer = new X.util.Observer({
  *      success: function(){ },
@@ -296,7 +295,7 @@ X.util.Observer = X.extend(X.emptyFn, {
 	},
 	/**
      * @desc custom 이벤트를 등록한다.
-     * @memberof X.util.Observer
+     * @memberof X.util.Observer.prototype
      * @method addEvent
      * @alias Observer#on
      * @param {args} ... 
@@ -343,7 +342,7 @@ X.util.Observer = X.extend(X.emptyFn, {
 	},
 	/**
      * @desc custom 이벤트를 발생시킨다.
-     * @memberof X.util.Observer
+     * @memberof X.util.Observer.prototype
      * @method fireEvent
      * @alias Observer#fire
      * @param {Object} 이벤트 핸들러의 scope
@@ -379,7 +378,7 @@ X.util.Observer = X.extend(X.emptyFn, {
 	},
 	/**
      * @desc custom 이벤트를 삭제한다
-     * @memberof X.util.Observer
+     * @memberof X.util.Observer.prototype
      * @method removeEvent
      * @alias Observer#off
      * @param {String} type
@@ -391,7 +390,7 @@ X.util.Observer = X.extend(X.emptyFn, {
 	},
 	/**
      * @desc 등록한 custom 이벤트를 모두 삭제한다
-     * @memberof X.util.Observer
+     * @memberof X.util.Observer.prototype
      * @method clear
      */
 	clear: function(){
@@ -466,8 +465,9 @@ X.util.ElementManager = X.util.em = {
 	}
 };
 /**
- * 
  * @static
+ * @desc x ui 로 선언된 ui 컴포넌트에 대한 참조를 가지고 ui 의 고유한 id로 가져올 수 있다.
+ * @alias X.util.cm
  */
 X.util.ComponentManager = X.util.cm = {
 	map: { },
@@ -494,6 +494,12 @@ X.util.ComponentManager = X.util.cm = {
 	set: function(id, item){
 		this.map[id] = item;
 	},
+	/**
+     * @static
+     * @memberof X.util.ComponentManager
+     * @param {String} id - 컴포넌트 id
+     * @desc x ui 로 선언된 ui 컴포넌트의 참조를 가져온다.
+     */
 	get: function(id){
 		return this.map[id];
 	},
@@ -645,6 +651,10 @@ X.util.History = X.extend(X.util.Observer, {
 	}
 });
 
+/**
+ * @class
+ * @desc X.util.ViewController 클래스는 X.util.LocalViewController, X.util.RemoteViewController 의 base 클래스이다.
+ */
 X.util.ViewController = X.extend(X.util.Observer, {
 	initialize: function(config){
 		this.config = {
@@ -786,6 +796,12 @@ X.util.ViewController = X.extend(X.util.Observer, {
 			me = null, fromView = null, toView = null, config = null;
 		});
 	},
+	/**
+	 * @method
+     * @desc 바로 이전 화면으로 돌아간다.
+     * @memberof X.util.ViewController.prototype
+     * @return {Boolean} succ 이전 페이지로 돌아갔다면 true, 실패시 false를 반환한다.
+     */
 	backPage: function(){
 		if(this.history.getStackLength() < 2){
 			return false;
@@ -801,6 +817,12 @@ X.util.ViewController = X.extend(X.util.Observer, {
 		this.activeView = activeView;
 		this.activeView.el.addClass('ui-vc-active');
 	},
+	/**
+	 * @method
+     * @desc 현재 활성화 되어 있는 화면의 view 를 반환한다.
+     * @memberof X.util.ViewController.prototype
+     * @return {Component}
+     */
 	getActiveView: function(){
 		return this.activeView;
 	}
@@ -832,6 +854,32 @@ X.util.vcm = X.util.ViewControllerManager = X.apply(X.util.ViewController, {
 		this.transition = false;
 	}
 });
+/**
+ * @class
+ * @desc X.util.LocalViewController 클래스는 생성된 X.View 의 자식 view 들에 대해서 화면전환을 제공한다.
+ * @property {String} config.activeIndex 처음 생성시에 활성화 될 화면의 인덱스
+ * @property {String} config.transition 화면 전환 animation 종류를 지정한다.<br/>
+ * <b>slide</b>, <b>slidefade</b>, <b>slideup</b>, <b>slidedown</b><br/>
+ * <b>pop</b>, <b>fade</b>, <b>flip</b>, <b>turn</b>, <b>flow</b><br/>
+ * <b>roll</b>
+ * @example
+ * var view = new X.View({
+ *      viewController: new X.util.LocalViewController({
+ *          beforenextchange: function(){ },        //다음 화면으로 전환하기 직전에 호출된다.
+ *          afternextchange: function(){ },         //다음 화면으로 전환한 후에 호출된다.
+ *          beforeprevchange: function(){ },        //이전 화면으로 전환하기 진적에 호출된다.
+ *          afterprevchange: function(){ }          //이전 화면으로 전환한 후에 호출된다.
+ *      }),
+ *      items: [
+ *          new X.View(),
+ *          new X.View(),
+ *          new X.View()
+ *      ]
+ * });
+ * 
+ * var vc = view.getViewController();
+ * vc.nextPage(1);
+ */
 X.util.LocalViewController = X.extend(X.util.ViewController, {
 	initialize: function(config){
 		this.config = {
@@ -878,6 +926,12 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 			return false;
 		}
 	},
+	/**
+     * @method
+     * @desc 현재 활성화 되어 있는 view의 인덱스를 반환한다.
+     * @memberof X.util.LocalViewController.prototype
+     * @return {Number} i 현재 활성화 되어있는 요소의 인덱스를 반환한다.
+     */
 	getActiveIndex: function(){
 		var active = this.getActiveView();
 		for(var i=0; i<this.views.length; i++){
@@ -886,6 +940,13 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 			}
 		}
 	},
+	/**
+	 * @method
+     * @desc view들 중 인자로 받은 index 에 해당 하는 view를 반환한다.
+     * @memberof X.util.LocalViewController.prototype
+     * @param {Number} index - 원하는 view에 해당하는 index
+     * @return {X.View} view - X.View를 반환한다.
+     */
 	getView: function(index){
 		if(this.views.length < 1){
 			return null;
@@ -898,6 +959,16 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 		
 		return view;
 	},
+	/**
+	 * @method
+     * @desc 다음 화면으로 화면을 전환한다.
+     * @memberof X.util.LocalViewController.prototype
+     * @param {Object} config - 다음 화면으로 전환한다.<br/>
+     * <b>index</b>         : 전환하고자 하는 view 의 인덱스<br/>
+     * <b>history</b>       : 화면전환을 history에 저장할지 여부<br/>
+     * <b>transition</b>    : 화면전환에 사용할 애니메이션<br/>
+     * <b>reverse</b>       : 화면전환시 방향. reverse 시 역방향. 빈값을 경우는 정방향.<br/>
+     */
 	nextPage: function(config){
 		if(X.util.vcm.changing){
 			return false;
@@ -919,6 +990,15 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 		toView.show();
 		this.nextMove(fromView, toView, config);
 	},
+	/**
+     * @desc 이전 화면으로 전환한다.
+     * @memberof X.util.LocalViewController.prototype
+     * @method prevPage
+     * @param {Object} config - 이전 화면으로 전환한다.<br/>
+     * <b>index</b>         : 전환하고자 하는 view 의 인덱스<br/>
+     * <b>transition</b>    : 화면전환에 사용할 애니메이션<br/>
+     * <b>reverse</b>       : 화면전환시 방향. reverse 시 역방향. 빈값을 경우는 정방향.<br/>
+     */
 	prevPage: function(config){
 		if(X.util.vcm.changing){
 			return false;
@@ -942,12 +1022,26 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 			transition: toViewInfo.transition
 		});
 	},
+	/**
+     * @desc 새로운 view를 viewcontroller에 등록한다.
+     * @memberof X.util.LocalViewController.prototype
+     * @method appendView
+     * @param {X.View} view - 등록할 새로운 view
+     * @return {X.View} view - 해당 view를 반환한다.
+     */
 	appendView: function(view){
 		view.el.addClass('ui-vc-active');
 		this.views.push(view);
 
 		return view;
 	},
+	/**
+     * @desc 등록된 view 를 viewcontroller에서 삭제 한다.
+     * @memberof X.util.LocalViewController.prototype
+     * @method removeView
+     * @param {X.View} view - 삭제할 view
+     * @return {X.View} view - 해당 view를 반환한다.
+     */
 	removeView: function(view){
 		var i=0,
 			views = this.views,
@@ -968,6 +1062,40 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 	}
 });
 X.util.cm.addCString('localviewcontroller', X.util.LocalViewController);
+/**
+ * @class
+ * @classdesc X.util.RemoteViewController 클래스는 원격지에 있는 화면을 불러와 화면을 전환하도록 한다.
+ * @property {String} config.initPage 초기 화면의 url 을 지정한다.
+ * @property {String} config.transition 화면 전환 animation 종류를 지정한다.
+ * <b>slide</b><br/>
+ * <b>slidefade</b><br/>
+ * <b>slideup</b><br/>
+ * <b>slidedown</b><br/>
+ * <b>pop</b><br/>
+ * <b>fade</b><br/>
+ * <b>flip</b><br/>
+ * <b>turn</b><br/>
+ * <b>flow</b><br/>
+ * <b>roll</b>
+ * @example
+ * var view = new X.View({
+ *      viewController: new X.util.RemoteViewController({
+ *          beforenextchange: function(){ },        //다음 화면으로 전환하기 직전에 호출된다.
+ *          afternextchange: function(){ },         //다음 화면으로 전환한 후에 호출된다.
+ *          beforeprevchange: function(){ },        //이전 화면으로 전환하기 진적에 호출된다.
+ *          afterprevchange: function(){ }          //이전 화면으로 전환한 후에 호출된다.
+ *      }),
+ *      items: [
+ *          new X.View(),
+ *          new X.View(),
+ *          new X.View()
+ *      ]
+ * });
+ * 
+ * var vc = view.getViewController();
+ * vc.initPage({ url: "page.html" });
+ * vc.nextPage({ url: "page-next.html" });
+ */
 X.util.RemoteViewController = X.extend(X.util.ViewController, {
 	initialize: function(config){
 		this.config = { 
@@ -988,11 +1116,28 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 			this.initPage(this.config.initPage);
 		}
 	},
+	/**
+	 * @method
+     * @desc 다음 화면으로 화면을 전환한다.
+     * @memberof X.util.RemoteViewController.prototype
+     * @param {Object} config - 초기 화면을 불러오기 위한 정보이다.<br/>
+     * <b>url</b>           : 초기 페이지의 url을 넘긴다.
+     */
 	initPage: function(config){
 		this.fireEvent(this, 'beforeinit', []);
 		this.callMethod = 'initSuccess';
 		this.send(config);
 	},
+	/**
+	 * @method
+     * @desc 다음 화면으로 화면을 전환한다.
+     * @memberof X.util.RemoteViewController.prototype
+     * @param {Object} config - 다음 화면으로 전환한다.<br/>
+     * <b>url</b>           : 전환하고자 하는 page 의 url<br/>
+     * <b>history</b>       : 화면전환을 history에 저장할지 여부<br/>
+     * <b>transition</b>    : 화면전환에 사용할 애니메이션<br/>
+     * <b>reverse</b>       : 화면전환시 방향. reverse 시 역방향. 빈값을 경우는 정방향.<br/>
+     */
 	nextPage: function(config){
 		if(X.util.vcm.changing){
 			return;
@@ -1011,6 +1156,15 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 		
 		this.send(config);
 	},
+	/**
+     * @desc 이전 화면으로 화면을 전환한다.
+     * @memberof X.util.RemoteViewController.prototype
+     * @method nextPage
+     * @param {Object} config - 이전 화면으로 전환한다.<br/>
+     * <b>url</b>           : 전환하고자 하는 page 의 url<br/>
+     * <b>transition</b>    : 화면전환에 사용할 애니메이션<br/>
+     * <b>reverse</b>       : 화면전환시 방향. reverse 시 역방향. 빈값을 경우는 정방향.<br/>
+     */
 	prevPage: function(config){
 		if(X.util.vcm.changing){
 			return false;
@@ -1256,8 +1410,14 @@ X.util.ViewUpdater = X.extend(X.util.Observer, {
 
 X.util.cm.addCString('viewupdater', X.util.ViewUpdater);
 /**
- * X.util.Draggable 클래스는 엘리먼트를 드래그 가능 엘리먼트로 생성한다.
  * @class
+ * @classdesc X.util.Draggable 클래스는 엘리먼트를 드래그 가능 엘리먼트로 생성한다.
+ *  both or x or y 셋 중 하나의 값을 가지며 각각 양방향, 가로, 세로 방향으로 움직이게끔 지정한다.
+ * @property {Boolen} config.constrain 드래그가 가능한 범위를 설정한다. 셀렉터로 설정가능하며 해당 셀렉터로 검색된 엘리먼트를 범위로 갖는다. 기본값은 false 이다. false 일 경우 범위가 존재하지 않는다.
+ * @property {Object} config.handle 드래그 객체 내의 특정 영역을 handle 로 지정한다. 지정할 시 해당 영역을 클릭하여야 드래그가 시작된다. 기본값은 null 이다.
+ * @property {Boolen} config.revert 드래그가 끝났을 경우 원래 위치로 되돌아 갈지 여부이다. 기본값은 false 이다.
+ * @property {Number} config.revertDuration rever가 true 시 애니메이션 속도를 지정한다. 기본값은 200 이다. 0 지정시 애니메이션이 눈에 보이지 않는다.
+ * 
  * @example
  * var drag = new X.util.Draggable({
  *      listener: {
@@ -1266,12 +1426,6 @@ X.util.cm.addCString('viewupdater', X.util.ViewUpdater);
  *          end: function(){ //drag 가 끝날 때 }
  *      }
  * });
- * 
- * @property {String} direction both or x or y 셋 중 하나의 값을 가지며 각각 양방향, 가로, 세로 방향으로 움직이게끔 지정한다.
- * @property {Boolen} constrain 드래그가 가능한 범위를 설정한다. 셀렉터로 설정가능하며 해당 셀렉터로 검색된 엘리먼트를 범위로 갖는다. 기본값은 false 이다. false 일 경우 범위가 존재하지 않는다.
- * @property {Object} handle 드래그 객체 내의 특정 영역을 handle 로 지정한다. 지정할 시 해당 영역을 클릭하여야 드래그가 시작된다. 기본값은 null 이다.
- * @property {Boolen} revert 드래그가 끝났을 경우 원래 위치로 되돌아 갈지 여부이다. 기본값은 false 이다.
- * @property {Number} revertDuration rever가 true 시 애니메이션 속도를 지정한다. 기본값은 200 이다. 0 지정시 애니메이션이 눈에 보이지 않는다.
  */
 X.util.Draggable = X.extend(X.util.Observer, {
 	initialize: function(config){
@@ -1585,9 +1739,9 @@ X.util.Draggable = X.extend(X.util.Observer, {
 	}
 });
 /**
- * X.util.Droppable 클래스는 엘리먼트를 드롭 가능 엘리먼트로 생성한다.
- * @class X.util.Droppable
- * @constructor
+ * @class
+ * @classdesc X.util.Droppable 클래스는 엘리먼트를 드롭 가능 엘리먼트로 생성한다.
+ * @property {String} config.accept 드롭 영역이 받아들일 드래그 객체를 지정한다. 지정할 때는 CSS 셀렉터를 사용한다.
  * @example
  * var drag = new X.util.Droppable({
  *      accept: '#dragEl',
@@ -1601,8 +1755,6 @@ X.util.Draggable = X.extend(X.util.Observer, {
  *          drop: function(){ //drag 객체가 드롭 영역 안에서 드롭 되면 호출된다. },
  *      }
  * });
- * 
- * @property {String} accept 드롭 영역이 받아들일 드래그 객체를 지정한다. 지정할 때는 CSS 셀렉터를 사용한다.
  */
 X.util.Droppable = X.extend(X.util.Observer, {
 	initialize: function(config){
@@ -2460,14 +2612,40 @@ X.View = X.extend(X.util.Observer, {
 });
 
 X.util.cm.addCString('view', X.View);
+/**
+ * @class 
+ * @classdesc X.ui.Accordion 클래스는 Accordion ui 를 생성한다.
+ * @property {Array} config.titles 각 탭의 title 을 설정한다.
+ * @property {Array} config.items 각 탭의 view를 설정한다.
+ * @property {Number} config.activeIndex 초기 open될 탭을 설정한다. Default : 0
+ * @example
+ * var acc = new X.ui.Accordion({
+ *      titles: ["Tab 1", "Tab 2", "Tab 3"],
+ *      activeIndex: 0,
+ *      items: [new X.View(), new X.View(), new X.View()]
+ * });
+ * <pre><code>
+ * &#60div data-role="accordion" data-active-index="0"&#62
+ *      &#60div data-role="view" data-title="Tabs 1"&#62
+ *          &#60!-- Someting Html --&#62
+ *      &#60/div>
+ *      &#60div data-role="view" data-title="Tabs 2"&#62
+ *          &#60!-- Someting Html --&#62
+ *      &#60/div>
+ *      &#60div data-role="view" data-title="Tabs 3"&#62
+ *          &#60!-- Someting Html --&#62
+ *      &#60/div&#62
+ * &#60/div&#62
+ * &#60/code></pre>
+ */
 X.ui.Accordion = X.extend(X.View, {
 	initialize: function(config){
 		this.config = {
 			titles: [],
 			items: [],
-			scroll: false,
 			activeIndex: 0
 		};
+		this.config.scroll = false;
 		X.apply(this.config, config);
 		X.ui.Accordion.base.initialize.call(this, this.config);
 	},
@@ -2521,6 +2699,20 @@ X.ui.Accordion = X.extend(X.View, {
 
 		titles = null;		
 	},
+	/**
+	 * @method
+     * @desc 주어진 인덱스에 해당하는 탭으로 전환한다.
+     * @memberof X.ui.Accordion.prototype
+     * @param {Number} index - 이동할 인덱스에 해당하는 탭
+     * @example
+     * var acc = new X.ui.Accordion({
+     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
+     *      activeIndex: 0,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * acc.change(1);
+     */
 	change: function(index){
 		if(this.config.activeIndex === index){
 			return;
@@ -2546,6 +2738,22 @@ X.ui.Accordion = X.extend(X.View, {
 
 		this.fireEvent(this, 'change', [this]);
 	},
+	/**
+     * @method 
+     * @desc 마지막에 탭 하나를 추가한다.
+     * @memberof X.ui.Accordion.prototype
+     * @param {Component} comp X.View 등의 component를 지정한다.
+     * @param {String} title 새로 생성될 탭의 title 을 지정한다.
+     * @return {Array} array 추가된 타이틀과 component를 배열로 반환한다.
+     * @example
+     * var acc = new X.ui.Accordion({
+     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
+     *      activeIndex: 0,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * acc.append(new X.View(), "New Tab");
+     */
 	append: function(comp, title){
 		var div = X.util.em.get()
 				.addClass('ui-accordion-views ui-accordion-close');
@@ -2562,6 +2770,22 @@ X.ui.Accordion = X.extend(X.View, {
 
 		return [comp[0], title];
 	},
+	/**
+	 * @method
+     * @desc 차음에 탭 하나를 추가한다.
+     * @memberof X.ui.Accordion.prototype
+     * @param {Component} comp - X.View 등의 component를 지정한다.
+     * @param {String} title - 새로 생성될 탭의 title 을 지정한다.
+     * @return {Array} array 추가된 타이틀과 component를 배열로 반환한다.
+     * @example
+     * var acc = new X.ui.Accordion({
+     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
+     *      activeIndex: 0,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * acc.prepend(new X.View(), "New Tab");
+     */
 	prepend: function(comp, title){
 		var div = X.util.em.get()
 				.addClass('ui-accordion-views ui-accordion-close');
@@ -2578,6 +2802,20 @@ X.ui.Accordion = X.extend(X.View, {
 
 		return [comp[0], title];
 	},
+	/**
+	 * @method
+     * @desc 인자로 받은 인덱스에 해당하는 탭을 삭제한다.
+     * @memberof X.ui.Accordion.prototype
+     * @param {Number} index - 삭제할 인덱스를 넘긴다.
+     * @example
+     * var acc = new X.ui.Accordion({
+     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
+     *      activeIndex: 0,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * acc.remove(1);
+     */
 	remove: function(index){
 		this.body.children('.ui-accordion-views').eq(index).remove();
 		this.config.items = this.config.items.filter(function(el, i){
@@ -2589,10 +2827,38 @@ X.ui.Accordion = X.extend(X.View, {
 		});
 		this.config.activeIndex = null;
 	},
+	/**
+	 * @method
+     * @desc 탭을 모두 삭제 한다.
+     * @memberof X.ui.Accordion.prototype
+     * @example
+     * var acc = new X.ui.Accordion({
+     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
+     *      activeIndex: 0,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * acc.removeAll();
+     */
 	removeAll: function(){
 		this.body.empty();
 		this.config.activeIndex = null;
 	},
+	/**
+	 * @method
+     * @desc 인자로 받은 해당 탭에 새로운 타이틀을 설정한다.
+     * @memberof X.ui.Accordion.prototype
+     * @param {String} title - 새로 변경할 타이틀.
+     * @param {Number} index - 변경할 탭.
+     * @example
+     * var acc = new X.ui.Accordion({
+     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
+     *      activeIndex: 0,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * acc.changeTitle(0, "New Title");
+     */
 	changeTitle: function(title, index){
 		index = index || 0;
 		var view = this.body.children('.ui-accordion-views')
@@ -2604,20 +2870,65 @@ X.ui.Accordion = X.extend(X.View, {
 		
 		this.config.titles[index] = title;
 	},
+	/**
+	 * @method
+     * @desc 인자로 받은 해당 탭을 반환한다.
+     * @function getItem
+     * @memberof X.ui.Accordion.prototype
+     * @param {Number} index - 반환할 탭 인덱스.
+     * @return {Component} 
+     * @example
+     * var acc = new X.ui.Accordion({
+     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
+     *      activeIndex: 0,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * acc.getItem(0);
+     */
 	getItem: function(index){
 		return this.config.items[index];
 	}
 });
 
 X.util.cm.addCString('accordion', X.ui.Accordion);
+/**
+ * @class 
+ * @classdesc X.ui.Carousel 클래스는 Carousel ui 를 생성한다.
+ * @property {String} config.direction carousel 의 이동방향을 지정한다. x 또는 y 로 가로 세로 방향을 지정한다. Default: 'x'
+ * @property {Number} config.activeIndex 초기 활성화될 아이템을 지정한다. Defautl: 0.
+ * @property {Number} config.duration 애니메이션 이동 속도를 지정한다. Defautl: 200.
+ * @property {Array} config.items 각 탭의 view를 설정한다.
+ * @example
+ * var acc = new X.ui.Carousel({
+ *      direction: "x",
+ *      activeIndex: 0,
+ *      duration: 200,
+ *      items: [new X.View(), new X.View(), new X.View()]
+ * });
+ * 
+ * <pre><code>
+ * &#60div data-role="carousel"&#62
+ *		&#60div data-role="view" style="background-color: #8E8E93;" data-scroll="false"&#62
+ *			&#60!-- Someting Html --&#62
+ *		&#60/div&#62
+ *		&#60div data-role="view" style="background-color: #34AADC;" data-scroll="false"&#62
+ *			&#60!-- Someting Html --&#62
+ *		&#60/div&#62
+ *		&#60div data-role="view" style="background-color: #007AFF;" data-scroll="false"&#62
+ *			&#60!-- Someting Html --&#62
+ *		&#60/div&#62
+ * &#60/div&#62
+ * </code></pre>
+ */
 X.ui.Carousel = X.extend(X.View, {
 	initialize: function(config){
 		this.config = {
 			direction: 'x',
-			scroll: false,
 			activeIndex: 0,
 			duration: 200
 		};
+		this.config.scroll = false;
 		X.apply(this.config, config);
 		X.ui.Carousel.base.initialize.call(this, this.config);
 
@@ -2808,9 +3119,40 @@ X.ui.Carousel = X.extend(X.View, {
 		
 		me.dragging = false;
 	},
+	/**
+	 * @method
+     * @desc 현재 활성화되어 있는 아이템을 반환한다.
+     * @memberof X.ui.Carousel.prototype
+     * @return {Component} component 
+     * @example
+     * var car = new X.ui.Carousel({
+     *      direction: "x",
+     *      activeIndex: 0,
+     *      duration: 200,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * car.getActiveView();
+     */
 	getActiveView: function(){
 		return this.config.items[this.activeIndex];
 	},
+	/**
+	 * @method
+     * @desc 마지막에 새로운 요소를 추가한다.
+     * @memberof X.ui.Carousel.prototype
+     * @param {Component} component 
+     * @return {Component} component 
+     * @example
+     * var car = new X.ui.Carousel({
+     *      direction: "x",
+     *      activeIndex: 0,
+     *      duration: 200,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * car.append(new X.View());
+     */
 	append: function(comp){
 		var comps = X.util.cm.create(this.carouselBody, [comp]);
 		this.config.items.push(comps[0]);
@@ -2818,6 +3160,21 @@ X.ui.Carousel = X.extend(X.View, {
 		
 		return comps[0];
 	},
+	/**
+	 * @method
+     * @desc 지정한 인덱스에 해당하는 요소를 삭제한다.
+     * @memberof X.ui.Carousel.prototype
+     * @param {Component} component 
+     * @example
+     * var car = new X.ui.Carousel({
+     *      direction: "x",
+     *      activeIndex: 0,
+     *      duration: 200,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * car.remove(0);
+     */
 	remove: function(index){
 		this.config.items[index].destroy();
 		this.config.items.remove(index);
@@ -2826,6 +3183,20 @@ X.ui.Carousel = X.extend(X.View, {
 		X.ui.Carousel.base.destroy.call(this);
 		X.getWindow().off(X.events.orientationchange, this.orientationChange);
 	},
+	/**
+	 * @method
+     * @desc 바로 다음 요소로 이동시킨다.
+     * @memberof X.ui.Carousel.prototype
+     * @example
+     * var car = new X.ui.Carousel({
+     *      direction: "x",
+     *      activeIndex: 0,
+     *      duration: 200,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * car.next();
+     */
 	next: function(){
 		var index = this.activeIndex + 1,
 			style = this.carouselBody.get(0).style;
@@ -2843,6 +3214,20 @@ X.ui.Carousel = X.extend(X.View, {
 		this.activeIndex = index;
 		this.fireEvent(this, 'change', [this, this.activeIndex, this.getActiveView()]);
 	},
+	/**
+	 * @method
+     * @desc 바로 이전 요소로 이동시킨다.
+     * @memberof X.ui.Carousel.prototype
+     * @example
+     * var car = new X.ui.Carousel({
+     *      direction: "x",
+     *      activeIndex: 1,
+     *      duration: 200,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * car.prev();
+     */
 	prev: function(){
 		var index = this.activeIndex - 1,
 			style = this.carouselBody.get(0).style;
@@ -4409,13 +4794,7 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
 		meta.attr('content', content);
 		head.eq(0).append(meta);
     }
-	
-	/*
-	    144×144 (iPad retina)
-        114×114 (iPhone retina)
-        72×72 (iPad)
-        57×57 (iPhone, Android)
-	*/
+
 	function SetLink(rel, icon, size){
 		var link = $('<link />');
 		link.attr('rel', rel);
@@ -4427,9 +4806,26 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
 		head.eq(0).append(link);
 	}	
 	
+	/**
+     * @static
+     * @memberof X
+     * @desc x ui Application 을 시작한다.
+     * @property {String} config.id 어플리케이션의 ID를 지정한다. 해당 아이디는 최상위 View의 ID 이다. Defautl: Application
+     * @property {String} config.icon 아이콘을 지정한다. Defautl: null
+     * @property {String} config.iconsize 아이콘 사이즈를 지정한다. 144×144 (iPad retina), 114×114 (iPhone retina), 72×72 (iPad), 57×57 (iPhone, Android). Defautl: null
+     * @property {String} config.splash 스플래시 이미지를 지정한다. Defautl: null
+     * @property {Boolean} config.viewport viewport 를 사용할지를 지정한다. Defautl: true
+     * @property {String} config.statusbar statusbar 색상을 지정한다. <br/>
+     * @property {Function} config.readyapplication 생성이 준비되면 호출되는 함수를 지정한다.
+     * @property {String} config.initialScale initialScale 을 지정한다. Default: 1
+     * @property {Number} config.maximumScale maximumScale 을 지정한다. Default: 1
+     * @property {Number} config.minimumScale minimumScale 을 지정한다. Default: 1
+     * @property {Number} config.userScalable userScalable 을 지정한다. Default: 'no'
+     * @property {String} config.targetDensityDpi 안드로이드에서 사용되는 targetDensityDpi 을 지정한다. Default: 'device-dpi'
+     */
 	X.App = function(config){
 		var default_config = {
-			name: 'Application',
+		    id: 'Application',
 			icon: null,
 			iconsize: null,
 			splash: null,
@@ -4467,11 +4863,6 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
 		
 		if(config.icon){
 			SetLink('apple-touch-icon', config.icon, config.iconsize);
-		}
-		
-		
-		if(config.id){
-			config.id = config.id + config.name;
 		}
 
 		X.getDoc().ready(function(){
@@ -4555,9 +4946,10 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
 		});
 	};
 	
-	
 	/**
-     * Application 생성 후 가장 최상위에 생성되는 View를 반환한다.
+     * @static
+     * @memberof X
+     * @desc Application 생성 후 가장 최상위에 생성되는 View를 반환한다.
      * @returns {X.View} X.View 를 반환한다.
      */
 	X.getApp = function(){

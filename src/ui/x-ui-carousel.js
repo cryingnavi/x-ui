@@ -1,11 +1,40 @@
+/**
+ * @class 
+ * @classdesc X.ui.Carousel 클래스는 Carousel ui 를 생성한다.
+ * @property {String} config.direction carousel 의 이동방향을 지정한다. x 또는 y 로 가로 세로 방향을 지정한다. Default: 'x'
+ * @property {Number} config.activeIndex 초기 활성화될 아이템을 지정한다. Defautl: 0.
+ * @property {Number} config.duration 애니메이션 이동 속도를 지정한다. Defautl: 200.
+ * @property {Array} config.items 각 탭의 view를 설정한다.
+ * @example
+ * var acc = new X.ui.Carousel({
+ *      direction: "x",
+ *      activeIndex: 0,
+ *      duration: 200,
+ *      items: [new X.View(), new X.View(), new X.View()]
+ * });
+ * 
+ * <pre><code>
+ * &#60div data-role="carousel"&#62
+ *		&#60div data-role="view" style="background-color: #8E8E93;" data-scroll="false"&#62
+ *			&#60!-- Someting Html --&#62
+ *		&#60/div&#62
+ *		&#60div data-role="view" style="background-color: #34AADC;" data-scroll="false"&#62
+ *			&#60!-- Someting Html --&#62
+ *		&#60/div&#62
+ *		&#60div data-role="view" style="background-color: #007AFF;" data-scroll="false"&#62
+ *			&#60!-- Someting Html --&#62
+ *		&#60/div&#62
+ * &#60/div&#62
+ * </code></pre>
+ */
 X.ui.Carousel = X.extend(X.View, {
 	initialize: function(config){
 		this.config = {
 			direction: 'x',
-			scroll: false,
 			activeIndex: 0,
 			duration: 200
 		};
+		this.config.scroll = false;
 		X.apply(this.config, config);
 		X.ui.Carousel.base.initialize.call(this, this.config);
 
@@ -196,9 +225,40 @@ X.ui.Carousel = X.extend(X.View, {
 		
 		me.dragging = false;
 	},
+	/**
+	 * @method
+     * @desc 현재 활성화되어 있는 아이템을 반환한다.
+     * @memberof X.ui.Carousel.prototype
+     * @return {Component} component 
+     * @example
+     * var car = new X.ui.Carousel({
+     *      direction: "x",
+     *      activeIndex: 0,
+     *      duration: 200,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * car.getActiveView();
+     */
 	getActiveView: function(){
 		return this.config.items[this.activeIndex];
 	},
+	/**
+	 * @method
+     * @desc 마지막에 새로운 요소를 추가한다.
+     * @memberof X.ui.Carousel.prototype
+     * @param {Component} component 
+     * @return {Component} component 
+     * @example
+     * var car = new X.ui.Carousel({
+     *      direction: "x",
+     *      activeIndex: 0,
+     *      duration: 200,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * car.append(new X.View());
+     */
 	append: function(comp){
 		var comps = X.util.cm.create(this.carouselBody, [comp]);
 		this.config.items.push(comps[0]);
@@ -206,6 +266,21 @@ X.ui.Carousel = X.extend(X.View, {
 		
 		return comps[0];
 	},
+	/**
+	 * @method
+     * @desc 지정한 인덱스에 해당하는 요소를 삭제한다.
+     * @memberof X.ui.Carousel.prototype
+     * @param {Component} component 
+     * @example
+     * var car = new X.ui.Carousel({
+     *      direction: "x",
+     *      activeIndex: 0,
+     *      duration: 200,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * car.remove(0);
+     */
 	remove: function(index){
 		this.config.items[index].destroy();
 		this.config.items.remove(index);
@@ -214,6 +289,20 @@ X.ui.Carousel = X.extend(X.View, {
 		X.ui.Carousel.base.destroy.call(this);
 		X.getWindow().off(X.events.orientationchange, this.orientationChange);
 	},
+	/**
+	 * @method
+     * @desc 바로 다음 요소로 이동시킨다.
+     * @memberof X.ui.Carousel.prototype
+     * @example
+     * var car = new X.ui.Carousel({
+     *      direction: "x",
+     *      activeIndex: 0,
+     *      duration: 200,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * car.next();
+     */
 	next: function(){
 		var index = this.activeIndex + 1,
 			style = this.carouselBody.get(0).style;
@@ -231,6 +320,20 @@ X.ui.Carousel = X.extend(X.View, {
 		this.activeIndex = index;
 		this.fireEvent(this, 'change', [this, this.activeIndex, this.getActiveView()]);
 	},
+	/**
+	 * @method
+     * @desc 바로 이전 요소로 이동시킨다.
+     * @memberof X.ui.Carousel.prototype
+     * @example
+     * var car = new X.ui.Carousel({
+     *      direction: "x",
+     *      activeIndex: 1,
+     *      duration: 200,
+     *      items: [new X.View(), new X.View(), new X.View()]
+     * });
+     * 
+     * car.prev();
+     */
 	prev: function(){
 		var index = this.activeIndex - 1,
 			style = this.carouselBody.get(0).style;

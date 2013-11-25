@@ -136,6 +136,10 @@ X.util.History = X.extend(X.util.Observer, {
 	}
 });
 
+/**
+ * @class
+ * @desc X.util.ViewController 클래스는 X.util.LocalViewController, X.util.RemoteViewController 의 base 클래스이다.
+ */
 X.util.ViewController = X.extend(X.util.Observer, {
 	initialize: function(config){
 		this.config = {
@@ -277,6 +281,12 @@ X.util.ViewController = X.extend(X.util.Observer, {
 			me = null, fromView = null, toView = null, config = null;
 		});
 	},
+	/**
+	 * @method
+     * @desc 바로 이전 화면으로 돌아간다.
+     * @memberof X.util.ViewController.prototype
+     * @return {Boolean} succ 이전 페이지로 돌아갔다면 true, 실패시 false를 반환한다.
+     */
 	backPage: function(){
 		if(this.history.getStackLength() < 2){
 			return false;
@@ -292,6 +302,12 @@ X.util.ViewController = X.extend(X.util.Observer, {
 		this.activeView = activeView;
 		this.activeView.el.addClass('ui-vc-active');
 	},
+	/**
+	 * @method
+     * @desc 현재 활성화 되어 있는 화면의 view 를 반환한다.
+     * @memberof X.util.ViewController.prototype
+     * @return {Component}
+     */
 	getActiveView: function(){
 		return this.activeView;
 	}

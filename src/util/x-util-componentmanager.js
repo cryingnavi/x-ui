@@ -28,6 +28,12 @@ X.util.ComponentManager = X.util.cm = {
 	set: function(id, item){
 		this.map[id] = item;
 	},
+	/**
+     * @static
+     * @memberof X.util.ComponentManager
+     * @param {String} id - 컴포넌트 id
+     * @desc x ui 로 선언된 ui 컴포넌트의 참조를 가져온다.
+     */
 	get: function(id){
 		return this.map[id];
 	},

@@ -106,8 +106,8 @@ X = {
 		 * @memberof X
          * @desc 디바이스의 방향을 문자열로 반환한다.
          * @returns {string} orientation 디바이스의 방향
-         * <br><u>portrait:</u> 세로
-         * <br><u>landscape:</u> 가로
+         * <b>portrait</b> : 세로<br />
+         * <b>landscape</b> : 가로
          */
 		getOrientation: function(){
 			var ori = window.orientation;

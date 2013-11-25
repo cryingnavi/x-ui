@@ -23,22 +23,22 @@
      * @static
      * @memberof X
      * @desc x ui Application 을 시작한다.
-     * @param {Object} application 에 대한 configuration 을 지정한다.
-     * <b>icon</b>              : 아이콘을 지정한다. <br/>
-     * <b>iconsize</b>          : 아이콘 사이즈를 지정한다. 144×144 (iPad retina), 114×114 (iPhone retina), 72×72 (iPad), 57×57 (iPhone, Android) <br/>
-     * <b>splash</b>            : 스플래시 이미지를 지정한다. <br/>
-     * <b>viewport</b>          : viewport 를 사용할지를 지정한다. <br/>
-     * <b>statusbar</b>         : statusbar 색상을 지정한다. <br/>
-     * <b>ready</b>             : application 생성이 준비되면 호출되는 함수를 지정한다. <br/>
-     * <b>initialScale</b>      : initialScale 을 지정한다. <br/>
-     * <b>maximumScale</b>      : maximumScale 을 지정한다. <br/>
-     * <b>minimumScale</b>      : minimumScale 을 지정한다. <br/>
-     * <b>userScalable</b>      : userScalable 을 지정한다. <br/>
-     * <b>targetDensityDpi</b>  : 안드로이드에서 사용되는 targetDensityDpi 을 지정한다. <br/>
+     * @property {String} config.id 어플리케이션의 ID를 지정한다. 해당 아이디는 최상위 View의 ID 이다. Defautl: Application
+     * @property {String} config.icon 아이콘을 지정한다. Defautl: null
+     * @property {String} config.iconsize 아이콘 사이즈를 지정한다. 144×144 (iPad retina), 114×114 (iPhone retina), 72×72 (iPad), 57×57 (iPhone, Android). Defautl: null
+     * @property {String} config.splash 스플래시 이미지를 지정한다. Defautl: null
+     * @property {Boolean} config.viewport viewport 를 사용할지를 지정한다. Defautl: true
+     * @property {String} config.statusbar statusbar 색상을 지정한다. <br/>
+     * @property {Function} config.readyapplication 생성이 준비되면 호출되는 함수를 지정한다.
+     * @property {String} config.initialScale initialScale 을 지정한다. Default: 1
+     * @property {Number} config.maximumScale maximumScale 을 지정한다. Default: 1
+     * @property {Number} config.minimumScale minimumScale 을 지정한다. Default: 1
+     * @property {Number} config.userScalable userScalable 을 지정한다. Default: 'no'
+     * @property {String} config.targetDensityDpi 안드로이드에서 사용되는 targetDensityDpi 을 지정한다. Default: 'device-dpi'
      */
 	X.App = function(config){
 		var default_config = {
-			name: 'Application',
+		    id: 'Application',
 			icon: null,
 			iconsize: null,
 			splash: null,
@@ -76,11 +76,6 @@
 		
 		if(config.icon){
 			SetLink('apple-touch-icon', config.icon, config.iconsize);
-		}
-		
-		
-		if(config.id){
-			config.id = config.id + config.name;
 		}
 
 		X.getDoc().ready(function(){

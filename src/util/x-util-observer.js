@@ -1,8 +1,7 @@
 /**
  * @class 
  * @classdesc X.util.Observer 클래스는 custom 이벤트를 발생시켜주며 대부분의 클래스의 최상위 클래스로 존재한다.
- * @constructor
- * @param {Object} listener 등록할 커스텀 이벤트
+ * @property {Object} config.listener 등록할 커스텀 이벤트
  * @example
  * var observer = new X.util.Observer({
  *      success: function(){ },
@@ -18,7 +17,7 @@ X.util.Observer = X.extend(X.emptyFn, {
 	},
 	/**
      * @desc custom 이벤트를 등록한다.
-     * @memberof X.util.Observer
+     * @memberof X.util.Observer.prototype
      * @method addEvent
      * @alias Observer#on
      * @param {args} ... 
@@ -65,7 +64,7 @@ X.util.Observer = X.extend(X.emptyFn, {
 	},
 	/**
      * @desc custom 이벤트를 발생시킨다.
-     * @memberof X.util.Observer
+     * @memberof X.util.Observer.prototype
      * @method fireEvent
      * @alias Observer#fire
      * @param {Object} 이벤트 핸들러의 scope
@@ -101,7 +100,7 @@ X.util.Observer = X.extend(X.emptyFn, {
 	},
 	/**
      * @desc custom 이벤트를 삭제한다
-     * @memberof X.util.Observer
+     * @memberof X.util.Observer.prototype
      * @method removeEvent
      * @alias Observer#off
      * @param {String} type
@@ -113,7 +112,7 @@ X.util.Observer = X.extend(X.emptyFn, {
 	},
 	/**
      * @desc 등록한 custom 이벤트를 모두 삭제한다
-     * @memberof X.util.Observer
+     * @memberof X.util.Observer.prototype
      * @method clear
      */
 	clear: function(){
