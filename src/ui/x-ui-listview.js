@@ -3,16 +3,16 @@
  * @classdesc 리스트 형태의 UI를 생성한다.
  * @property {Boolean} activeRow Row 을 선택할 수 있도록 할 것인지를 지정한다.
  * @example
- * var html = "<ul>";
+ * var html = "&#60ul&#62";
  * for (var i = 0; i<100; i++) {
  *      html = html + "&#60li&#62Acura&#60/li&#62"
- * 	};
- * 	html = html + "</ul>"
- * 	appView.add([
+ * };
+ * html = html + "&#60/ul&#62"
+ * appView.add([
  * 		new X.ui.ListView({
  * 			content: html
  * 		})
- * 	]);
+ * ]);
  * <pre><code>
  * &#60div data-role="listview"&#62
  * 		&#60ul&#62
