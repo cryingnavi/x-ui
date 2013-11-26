@@ -9,7 +9,7 @@
  * version: 1.0.1
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2013-11-25 09:11 
+ * Date: 2013-11-26 10:11 
  */
 /**
  * X namespace
@@ -1978,6 +1978,10 @@ X.util.DragNDropManager = X.util.ddm = {
 		X.util.ddm.draggable = null;
 	}
 };
+/**
+ * @namespace
+ * @desc X.ui Namespace
+ */
 X.ui = { };
 X.View = X.extend(X.util.Observer, {
 	initialize: function(config){
@@ -2636,7 +2640,7 @@ X.util.cm.addCString('view', X.View);
  *          &#60!-- Someting Html --&#62
  *      &#60/div&#62
  * &#60/div&#62
- * &#60/code></pre>
+ * &#60</code></pre>
  */
 X.ui.Accordion = X.extend(X.View, {
 	initialize: function(config){
@@ -3248,6 +3252,48 @@ X.ui.Carousel = X.extend(X.View, {
 });
 
 X.util.cm.addCString('carousel', X.ui.Carousel);
+/**
+ * @class 
+ * @classdesc 리스트 형태의 UI를 생성한다.
+ * @property {Boolean} activeRow Row 을 선택할 수 있도록 할 것인지를 지정한다.
+ * @example
+ * var html = "<ul>";
+ * for (var i = 0; i<100; i++) {
+ *      html = html + "<li>Acura</li>"
+ * 	};
+ * 	html = html + "</ul>"
+ * 	appView.add([
+ * 		new X.ui.ListView({
+ * 			content: html
+ * 		})
+ * 	]);
+ * <pre><code>
+ * &#60div data-role="listview"&#62
+ * 		&#60ul&#62
+ * 			&#60li&#62Acura&#60/li&#62
+ * 			&#60li&#62Audi&#60/li&#62
+ * 			&#60li&#62BMW&#60/li&#62
+ * 			&#60li&#62Cadillac&#60/li&#62
+ * 			&#60li&#62Ferrari&#60/li&#62
+ * 			&#60li&#62Acura&#60/li&#62
+ * 			&#60li&#62Audi&#60/li&#62
+ * 			&#60li&#62BMW&#60/li&#62
+ * 			&#60li&#62Cadillac&#60/li&#62
+ * 			&#60li&#62Ferrari&#60/li&#62
+ * 			&#60li&#62Acura&#60/li&#62
+ * 			&#60li&#62Audi&#60/li&#62
+ * 			&#60li&#62BMW&#60/li&#62
+ * 			&#60li&#62Cadillac&#60/li&#62
+ * 			&#60li&#62Ferrari&#60/li&#62
+ * 			&#60li&#62Acura&#60/li&#62
+ * 			&#60li&#62Audi&#60/li&#62
+ * 			&#60li&#62BMW&#60/li&#62
+ * 			&#60li&#62Cadillac&#60/li&#62
+ * 			&#60li&#62Ferrari&#60/li&#62
+ * 		&#60/ul&#62
+ * &#60/div&#60
+ *  </code></pre>
+ */
 X.ui.ListView = X.extend(X.View, {
 	initialize: function(config){
 		this.config = {
@@ -3269,6 +3315,7 @@ X.ui.ListView = X.extend(X.View, {
 		this.ul.on('vclick', 'li', {me: this}, this.rowClick);
 		this.scrollEvent();
 	},
+	//구현되지 않음
 	scrollEvent: function(){
 		var me = this;
 		this.scroll.options.onScrollStart = function(){
@@ -3296,6 +3343,14 @@ X.ui.ListView = X.extend(X.View, {
 		
 		me.fireEvent(me, 'rowclick', [me, this]);
 	},
+	/**
+     * @method 
+     * @desc 리스트뷰의 마지막에 새로운 Row을 추가한다.
+     * @memberof X.ui.ListView.prototype
+     * @param {String | jQuery} 추가할 row을 문자열 또는 jquery객체로 넘긴다.
+     * @example
+     * listview.append('<li>Acura1</li>');
+     */
 	append: function(rows){
 		var type = X.type(rows);
 		if(type === 'string'){
@@ -3308,6 +3363,14 @@ X.ui.ListView = X.extend(X.View, {
 		this.ul.append(rows);
 		this.scrollRefresh();
 	},
+	/**
+     * @method 
+     * @desc 리스트뷰의 제일 윗쪽에 새로운 Row을 추가한다.
+     * @memberof X.ui.ListView.prototype
+     * @param {String | jQuery} 추가할 row을 문자열 또는 jquery객체로 넘긴다.
+     * @example
+     * listview.prepend('<li>Acura1</li>');
+     */
 	prepend: function(rows){
 		var type = X.type(rows);
 		if(type === 'string'){
@@ -3320,11 +3383,16 @@ X.ui.ListView = X.extend(X.View, {
 		this.ul.prepend(rows);
 		this.scrollRefresh();
 	},
+	/**
+     * @method 
+     * @desc 리스트뷰의 특정 Row을 새로운 Row로 교체한다.
+     * @memberof X.ui.ListView.prototype
+     * @param {Number} index 교체 대상이 되는 Row 의 인덱스.
+     * @param {String | jQuery} row을 문자열 또는 jquery객체로 넘긴다.
+     * @example
+     * listview.replaceWith('<li>Acura1</li>', 10);
+     */
 	replaceWith: function(index, row){
-		if(X.type(index) !== 'number'){
-			throw new Error('arguments must be number ');
-		}
-
 		var type = X.type(row);
 		if(type === 'string'){
 			row = $(row).addClass('ui-listview-item');
@@ -3335,6 +3403,14 @@ X.ui.ListView = X.extend(X.View, {
 	
 		this.ul.children('li:eq(' + index + ')').replaceWith(row);
 	},
+	/**
+     * @method 
+     * @desc 특정 Row을 삭제한다.
+     * @memberof X.ui.ListView.prototype
+     * @param {Number} index 삭제할 Row의 인덱스
+     * @example
+     * listview.remove(10);
+     */
 	remove: function(index){
 		if(X.type(index) !== 'number'){
 			throw new Error('arguments must be number ');
@@ -3342,6 +3418,13 @@ X.ui.ListView = X.extend(X.View, {
 		this.ul.children('li:eq(' + index + ')').remove();
 		this.scrollRefresh();
 	},
+	/**
+     * @method 
+     * @desc 전체 Row을 삭제한다.
+     * @memberof X.ui.ListView.prototype
+     * @example
+     * listview.removeAll();
+     */
 	removeAll: function(){
 	    this.ul.children('li').remove();
 	    this.scrollRefresh();
@@ -3622,10 +3705,56 @@ X.ui.Toolbar = X.extend(X.util.Observer, {
 });
 
 X.util.cm.addCString('toolbar', X.ui.Toolbar);
+/**
+ * @class 
+ * @classdesc Form 컴포넌트를 묶어 하나의 View를 생성한다.
+ * @property {Object} minSize 각 west, east, south, nouth 의 최소 사이즈를 지정한다.
+ * @property {Object} maxSize 각 west, east, south, nouth 의 최고 사이즈를 지정한다.
+ * @property {Object} size 각 west, east, south, nouth 의 초기 사이즈를 지정한다.
+ * @property {Object} regions 각 west, east, south, nouth 에 해당하는 view를 지정한다.
+ * 
+ * @example
+ * new X.ui.LayoutView({
+ * 		autoSize: true,
+ * 		maxSize: { west: 700, east: 700, south: 100, nouth: 100 },
+ *      minSize: { west: 200, east: 200, south: 50, nouth: 50 }, 
+ *      size: { west: 300, east: 300, south: 150, nouth: 150 }, 
+ * 		regions : {
+ * 		    south: new X.View(),
+ * 			nouth: new X.View(),
+ * 			west: new X.View(),
+ * 			center: new X.View(),
+ * 			east: new X.View()
+ * 		},
+ * 		listener: {
+ * 			resize: function(){
+ * 				
+ * 			}
+ * 		}
+ * 	});
+ * 
+ *  &#60div data-role="layoutview" data-max-size='{"west": 800, "east": 800}'&#62
+ *      &#60div data-role="view" data-regions="nouth" style="background-color:green;" data-height="100"&#62
+ *          nouth
+ *      &#60/div&#62
+ *      &#60div data-role="view" data-regions="south" style="background-color:green;" data-height="100"&#62
+ *          south
+ *      &#60/div&#62
+ *      &#60div data-role="view" data-regions="west" style="background-color:red;"&#62
+ *          west
+ *      &#60/div&#62
+ *      &#60div data-role="view" data-regions="east" style="background-color:yellow;"&#62
+ *          east
+ *      &#60/div&#62
+ *      &#60div data-role="view" data-regions="center" style="background-color:blue;"&#62
+ *          center
+ *      &#60/div&#62
+ *  &#60/div&#62
+ * 
+ */
 X.ui.LayoutView = X.extend(X.View, {
 	initialize: function(config){
 		this.config = {
-			resize: true,
 			minSize: {
 				west: 100,
 				east: 100,
@@ -3647,6 +3776,7 @@ X.ui.LayoutView = X.extend(X.View, {
 			regions: null,
 			scroll: false
 		};
+		this.config.scrol = false;
 		X.apply(true, this.config, config);
 		
 		this.resizeing = false;
@@ -3701,6 +3831,13 @@ X.ui.LayoutView = X.extend(X.View, {
 	    me.resizeSplitter();
 	    me.fire(me, 'orientationchange', [me]);
 	},
+	/**
+     * @method 
+     * @desc 생성된 LayoutView를 파괴한다.
+     * @memberof X.ui.LayoutView.prototype
+     * @example
+     * layout.destroy();
+     */
 	destroy: function(){
 		X.ui.LayoutView.base.destroy.call(this);
 		X.ui.LayoutView.Manager.remove(this);
@@ -3765,18 +3902,18 @@ X.ui.LayoutView = X.extend(X.View, {
 		this.el.append(div);
 
 		new X.util.Draggable({
-		    el: div,
-		    direction: direction,
-		    scope: this,
-		    listener: {
-		        start: this.onStart,
-		        move: this.onMove,
-		        end: this.onEnd
-		    },
-		    constrain: this.el
-		});
+            el: div,
+            direction: direction,
+            scope: this,
+            listener: {
+                start: this.onStart,
+                move: this.onMove,
+                end: this.onEnd
+            },
+            constrain: this.el
+        });
 
-		this[region].el.on('webkitTransitionEnd', {me: this}, this.animationEnd);
+        this[region].el.on('webkitTransitionEnd', {me: this}, this.animationEnd);
 	},
 	animationEnd: function(e){
         var me = e.data.me;
@@ -3786,141 +3923,141 @@ X.ui.LayoutView = X.extend(X.View, {
         return false;
 	},
 	resizeSplitter: function(){
-	    var view = null,
-	        position = null,
-	        style = null,
-	        sw = this.spliters.west,
-	        se = this.spliters.east,
-	        sn = this.spliters.nouth,
-	        ss = this.spliters.south;
+        var view = null,
+            position = null,
+            style = null,
+            sw = this.spliters.west,
+            se = this.spliters.east,
+            sn = this.spliters.nouth,
+            ss = this.spliters.south;
 
-	    if(sw){
-	        view = this.west;
-	        position = view.el.position();
-	        
-	        style = sw.get(0).style;
-	        style.height = view.getHeight() + 'px';
-	        style.top = position.top + 'px';
-	        style.left = (view.getWidth() - 10) + 'px';
-	    }
+        if(sw){
+            view = this.west;
+            position = view.el.position();
 
-	    if(se){
-	        view = this.east;
-	        position = view.el.position();
+            style = sw.get(0).style;
+            style.height = view.getHeight() + 'px';
+            style.top = position.top + 'px';
+            style.left = (view.getWidth() - 10) + 'px';
+        }
+
+        if(se){
+            view = this.east;
+            position = view.el.position();
 
             style = se.get(0).style;
-	        style.height = view.getHeight() + 'px';
-	        style.top = position.top + 'px';
-	        style.left = position.left + 'px';
-	    }
-	    
-	    if(sn){
-	        view = this.nouth;
+            style.height = view.getHeight() + 'px';
+            style.top = position.top + 'px';
+            style.left = position.left + 'px';
+        }
+
+        if(sn){
+            view = this.nouth;
 
             style = sn.get(0).style;
-	        style.top = (view.getHeight() - 10) + 'px';
-	    }
-	    
-	    if(ss){
-	        view = this.south;
-	        position = view.el.position();
+            style.top = (view.getHeight() - 10) + 'px';
+        }
+
+        if(ss){
+            view = this.south;
+            position = view.el.position();
 
             style = ss.get(0).style;
-	        style.top = position.top + 'px';
-	    }
+            style.top = position.top + 'px';
+        }
 	},
 	onStart: function(drag){
-	    var currentResizeing;
-	    if(drag.el.hasClass('west')){
-	        currentResizeing = 'west';
-	    }
-	    else if(drag.el.hasClass('east')){
-	        currentResizeing = 'east';
-	    }
-	    else if(drag.el.hasClass('nouth')){
-	        currentResizeing = 'nouth';
-	    }
-	    else{
-	        currentResizeing = 'south';
-	    }
-	    this.currentResizeing = currentResizeing;
-	},
-	onMove: function(drag, region){
-	    if(this.currentResizeing === 'west'){
-	        if(region.r <= this.config.minSize.west || region.r >= this.config.maxSize.west){
-	           return false;
-	        }
-	    }
-	    else if(this.currentResizeing === 'east'){
+        var currentResizeing;
+        if(drag.el.hasClass('west')){
+            currentResizeing = 'west';
+        }
+        else if(drag.el.hasClass('east')){
+            currentResizeing = 'east';
+        }
+        else if(drag.el.hasClass('nouth')){
+            currentResizeing = 'nouth';
+        }
+        else{
+            currentResizeing = 'south';
+        }
+        this.currentResizeing = currentResizeing;
+    },
+    onMove: function(drag, region){
+        if(this.currentResizeing === 'west'){
+            if(region.r <= this.config.minSize.west || region.r >= this.config.maxSize.west){
+                return false;
+            }
+        }
+        else if(this.currentResizeing === 'east'){
             var l = this.getWidth() - region.l;
-	        if(l <= this.config.minSize.east || l >= this.config.maxSize.east){
+            if(l <= this.config.minSize.east || l >= this.config.maxSize.east){
 				return false;
 			}
-	    }
-	    else if(this.currentResizeing === 'nouth'){
-	        if(region.b <= this.config.minSize.nouth || region.b >= this.config.maxSize.nouth){
+        }
+        else if(this.currentResizeing === 'nouth'){
+            if(region.b <= this.config.minSize.nouth || region.b >= this.config.maxSize.nouth){
 				return false;
 			}
-	    }
-	    else {
-	        var t = this.getHeight() - region.t;
-	        if(t <= this.config.minSize.south || t >= this.config.maxSize.south){
+        }
+        else {
+            var t = this.getHeight() - region.t;
+            if(t <= this.config.minSize.south || t >= this.config.maxSize.south){
 				return false;
 			}
-	    }
+        }
     },
 	onEnd: function(drag, region){
-	    var size = 0;
+        var size = 0;
 
         if(this.currentResizeing === 'west'){
-	        if(region.r <= this.config.minSize.west){
-	           size = this.config.minSize.west;
-	        }
-	        else if(region.r >= this.config.maxSize.west){
-	            size = this.config.maxSize.west;
-	        }
-	        else{
-	            size = region.r;
-	        }
-	        this.west.setWidth(size);
-	    }
-	    else if(this.currentResizeing === 'east'){
-	        var l = this.getWidth() - region.l;
+            if(region.r <= this.config.minSize.west){
+                size = this.config.minSize.west;
+            }
+            else if(region.r >= this.config.maxSize.west){
+                size = this.config.maxSize.west;
+            }
+            else{
+                size = region.r;
+            }
+            this.west.setWidth(size);
+        }
+        else if(this.currentResizeing === 'east'){
+            var l = this.getWidth() - region.l;
             if(l <= this.config.minSize.east){
-	           size = this.config.minSize.east;
-	        }
-	        else if(l >= this.config.maxSize.east){
-	            size = this.config.maxSize.east;
-	        }
-	        else{
-	            size = l;
-	        }
-	        this.east.setWidth(size);
-	    }
-	    else if(this.currentResizeing === 'nouth'){
-	        if(region.b <= this.config.minSize.nouth){
-	           size = this.config.minSize.nouth;
-	        }
-	        else if(region.b >= this.config.maxSize.nouth){
-	            size = this.config.maxSize.nouth;
-	        }
-	        else{
-	            size = region.b;
-	        }
-	        this.nouth.setHeight(size);
-	    }
-	    else {
-	        var t = this.getHeight() - region.t;
+                size = this.config.minSize.east;
+            }
+            else if(l >= this.config.maxSize.east){
+                size = this.config.maxSize.east;
+            }
+            else{
+                size = l;
+            }
+            this.east.setWidth(size);
+        }
+        else if(this.currentResizeing === 'nouth'){
+            if(region.b <= this.config.minSize.nouth){
+                size = this.config.minSize.nouth;
+            }
+            else if(region.b >= this.config.maxSize.nouth){
+                size = this.config.maxSize.nouth;
+            }
+            else{
+                size = region.b;
+            }
+            this.nouth.setHeight(size);
+        }
+        else {
+            var t = this.getHeight() - region.t;
             if(t <= this.config.minSize.south){
-	           size = this.config.minSize.south;
-	        }
-	        else if(t >= this.config.maxSize.south){
-	            size = this.config.maxSize.south;
-	        }
-	        else{
-	            size = t;
-	        }
-	        this.south.setHeight(size);
+                size = this.config.minSize.south;
+            }
+            else if(t >= this.config.maxSize.south){
+                size = this.config.maxSize.south;
+            }
+            else{
+                size = t;
+            }
+            this.south.setHeight(size);
         }
 	}
 });
@@ -3943,11 +4080,19 @@ X.ui.LayoutView.Manager = {
         }
     }
 };
+/**
+ * @class 
+ * @classdesc form 요소들의 Base 클래스 이다.
+ * @property {String} config.name 넘어온 문자열을 키로 삼아 FormView에서 serialize 하게 된다. name을 넘기지 않을 경우 id 를 사용한다.
+ * @property {Boolean} config.disabled 폼요소의 비활성화 상태를 나타낸다.
+ * @property {String | Number} config.defaultValue 폼요소의 초기값을 설정한다.
+ * @property {String} config.label 폼 요소의 label을 설정한다.
+ */
 X.ui.Form = X.extend(X.util.Observer, {
 	initialize: function(config){
 		this.config = {
-			placeholder: 'please..',
-			required: false,
+		    name: null,
+			required: false,    //구현안됨
 			disabled: false,
 			defaultValue: null,
 			label: null
@@ -3998,9 +4143,34 @@ X.ui.Form = X.extend(X.util.Observer, {
 			this.disabled();
 		}
 	},
+	/**
+	 * @method
+     * @desc 폼 요소의 name 값을 반환한다. 설정하지 않았을 경우 null 을 반환한다.
+     * @memberof X.ui.Form.prototype
+     * @return name 폼요소의 name 값 또는 null
+     * @example
+     * var txt = new X.ui.TextBox({
+     *      name: 'test'
+     * });
+     * 
+     * txt.getName();
+     */
 	getName: function(){
-		return this.config.name || this.el.get(0).id;
+		return this.config.name;
 	},
+	/**
+	 * @method
+     * @desc 폼 요소의 value 값을 지정한다. 해당 method 는 하위 클래스의 종류에 따라 오버라이드 된다.
+     * @memberof X.ui.Form.prototype
+     * @param val 
+     * @example
+     * var txt = new X.ui.TextBox({
+     *      name: 'test',
+     *      defaultValue: 'first'
+     * });
+     * 
+     * txt.setValue('second');
+     */
 	setValue: function(val){
 		if (this.form.attr('disabled')) {
 			return;
@@ -4008,6 +4178,19 @@ X.ui.Form = X.extend(X.util.Observer, {
 		this.form.val(val);
 		this.fireEvent(this, 'setvalue', [this, val]);
 	},
+	/**
+	 * @method
+     * @desc 폼 요소의 value 값을 반환한다. 해당 method 는 하위 클래스의 종류에 따라 오버라이드 된다.
+     * @memberof X.ui.Form.prototype
+     * @param val 
+     * @example
+     * var txt = new X.ui.TextBox({
+     *      name: 'test',
+     *      defaultValue: 'first'
+     * });
+     * 
+     * txt.getValue();
+     */
 	getValue: function(){
 		return this.form.val();
 	},
@@ -4017,14 +4200,47 @@ X.ui.Form = X.extend(X.util.Observer, {
 		
 		this.el.append(this.formlabel);
 	},
+	/**
+	 * @method
+     * @desc 폼 요소의 화면에 show 시킨다.
+     * @memberof X.ui.Form.prototype
+     * @example
+     * var txt = new X.ui.TextBox({
+     *      name: 'test',
+     * });
+     * 
+     * txt.show();
+     */
 	show: function(){
 		this.el.show();
 		this.fireEvent(this, 'show', [this]);
 	},
+	/**
+	 * @method
+     * @desc 폼 요소의 화면에 hide 시킨다.
+     * @memberof X.ui.Form.prototype
+     * @example
+     * var txt = new X.ui.TextBox({
+     *      name: 'test',
+     * });
+     * 
+     * txt.hide();
+     */
 	hide: function(){
 		this.el.hide();
 		this.fireEvent(this, 'hide', [this]);
 	},
+	/**
+	 * @method
+     * @desc 폼 요소의 화면에 hide 시킨다.
+     * @memberof X.ui.Form.prototype
+     * @example
+     * var txt = new X.ui.TextBox({
+     *      name: 'test',
+     * });
+     * 
+     * txt.toggle();
+     */
 	toggle: function(){
 		if(this.el.css('display') !== 'none'){
 			this.hide();
@@ -4033,26 +4249,105 @@ X.ui.Form = X.extend(X.util.Observer, {
 			this.show();
 		}
 	},
+	/**
+	 * @method
+     * @desc 폼 컴포넌트의 루트 엘리먼트(jquery)를 반환한다.
+     * @memberof X.ui.Form.prototype
+     * @return {Object} el jquery 엘리먼트 반환
+     * @example
+     * var txt = new X.ui.TextBox({
+     *      name: 'test',
+     * });
+     * 
+     * txt.getEl();
+     */
 	getEl: function(){
 		return this.el;
 	},
+	/**
+	 * @method
+     * @desc 폼 컴포넌트의 아이디를 반환한다.
+     * @memberof X.ui.Form.prototype
+     * @return {String} id
+     * @example
+     * var txt = new X.ui.TextBox({
+     * });
+     * 
+     * txt.getId();
+     */
 	getId: function(){
 		return this.el.attr('id');
 	},
+	/**
+	 * @method
+     * @desc 폼 요소를 비활성화 상태로 변경한다.
+     * @memberof X.ui.Form.prototype
+     * @example
+     * var txt = new X.ui.TextBox({
+     *      
+     * });
+     * 
+     * txt.disabled();
+     */
 	disabled: function(){
 		this.el.addClass('ui-disabled');
 		this.form.attr('disabled', true);
 		this.fireEvent(this, 'disabled', [this]);
 	},
+	/**
+	 * @method
+     * @desc 폼 요소를 활성화 상태로 변경한다.
+     * @memberof X.ui.Form.prototype
+     * @example
+     * var txt = new X.ui.TextBox({
+     *      
+     * });
+     * 
+     * txt.enabled();
+     */
 	enabled: function(){
 		this.el.removeClass('ui-disabled');
 		this.form.attr('disabled', false);
 		this.fireEvent(this, 'enabled', [this]);
 	},
+	/**
+	 * @method
+     * @desc 폼 요소를 제거한다.
+     * @memberof X.ui.Form.prototype
+     * @example
+     * var txt = new X.ui.TextBox({
+     *      
+     * });
+     * 
+     * txt.destroy();
+     */
 	destroy: function(){
 		this.el.remove();
 	}
 });
+/**
+ * @class 
+ * @classdesc Form 컴포넌트를 묶어 하나의 View를 생성한다.
+ * @example
+ * var formView = new X.ui.Form({
+ *      items: [
+ *          new X.ui.TextBox(),
+ *          new X.ui.ProgressBar(),
+ *          new X.ui.Slider(),
+ *          new X.ui.Switchbox(),
+ *          new X.ui.Spinner()
+ *      ]
+ * });
+ * <pre><code>
+ * 	&#60div data-role="formview"&#62
+ * 		&#60div data-role="textbox" data-label="text" data-name="text"&#62&#60/div&#62
+ * 		&#60div data-role="progress" data-label="progress"&#62&#60/div&#62
+ * 		&#60div data-role="slider" data-label="slider"&#62&#60/div&#62
+ * 		&#60div data-role="textbox" data-label="password" data-type="password"&#62&#60/div&#62
+ * 		&#60div data-role="switchbox" data-label="switchbox" data-checked="true"&#62&#60/div&#62
+ * 	&#60/div&#62
+ * </code></pre>
+ */
 X.ui.FormView = X.extend(X.View, {
 	initialize: function(config){
 		this.config = {	};
@@ -4062,16 +4357,52 @@ X.ui.FormView = X.extend(X.View, {
 	render: function(){
 		X.ui.FormView.base.render.call(this);
 	},
+	/**
+	 * @method
+     * @desc 내부에 가지고 있는 폼 컨트롤들을 문자열 형태로 직렬화한다.
+     * @memberof X.ui.Form.prototype
+     * @return {String} 직렬화된 문자열
+     * @example
+     * var formView = new X.ui.Form({
+     *      items: [
+     *          new X.ui.TextBox(),
+     *          new X.ui.ProgressBar(),
+     *          new X.ui.Slider(),
+     *          new X.ui.Switchbox(),
+     *          new X.ui.Spinner()
+     *      ]
+     * });
+     * 
+     * formView.serialize();
+     */
 	serialize: function(){
 		return $.param(this.getJSON());
 	},
+	/**
+	 * @method
+     * @desc 내부에 가지고 있는 폼 컨트롤들을 문자열 형태로 직렬화한다.
+     * @memberof X.ui.Form.prototype
+     * @return {Object} 직렬화된 json 객체
+     * @example
+     * var formView = new X.ui.Form({
+     *      items: [
+     *           new X.ui.TextBox(),
+     *          new X.ui.ProgressBar(),
+     *          new X.ui.Slider(),
+     *          new X.ui.Switchbox(),
+     *          new X.ui.Spinner()
+     *      ]
+     * });
+     * 
+     * formView.getJSON();
+     */
 	getJSON: function(){
 		var params = { },
 			items = this.config.items,
 			len = items.length;
 		
 		for(var i=0; i<len; i++){
-			params[items[i].getName()] = items[i].getValue();
+			params[items[i].getName() || items[i].getId()] = items[i].getValue();
 		}
 
 		return params;
@@ -4080,6 +4411,7 @@ X.ui.FormView = X.extend(X.View, {
 X.ui.TextBox = X.extend(X.ui.Form, {
 	initialize: function(config){
 		this.config = {
+		    placeholder: 'please..',
 			type: 'text'
 		};
 		X.apply(this.config, config);
@@ -4126,6 +4458,7 @@ X.util.cm.addCString('textbox', X.ui.TextBox);
 X.ui.Slider = X.extend(X.ui.Form, {
 	initialize: function(config){
 		this.config = {
+		    placeholder: 'please..',
 			min: 0,
 			max: 100,
 			step: 1,

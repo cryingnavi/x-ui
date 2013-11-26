@@ -1,6 +1,7 @@
 X.ui.Slider = X.extend(X.ui.Form, {
 	initialize: function(config){
 		this.config = {
+		    placeholder: 'please..',
 			min: 0,
 			max: 100,
 			step: 1,

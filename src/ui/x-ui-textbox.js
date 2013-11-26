@@ -1,6 +1,7 @@
 X.ui.TextBox = X.extend(X.ui.Form, {
 	initialize: function(config){
 		this.config = {
+		    placeholder: 'please..',
 			type: 'text'
 		};
 		X.apply(this.config, config);

@@ -22,7 +22,7 @@
  *          &#60!-- Someting Html --&#62
  *      &#60/div&#62
  * &#60/div&#62
- * &#60/code></pre>
+ * &#60</code></pre>
  */
 X.ui.Accordion = X.extend(X.View, {
 	initialize: function(config){
