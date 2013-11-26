@@ -5,7 +5,7 @@
  * @example
  * var html = "<ul>";
  * for (var i = 0; i<100; i++) {
- *      html = html + "<li>Acura</li>"
+ *      html = html + "&#60li&#62Acura&#60/li&#62"
  * 	};
  * 	html = html + "</ul>"
  * 	appView.add([

@@ -9,7 +9,7 @@
  * version: 1.0.1
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2013-11-26 10:11 
+ * Date: 2013-11-26 11:11 
  */
 /**
  * X namespace
@@ -3259,7 +3259,7 @@ X.util.cm.addCString('carousel', X.ui.Carousel);
  * @example
  * var html = "<ul>";
  * for (var i = 0; i<100; i++) {
- *      html = html + "<li>Acura</li>"
+ *      html = html + "&#60li&#62Acura&#60/li&#62"
  * 	};
  * 	html = html + "</ul>"
  * 	appView.add([
