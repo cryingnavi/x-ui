@@ -12,13 +12,13 @@
  *      ]
  * });
  * <pre><code>
- * 	&#60div data-role="formview"&#62
- * 		&#60div data-role="textbox" data-label="text" data-name="text"&#62&#60/div&#62
- * 		&#60div data-role="progress" data-label="progress"&#62&#60/div&#62
- * 		&#60div data-role="slider" data-label="slider"&#62&#60/div&#62
- * 		&#60div data-role="textbox" data-label="password" data-type="password"&#62&#60/div&#62
- * 		&#60div data-role="switchbox" data-label="switchbox" data-checked="true"&#62&#60/div&#62
- * 	&#60/div&#62
+ * 	&lt;div data-role="formview"&gt;
+ * 		&lt;div data-role="textbox" data-label="text" data-name="text"&gt;&lt;/div&gt;
+ * 		&lt;div data-role="progress" data-label="progress"&gt;&lt;/div&gt;
+ * 		&lt;div data-role="slider" data-label="slider"&gt;&lt;/div&gt;
+ * 		&lt;div data-role="textbox" data-label="password" data-type="password"&gt;&lt;/div&gt;
+ * 		&lt;div data-role="switchbox" data-label="switchbox" data-checked="true"&gt;&lt;/div&gt;
+ * 	&lt;/div&gt;
  * </code></pre>
  */
 X.ui.FormView = X.extend(X.View, {

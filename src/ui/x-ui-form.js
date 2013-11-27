@@ -5,6 +5,7 @@
  * @property {Boolean} config.disabled 폼요소의 비활성화 상태를 나타낸다.
  * @property {String | Number} config.defaultValue 폼요소의 초기값을 설정한다.
  * @property {String} config.label 폼 요소의 label을 설정한다.
+ * @property {Object | String} style 엘리먼트에 적용할 인라인 스타일을 지정한다.
  */
 X.ui.Form = X.extend(X.util.Observer, {
 	initialize: function(config){
@@ -13,7 +14,8 @@ X.ui.Form = X.extend(X.util.Observer, {
 			required: false,    //구현안됨
 			disabled: false,
 			defaultValue: null,
-			label: null
+			label: null,
+			style: { }
 		};
 		X.apply(this.config, config);
 			

@@ -14,6 +14,7 @@ X = {
 
     /**
      * @static
+     * @method
      * @memberof X
      * @desc jquery 의 extend 와 같다.
      */
@@ -21,12 +22,14 @@ X = {
 	X.apply(X, {
 	    /**
          * @static
+         * @method
          * @memberof X
          * @desc jquery 의 noop 와 같다.
          */
 		emptyFn: $.noop,
 		/**
          * @static
+         * @method
          * @memberof X
          * @desc 문자열을 결합하여 반환한다
          * @param {string} str 원본 문자열
@@ -45,6 +48,7 @@ X = {
 		},
 		/**
          * @static
+         * @method
          * @memberof X
          * @desc 클래스를 상속한다
          * @param {Class} sp 슈퍼클래스
@@ -81,6 +85,7 @@ X = {
 		},
 		/**
          * @static
+         * @method
          * @memberof X
          * @desc 객체의 타입을 문자열로 반환한다.
          * @param {object} o 타입을 검사할 객체
@@ -103,6 +108,7 @@ X = {
 		},
 		/**
 		 * @static
+		 * @method
 		 * @memberof X
          * @desc 디바이스의 방향을 문자열로 반환한다.
          * @returns {string} orientation 디바이스의 방향
@@ -126,6 +132,7 @@ X = {
 		},
 		/**
 		 * @static
+		 * @method
 		 * @memberof X
          * @desc document.body 객체를 반환한다.
          * @param {Boolean} flag true를 전달할시 document.body 를 아니면 jquery(body);
@@ -149,6 +156,7 @@ X = {
 		},
 		/**
 		 * @static
+		 * @method
 		 * @memberof X
          * @desc window 객체를 반환한다.
          * @param {Boolean} flag true를 전달할시 window 를 아니면 jquery(window);
@@ -159,6 +167,7 @@ X = {
 		},
 		/**
 		 * @static
+		 * @method
 		 * @memberof X
          * @desc window 의 현재 사이즈를 반환한다.
          * @returns {Object} width, height 를 프로퍼티로 갖는 객체를 반환한다.

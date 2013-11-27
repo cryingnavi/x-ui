@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Class: Form</title>
+	<title>Documentation Class: Slider</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -127,17 +127,17 @@
 					
 
 
-	<h1 class="page-title">Class: Form</h1>
+	<h1 class="page-title">Class: Slider</h1>
 <section>
 
 <header>
     <h2>
         <span class="ancestors"><a href="X.html">X</a><a href="X.ui.html">.ui</a>.</span>
     
-    Form
+    Slider
     </h2>
     
-        <div class="class-description">form 요소들의 Base 클래스 이다.</div>
+        <div class="class-description">슬라이더바를 생성한다.</div>
     
 </header>
 
@@ -148,7 +148,7 @@
     
         
 <dt>
-    <h4 class="name" id="Form"><span class="type-signature"></span>new Form<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Slider"><span class="type-signature"></span>new Slider<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -192,7 +192,99 @@
 
         <tr>
             
-                <td class="name"><code>config.name</code></td>
+                <td class="name"><code>min</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">슬라이더의 최소값을 지정한다. Default: 0</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>max</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">슬라이더의 최고값을 지정한다. Default: 100</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>한번에</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">이동할 슬라이더의 step을 지정한다. Default: 1</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>defaultValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">슬라이더의 기본값을 지정한다. Default: 50</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>direction</code></td>
             
 
             <td class="type">
@@ -208,14 +300,14 @@
 
             
 
-            <td class="description last">넘어온 문자열을 키로 삼아 FormView에서 serialize 하게 된다. name을 넘기지 않을 경우 id 를 사용한다.</td>
+            <td class="description last">'x' 나 'y'. 슬라이더의 방향을 지정한다. Default: 'x'</td>
         </tr>
 
 	
 
         <tr>
             
-                <td class="name"><code>config.disabled</code></td>
+                <td class="name"><code>subhandle</code></td>
             
 
             <td class="type">
@@ -231,82 +323,7 @@
 
             
 
-            <td class="description last">폼요소의 비활성화 상태를 나타낸다.</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>config.defaultValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-|
-
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">폼요소의 초기값을 설정한다.</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>config.label</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">폼 요소의 label을 설정한다.</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>style</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-|
-
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">엘리먼트에 적용할 인라인 스타일을 지정한다.</td>
+            <td class="description last">두개의 핸들을 생성할지 여부를 지정한다. Default: false</td>
         </tr>
 
 	
@@ -357,6 +374,23 @@
     
     
     
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var slider = new X.ui.Slider({
+     min: 0,
+		max: 100,
+		step: 1,
+		defaultValue: 50,
+		direction: 'x',
+		subhandle: false
+});
+slider.render();
+<pre><code>
+&lt;div data-role="slider" style="width: 300px;margin:30px;" data-default-value="25"&gt;&lt;/div&gt;
+</code></pre></pre>
+
+
     
 </dd>
 
@@ -381,85 +415,6 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="destroy"><span class="type-signature"></span>destroy<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        폼 요소를 제거한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
-     
-});
-
-txt.destroy();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
     <h4 class="name" id="disabled"><span class="type-signature"></span>disabled<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
@@ -468,7 +423,7 @@ txt.destroy();</pre>
     
     
     <div class="description">
-        폼 요소를 비활성화 상태로 변경한다.
+        슬라이더를 disabled 상태로 변환한다.
     </div>
     
 
@@ -526,11 +481,7 @@ txt.destroy();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
-     
-});
-
-txt.disabled();</pre>
+    <pre class="sunlight-highlight-javascript">slider.disabled();</pre>
 
 
     
@@ -547,7 +498,7 @@ txt.disabled();</pre>
     
     
     <div class="description">
-        폼 요소를 활성화 상태로 변경한다.
+        슬라이더를 enabled 상태로 변환한다.
     </div>
     
 
@@ -605,11 +556,7 @@ txt.disabled();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
-     
-});
-
-txt.enabled();</pre>
+    <pre class="sunlight-highlight-javascript">slider.enabled();</pre>
 
 
     
@@ -618,7 +565,7 @@ txt.enabled();</pre>
         
             
 <dt>
-    <h4 class="name" id="getEl"><span class="type-signature"></span>getEl<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="getMax"><span class="type-signature"></span>getMax<span class="signature">(val)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -626,408 +573,7 @@ txt.enabled();</pre>
     
     
     <div class="description">
-        폼 컴포넌트의 루트 엘리먼트(jquery)를 반환한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    el jquery 엘리먼트 반환
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
-     name: 'test',
-});
-
-txt.getEl();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getId"><span class="type-signature"></span>getId<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        폼 컴포넌트의 아이디를 반환한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    id
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">String</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
-});
-
-txt.getId();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getJSON"><span class="type-signature"></span>getJSON<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        내부에 가지고 있는 폼 컨트롤들을 문자열 형태로 직렬화한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    직렬화된 json 객체
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">var formView = new X.ui.Form({
-     items: [
-          new X.ui.TextBox(),
-         new X.ui.ProgressBar(),
-         new X.ui.Slider(),
-         new X.ui.Switchbox(),
-         new X.ui.Spinner()
-     ]
-});
-
-formView.getJSON();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getName"><span class="type-signature"></span>getName<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        폼 요소의 name 값을 반환한다. 설정하지 않았을 경우 null 을 반환한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    name 폼요소의 name 값 또는 null
-</div>
-
-
-
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
-     name: 'test'
-});
-
-txt.getName();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue<span class="signature">(val)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        폼 요소의 value 값을 반환한다. 해당 method 는 하위 클래스의 종류에 따라 오버라이드 된다.
+        슬라이더의 최고값을 반환한다.
     </div>
     
 
@@ -1065,6 +611,11 @@ txt.getName();</pre>
             
 
             <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
             
             </td>
 
@@ -1129,12 +680,7 @@ txt.getName();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
-     name: 'test',
-     defaultValue: 'first'
-});
-
-txt.getValue();</pre>
+    <pre class="sunlight-highlight-javascript">slider.getMax();</pre>
 
 
     
@@ -1143,7 +689,7 @@ txt.getValue();</pre>
         
             
 <dt>
-    <h4 class="name" id="hide"><span class="type-signature"></span>hide<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getMax"><span class="type-signature"></span>getMax<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
     
     
 </dt>
@@ -1151,86 +697,7 @@ txt.getValue();</pre>
     
     
     <div class="description">
-        폼 요소의 화면에 hide 시킨다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
-     name: 'test',
-});
-
-txt.hide();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="serialize"><span class="type-signature"></span>serialize<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        내부에 가지고 있는 폼 컨트롤들을 문자열 형태로 직렬화한다.
+        프로그래스 바의 최고값을 반환한다.
     </div>
     
 
@@ -1288,7 +755,7 @@ txt.hide();</pre>
     
             
 <div class="param-desc">
-    직렬화된 문자열
+    max
 </div>
 
 
@@ -1299,7 +766,7 @@ txt.hide();</pre>
 	</dt>
 	<dd>
 		
-<span class="param-type">String</span>
+<span class="param-type">Number</span>
 
 
 	</dd>
@@ -1311,17 +778,1022 @@ txt.hide();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var formView = new X.ui.Form({
-     items: [
-         new X.ui.TextBox(),
-         new X.ui.ProgressBar(),
-         new X.ui.Slider(),
-         new X.ui.Switchbox(),
-         new X.ui.Spinner()
-     ]
-});
+    <pre class="sunlight-highlight-javascript">slider.getMax();</pre>
 
-formView.serialize();</pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getMin"><span class="type-signature"></span>getMin<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        프로그래스 바의 최소값을 반환한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    min
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Number</span>
+
+
+	</dd>
+</dl>
+
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">slider.getMin();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getMin"><span class="type-signature"></span>getMin<span class="signature">(val)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        슬라이더의 최소값을 반환한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>val</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">slider.getMin();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        슬라이더에 value를 반환한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    val
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Number</span>
+
+
+	</dd>
+</dl>
+
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">slider.getValue();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        슬라이더를 화면에 렌더한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">slider.render();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setMax"><span class="type-signature"></span>setMax<span class="signature">(val)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        슬라이더의 최고값을 변경한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>val</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">slider.setMax(100);</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setMax"><span class="type-signature"></span>setMax<span class="signature">(max)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        프로그래스 바의 최고값을 변경한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>max</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">slider.setMax(100);</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setMin"><span class="type-signature"></span>setMin<span class="signature">(val)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        슬라이더의 최소값을 변경한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>val</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">slider.setMin(0);</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setMin"><span class="type-signature"></span>setMin<span class="signature">(min)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        프로그래스 바의 최소값을 변경한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>min</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">slider.setMin(0);</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setStep"><span class="type-signature"></span>setStep<span class="signature">(val)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        슬라이더의 step 값을 변경한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>val</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">slider.setStep(5);</pre>
 
 
     
@@ -1338,7 +1810,7 @@ formView.serialize();</pre>
     
     
     <div class="description">
-        폼 요소의 value 값을 지정한다. 해당 method 는 하위 클래스의 종류에 따라 오버라이드 된다.
+        슬라이더의 value를 업데이트한다.
     </div>
     
 
@@ -1376,6 +1848,11 @@ formView.serialize();</pre>
             
 
             <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
             
             </td>
 
@@ -1440,12 +1917,7 @@ formView.serialize();</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
-     name: 'test',
-     defaultValue: 'first'
-});
-
-txt.setValue('second');</pre>
+    <pre class="sunlight-highlight-javascript">slider.setValue(50);</pre>
 
 
     
@@ -1454,7 +1926,7 @@ txt.setValue('second');</pre>
         
             
 <dt>
-    <h4 class="name" id="show"><span class="type-signature"></span>show<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue<span class="signature">(val)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1462,7 +1934,7 @@ txt.setValue('second');</pre>
     
     
     <div class="description">
-        폼 요소의 화면에 show 시킨다.
+        슬라이더에 새로운 value를 업데이트한다.
     </div>
     
 
@@ -1470,6 +1942,55 @@ txt.setValue('second');</pre>
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>val</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
     
     
     
@@ -1520,90 +2041,7 @@ txt.setValue('second');</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
-     name: 'test',
-});
-
-txt.show();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="toggle"><span class="type-signature"></span>toggle<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        폼 요소의 화면에 hide 시킨다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
-     name: 'test',
-});
-
-txt.toggle();</pre>
+    <pre class="sunlight-highlight-javascript">slider.setValue(50);</pre>
 
 
     
@@ -1630,7 +2068,7 @@ txt.toggle();</pre>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a>
-		on Wed Nov 27 2013 10:27:29 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		on Wed Nov 27 2013 10:27:30 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

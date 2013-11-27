@@ -7,7 +7,7 @@
  * @property {Object} regions 각 west, east, south, nouth 에 해당하는 view를 지정한다.
  * 
  * @example
- * new X.ui.LayoutView({
+ * var layoutview = new X.ui.LayoutView({
  * 		autoSize: true,
  * 		maxSize: { west: 700, east: 700, south: 100, nouth: 100 },
  *      minSize: { west: 200, east: 200, south: 50, nouth: 50 }, 
@@ -23,26 +23,27 @@
  * 			resize: function(){
  * 				
  * 			}
- * 		}
- * 	});
+ *      }
+ * });
+ * layoutview.render();
  * 
- *  &#60div data-role="layoutview" data-max-size='{"west": 800, "east": 800}'&#62
- *      &#60div data-role="view" data-regions="nouth" style="background-color:green;" data-height="100"&#62
+ *  &lt;div data-role="layoutview" data-max-size='{"west": 800, "east": 800}'&gt;
+ *      &lt;div data-role="view" data-regions="nouth" style="background-color:green;" data-height="100"&gt;
  *          nouth
- *      &#60/div&#62
- *      &#60div data-role="view" data-regions="south" style="background-color:green;" data-height="100"&#62
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-regions="south" style="background-color:green;" data-height="100"&gt;
  *          south
- *      &#60/div&#62
- *      &#60div data-role="view" data-regions="west" style="background-color:red;"&#62
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-regions="west" style="background-color:red;"&gt;
  *          west
- *      &#60/div&#62
- *      &#60div data-role="view" data-regions="east" style="background-color:yellow;"&#62
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-regions="east" style="background-color:yellow;"&gt;
  *          east
- *      &#60/div&#62
- *      &#60div data-role="view" data-regions="center" style="background-color:blue;"&#62
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-regions="center" style="background-color:blue;"&gt;
  *          center
- *      &#60/div&#62
- *  &#60/div&#62
+ *      &lt;/div&gt;
+ *  &lt;/div&gt;
  * 
  */
 X.ui.LayoutView = X.extend(X.View, {
@@ -80,6 +81,13 @@ X.ui.LayoutView = X.extend(X.View, {
 		X.ui.LayoutView.base.initialize.call(this, this.config);
 		X.ui.LayoutView.Manager.add(this);
 	},
+	/**
+     * @method 
+     * @desc layoutview 를 화면에 렌더한다.
+     * @memberof X.ui.LayoutView.prototype
+     * @example
+     * layoutview.render();
+     */
 	render: function(){
 		X.ui.LayoutView.base.render.call(this);
 		this.el.addClass('ui-layout');

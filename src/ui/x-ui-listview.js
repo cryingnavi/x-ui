@@ -3,41 +3,40 @@
  * @classdesc 리스트 형태의 UI를 생성한다.
  * @property {Boolean} activeRow Row 을 선택할 수 있도록 할 것인지를 지정한다.
  * @example
- * var html = "&#60ul&#62";
+ * var html = "&lt;ul&gt;";
  * for (var i = 0; i<100; i++) {
- *      html = html + "&#60li&#62Acura&#60/li&#62"
+ *      html = html + "&lt;li&gt;Acura&lt;/li&gt;"
  * };
- * html = html + "&#60/ul&#62"
- * appView.add([
- * 		new X.ui.ListView({
- * 			content: html
- * 		})
- * ]);
+ * html = html + "&lt;/ul&gt;"
+ * var listview = new X.ui.ListView({
+ * 		content: html
+ * });
+ * listview.render();
  * <pre><code>
- * &#60div data-role="listview"&#62
- * 		&#60ul&#62
- * 			&#60li&#62Acura&#60/li&#62
- * 			&#60li&#62Audi&#60/li&#62
- * 			&#60li&#62BMW&#60/li&#62
- * 			&#60li&#62Cadillac&#60/li&#62
- * 			&#60li&#62Ferrari&#60/li&#62
- * 			&#60li&#62Acura&#60/li&#62
- * 			&#60li&#62Audi&#60/li&#62
- * 			&#60li&#62BMW&#60/li&#62
- * 			&#60li&#62Cadillac&#60/li&#62
- * 			&#60li&#62Ferrari&#60/li&#62
- * 			&#60li&#62Acura&#60/li&#62
- * 			&#60li&#62Audi&#60/li&#62
- * 			&#60li&#62BMW&#60/li&#62
- * 			&#60li&#62Cadillac&#60/li&#62
- * 			&#60li&#62Ferrari&#60/li&#62
- * 			&#60li&#62Acura&#60/li&#62
- * 			&#60li&#62Audi&#60/li&#62
- * 			&#60li&#62BMW&#60/li&#62
- * 			&#60li&#62Cadillac&#60/li&#62
- * 			&#60li&#62Ferrari&#60/li&#62
- * 		&#60/ul&#62
- * &#60/div&#60
+ * &lt;div data-role="listview"&gt;
+ * 		&lt;ul&gt;
+ * 			&lt;li&gt;Acura&lt;/li&gt;
+ * 			&lt;li&gt;Audi&lt;/li&gt;
+ * 			&lt;li&gt;BMW&lt;/li&gt;
+ * 			&lt;li&gt;Cadillac&lt;/li&gt;
+ * 			&lt;li&gt;Ferrari&lt;/li&gt;
+ * 			&lt;li&gt;Acura&lt;/li&gt;
+ * 			&lt;li&gt;Audi&lt;/li&gt;
+ * 			&lt;li&gt;BMW&lt;/li&gt;
+ * 			&lt;li&gt;Cadillac&lt;/li&gt;
+ * 			&lt;li&gt;Ferrari&lt;/li&gt;
+ * 			&lt;li&gt;Acura&lt;/li&gt;
+ * 			&lt;li&gt;Audi&lt;/li&gt;
+ * 			&lt;li&gt;BMW&lt;/li&gt;
+ * 			&lt;li&gt;Cadillac&lt;/li&gt;
+ * 			&lt;li&gt;Ferrari&lt;/li&gt;
+ * 			&lt;li&gt;Acura&lt;/li&gt;
+ * 			&lt;li&gt;Audi&lt;/li&gt;
+ * 			&lt;li&gt;BMW&lt;/li&gt;
+ * 			&lt;li&gt;Cadillac&lt;/li&gt;
+ * 			&lt;li&gt;Ferrari&lt;/li&gt;
+ * 		&lt;/ul&gt;
+ * &lt;/div&lt;
  *  </code></pre>
  */
 X.ui.ListView = X.extend(X.View, {
@@ -51,6 +50,13 @@ X.ui.ListView = X.extend(X.View, {
 		X.apply(this.config, config);
 		X.ui.ListView.base.initialize.call(this, this.config);
 	},
+	/**
+     * @method 
+     * @desc 리스트뷰를 화면에 render한다.
+     * @memberof X.ui.ListView.prototype
+     * @example
+     * listview.render();
+     */
 	render: function(){
 		X.ui.ListView.base.render.call(this);
 		this.el.addClass('ui-listview');

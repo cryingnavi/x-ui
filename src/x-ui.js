@@ -9,7 +9,7 @@
  * version: 1.0.1
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2013-11-26 11:11 
+ * Date: 2013-11-27 10:11 
  */
 /**
  * X namespace
@@ -27,6 +27,7 @@ X = {
 
     /**
      * @static
+     * @method
      * @memberof X
      * @desc jquery 의 extend 와 같다.
      */
@@ -34,12 +35,14 @@ X = {
 	X.apply(X, {
 	    /**
          * @static
+         * @method
          * @memberof X
          * @desc jquery 의 noop 와 같다.
          */
 		emptyFn: $.noop,
 		/**
          * @static
+         * @method
          * @memberof X
          * @desc 문자열을 결합하여 반환한다
          * @param {string} str 원본 문자열
@@ -58,6 +61,7 @@ X = {
 		},
 		/**
          * @static
+         * @method
          * @memberof X
          * @desc 클래스를 상속한다
          * @param {Class} sp 슈퍼클래스
@@ -94,6 +98,7 @@ X = {
 		},
 		/**
          * @static
+         * @method
          * @memberof X
          * @desc 객체의 타입을 문자열로 반환한다.
          * @param {object} o 타입을 검사할 객체
@@ -116,6 +121,7 @@ X = {
 		},
 		/**
 		 * @static
+		 * @method
 		 * @memberof X
          * @desc 디바이스의 방향을 문자열로 반환한다.
          * @returns {string} orientation 디바이스의 방향
@@ -139,6 +145,7 @@ X = {
 		},
 		/**
 		 * @static
+		 * @method
 		 * @memberof X
          * @desc document.body 객체를 반환한다.
          * @param {Boolean} flag true를 전달할시 document.body 를 아니면 jquery(body);
@@ -162,6 +169,7 @@ X = {
 		},
 		/**
 		 * @static
+		 * @method
 		 * @memberof X
          * @desc window 객체를 반환한다.
          * @param {Boolean} flag true를 전달할시 window 를 아니면 jquery(window);
@@ -172,6 +180,7 @@ X = {
 		},
 		/**
 		 * @static
+		 * @method
 		 * @memberof X
          * @desc window 의 현재 사이즈를 반환한다.
          * @returns {Object} width, height 를 프로퍼티로 갖는 객체를 반환한다.
@@ -2623,24 +2632,25 @@ X.util.cm.addCString('view', X.View);
  * @property {Array} config.items 각 탭의 view를 설정한다.
  * @property {Number} config.activeIndex 초기 open될 탭을 설정한다. Default : 0
  * @example
- * var acc = new X.ui.Accordion({
+ * var accordion = new X.ui.Accordion({
  *      titles: ["Tab 1", "Tab 2", "Tab 3"],
  *      activeIndex: 0,
  *      items: [new X.View(), new X.View(), new X.View()]
  * });
+ * accordion.render();
  * <pre><code>
- * &#60div data-role="accordion" data-active-index="0"&#62
- *      &#60div data-role="view" data-title="Tabs 1"&#62
- *          &#60!-- Someting Html --&#62
- *      &#60/div>
- *      &#60div data-role="view" data-title="Tabs 2"&#62
- *          &#60!-- Someting Html --&#62
- *      &#60/div>
- *      &#60div data-role="view" data-title="Tabs 3"&#62
- *          &#60!-- Someting Html --&#62
- *      &#60/div&#62
- * &#60/div&#62
- * &#60</code></pre>
+ * &lt;div data-role="accordion" data-active-index="0"&gt;
+ *      &lt;div data-role="view" data-title="Tabs 1"&gt;
+ *          &lt;!-- Someting Html --&gt;
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-title="Tabs 2"&gt;
+ *          &lt;!-- Someting Html --&gt;
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-title="Tabs 3"&gt;
+ *          &lt;!-- Someting Html --&gt;
+ *      &lt;/div&gt;
+ * &lt;/div&gt;
+ * &lt;</code></pre>
  */
 X.ui.Accordion = X.extend(X.View, {
 	initialize: function(config){
@@ -2653,6 +2663,13 @@ X.ui.Accordion = X.extend(X.View, {
 		X.apply(this.config, config);
 		X.ui.Accordion.base.initialize.call(this, this.config);
 	},
+	/**
+     * @method 
+     * @desc Accordion 을 화면에 렌더한다.
+     * @memberof X.ui.Accordion.prototype
+     * @example
+     * accordion.render();
+     */
 	render: function(){
 		X.ui.Accordion.base.render.call(this);
 		this.el.addClass('ui-accordion');
@@ -2709,13 +2726,7 @@ X.ui.Accordion = X.extend(X.View, {
      * @memberof X.ui.Accordion.prototype
      * @param {Number} index - 이동할 인덱스에 해당하는 탭
      * @example
-     * var acc = new X.ui.Accordion({
-     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
-     *      activeIndex: 0,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * acc.change(1);
+     * accordion.change(1);
      */
 	change: function(index){
 		if(this.config.activeIndex === index){
@@ -2750,13 +2761,7 @@ X.ui.Accordion = X.extend(X.View, {
      * @param {String} title 새로 생성될 탭의 title 을 지정한다.
      * @return {Array} array 추가된 타이틀과 component를 배열로 반환한다.
      * @example
-     * var acc = new X.ui.Accordion({
-     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
-     *      activeIndex: 0,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * acc.append(new X.View(), "New Tab");
+     * accordion.append(new X.View(), "New Tab");
      */
 	append: function(comp, title){
 		var div = X.util.em.get()
@@ -2782,13 +2787,7 @@ X.ui.Accordion = X.extend(X.View, {
      * @param {String} title - 새로 생성될 탭의 title 을 지정한다.
      * @return {Array} array 추가된 타이틀과 component를 배열로 반환한다.
      * @example
-     * var acc = new X.ui.Accordion({
-     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
-     *      activeIndex: 0,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * acc.prepend(new X.View(), "New Tab");
+     * accordion.prepend(new X.View(), "New Tab");
      */
 	prepend: function(comp, title){
 		var div = X.util.em.get()
@@ -2812,13 +2811,7 @@ X.ui.Accordion = X.extend(X.View, {
      * @memberof X.ui.Accordion.prototype
      * @param {Number} index - 삭제할 인덱스를 넘긴다.
      * @example
-     * var acc = new X.ui.Accordion({
-     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
-     *      activeIndex: 0,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * acc.remove(1);
+     * accordion.remove(1);
      */
 	remove: function(index){
 		this.body.children('.ui-accordion-views').eq(index).remove();
@@ -2836,13 +2829,7 @@ X.ui.Accordion = X.extend(X.View, {
      * @desc 탭을 모두 삭제 한다.
      * @memberof X.ui.Accordion.prototype
      * @example
-     * var acc = new X.ui.Accordion({
-     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
-     *      activeIndex: 0,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * acc.removeAll();
+     * accordion.removeAll();
      */
 	removeAll: function(){
 		this.body.empty();
@@ -2855,13 +2842,7 @@ X.ui.Accordion = X.extend(X.View, {
      * @param {String} title - 새로 변경할 타이틀.
      * @param {Number} index - 변경할 탭.
      * @example
-     * var acc = new X.ui.Accordion({
-     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
-     *      activeIndex: 0,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * acc.changeTitle(0, "New Title");
+     * accordion.changeTitle(0, "New Title");
      */
 	changeTitle: function(title, index){
 		index = index || 0;
@@ -2882,13 +2863,7 @@ X.ui.Accordion = X.extend(X.View, {
      * @param {Number} index - 반환할 탭 인덱스.
      * @return {Component} 
      * @example
-     * var acc = new X.ui.Accordion({
-     *      titles: ["Tab 1", "Tab 2", "Tab 3"],
-     *      activeIndex: 0,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * acc.getItem(0);
+     * accordion.getItem(0);
      */
 	getItem: function(index){
 		return this.config.items[index];
@@ -2904,25 +2879,26 @@ X.util.cm.addCString('accordion', X.ui.Accordion);
  * @property {Number} config.duration 애니메이션 이동 속도를 지정한다. Defautl: 200.
  * @property {Array} config.items 각 탭의 view를 설정한다.
  * @example
- * var acc = new X.ui.Carousel({
+ * var carousel = new X.ui.Carousel({
  *      direction: "x",
  *      activeIndex: 0,
  *      duration: 200,
  *      items: [new X.View(), new X.View(), new X.View()]
  * });
+ * carousel.render();
  * 
  * <pre><code>
- * &#60div data-role="carousel"&#62
- *		&#60div data-role="view" style="background-color: #8E8E93;" data-scroll="false"&#62
- *			&#60!-- Someting Html --&#62
- *		&#60/div&#62
- *		&#60div data-role="view" style="background-color: #34AADC;" data-scroll="false"&#62
- *			&#60!-- Someting Html --&#62
- *		&#60/div&#62
- *		&#60div data-role="view" style="background-color: #007AFF;" data-scroll="false"&#62
- *			&#60!-- Someting Html --&#62
- *		&#60/div&#62
- * &#60/div&#62
+ * &lt;div data-role="carousel"&gt;
+ *		&lt;div data-role="view" style="background-color: #8E8E93;" data-scroll="false"&gt;
+ *			&lt;!-- Someting Html --&gt;
+ *		&lt;/div&gt;
+ *		&lt;div data-role="view" style="background-color: #34AADC;" data-scroll="false"&gt;
+ *			&lt;!-- Someting Html --&gt;
+ *		&lt;/div&gt;
+ *		&lt;div data-role="view" style="background-color: #007AFF;" data-scroll="false"&gt;
+ *			&lt;!-- Someting Html --&gt;
+ *		&lt;/div&gt;
+ * &lt;/div&gt;
  * </code></pre>
  */
 X.ui.Carousel = X.extend(X.View, {
@@ -2940,6 +2916,13 @@ X.ui.Carousel = X.extend(X.View, {
 		this.dragging = false;
 		this.activeIndex = this.config.activeIndex;
 	},
+	/**
+     * @method 
+     * @desc Carousel 을 화면에 렌더한다.
+     * @memberof X.ui.Carousel.prototype
+     * @example
+     * carousel.render();
+     */
 	render: function(){
 		X.ui.Carousel.base.render.call(this);
 		this.el.addClass('ui-carousel');
@@ -3148,14 +3131,7 @@ X.ui.Carousel = X.extend(X.View, {
      * @param {Component} component 
      * @return {Component} component 
      * @example
-     * var car = new X.ui.Carousel({
-     *      direction: "x",
-     *      activeIndex: 0,
-     *      duration: 200,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * car.append(new X.View());
+     * carousel.append(new X.View());
      */
 	append: function(comp){
 		var comps = X.util.cm.create(this.carouselBody, [comp]);
@@ -3170,14 +3146,7 @@ X.ui.Carousel = X.extend(X.View, {
      * @memberof X.ui.Carousel.prototype
      * @param {Component} component 
      * @example
-     * var car = new X.ui.Carousel({
-     *      direction: "x",
-     *      activeIndex: 0,
-     *      duration: 200,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * car.remove(0);
+     * carousel.remove(0);
      */
 	remove: function(index){
 		this.config.items[index].destroy();
@@ -3192,14 +3161,7 @@ X.ui.Carousel = X.extend(X.View, {
      * @desc 바로 다음 요소로 이동시킨다.
      * @memberof X.ui.Carousel.prototype
      * @example
-     * var car = new X.ui.Carousel({
-     *      direction: "x",
-     *      activeIndex: 0,
-     *      duration: 200,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * car.next();
+     * carousel.next();
      */
 	next: function(){
 		var index = this.activeIndex + 1,
@@ -3223,14 +3185,7 @@ X.ui.Carousel = X.extend(X.View, {
      * @desc 바로 이전 요소로 이동시킨다.
      * @memberof X.ui.Carousel.prototype
      * @example
-     * var car = new X.ui.Carousel({
-     *      direction: "x",
-     *      activeIndex: 1,
-     *      duration: 200,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * car.prev();
+     * carousel.prev();
      */
 	prev: function(){
 		var index = this.activeIndex - 1,
@@ -3257,41 +3212,40 @@ X.util.cm.addCString('carousel', X.ui.Carousel);
  * @classdesc 리스트 형태의 UI를 생성한다.
  * @property {Boolean} activeRow Row 을 선택할 수 있도록 할 것인지를 지정한다.
  * @example
- * var html = "&#60ul&#62";
+ * var html = "&lt;ul&gt;";
  * for (var i = 0; i<100; i++) {
- *      html = html + "&#60li&#62Acura&#60/li&#62"
+ *      html = html + "&lt;li&gt;Acura&lt;/li&gt;"
  * };
- * html = html + "&#60/ul&#62"
- * appView.add([
- * 		new X.ui.ListView({
- * 			content: html
- * 		})
- * ]);
+ * html = html + "&lt;/ul&gt;"
+ * var listview = new X.ui.ListView({
+ * 		content: html
+ * });
+ * listview.render();
  * <pre><code>
- * &#60div data-role="listview"&#62
- * 		&#60ul&#62
- * 			&#60li&#62Acura&#60/li&#62
- * 			&#60li&#62Audi&#60/li&#62
- * 			&#60li&#62BMW&#60/li&#62
- * 			&#60li&#62Cadillac&#60/li&#62
- * 			&#60li&#62Ferrari&#60/li&#62
- * 			&#60li&#62Acura&#60/li&#62
- * 			&#60li&#62Audi&#60/li&#62
- * 			&#60li&#62BMW&#60/li&#62
- * 			&#60li&#62Cadillac&#60/li&#62
- * 			&#60li&#62Ferrari&#60/li&#62
- * 			&#60li&#62Acura&#60/li&#62
- * 			&#60li&#62Audi&#60/li&#62
- * 			&#60li&#62BMW&#60/li&#62
- * 			&#60li&#62Cadillac&#60/li&#62
- * 			&#60li&#62Ferrari&#60/li&#62
- * 			&#60li&#62Acura&#60/li&#62
- * 			&#60li&#62Audi&#60/li&#62
- * 			&#60li&#62BMW&#60/li&#62
- * 			&#60li&#62Cadillac&#60/li&#62
- * 			&#60li&#62Ferrari&#60/li&#62
- * 		&#60/ul&#62
- * &#60/div&#60
+ * &lt;div data-role="listview"&gt;
+ * 		&lt;ul&gt;
+ * 			&lt;li&gt;Acura&lt;/li&gt;
+ * 			&lt;li&gt;Audi&lt;/li&gt;
+ * 			&lt;li&gt;BMW&lt;/li&gt;
+ * 			&lt;li&gt;Cadillac&lt;/li&gt;
+ * 			&lt;li&gt;Ferrari&lt;/li&gt;
+ * 			&lt;li&gt;Acura&lt;/li&gt;
+ * 			&lt;li&gt;Audi&lt;/li&gt;
+ * 			&lt;li&gt;BMW&lt;/li&gt;
+ * 			&lt;li&gt;Cadillac&lt;/li&gt;
+ * 			&lt;li&gt;Ferrari&lt;/li&gt;
+ * 			&lt;li&gt;Acura&lt;/li&gt;
+ * 			&lt;li&gt;Audi&lt;/li&gt;
+ * 			&lt;li&gt;BMW&lt;/li&gt;
+ * 			&lt;li&gt;Cadillac&lt;/li&gt;
+ * 			&lt;li&gt;Ferrari&lt;/li&gt;
+ * 			&lt;li&gt;Acura&lt;/li&gt;
+ * 			&lt;li&gt;Audi&lt;/li&gt;
+ * 			&lt;li&gt;BMW&lt;/li&gt;
+ * 			&lt;li&gt;Cadillac&lt;/li&gt;
+ * 			&lt;li&gt;Ferrari&lt;/li&gt;
+ * 		&lt;/ul&gt;
+ * &lt;/div&lt;
  *  </code></pre>
  */
 X.ui.ListView = X.extend(X.View, {
@@ -3305,6 +3259,13 @@ X.ui.ListView = X.extend(X.View, {
 		X.apply(this.config, config);
 		X.ui.ListView.base.initialize.call(this, this.config);
 	},
+	/**
+     * @method 
+     * @desc 리스트뷰를 화면에 render한다.
+     * @memberof X.ui.ListView.prototype
+     * @example
+     * listview.render();
+     */
 	render: function(){
 		X.ui.ListView.base.render.call(this);
 		this.el.addClass('ui-listview');
@@ -3714,7 +3675,7 @@ X.util.cm.addCString('toolbar', X.ui.Toolbar);
  * @property {Object} regions 각 west, east, south, nouth 에 해당하는 view를 지정한다.
  * 
  * @example
- * new X.ui.LayoutView({
+ * var layoutview = new X.ui.LayoutView({
  * 		autoSize: true,
  * 		maxSize: { west: 700, east: 700, south: 100, nouth: 100 },
  *      minSize: { west: 200, east: 200, south: 50, nouth: 50 }, 
@@ -3730,26 +3691,27 @@ X.util.cm.addCString('toolbar', X.ui.Toolbar);
  * 			resize: function(){
  * 				
  * 			}
- * 		}
- * 	});
+ *      }
+ * });
+ * layoutview.render();
  * 
- *  &#60div data-role="layoutview" data-max-size='{"west": 800, "east": 800}'&#62
- *      &#60div data-role="view" data-regions="nouth" style="background-color:green;" data-height="100"&#62
+ *  &lt;div data-role="layoutview" data-max-size='{"west": 800, "east": 800}'&gt;
+ *      &lt;div data-role="view" data-regions="nouth" style="background-color:green;" data-height="100"&gt;
  *          nouth
- *      &#60/div&#62
- *      &#60div data-role="view" data-regions="south" style="background-color:green;" data-height="100"&#62
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-regions="south" style="background-color:green;" data-height="100"&gt;
  *          south
- *      &#60/div&#62
- *      &#60div data-role="view" data-regions="west" style="background-color:red;"&#62
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-regions="west" style="background-color:red;"&gt;
  *          west
- *      &#60/div&#62
- *      &#60div data-role="view" data-regions="east" style="background-color:yellow;"&#62
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-regions="east" style="background-color:yellow;"&gt;
  *          east
- *      &#60/div&#62
- *      &#60div data-role="view" data-regions="center" style="background-color:blue;"&#62
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-regions="center" style="background-color:blue;"&gt;
  *          center
- *      &#60/div&#62
- *  &#60/div&#62
+ *      &lt;/div&gt;
+ *  &lt;/div&gt;
  * 
  */
 X.ui.LayoutView = X.extend(X.View, {
@@ -3787,6 +3749,13 @@ X.ui.LayoutView = X.extend(X.View, {
 		X.ui.LayoutView.base.initialize.call(this, this.config);
 		X.ui.LayoutView.Manager.add(this);
 	},
+	/**
+     * @method 
+     * @desc layoutview 를 화면에 렌더한다.
+     * @memberof X.ui.LayoutView.prototype
+     * @example
+     * layoutview.render();
+     */
 	render: function(){
 		X.ui.LayoutView.base.render.call(this);
 		this.el.addClass('ui-layout');
@@ -4087,6 +4056,7 @@ X.ui.LayoutView.Manager = {
  * @property {Boolean} config.disabled 폼요소의 비활성화 상태를 나타낸다.
  * @property {String | Number} config.defaultValue 폼요소의 초기값을 설정한다.
  * @property {String} config.label 폼 요소의 label을 설정한다.
+ * @property {Object | String} style 엘리먼트에 적용할 인라인 스타일을 지정한다.
  */
 X.ui.Form = X.extend(X.util.Observer, {
 	initialize: function(config){
@@ -4095,7 +4065,8 @@ X.ui.Form = X.extend(X.util.Observer, {
 			required: false,    //구현안됨
 			disabled: false,
 			defaultValue: null,
-			label: null
+			label: null,
+			style: { }
 		};
 		X.apply(this.config, config);
 			
@@ -4339,13 +4310,13 @@ X.ui.Form = X.extend(X.util.Observer, {
  *      ]
  * });
  * <pre><code>
- * 	&#60div data-role="formview"&#62
- * 		&#60div data-role="textbox" data-label="text" data-name="text"&#62&#60/div&#62
- * 		&#60div data-role="progress" data-label="progress"&#62&#60/div&#62
- * 		&#60div data-role="slider" data-label="slider"&#62&#60/div&#62
- * 		&#60div data-role="textbox" data-label="password" data-type="password"&#62&#60/div&#62
- * 		&#60div data-role="switchbox" data-label="switchbox" data-checked="true"&#62&#60/div&#62
- * 	&#60/div&#62
+ * 	&lt;div data-role="formview"&gt;
+ * 		&lt;div data-role="textbox" data-label="text" data-name="text"&gt;&lt;/div&gt;
+ * 		&lt;div data-role="progress" data-label="progress"&gt;&lt;/div&gt;
+ * 		&lt;div data-role="slider" data-label="slider"&gt;&lt;/div&gt;
+ * 		&lt;div data-role="textbox" data-label="password" data-type="password"&gt;&lt;/div&gt;
+ * 		&lt;div data-role="switchbox" data-label="switchbox" data-checked="true"&gt;&lt;/div&gt;
+ * 	&lt;/div&gt;
  * </code></pre>
  */
 X.ui.FormView = X.extend(X.View, {
@@ -4455,21 +4426,49 @@ X.ui.TextBox = X.extend(X.ui.Form, {
 });
 
 X.util.cm.addCString('textbox', X.ui.TextBox);
+/**
+ * @class 
+ * @classdesc 슬라이더바를 생성한다.
+ * @property {Number} min 슬라이더의 최소값을 지정한다. Default: 0
+ * @property {Number} max 슬라이더의 최고값을 지정한다. Default: 100
+ * @property {Number} 한번에 이동할 슬라이더의 step을 지정한다. Default: 1
+ * @property {Number} defaultValue 슬라이더의 기본값을 지정한다. Default: 50
+ * @property {String} direction 'x' 나 'y'. 슬라이더의 방향을 지정한다. Default: 'x'
+ * @property {Boolean} subhandle 두개의 핸들을 생성할지 여부를 지정한다. Default: false
+ * @example
+ * var slider = new X.ui.Slider({
+ *      min: 0,
+ *		max: 100,
+ *		step: 1,
+ *		defaultValue: 50,
+ *		direction: 'x',
+ *		subhandle: false
+ * });
+ * slider.render();
+ * <pre><code>
+ * &lt;div data-role="slider" style="width: 300px;margin:30px;" data-default-value="25"&gt;&lt;/div&gt;
+ * </code></pre>
+ */
 X.ui.Slider = X.extend(X.ui.Form, {
 	initialize: function(config){
 		this.config = {
-		    placeholder: 'please..',
 			min: 0,
 			max: 100,
 			step: 1,
 			defaultValue: 50,
 			direction: 'x',
-			style: { },
 			subhandle: false
 		};
 		X.apply(this.config, config);
 		X.ui.Slider.base.initialize.call(this, this.config);
 	},
+	/**
+     * @method 
+     * @desc 슬라이더를 화면에 렌더한다.
+     * @memberof X.ui.Slider.prototype
+     * @example
+     * slider.render();
+     */
 	render: function(){
 		X.ui.Slider.base.render.call(this);
 		
@@ -4547,7 +4546,6 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			type: 'range',
 			'class': 'ui-slider-input',
 			required: this.config.required,
-			placeholder: this.config.placeholder,
 			min: this.config.min,
 			max: this.config.max,
 			step: this.config.step,
@@ -4577,6 +4575,14 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			this.formcontin.append(this.subhandle);
 		}
 	},
+	/**
+     * @method 
+     * @desc 슬라이더에 새로운 value를 업데이트한다.
+     * @memberof X.ui.Slider.prototype
+     * @param {Number} val
+     * @example
+     * slider.setValue(50);
+     */
 	setValue: function(val){
 		var percent,
 			min = this.getMin(),
@@ -4591,7 +4597,7 @@ X.ui.Slider = X.extend(X.ui.Form, {
 					l = this.formcontin.offset().left,
 					x = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.originalEvent.pageX;
 		
-    			if ( !this.dragging || x < l - tol || x > l + w + tol ) {
+                if ( !this.dragging || x < l - tol || x > l + w + tol ) {
 					return;
 				}
 
@@ -4693,9 +4699,8 @@ X.ui.Slider = X.extend(X.ui.Form, {
 	},
 	percentValue: function(val){
 		var min = this.getMin(),
-			max = this.getMax();
-
-		percent = (parseFloat(val) - min) / (max - min) * 100;
+			max = this.getMax(),
+            percent = (parseFloat(val) - min) / (max - min) * 100;
 		
 		if(isNaN(percent)){
 			return 0;
@@ -4709,7 +4714,14 @@ X.ui.Slider = X.extend(X.ui.Form, {
 
 		return percent;
 	},
-	//override
+	/**
+     * @method 
+     * @desc 슬라이더에 value를 반환한다.
+     * @memberof X.ui.Slider.prototype
+     * @return {Number} val
+     * @example
+     * slider.getValue();
+     */
 	getValue: function(){
 		if(this.subhandle){
 			return [this.handle.data('data'), this.subhandle.data('data')];
@@ -4718,6 +4730,13 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			return this.handle.data('data');
 		}
 	},
+	/**
+     * @method 
+     * @desc 슬라이더를 disabled 상태로 변환한다.
+     * @memberof X.ui.Slider.prototype
+     * @example
+     * slider.disabled();
+     */
 	disabled: function(){
 		this.el.addClass('ui-disabled');
 		this.handle.addClass('ui-disabled');
@@ -4727,6 +4746,13 @@ X.ui.Slider = X.extend(X.ui.Form, {
 		this.form.attr('disabled', true);
 		this.fireEvent(this, 'disabled', [this]);
 	},
+	/**
+     * @method 
+     * @desc 슬라이더를 enabled 상태로 변환한다.
+     * @memberof X.ui.Slider.prototype
+     * @example
+     * slider.enabled();
+     */
 	enabled: function(){
 		this.el.removeClass('ui-disabled');
 		this.handle.removeClass('ui-disabled');
@@ -4736,21 +4762,71 @@ X.ui.Slider = X.extend(X.ui.Form, {
 		this.form.attr('disabled', false);
 		this.fireEvent(this, 'enabled', [this]);
 	},
+	/**
+     * @method 
+     * @desc 프로그래스 바의 최소값을 변경한다.
+     * @memberof X.ui.Slider.prototype
+     * @param {Number} min
+     * @example
+     * slider.setMin(0);
+     */
 	setMin: function(min){
 		this.config.min = min;
 	},
+	/**
+     * @method 
+     * @desc 프로그래스 바의 최고값을 변경한다.
+     * @memberof X.ui.Slider.prototype
+     * @param {Number} max
+     * @example
+     * slider.setMax(100);
+     */
 	setMax: function(max){
 		this.config.max = max;
 	},
+	/**
+     * @method 
+     * @desc 프로그래스 바의 최소값을 반환한다.
+     * @memberof X.ui.Slider.prototype
+     * @return {Number} min
+     * @example
+     * slider.getMin();
+     */
 	getMin: function(){
 		return this.config.min;
 	},
+	/**
+     * @method 
+     * @desc 프로그래스 바의 최고값을 반환한다.
+     * @memberof X.ui.Slider.prototype
+     * @return {Number} max
+     * @example
+     * slider.getMax();
+     */
 	getMax: function(){
 		return this.config.max;
 	}
 });
 
 X.util.cm.addCString('slider', X.ui.Slider);
+/**
+ * @class 
+ * @classdesc spinner 를 생성한다.
+ * @property {Number} min 최소값을 지정한다. Default: 0
+ * @property {Number} max 최고값을 지정한다. Default: 100
+ * @property {Number} step step을 지정한다. Default: 1
+ * @property {Number} defaultValue 기본값을 지정한다. Default: 0
+ * @example
+ * var spinner = new X.ui.Spinner({
+ *      min: 0,
+ *		max: 100,
+ *		step: 1,
+ *		defaultValue: 0
+ * });
+ * spinner.render();
+ * 
+ * &lt;div data-role="spinner"&gt;&lt;/div&gt;
+ */
 X.ui.Spinner = X.extend(X.ui.Form, {
 	initialize: function(config){
 		this.config = {
@@ -4762,6 +4838,13 @@ X.ui.Spinner = X.extend(X.ui.Form, {
 		X.apply(this.config, config);
 		X.ui.Spinner.base.initialize.call(this, this.config);
 	},
+	/**
+     * @method 
+     * @desc spinner를 화면에 렌더한다.
+     * @memberof X.ui.Spinner.prototype
+     * @example
+     * spinner.render();
+     */
 	render: function(){
 		X.ui.Spinner.base.render.call(this);
 		this.el.addClass('ui-spinner').width(this.config.width);
@@ -4870,6 +4953,14 @@ X.ui.Spinner = X.extend(X.ui.Form, {
 		me.timer(e, 'minus');
 		return false;
 	},
+	/**
+     * @method 
+     * @desc 슬라이더의 value를 업데이트한다.
+     * @memberof X.ui.Slider.prototype
+     * @param {Number} val
+     * @example
+     * slider.setValue(50);
+     */
 	setValue: function(val){
 		if (this.el.hasClass('ui-disabled')) {
 			return;
@@ -4889,39 +4980,83 @@ X.ui.Spinner = X.extend(X.ui.Form, {
 		
 		this.fireEvent(this, 'change', [this,  val]);
 	},
+	/**
+     * @method 
+     * @desc 슬라이더의 최고값을 변경한다.
+     * @memberof X.ui.Slider.prototype
+     * @param {Number} val
+     * @example
+     * slider.setMax(100);
+     */
 	setMax: function(max){
-		if(X.type(max) !== 'number'){
-			return;
-		}
-		
 		this.config.max = max;
 		this.form.attr('max', max);
 	},
+	/**
+     * @method 
+     * @desc 슬라이더의 최소값을 변경한다.
+     * @memberof X.ui.Slider.prototype
+     * @param {Number} val
+     * @example
+     * slider.setMin(0);
+     */
 	setMin: function(min){
-		if(X.type(min) !== 'number'){
-			return;
-		}
-		
 		this.config.min = min;
 		this.form.attr('min', min);
 	},
+	/**
+     * @method 
+     * @desc 슬라이더의 최고값을 반환한다.
+     * @memberof X.ui.Slider.prototype
+     * @param {Number} val
+     * @example
+     * slider.getMax();
+     */
 	getMax: function(){
 		return this.config.max;
 	},
+	/**
+     * @method 
+     * @desc 슬라이더의 최소값을 반환한다.
+     * @memberof X.ui.Slider.prototype
+     * @param {Number} val
+     * @example
+     * slider.getMin();
+     */
 	getMin: function(){
 		return this.config.min;
 	},
+	/**
+     * @method 
+     * @desc 슬라이더의 step 값을 변경한다.
+     * @memberof X.ui.Slider.prototype
+     * @param {Number} val
+     * @example
+     * slider.setStep(5);
+     */
 	setStep: function(step){
-		if(X.type(step) !== 'number'){
-			return;
-		}
-		
 		this.config.step = step;
 		this.form.attr('step', step);
 	}
 });
 
 X.util.cm.addCString('spinner', X.ui.Spinner);
+/**
+ * @class 
+ * @classdesc 프로그레스 바를 생성한다.
+ * @property {Number} max 최고값을 지정한다.
+ * @property {Number} defaultValue 기본값을 지정한다.
+ * @example
+ * var progress = new X.ui.Progressbar({
+ *      max: 100,
+ *		defaultValue: 0
+ * });
+ * progress.render();
+ * 
+ * <pre><code>
+ *      &lt;div data-role="progress" data-max="100" data-default-value="0"&gt;&lt;/div&gt;
+ * </code></pre>
+ */
 X.ui.Progressbar = X.extend(X.ui.Form, {
 	initialize: function(config){
 		this.config = {
@@ -4931,6 +5066,13 @@ X.ui.Progressbar = X.extend(X.ui.Form, {
 		X.apply(this.config, config);
 		X.ui.Progressbar.base.initialize.call(this, this.config);
 	},
+	/**
+     * @method 
+     * @desc 프로그래스 바를 화면에 렌더한다.
+     * @memberof X.ui.Progressbar.prototype
+     * @example
+     * progress.render();
+     */
 	render: function(){
 		X.ui.Progressbar.base.render.call(this);
 		
@@ -4955,6 +5097,14 @@ X.ui.Progressbar = X.extend(X.ui.Form, {
 		this.formcontin.append(this.gauge, this.bar);
 		this.formcontin.append(this.form);
 	},
+	/**
+     * @method 
+     * @desc 프로그래스 바의 value를 업데이트한다.
+     * @memberof X.ui.Progressbar.prototype
+     * @param {Number} val
+     * @example
+     * progress.setValue(50);
+     */
 	setValue: function(val){
 		if (this.el.hasClass('ui-disabled')) {
 			return;
@@ -4983,19 +5133,27 @@ X.ui.Progressbar = X.extend(X.ui.Form, {
 		this.gauge.width(percent);
 		this.fireEvent(this, 'update', [this, val]);
 	},
+	/**
+     * @method 
+     * @desc 프로그래스 바의 최고값을 변경한다.
+     * @memberof X.ui.Progressbar.prototype
+     * @param {Number} max
+     * @example
+     * progress.setMax(100);
+     */
 	setMax: function(max){
 		this.config.max = max;
 	},
+	/**
+     * @method 
+     * @desc 프로그래스 바의 최고값을 반환한다.
+     * @memberof X.ui.Progressbar.prototype
+     * @return {Number} max
+     * @example
+     * progress.getMax();
+     */
 	getMax: function(max){
 		return this.config.max;
-	},
-	disabled: function(){
-		this.el.addClass('ui-disabled');
-		this.fireEvent(this, 'disabled', [this]);
-	},
-	enabled: function(){
-		this.el.removeClass('ui-disabled');
-		this.fireEvent(this, 'enabled', [this]);
 	}
 });
 

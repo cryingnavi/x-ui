@@ -75,6 +75,18 @@
 						</li>
 						
 						<li>
+							<a href="X.ui.Progressbar.html">Progressbar</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.Slider.html">Slider</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.Spinner.html">Spinner</a>
+						</li>
+						
+						<li>
 							<a href="X.util.Draggable.html">Draggable</a>
 						</li>
 						
@@ -296,24 +308,25 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var acc = new X.ui.Accordion({
+    <pre class="sunlight-highlight-javascript">var accordion = new X.ui.Accordion({
      titles: ["Tab 1", "Tab 2", "Tab 3"],
      activeIndex: 0,
      items: [new X.View(), new X.View(), new X.View()]
 });
+accordion.render();
 <pre><code>
-&#60div data-role="accordion" data-active-index="0"&#62
-     &#60div data-role="view" data-title="Tabs 1"&#62
-         &#60!-- Someting Html --&#62
-     &#60/div>
-     &#60div data-role="view" data-title="Tabs 2"&#62
-         &#60!-- Someting Html --&#62
-     &#60/div>
-     &#60div data-role="view" data-title="Tabs 3"&#62
-         &#60!-- Someting Html --&#62
-     &#60/div&#62
-&#60/div&#62
-&#60</code></pre></pre>
+&lt;div data-role="accordion" data-active-index="0"&gt;
+     &lt;div data-role="view" data-title="Tabs 1"&gt;
+         &lt;!-- Someting Html --&gt;
+     &lt;/div&gt;
+     &lt;div data-role="view" data-title="Tabs 2"&gt;
+         &lt;!-- Someting Html --&gt;
+     &lt;/div&gt;
+     &lt;div data-role="view" data-title="Tabs 3"&gt;
+         &lt;!-- Someting Html --&gt;
+     &lt;/div&gt;
+&lt;/div&gt;
+&lt;</code></pre></pre>
 
 
     
@@ -501,13 +514,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var acc = new X.ui.Accordion({
-     titles: ["Tab 1", "Tab 2", "Tab 3"],
-     activeIndex: 0,
-     items: [new X.View(), new X.View(), new X.View()]
-});
-
-acc.append(new X.View(), "New Tab");</pre>
+    <pre class="sunlight-highlight-javascript">accordion.append(new X.View(), "New Tab");</pre>
 
 
     
@@ -631,13 +638,7 @@ acc.append(new X.View(), "New Tab");</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var acc = new X.ui.Accordion({
-     titles: ["Tab 1", "Tab 2", "Tab 3"],
-     activeIndex: 0,
-     items: [new X.View(), new X.View(), new X.View()]
-});
-
-acc.change(1);</pre>
+    <pre class="sunlight-highlight-javascript">accordion.change(1);</pre>
 
 
     
@@ -784,13 +785,7 @@ acc.change(1);</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var acc = new X.ui.Accordion({
-     titles: ["Tab 1", "Tab 2", "Tab 3"],
-     activeIndex: 0,
-     items: [new X.View(), new X.View(), new X.View()]
-});
-
-acc.changeTitle(0, "New Title");</pre>
+    <pre class="sunlight-highlight-javascript">accordion.changeTitle(0, "New Title");</pre>
 
 
     
@@ -933,13 +928,7 @@ acc.changeTitle(0, "New Title");</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var acc = new X.ui.Accordion({
-     titles: ["Tab 1", "Tab 2", "Tab 3"],
-     activeIndex: 0,
-     items: [new X.View(), new X.View(), new X.View()]
-});
-
-acc.getItem(0);</pre>
+    <pre class="sunlight-highlight-javascript">accordion.getItem(0);</pre>
 
 
     
@@ -1109,13 +1098,7 @@ acc.getItem(0);</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var acc = new X.ui.Accordion({
-     titles: ["Tab 1", "Tab 2", "Tab 3"],
-     activeIndex: 0,
-     items: [new X.View(), new X.View(), new X.View()]
-});
-
-acc.prepend(new X.View(), "New Tab");</pre>
+    <pre class="sunlight-highlight-javascript">accordion.prepend(new X.View(), "New Tab");</pre>
 
 
     
@@ -1239,13 +1222,7 @@ acc.prepend(new X.View(), "New Tab");</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var acc = new X.ui.Accordion({
-     titles: ["Tab 1", "Tab 2", "Tab 3"],
-     activeIndex: 0,
-     items: [new X.View(), new X.View(), new X.View()]
-});
-
-acc.remove(1);</pre>
+    <pre class="sunlight-highlight-javascript">accordion.remove(1);</pre>
 
 
     
@@ -1320,13 +1297,82 @@ acc.remove(1);</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var acc = new X.ui.Accordion({
-     titles: ["Tab 1", "Tab 2", "Tab 3"],
-     activeIndex: 0,
-     items: [new X.View(), new X.View(), new X.View()]
-});
+    <pre class="sunlight-highlight-javascript">accordion.removeAll();</pre>
 
-acc.removeAll();</pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Accordion 을 화면에 렌더한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">accordion.render();</pre>
 
 
     
@@ -1353,7 +1399,7 @@ acc.removeAll();</pre>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a>
-		on Tue Nov 26 2013 11:08:51 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		on Wed Nov 27 2013 10:27:29 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

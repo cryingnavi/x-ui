@@ -6,25 +6,26 @@
  * @property {Number} config.duration 애니메이션 이동 속도를 지정한다. Defautl: 200.
  * @property {Array} config.items 각 탭의 view를 설정한다.
  * @example
- * var acc = new X.ui.Carousel({
+ * var carousel = new X.ui.Carousel({
  *      direction: "x",
  *      activeIndex: 0,
  *      duration: 200,
  *      items: [new X.View(), new X.View(), new X.View()]
  * });
+ * carousel.render();
  * 
  * <pre><code>
- * &#60div data-role="carousel"&#62
- *		&#60div data-role="view" style="background-color: #8E8E93;" data-scroll="false"&#62
- *			&#60!-- Someting Html --&#62
- *		&#60/div&#62
- *		&#60div data-role="view" style="background-color: #34AADC;" data-scroll="false"&#62
- *			&#60!-- Someting Html --&#62
- *		&#60/div&#62
- *		&#60div data-role="view" style="background-color: #007AFF;" data-scroll="false"&#62
- *			&#60!-- Someting Html --&#62
- *		&#60/div&#62
- * &#60/div&#62
+ * &lt;div data-role="carousel"&gt;
+ *		&lt;div data-role="view" style="background-color: #8E8E93;" data-scroll="false"&gt;
+ *			&lt;!-- Someting Html --&gt;
+ *		&lt;/div&gt;
+ *		&lt;div data-role="view" style="background-color: #34AADC;" data-scroll="false"&gt;
+ *			&lt;!-- Someting Html --&gt;
+ *		&lt;/div&gt;
+ *		&lt;div data-role="view" style="background-color: #007AFF;" data-scroll="false"&gt;
+ *			&lt;!-- Someting Html --&gt;
+ *		&lt;/div&gt;
+ * &lt;/div&gt;
  * </code></pre>
  */
 X.ui.Carousel = X.extend(X.View, {
@@ -42,6 +43,13 @@ X.ui.Carousel = X.extend(X.View, {
 		this.dragging = false;
 		this.activeIndex = this.config.activeIndex;
 	},
+	/**
+     * @method 
+     * @desc Carousel 을 화면에 렌더한다.
+     * @memberof X.ui.Carousel.prototype
+     * @example
+     * carousel.render();
+     */
 	render: function(){
 		X.ui.Carousel.base.render.call(this);
 		this.el.addClass('ui-carousel');
@@ -250,14 +258,7 @@ X.ui.Carousel = X.extend(X.View, {
      * @param {Component} component 
      * @return {Component} component 
      * @example
-     * var car = new X.ui.Carousel({
-     *      direction: "x",
-     *      activeIndex: 0,
-     *      duration: 200,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * car.append(new X.View());
+     * carousel.append(new X.View());
      */
 	append: function(comp){
 		var comps = X.util.cm.create(this.carouselBody, [comp]);
@@ -272,14 +273,7 @@ X.ui.Carousel = X.extend(X.View, {
      * @memberof X.ui.Carousel.prototype
      * @param {Component} component 
      * @example
-     * var car = new X.ui.Carousel({
-     *      direction: "x",
-     *      activeIndex: 0,
-     *      duration: 200,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * car.remove(0);
+     * carousel.remove(0);
      */
 	remove: function(index){
 		this.config.items[index].destroy();
@@ -294,14 +288,7 @@ X.ui.Carousel = X.extend(X.View, {
      * @desc 바로 다음 요소로 이동시킨다.
      * @memberof X.ui.Carousel.prototype
      * @example
-     * var car = new X.ui.Carousel({
-     *      direction: "x",
-     *      activeIndex: 0,
-     *      duration: 200,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * car.next();
+     * carousel.next();
      */
 	next: function(){
 		var index = this.activeIndex + 1,
@@ -325,14 +312,7 @@ X.ui.Carousel = X.extend(X.View, {
      * @desc 바로 이전 요소로 이동시킨다.
      * @memberof X.ui.Carousel.prototype
      * @example
-     * var car = new X.ui.Carousel({
-     *      direction: "x",
-     *      activeIndex: 1,
-     *      duration: 200,
-     *      items: [new X.View(), new X.View(), new X.View()]
-     * });
-     * 
-     * car.prev();
+     * carousel.prev();
      */
 	prev: function(){
 		var index = this.activeIndex - 1,
