@@ -87,6 +87,14 @@
 						</li>
 						
 						<li>
+							<a href="X.ui.SwitchBox.html">SwitchBox</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.Tabs.html">Tabs</a>
+						</li>
+						
+						<li>
 							<a href="X.util.Draggable.html">Draggable</a>
 						</li>
 						
@@ -142,7 +150,7 @@
  * version: 1.0.1
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2013-11-27 10:11 
+ * Date: 2013-11-28 08:11 
  */
 /**
  * X namespace
@@ -3526,17 +3534,42 @@ X.ui.ListView = X.extend(X.View, {
 });
 
 X.util.cm.addCString('listview', X.ui.ListView);
+/**
+ * @class 
+ * @classdesc Tab 형태의 화면을 생성한다.
+ * @property {String} position 'top' 나 'bottom'. 탭바의 위치를 지정한다. Default: 'top'
+ * @property {Number} activeIndex on 기본으로 화면에 나타날 하위 view의 인덱스를 지정한다. Default: 0
+ * @property {Array} titles 탭바의 각 탭 요소의 타이틀을 지정한다.
+ * @property {String} transition 애니메이션 종류를 지정한다. viewcontroller의 애니메이션과 종류가 같다. Default: 'slide'
+ * @property {Array} items 각 탭에 들어갈 view를 지정한다.
+ * @example
+ * var tabs = new X.ui.Tabs({
+ *      position: 'top',
+ *		activeIndex: 0,
+ *		titles: ['Tabs 1', 'Tabs 2', 'Tabs 3'],
+ *		transition: 'slide',
+ *		items: [
+ *          new X.View(), new X.View(), new X.View()
+ *      ]
+ * });
+ * tabs.render();
+ * 
+ * &amp;lt;div data-role="tabs"&amp;gt;
+ *		&amp;lt;div data-role="view" data-title="Tabs 1" style="background:red;"&amp;gt;Tabs 1&amp;lt;/div&amp;gt;
+ *		&amp;lt;div data-role="view" data-title="Tabs 2" style="background:blue;"&amp;gt;Tabs 2&amp;lt;/div&amp;gt;
+ *		&amp;lt;div data-role="view" data-title="Tabs 3" style="background:yellow;"&amp;gt;Tabs 3&amp;lt;/div&amp;gt;
+ *	&amp;lt;/div&amp;gt;
+ */
 X.ui.Tabs = X.extend(X.View, {
 	initialize: function(config){
 		this.config = {
 			position: 'top',
 			activeIndex: 0,
 			titles: [],
-			autoSize: true,
 			transition: 'slide',
-			scroll: false,
 			items: []
 		};
+		this.config.scroll = false;
 		X.apply(this.config, config);
 		X.ui.Tabs.base.initialize.call(this, this.config);
 	},
@@ -5291,6 +5324,22 @@ X.ui.Progressbar = X.extend(X.ui.Form, {
 });
 
 X.util.cm.addCString('progressbar', X.ui.Progressbar);
+/**
+ * @class 
+ * @classdesc SwitchBox 를 생성한다.
+ * @property {Boolean} checked 체크 상태를 지정한다. Default: false
+ * @property {String} on on 상태의 텍스트를 지정한다. Default: 'ON'
+ * @property {String} off off 상태의 텍스트를 지정한다. Default: 'OFF'
+ * @example
+ * var sb = new X.ui.SwitchBox({
+ *      checked: false,
+ *		on: 'ON',
+ *		off: 'OFF'
+ * });
+ * sb.render();
+ * 
+ * &amp;lt;div data-role="switchbox"&amp;gt;&amp;lt;/div&amp;gt;
+ */
 X.ui.SwitchBox = X.extend(X.ui.Form, {
 	initialize: function(config){
 		this.config = {
@@ -5301,6 +5350,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 		X.apply(this.config, config);
 		X.ui.SwitchBox.base.initialize.call(this, this.config);
 	},
+	/**
+     * @method 
+     * @desc SwitchBox 화면에 렌더한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.render();
+     */
 	render: function(){
 		X.ui.SwitchBox.base.render.call(this);
 		this.el.addClass('ui-switchbox').width(this.config.width);
@@ -5351,11 +5407,27 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 		
 		return false;
 	},
+	/**
+     * @method 
+     * @desc on 상태의 텍스트를 변경한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @param {String} on
+     * @example
+     * sb.setOn('A');
+     */
 	setOn: function(on){
 		this.config.on = on;
 
 		this.setText();
 	},
+	/**
+     * @method 
+     * @desc off 상태의 텍스트를 변경한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @param {String} off
+     * @example
+     * sb.setOff('B');
+     */
 	setOff: function(off){
 		this.config.off = off;
 
@@ -5372,6 +5444,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 
 		this.text.html(text);
 	},
+	/**
+     * @method 
+     * @desc 체크 상태를 반전 시킨다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.toggleChecked();
+     */
 	toggleChecked: function(){
 		if(this.el.hasClass('on')){
 			this.unchecked();
@@ -5380,6 +5459,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 			this.checked();
 		}
 	},
+	/**
+     * @method 
+     * @desc 체크 상태로 변경한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.checked();
+     */
 	checked: function(){
 		if(this.el.hasClass('ui-disabled')){
 			return;
@@ -5392,6 +5478,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 
 		this.fireEvent(this, 'change', [this, true]);
 	},
+	/**
+     * @method 
+     * @desc 체크 상태를 해제한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.unchecked();
+     */
 	unchecked: function(){
 		if(this.el.hasClass('ui-disabled')){
 			return;
@@ -5403,6 +5496,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 		this.form.attr('checked', false);
 		this.fireEvent(this, 'change', [this, false]);
 	},
+	/**
+     * @method 
+     * @desc 체크 상태 유무를 반환한다. checked 일 경우 true, 아닐경우 false.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.getValue();
+     */
 	getValue: function(){
 		return this.form.is(':checked');
 	}
@@ -5598,7 +5698,7 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a>
-		on Wed Nov 27 2013 10:27:28 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		on Thu Nov 28 2013 20:22:03 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

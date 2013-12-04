@@ -9,7 +9,7 @@
  * version: 1.0.1
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2013-11-27 10:11 
+ * Date: 2013-12-03 11:12 
  */
 /**
  * X namespace
@@ -1992,6 +1992,27 @@ X.util.DragNDropManager = X.util.ddm = {
  * @desc X.ui Namespace
  */
 X.ui = { };
+/**
+ * @class 
+ * @classdesc View 를 생성한다. View란 화면의 기본 단위이며 기본적인 container 역할을 수행한다.
+ * @property {String | jQuery | HtmlElement} el toolbar를 생성할 엘리먼트를 지정한다.
+ * @property {Number | String} width 
+ * @property {Number | String} height 
+ * @property {Boolean} autoSize 
+ * @property {Boolean} scroll 
+ * @property {Object} scrollConfig 
+ * @property {String | jQuery} content 
+ * @property {Array} items 
+ * @property {Array} toolbars 
+ * @property {Boolean} floating 
+ * @property {Boolean} overlay 
+ * @property {X.util.ViewController} viewController 
+ * @property {String} layout 
+ * @property {Boolean} flexible 
+ * @property {Object} panels 
+ * @property {String} className 
+ * @property {String | Object} style 
+ */
 X.View = X.extend(X.util.Observer, {
 	initialize: function(config){
 		this.config = {
@@ -2038,6 +2059,13 @@ X.View = X.extend(X.util.Observer, {
 			this.render();
 		}
 	},
+	/**
+     * @method 
+     * @desc View 를 화면에 렌더한다.
+     * @memberof X.View.prototype
+     * @example
+     * view.render();
+     */
 	render: function(){
 		this.fireEvent(this, 'beforerender', [this]);
 		this.el.addClass('ui-view');
@@ -2078,12 +2106,22 @@ X.View = X.extend(X.util.Observer, {
 		}	
 
 		this.setFlexible(this.config.flexible);
-		this.scrollCreate(this.config.scroll);
+		
+		if(this.config.scroll){
+		    this.scrollCreate();
+		}
 
 		X.getWindow().on(X.events.orientationchange, { me: this }, this.onOrientationChange);
 
 		this.fireEvent(this, 'afterrender', [this]);
 	},
+	/**
+     * @method 
+     * @desc View 에 생성된 스크롤을 재갱신한다.
+     * @memberof X.View.prototype
+     * @example
+     * view.scrollRefresh();
+     */
 	scrollRefresh: function(){
 		if(this.scroll){
 			this.scroll.refresh();
@@ -2112,6 +2150,14 @@ X.View = X.extend(X.util.Observer, {
 		
 		this.currentPanel = null;
 	},
+	/**
+     * @method 
+     * @desc View 에 생성된 패널을 오픈한다. 'left' 나 'right' 를 입력하여 해당 위치의 패널을 연다.
+     * @memberof X.View.prototype
+     * @param {String} type 오픈할 패널의 위치를 지정한다.
+     * @example
+     * view.panelsOpen();
+     */
 	panelsOpen: function(type){
 		if(this.panelsRight || this.panelsLeft){
     		this.body.removeClass('ui-view-panels-close').addClass('ui-view-panels-open-' + type);
@@ -2129,6 +2175,14 @@ X.View = X.extend(X.util.Observer, {
     		});
 		}
 	},
+	/**
+     * @method 
+     * @desc View 에 생성된 패널을 닫는다. 'left' 나 'right' 를 입력하여 해당 위치의 패널을 닫는다.
+     * @memberof X.View.prototype
+     * @param {String} type 오픈할 패널의 위치를 지정한다.
+     * @example
+     * view.panelsClose();
+     */
 	panelsClose: function(){
 		if(this.panelsRight || this.panelsLeft){
 			this.body.removeClass('ui-view-panels-open ui-view-panels-open-left ui-view-panels-open-right').addClass('ui-view-panels-close');
@@ -2139,6 +2193,14 @@ X.View = X.extend(X.util.Observer, {
 			this.body.off('vclick');
 		}
 	},
+	/**
+     * @method 
+     * @desc View 에 생성된 패널의 열림상태를 반전시킨다.. 'left' 나 'right' 를 입력하여 해당 위치의 패널을 반전시킨다.
+     * @memberof X.View.prototype
+     * @param {String} type 오픈할 패널의 위치를 지정한다.
+     * @example
+     * view.panelsToggle();
+     */
 	panelsToggle: function(type){
 		if(this.panelsRight || this.panelsLeft){
 			if(this.body.hasClass('ui-view-panels-close')){
@@ -2149,6 +2211,14 @@ X.View = X.extend(X.util.Observer, {
 			}
 		}
 	},
+	/**
+     * @method 
+     * @desc View 안에 새로운 html 을 넣어 표현한다. 이때 data-role 을 해석하여 x-ui 의 컴포넌트를 생성한다.
+     * @memberof X.View.prototype
+     * @param {String} content 
+     * @example
+     * view.setContent('<div>New HTML</div>');
+     */
 	setContent: function(content){
 		var reg = /^#/;
 		if(X.type(content) === 'string' && reg.test(content)){
@@ -2171,6 +2241,15 @@ X.View = X.extend(X.util.Observer, {
 		
 		this.createHtmlComponent();
 	},
+	/**
+     * @method 
+     * @desc View 의 레이아웃 형태를 변경한다. 'x' 나 'y' 로 가로 또는 세로 방향의 형태로 레이아웃을 변경할 수 있다. <br/>
+     *      'x' 일 경우 자식 view 들이 가로 방향으로 배열되며 'y' 일 경우 세로 방향으로 배열된다.
+     * @memberof X.View.prototype
+     * @param {String} layout 
+     * @example
+     * view.setLayout('x');
+     */
 	setLayout: function(layout){
 		if(layout === "x"){
 			this.el.addClass("ui-view-horizontal");
@@ -2182,6 +2261,16 @@ X.View = X.extend(X.util.Observer, {
 				.addClass('ui-view-body-vertical');
 		}
 	},
+	/**
+     * @method 
+     * @desc View 를 플렉서블 view 로 만들 것인지 유무를 지정한다. <br/>
+     *      true 일 경우 view는 동적으로 자기의 크기를 정하여 화면을 채우게 된다. <br/>
+     *      false 일 경우 view가 명시적인 크기를 가져야하며 해당 크기로 view 가 생성된다.
+     * @memberof X.View.prototype
+     * @param {Boolean} flex 
+     * @example
+     * view.setFlexible(false);
+     */
 	setFlexible: function(flex){
 		if(flex){
 			this.el.removeClass('ui-view-inflexible')
@@ -2192,10 +2281,28 @@ X.View = X.extend(X.util.Observer, {
 				.addClass('ui-view-inflexible');
 		}
 	},
+	/**
+     * @method 
+     * @desc View 의 size 를 지정한다. 인자로 true 를 넘기면 명시적인 사이즈를 지정하지 않는다. <br/>
+     *      false 시에 명시적 사이즈를 지정한다. 해당 사이즈는 config.width, config.height 의 값으로 지정된다.
+     * @memberof X.View.prototype
+     * @param {Boolean} autoSize 
+     * @example
+     * view.setSize(false);
+     */
 	setSize: function(autoSize){
 		this.setWidth(autoSize);
 		this.setHeight(autoSize);
 	},
+	/**
+     * @method 
+     * @desc View 의 width 를 지정한다. <br/>
+     *      200과 같이 형태의 인자를 넘기면, 자동으로 setFlexible(false) 를 호출하여 flexible layout 를 해제하고 해당 width 를 명시적으로 지정한다.
+     * @memberof X.View.prototype
+     * @param {Number} width 
+     * @example
+     * view.setWidth(100);
+     */
 	setWidth: function(width){
 		if(X.type(width) !== 'boolean' || width !== true){
 			this.setFlexible(false);
@@ -2203,6 +2310,15 @@ X.View = X.extend(X.util.Observer, {
 			this.el.width(w);
 		}
 	},
+	/**
+     * @method 
+     * @desc View 의 height 를 지정한다. <br/>
+     *      200과 같이 형태의 인자를 넘기면, 자동으로 setFlexible(false) 를 호출하여 flexible layout 를 해제하고 해당 height 를 명시적으로 지정한다.
+     * @memberof X.View.prototype
+     * @param {Number} height 
+     * @example
+     * view.setHeight(100);
+     */
 	setHeight: function(height){
 		if(X.type(height) !== 'boolean' || height !== true){
 			this.setFlexible(false);
@@ -2210,19 +2326,47 @@ X.View = X.extend(X.util.Observer, {
 			this.el.css('min-height', 'none').height(h);
 		}
 	},
+	/**
+     * @method 
+     * @desc View 의 border, margin, padding 을 포함한 width를 반환한다.
+     * @memberof X.View.prototype
+     * @return {Number} width 
+     * @example
+     * view.getWidth();
+     */
 	getWidth: function(){
 		var width = this.el.outerWidth();
 		return width;
 	},
+	/**
+     * @method 
+     * @desc View 의 border, margin, padding 을 포함한 height를 반환한다.
+     * @memberof X.View.prototype
+     * @return {Number} height 
+     * @example
+     * view.getHeight();
+     */
 	getHeight: function(){
 		var height = this.el.outerHeight();
 		return height;
 	},
-	scrollCreate: function(scroll){
-		if(scroll){
-			this.scroll = new iScroll(this.body.get(0), this.config.scrollConfig);
-		}
+	/**
+     * @method 
+     * @desc View 에 scroll을 생성한다.
+     * @memberof X.View.prototype
+     * @example
+     * view.scrollCreate();
+     */
+	scrollCreate: function(){
+		this.scroll = new iScroll(this.body.get(0), this.config.scrollConfig);
 	},
+	/**
+     * @method 
+     * @desc View 에 생성된 스크롤을 제거한다.
+     * @memberof X.View.prototype
+     * @example
+     * view.scrollDestroy();
+     */
 	scrollDestroy: function(){
 		if(this.scroll){
 			this.scroll.destroy();
@@ -2232,6 +2376,14 @@ X.View = X.extend(X.util.Observer, {
 		var me = e.data.me;
 		me.fireEvent(me, 'orientationchange', []);
 	},
+	/**
+     * @method 
+     * @desc View 를 화면에 show 시킨다. 인자로 true를 넘기면 pop 애니메이션이 동작한다.
+     * @memberof X.View.prototype
+     * @param {Boolean} transition
+     * @example
+     * view.show();
+     */
 	show: function(transition){
 		if(!this.el.hasClass('ui-view-hide')){
 			return;
@@ -2258,9 +2410,15 @@ X.View = X.extend(X.util.Observer, {
 			});
 		}	
 		this.fireEvent(this, 'show', [this]);
-
-		return this;
 	},
+	/**
+     * @method 
+     * @desc View 를 화면에 hide 시킨다. 인자로 true를 넘기면 pop 애니메이션이 동작한다.
+     * @memberof X.View.prototype
+     * @param {Boolean} transition
+     * @example
+     * view.hide();
+     */
 	hide: function(transition){
 		if(this.el.hasClass('ui-view-hide')){
 			return;
@@ -2281,25 +2439,64 @@ X.View = X.extend(X.util.Observer, {
 		}
 
 		this.fireEvent(this, 'hide', [this]);
-		return this;
 	},
-	toggle: function(){
+	/**
+     * @method 
+     * @desc View 를 화면에 toggle 시킨다. 인자로 true를 넘기면 pop 애니메이션이 동작한다.
+     * @memberof X.View.prototype
+     * @param {Boolean} transition
+     * @example
+     * view.toggle();
+     */
+	toggle: function(transition){
 		if(this.el.hasClass('ui-view-hide')){
-			this.show();
+			this.show(transition);
 		}
 		else{
-			this.hide();
+			this.hide(transition);
 		}
 	},
+	/**
+     * @method 
+     * @desc View 의 최상위 Element 를 반환한다.
+     * @memberof X.View.prototype
+     * @return {jQuery} el
+     * @example
+     * view.getEl();
+     */
 	getEl: function(){
 		return this.el;
 	},
+	/**
+     * @method 
+     * @desc View 의 id 를 반환한다.
+     * @memberof X.View.prototype
+     * @return {String} id
+     * @example
+     * view.getId();
+     */
 	getId: function(){
 		return this.el.attr('id');
 	},
+	/**
+     * @method 
+     * @desc View 의 viewController를 반환한다.
+     * @memberof X.View.prototype
+     * @return {X.util.ViewController} vc
+     * @example
+     * view.getViewController();
+     */
 	getViewController: function(){
 		return this.config.viewController;
 	},
+	/**
+     * @method 
+     * @desc View 에 viewController를 지정한다.
+     * @memberof X.View.prototype
+     * @param {X.util.ViewController | String} vc X.util.ViewController 또는 X.util.ViewController 의 id.
+     * @example
+     * view.setViewController(new X.util.RemoteViewController);
+     */
 	setViewController: function(vc){
 		if(X.type(vc) === 'string'){
 			vc = X.util.ViewController.get(vc);
@@ -2312,7 +2509,16 @@ X.View = X.extend(X.util.Observer, {
 		vc.init(this);
 		this.config.viewController = vc;
 	},
+	/**
+     * @method 
+     * @desc View 를 제거한다.
+     * @memberof X.View.prototype
+     * @example
+     * view.destroy();
+     */
 	destroy: function(){
+	    this.scrollDestroy();
+
 		this.el.remove();
 		X.getWindow().off(X.events.orientationchange, this.onOrientationChange);
 
@@ -2323,22 +2529,38 @@ X.View = X.extend(X.util.Observer, {
     	if(el.length < 1){
     		el = this.body;
     	}
-    	var comps = X.util.cm.create(el, this.config.items);
+    	var items = X.util.cm.create(el, this.config.items);
     
-    	this.config.items = comps;
+    	this.config.items = items;
     },
-	add: function(comps){
+    /**
+     * @method 
+     * @desc View 안에 새로운 컴포넌트를 자식으로 추가한다.
+     * @memberof X.View.prototype
+     * @param {Array} items
+     * @example
+     * view.addItems([new X.View(), new X.ui.ListView(), new X.ui.TextBox()]);
+     */
+	addItems: function(items){
 		var el = this.body.children('.ui-scrollview-view');
 		if(el.length < 1){
 			el = this.body;
 		}
-		comps = X.util.cm.create(el, comps);
-		this.config.items = $.unique(this.config.items.concat(comps));
+		items = X.util.cm.create(el, items);
+		this.config.items = $.unique(this.config.items.concat(items));
 		this.config.items.reverse();
 		
-		return comps;
+		return items;
 	},
-	remove: function(index){
+	/**
+     * @method 
+     * @desc View 안에 있는 컴포넌트를 삭제한다.
+     * @memberof X.View.prototype
+     * @param {Number} index
+     * @example
+     * view.removeItem(1);
+     */
+	removeItem: function(index){
 		this.config.items[index].destroy();
 		this.config.items.remove(index);
 	},
@@ -3393,20 +3615,52 @@ X.ui.ListView = X.extend(X.View, {
 });
 
 X.util.cm.addCString('listview', X.ui.ListView);
+/**
+ * @class 
+ * @classdesc Tab 형태의 화면을 생성한다.
+ * @property {String} position 'top' 나 'bottom'. 탭바의 위치를 지정한다. Default: 'top'
+ * @property {Number} activeIndex on 기본으로 화면에 나타날 하위 view의 인덱스를 지정한다. Default: 0
+ * @property {Array} titles 탭바의 각 탭 요소의 타이틀을 지정한다.
+ * @property {String} transition 애니메이션 종류를 지정한다. viewcontroller의 애니메이션과 종류가 같다. Default: 'slide'
+ * @property {Array} items 각 탭에 들어갈 view를 지정한다.
+ * @example
+ * var tabs = new X.ui.Tabs({
+ *      position: 'top',
+ *		activeIndex: 0,
+ *		titles: ['Tabs 1', 'Tabs 2', 'Tabs 3'],
+ *		transition: 'slide',
+ *		items: [
+ *          new X.View(), new X.View(), new X.View()
+ *      ]
+ * });
+ * tabs.render();
+ * 
+ * &lt;div data-role="tabs"&gt;
+ *		&lt;div data-role="view" data-title="Tabs 1" style="background:red;"&gt;Tabs 1&lt;/div&gt;
+ *		&lt;div data-role="view" data-title="Tabs 2" style="background:blue;"&gt;Tabs 2&lt;/div&gt;
+ *		&lt;div data-role="view" data-title="Tabs 3" style="background:yellow;"&gt;Tabs 3&lt;/div&gt;
+ *	&lt;/div&gt;
+ */
 X.ui.Tabs = X.extend(X.View, {
 	initialize: function(config){
 		this.config = {
 			position: 'top',
 			activeIndex: 0,
 			titles: [],
-			autoSize: true,
 			transition: 'slide',
-			scroll: false,
 			items: []
 		};
+		this.config.scroll = false;
 		X.apply(this.config, config);
 		X.ui.Tabs.base.initialize.call(this, this.config);
 	},
+	/**
+     * @method 
+     * @desc Tabs을 화면에 렌더한다.
+     * @memberof X.ui.Tabs.prototype
+     * @example
+     * tabs.render();
+     */
 	render: function(){
 		X.ui.Tabs.base.render.call(this);
 		this.el.addClass('ui-tabs');
@@ -3462,6 +3716,14 @@ X.ui.Tabs = X.extend(X.View, {
 		me.change(index);
 		return false;
 	},
+	/**
+     * @method 
+     * @desc 인자로 받은 인덱스에 해당하는 view를 활성화 시킨다.
+     * @memberof X.ui.Tabs.prototype
+     * @param {Number} index
+     * @example
+     * tabs.change(1);
+     */
 	change: function(index){
 		var fromView = this.getActiveView(),
 			toView = this.config.items[index];
@@ -3520,9 +3782,25 @@ X.ui.Tabs = X.extend(X.View, {
 	setActiveView: function(view){
 		this.activeView = view;
 	},
+	/**
+     * @method 
+     * @desc 현재 활성화되어 있는 view 를 반환한다.
+     * @memberof X.ui.Tabs.prototype
+     * @return {X.View} view 
+     * @example
+     * tabs.getActiveView();
+     */
 	getActiveView: function(){
 		return this.activeView;
 	},
+	/**
+     * @method 
+     * @desc view 현재 활성화되어 있는 view의 인덱스를 반환한다.
+     * @memberof X.ui.Tabs.prototype
+     * @return {Number} index
+     * @example
+     * tabs.getActiveViewIndex();
+     */
 	getActiveViewIndex: function(){
 		var active = this.getActiveView();
 		for(var i=0; i<this.config.items.length; i++){
@@ -3531,6 +3809,14 @@ X.ui.Tabs = X.extend(X.View, {
 			}
 		}
 	},
+	/**
+     * @method 
+     * @desc 인자로 받은 인덱스에 해당하는 view를 반환한다.
+     * @memberof X.ui.Tabs.prototype
+     * @return {X.View} index
+     * @example
+     * tabs.getView();
+     */
 	getView: function(index){
 		return this.config.items[index];
 	},
@@ -3558,6 +3844,16 @@ X.ui.Tabs = X.extend(X.View, {
 			me = null, fromView = null, toView = null;
 		});
 	},
+	/**
+     * @method 
+     * @desc 마지막에 새로운 탭을 생성한다.
+     * @memberof X.ui.Tabs.prototype
+     * @param {View} view
+     * @param {String} title
+     * @return {Array} 새롭게 추가된 view와 title
+     * @example
+     * tabs.append(new X.View, 'New Tab');
+     */
 	append: function(comp, title){
 		comp = X.util.cm.create(this.body, [comp]);
 		this.config.items.push(comp[0]);
@@ -3570,6 +3866,16 @@ X.ui.Tabs = X.extend(X.View, {
 		this.tabBar.append(titleDiv);
 		return [comp[0], title];
 	},
+	/**
+     * @method 
+     * @desc 처음에 새로운 탭을 생성한다.
+     * @memberof X.ui.Tabs.prototype
+     * @param {View} view
+     * @param {String} title
+     * @return {Array} 새롭게 추가된 view와 title
+     * @example
+     * tabs.prepend(new X.View, 'New Tab');
+     */
 	prepend: function(comp, title){
 		comp = X.util.cm.create(this.body, [comp]);
 		this.config.items = comp.concat(this.config.items);
@@ -3583,6 +3889,14 @@ X.ui.Tabs = X.extend(X.View, {
 		this.tabBar.prepend(titleDiv);
 		return [comp[0], title];
 	},
+	/**
+     * @method 
+     * @desc 인자로 넘긴 해당 index에 해당하는 탭을 제거한다.
+     * @memberof X.ui.Tabs.prototype
+     * @param {Number} index
+     * @example
+     * tabs.remove(1);
+     */
 	remove: function(index){
 		this.config.items[index].destroy();
 		this.config.items.remove(index);
@@ -3591,9 +3905,27 @@ X.ui.Tabs = X.extend(X.View, {
 	}
 });
 X.util.cm.addCString('tabs', X.ui.Tabs);
+/**
+ * @class 
+ * @classdesc Toolbar 를 생성한다.
+ * @property {String | jQuery | HtmlElement} el toolbar를 생성할 엘리먼트를 지정한다.
+ * @property {String} position 'top' 나 'bottom'. 툴바의 위치를 지정한다. Default: 'top'
+ * @property {String} title 텍스트박스의 타이틀을 지정한다.
+ * @example
+ * var toolbar = new X.ui.Toolbar({
+ *      position: 'top',
+ *		title: 'Header'
+ * });
+ * toolbar.render();
+ * 
+ * &lt;div data-role="toolbar"&gt;
+ *      Title
+ * &lt;/div&gt;
+ */
 X.ui.Toolbar = X.extend(X.util.Observer, {
 	initialize: function(config){
 		this.config = {
+		    el: null,
 			position: 'top',
 			title: null
 		};
@@ -3621,6 +3953,13 @@ X.ui.Toolbar = X.extend(X.util.Observer, {
 			this.render();
 		}
 	},
+	/**
+     * @method 
+     * @desc Toolbar 화면에 렌더한다.
+     * @memberof X.ui.Toolbar.prototype
+     * @example
+     * toolbar.render();
+     */
 	render: function(){
 		this.fireEvent(this, 'beforerender', [this]);
 		
@@ -3643,6 +3982,14 @@ X.ui.Toolbar = X.extend(X.util.Observer, {
 		
 		this.fireEvent(this, 'afterrender', [this]);
 	},
+	/**
+     * @method 
+     * @desc Toolbar 에 새로운 타이틀을 지정한다.
+     * @memberof X.ui.Toolbar.prototype
+     * @param {String} title
+     * @example
+     * toolbar.setTitle('New Title');
+     */
 	setTitle: function(title){
 		if(!this.title){
 			this.title = X.util.em.get().
@@ -3655,11 +4002,26 @@ X.ui.Toolbar = X.extend(X.util.Observer, {
 		this.title.html(title);
 		this.fireEvent(this, 'changetitle', [this, title]);
 	},
+	/**
+     * @method 
+     * @desc Toolbar 의 타이틀을 반환한다.
+     * @memberof X.ui.Toolbar.prototype
+     * @return {String} title
+     * @example
+     * toolbar.getTitle();
+     */
 	getTitle: function(){
 		if(this.title){
 			return this.title.text();
 		}
 	},
+	/**
+     * @method 
+     * @desc Toolbar 을 파괴한다.
+     * @memberof X.ui.Toolbar.prototype
+     * @example
+     * toolbar.destroy();
+     */
 	destroy: function(){
 		this.el.remove();
 	}
@@ -4379,6 +4741,20 @@ X.ui.FormView = X.extend(X.View, {
 		return params;
 	}
 });
+/**
+ * @class 
+ * @classdesc TextBox 를 생성한다.
+ * @property {String} placeholder placeholder를 지정한다. Default: 'please..'
+ * @property {String} type 텍스트박스의 type를 지정한다. Default: 'text'
+ * @example
+ * var textbox = new X.ui.TextBox({
+ *      placeholder: 'please..',
+ *		type: 'text'
+ * });
+ * textbox.render();
+ * 
+ * &lt;div data-role="textbox"&gt;&lt;/div&gt;
+ */
 X.ui.TextBox = X.extend(X.ui.Form, {
 	initialize: function(config){
 		this.config = {
@@ -4388,6 +4764,13 @@ X.ui.TextBox = X.extend(X.ui.Form, {
 		X.apply(this.config, config);
 		X.ui.TextBox.base.initialize.call(this, this.config);
 	},
+	/**
+     * @method 
+     * @desc TextBox를 화면에 렌더한다.
+     * @memberof X.ui.TextBox.prototype
+     * @example
+     * textbox.render();
+     */
 	render: function(){
 		X.ui.TextBox.base.render.call(this);
 
@@ -4409,9 +4792,25 @@ X.ui.TextBox = X.extend(X.ui.Form, {
 		});
 		this.formcontin.append(this.form);
 	},
+	/**
+     * @method 
+     * @desc TextBox의 type 를 변경한다.
+     * @memberof X.ui.TextBox.prototype
+     * @param {String} type
+     * @example
+     * textbox.setType('password');
+     */
 	setType: function(type){
 		this.form.prop('type', type);
 	},
+	/**
+     * @method 
+     * @desc TextBox의 placeholder 를 변경한다.
+     * @memberof X.ui.TextBox.prototype
+     * @param {String} placeholder
+     * @example
+     * textbox.setType('please your id..');
+     */
 	setPlaceholder: function(placeholder){
 		this.config.placeholder = placeholder;
 		this.form.attr('placeholder', placeholder);
@@ -5158,6 +5557,22 @@ X.ui.Progressbar = X.extend(X.ui.Form, {
 });
 
 X.util.cm.addCString('progressbar', X.ui.Progressbar);
+/**
+ * @class 
+ * @classdesc SwitchBox 를 생성한다.
+ * @property {Boolean} checked 체크 상태를 지정한다. Default: false
+ * @property {String} on on 상태의 텍스트를 지정한다. Default: 'ON'
+ * @property {String} off off 상태의 텍스트를 지정한다. Default: 'OFF'
+ * @example
+ * var sb = new X.ui.SwitchBox({
+ *      checked: false,
+ *		on: 'ON',
+ *		off: 'OFF'
+ * });
+ * sb.render();
+ * 
+ * &lt;div data-role="switchbox"&gt;&lt;/div&gt;
+ */
 X.ui.SwitchBox = X.extend(X.ui.Form, {
 	initialize: function(config){
 		this.config = {
@@ -5168,6 +5583,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 		X.apply(this.config, config);
 		X.ui.SwitchBox.base.initialize.call(this, this.config);
 	},
+	/**
+     * @method 
+     * @desc SwitchBox 화면에 렌더한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.render();
+     */
 	render: function(){
 		X.ui.SwitchBox.base.render.call(this);
 		this.el.addClass('ui-switchbox').width(this.config.width);
@@ -5218,11 +5640,27 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 		
 		return false;
 	},
+	/**
+     * @method 
+     * @desc on 상태의 텍스트를 변경한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @param {String} on
+     * @example
+     * sb.setOn('A');
+     */
 	setOn: function(on){
 		this.config.on = on;
 
 		this.setText();
 	},
+	/**
+     * @method 
+     * @desc off 상태의 텍스트를 변경한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @param {String} off
+     * @example
+     * sb.setOff('B');
+     */
 	setOff: function(off){
 		this.config.off = off;
 
@@ -5239,6 +5677,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 
 		this.text.html(text);
 	},
+	/**
+     * @method 
+     * @desc 체크 상태를 반전 시킨다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.toggleChecked();
+     */
 	toggleChecked: function(){
 		if(this.el.hasClass('on')){
 			this.unchecked();
@@ -5247,6 +5692,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 			this.checked();
 		}
 	},
+	/**
+     * @method 
+     * @desc 체크 상태로 변경한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.checked();
+     */
 	checked: function(){
 		if(this.el.hasClass('ui-disabled')){
 			return;
@@ -5259,6 +5711,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 
 		this.fireEvent(this, 'change', [this, true]);
 	},
+	/**
+     * @method 
+     * @desc 체크 상태를 해제한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.unchecked();
+     */
 	unchecked: function(){
 		if(this.el.hasClass('ui-disabled')){
 			return;
@@ -5270,6 +5729,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 		this.form.attr('checked', false);
 		this.fireEvent(this, 'change', [this, false]);
 	},
+	/**
+     * @method 
+     * @desc 체크 상태 유무를 반환한다. checked 일 경우 true, 아닐경우 false.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.getValue();
+     */
 	getValue: function(){
 		return this.form.is(':checked');
 	}
