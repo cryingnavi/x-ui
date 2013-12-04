@@ -1272,7 +1272,7 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 	
 		this.setActiveView(toView);
 		toView.setContent(data.html);
-		this.view.add([toView]);
+		this.view.addItems([toView]);
 		toView.body.append(data.script);
 
 		this.fireEvent(this, 'afterinit', [this.getActiveView()]);
@@ -1289,7 +1289,7 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 
 		if(!this.history.getViewInfo(config.url)){
 			toView.setContent(data.html);
-			this.view.add([toView]);
+			this.view.addItems([toView]);
 			toView.body.append(data.script);
 		}
 		this.nextMove(fromView, toView, config);
