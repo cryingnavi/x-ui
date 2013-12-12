@@ -4,6 +4,11 @@ x-ui
 
 Webkit Browser UI Framework.
 
+## master 가 아닌 다른 브랜치인 1.x.x을 사용합니다.
+
+## 예제는 다음에서 확인 할 수 있습니다.
+http://cryingnavi.github.io/x-ui/
+
 ## 1.0.1
 + Draggable Bug 문서 최상단 부터 구하던 좌표를 부모 요소로 부터 구하도록 변경
 + LayoutView 의 Spliiter가 화면상에 잘 못 표시되던 버그 수정
