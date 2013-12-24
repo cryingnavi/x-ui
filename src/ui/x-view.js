@@ -570,12 +570,33 @@ X.View = X.extend(X.util.Observer, {
 		this.config.items[index].destroy();
 		this.config.items.remove(index);
 	},
+	/**
+     * @method 
+     * @desc View 에 새로운 toolbar 를 생성한다.
+     * @memberof X.View.prototype
+     * @param {Array} toolbars
+     * @return {Array} toolbars
+     * @example
+     * view.addToolbar([
+     *      new X.ui.Toolbar()
+     * ]);
+     */
 	addToolbar: function(toolbars){
 		toolbars = X.util.cm.create(this.el, toolbars);
-		this.config.toolbars.push(toolbars);
+		
+		this.config.toolbars = $.unique(this.config.toolbars.concat(toolbars));
+		this.config.toolbars.reverse();
 
 		return toolbars;
 	},
+	/**
+     * @method 
+     * @desc View 를 팝업 형태로 화면에 띄울 수 있도록 만들거나 반대로 팝업 형태를 제거한다.
+     * @memberof X.View.prototype
+     * @param {Boolean} float true 일 경우는 팝업 형태, false 일 경우는 팝업 형태가 제거된다.
+     * @example
+     * view.setFloating(true);
+     */
 	setFloating: function(float){
 		if(float){
 			this.config.floating = float;
@@ -586,6 +607,14 @@ X.View = X.extend(X.util.Observer, {
 		}		
 		this.setOverlay(this.config.overlay);
 	},
+	/**
+     * @method 
+     * @desc View 를 팝업 형태로 화면에 띄울때 배경을 회색으로 덮을 div 를 생성한다.
+     * @memberof X.View.prototype
+     * @param {Boolean} overlay true 일 경우는 배경 생성, false 일 경우는 배경을 생성하지 않는다.
+     * @example
+     * view.setOverlay(true);
+     */
 	setOverlay: function(overlay){
 		if(overlay){
 			if(this.config.floating){
@@ -610,6 +639,28 @@ X.View = X.extend(X.util.Observer, {
 		
 		this.config.overlay = overlay;
 	},
+	/**
+     * @method 
+     * @desc View 안에 바인딩 되어 있는 html 들 중 data-role 로 기술된 컴포넌트들을 해석하여 x-ui 컴포넌트로 변경한다.
+     * @memberof X.View.prototype
+     * @example
+     * 
+     * //view content
+     * <div data-role="toolbar">
+     *  <h1>Toolbar</h1>
+     * </div>
+     * <div data-role="listview">
+     *  <ul>
+     *      <li>A</li>
+     *      <li>B</li>
+     *      <li>C</li>
+     *  </ul>
+     * </div>
+     * <div data-role="textbox"></div>
+     * 
+     * //view 컴포넌트 해석
+     * view.createHtmlComponent();
+     */
 	createHtmlComponent: function(){
 		var	views = this.el.find('[data-role="view"]');
 		views.each(function(){

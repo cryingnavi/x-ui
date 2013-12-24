@@ -48,6 +48,12 @@
 			},
 			ready: function(appView){
 				appView.setContent();
+				
+				$("a").click(function(){
+				    X.getApp().addToolbar([
+				        new X.ui.Toolbar({ title: "test" })
+				    ]);
+				});
 			}
 		});
 	</script>
