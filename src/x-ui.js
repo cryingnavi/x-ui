@@ -9,7 +9,7 @@
  * version: 1.0.1
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2013-12-24 09:12 
+ * Date: 2013-12-24 10:12 
  */
 /**
  * X namespace
