@@ -2217,7 +2217,7 @@ X.View = X.extend(X.util.Observer, {
      * @memberof X.View.prototype
      * @param {String} content 
      * @example
-     * view.setContent('<div>New HTML</div>');
+     * view.setContent('&lt;div&gt;New HTML&lt;/div&gt;');
      */
 	setContent: function(content){
 		var reg = /^#/;
@@ -2640,17 +2640,17 @@ X.View = X.extend(X.util.Observer, {
      * @example
      * 
      * //view content
-     * <div data-role="toolbar">
-     *  <h1>Toolbar</h1>
-     * </div>
-     * <div data-role="listview">
-     *  <ul>
-     *      <li>A</li>
-     *      <li>B</li>
-     *      <li>C</li>
-     *  </ul>
-     * </div>
-     * <div data-role="textbox"></div>
+     * &lt;div data-role="toolbar"&gt;
+     *  &lt;h1&gt;Toolbar&lt;/h1&gt;
+     * &lt;/div&gt;
+     * &lt;div data-role="listview"&gt;
+     *  &lt;ul&gt;
+     *      &lt;li&gt;A&lt;/li&gt;
+     *      &lt;li&gt;B&lt;/li&gt;
+     *      &lt;li&gt;C&lt;/li&gt;
+     *  &lt;/ul&gt;
+     * &lt;/div&gt;
+     * &lt;div data-role="textbox"&gt;&lt;/div&gt;
      * 
      * //view 컴포넌트 해석
      * view.createHtmlComponent();
