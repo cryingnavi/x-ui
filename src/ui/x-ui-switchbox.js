@@ -1,3 +1,19 @@
+/**
+ * @class 
+ * @classdesc SwitchBox 를 생성한다.
+ * @property {Boolean} checked 체크 상태를 지정한다. Default: false
+ * @property {String} on on 상태의 텍스트를 지정한다. Default: 'ON'
+ * @property {String} off off 상태의 텍스트를 지정한다. Default: 'OFF'
+ * @example
+ * var sb = new X.ui.SwitchBox({
+ *      checked: false,
+ *		on: 'ON',
+ *		off: 'OFF'
+ * });
+ * sb.render();
+ * 
+ * &lt;div data-role="switchbox"&gt;&lt;/div&gt;
+ */
 X.ui.SwitchBox = X.extend(X.ui.Form, {
 	initialize: function(config){
 		this.config = {
@@ -8,6 +24,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 		X.apply(this.config, config);
 		X.ui.SwitchBox.base.initialize.call(this, this.config);
 	},
+	/**
+     * @method 
+     * @desc SwitchBox 화면에 렌더한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.render();
+     */
 	render: function(){
 		X.ui.SwitchBox.base.render.call(this);
 		this.el.addClass('ui-switchbox').width(this.config.width);
@@ -58,11 +81,27 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 		
 		return false;
 	},
+	/**
+     * @method 
+     * @desc on 상태의 텍스트를 변경한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @param {String} on
+     * @example
+     * sb.setOn('A');
+     */
 	setOn: function(on){
 		this.config.on = on;
 
 		this.setText();
 	},
+	/**
+     * @method 
+     * @desc off 상태의 텍스트를 변경한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @param {String} off
+     * @example
+     * sb.setOff('B');
+     */
 	setOff: function(off){
 		this.config.off = off;
 
@@ -79,6 +118,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 
 		this.text.html(text);
 	},
+	/**
+     * @method 
+     * @desc 체크 상태를 반전 시킨다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.toggleChecked();
+     */
 	toggleChecked: function(){
 		if(this.el.hasClass('on')){
 			this.unchecked();
@@ -87,6 +133,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 			this.checked();
 		}
 	},
+	/**
+     * @method 
+     * @desc 체크 상태로 변경한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.checked();
+     */
 	checked: function(){
 		if(this.el.hasClass('ui-disabled')){
 			return;
@@ -99,6 +152,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 
 		this.fireEvent(this, 'change', [this, true]);
 	},
+	/**
+     * @method 
+     * @desc 체크 상태를 해제한다.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.unchecked();
+     */
 	unchecked: function(){
 		if(this.el.hasClass('ui-disabled')){
 			return;
@@ -110,6 +170,13 @@ X.ui.SwitchBox = X.extend(X.ui.Form, {
 		this.form.attr('checked', false);
 		this.fireEvent(this, 'change', [this, false]);
 	},
+	/**
+     * @method 
+     * @desc 체크 상태 유무를 반환한다. checked 일 경우 true, 아닐경우 false.
+     * @memberof X.ui.SwitchBox.prototype
+     * @example
+     * sb.getValue();
+     */
 	getValue: function(){
 		return this.form.is(':checked');
 	}

@@ -1,3 +1,24 @@
+/**
+ * @class 
+ * @classdesc View 를 생성한다. View란 화면의 기본 단위이며 기본적인 container 역할을 수행한다.
+ * @property {String | jQuery | HtmlElement} el toolbar를 생성할 엘리먼트를 지정한다.
+ * @property {Number | String} width 
+ * @property {Number | String} height 
+ * @property {Boolean} autoSize 
+ * @property {Boolean} scroll 
+ * @property {Object} scrollConfig 
+ * @property {String | jQuery} content 
+ * @property {Array} items 
+ * @property {Array} toolbars 
+ * @property {Boolean} floating 
+ * @property {Boolean} overlay 
+ * @property {X.util.ViewController} viewController 
+ * @property {String} layout 
+ * @property {Boolean} flexible 
+ * @property {Object} panels 
+ * @property {String} className 
+ * @property {String | Object} style 
+ */
 X.View = X.extend(X.util.Observer, {
 	initialize: function(config){
 		this.config = {
@@ -44,6 +65,13 @@ X.View = X.extend(X.util.Observer, {
 			this.render();
 		}
 	},
+	/**
+     * @method 
+     * @desc View 를 화면에 렌더한다.
+     * @memberof X.View.prototype
+     * @example
+     * view.render();
+     */
 	render: function(){
 		this.fireEvent(this, 'beforerender', [this]);
 		this.el.addClass('ui-view');
@@ -84,12 +112,22 @@ X.View = X.extend(X.util.Observer, {
 		}	
 
 		this.setFlexible(this.config.flexible);
-		this.scrollCreate(this.config.scroll);
+		
+		if(this.config.scroll){
+		    this.scrollCreate();
+		}
 
 		X.getWindow().on(X.events.orientationchange, { me: this }, this.onOrientationChange);
 
 		this.fireEvent(this, 'afterrender', [this]);
 	},
+	/**
+     * @method 
+     * @desc View 에 생성된 스크롤을 재갱신한다.
+     * @memberof X.View.prototype
+     * @example
+     * view.scrollRefresh();
+     */
 	scrollRefresh: function(){
 		if(this.scroll){
 			this.scroll.refresh();
@@ -118,6 +156,14 @@ X.View = X.extend(X.util.Observer, {
 		
 		this.currentPanel = null;
 	},
+	/**
+     * @method 
+     * @desc View 에 생성된 패널을 오픈한다. 'left' 나 'right' 를 입력하여 해당 위치의 패널을 연다.
+     * @memberof X.View.prototype
+     * @param {String} type 오픈할 패널의 위치를 지정한다.
+     * @example
+     * view.panelsOpen();
+     */
 	panelsOpen: function(type){
 		if(this.panelsRight || this.panelsLeft){
     		this.body.removeClass('ui-view-panels-close').addClass('ui-view-panels-open-' + type);
@@ -135,6 +181,14 @@ X.View = X.extend(X.util.Observer, {
     		});
 		}
 	},
+	/**
+     * @method 
+     * @desc View 에 생성된 패널을 닫는다. 'left' 나 'right' 를 입력하여 해당 위치의 패널을 닫는다.
+     * @memberof X.View.prototype
+     * @param {String} type 오픈할 패널의 위치를 지정한다.
+     * @example
+     * view.panelsClose();
+     */
 	panelsClose: function(){
 		if(this.panelsRight || this.panelsLeft){
 			this.body.removeClass('ui-view-panels-open ui-view-panels-open-left ui-view-panels-open-right').addClass('ui-view-panels-close');
@@ -145,6 +199,14 @@ X.View = X.extend(X.util.Observer, {
 			this.body.off('vclick');
 		}
 	},
+	/**
+     * @method 
+     * @desc View 에 생성된 패널의 열림상태를 반전시킨다.. 'left' 나 'right' 를 입력하여 해당 위치의 패널을 반전시킨다.
+     * @memberof X.View.prototype
+     * @param {String} type 오픈할 패널의 위치를 지정한다.
+     * @example
+     * view.panelsToggle();
+     */
 	panelsToggle: function(type){
 		if(this.panelsRight || this.panelsLeft){
 			if(this.body.hasClass('ui-view-panels-close')){
@@ -155,6 +217,14 @@ X.View = X.extend(X.util.Observer, {
 			}
 		}
 	},
+	/**
+     * @method 
+     * @desc View 안에 새로운 html 을 넣어 표현한다. 이때 data-role 을 해석하여 x-ui 의 컴포넌트를 생성한다.
+     * @memberof X.View.prototype
+     * @param {String} content 
+     * @example
+     * view.setContent('&lt;div&gt;New HTML&lt;/div&gt;');
+     */
 	setContent: function(content){
 		var reg = /^#/;
 		if(X.type(content) === 'string' && reg.test(content)){
@@ -177,6 +247,15 @@ X.View = X.extend(X.util.Observer, {
 		
 		this.createHtmlComponent();
 	},
+	/**
+     * @method 
+     * @desc View 의 레이아웃 형태를 변경한다. 'x' 나 'y' 로 가로 또는 세로 방향의 형태로 레이아웃을 변경할 수 있다. <br/>
+     *      'x' 일 경우 자식 view 들이 가로 방향으로 배열되며 'y' 일 경우 세로 방향으로 배열된다.
+     * @memberof X.View.prototype
+     * @param {String} layout 
+     * @example
+     * view.setLayout('x');
+     */
 	setLayout: function(layout){
 		if(layout === "x"){
 			this.el.addClass("ui-view-horizontal");
@@ -188,6 +267,16 @@ X.View = X.extend(X.util.Observer, {
 				.addClass('ui-view-body-vertical');
 		}
 	},
+	/**
+     * @method 
+     * @desc View 를 플렉서블 view 로 만들 것인지 유무를 지정한다. <br/>
+     *      true 일 경우 view는 동적으로 자기의 크기를 정하여 화면을 채우게 된다. <br/>
+     *      false 일 경우 view가 명시적인 크기를 가져야하며 해당 크기로 view 가 생성된다.
+     * @memberof X.View.prototype
+     * @param {Boolean} flex 
+     * @example
+     * view.setFlexible(false);
+     */
 	setFlexible: function(flex){
 		if(flex){
 			this.el.removeClass('ui-view-inflexible')
@@ -198,10 +287,28 @@ X.View = X.extend(X.util.Observer, {
 				.addClass('ui-view-inflexible');
 		}
 	},
+	/**
+     * @method 
+     * @desc View 의 size 를 지정한다. 인자로 true 를 넘기면 명시적인 사이즈를 지정하지 않는다. <br/>
+     *      false 시에 명시적 사이즈를 지정한다. 해당 사이즈는 config.width, config.height 의 값으로 지정된다.
+     * @memberof X.View.prototype
+     * @param {Boolean} autoSize 
+     * @example
+     * view.setSize(false);
+     */
 	setSize: function(autoSize){
 		this.setWidth(autoSize);
 		this.setHeight(autoSize);
 	},
+	/**
+     * @method 
+     * @desc View 의 width 를 지정한다. <br/>
+     *      200과 같이 형태의 인자를 넘기면, 자동으로 setFlexible(false) 를 호출하여 flexible layout 를 해제하고 해당 width 를 명시적으로 지정한다.
+     * @memberof X.View.prototype
+     * @param {Number} width 
+     * @example
+     * view.setWidth(100);
+     */
 	setWidth: function(width){
 		if(X.type(width) !== 'boolean' || width !== true){
 			this.setFlexible(false);
@@ -209,6 +316,15 @@ X.View = X.extend(X.util.Observer, {
 			this.el.width(w);
 		}
 	},
+	/**
+     * @method 
+     * @desc View 의 height 를 지정한다. <br/>
+     *      200과 같이 형태의 인자를 넘기면, 자동으로 setFlexible(false) 를 호출하여 flexible layout 를 해제하고 해당 height 를 명시적으로 지정한다.
+     * @memberof X.View.prototype
+     * @param {Number} height 
+     * @example
+     * view.setHeight(100);
+     */
 	setHeight: function(height){
 		if(X.type(height) !== 'boolean' || height !== true){
 			this.setFlexible(false);
@@ -216,19 +332,47 @@ X.View = X.extend(X.util.Observer, {
 			this.el.css('min-height', 'none').height(h);
 		}
 	},
+	/**
+     * @method 
+     * @desc View 의 border, margin, padding 을 포함한 width를 반환한다.
+     * @memberof X.View.prototype
+     * @return {Number} width 
+     * @example
+     * view.getWidth();
+     */
 	getWidth: function(){
 		var width = this.el.outerWidth();
 		return width;
 	},
+	/**
+     * @method 
+     * @desc View 의 border, margin, padding 을 포함한 height를 반환한다.
+     * @memberof X.View.prototype
+     * @return {Number} height 
+     * @example
+     * view.getHeight();
+     */
 	getHeight: function(){
 		var height = this.el.outerHeight();
 		return height;
 	},
-	scrollCreate: function(scroll){
-		if(scroll){
-			this.scroll = new iScroll(this.body.get(0), this.config.scrollConfig);
-		}
+	/**
+     * @method 
+     * @desc View 에 scroll을 생성한다.
+     * @memberof X.View.prototype
+     * @example
+     * view.scrollCreate();
+     */
+	scrollCreate: function(){
+		this.scroll = new iScroll(this.body.get(0), this.config.scrollConfig);
 	},
+	/**
+     * @method 
+     * @desc View 에 생성된 스크롤을 제거한다.
+     * @memberof X.View.prototype
+     * @example
+     * view.scrollDestroy();
+     */
 	scrollDestroy: function(){
 		if(this.scroll){
 			this.scroll.destroy();
@@ -238,6 +382,14 @@ X.View = X.extend(X.util.Observer, {
 		var me = e.data.me;
 		me.fireEvent(me, 'orientationchange', []);
 	},
+	/**
+     * @method 
+     * @desc View 를 화면에 show 시킨다. 인자로 true를 넘기면 pop 애니메이션이 동작한다.
+     * @memberof X.View.prototype
+     * @param {Boolean} transition
+     * @example
+     * view.show();
+     */
 	show: function(transition){
 		if(!this.el.hasClass('ui-view-hide')){
 			return;
@@ -264,9 +416,15 @@ X.View = X.extend(X.util.Observer, {
 			});
 		}	
 		this.fireEvent(this, 'show', [this]);
-
-		return this;
 	},
+	/**
+     * @method 
+     * @desc View 를 화면에 hide 시킨다. 인자로 true를 넘기면 pop 애니메이션이 동작한다.
+     * @memberof X.View.prototype
+     * @param {Boolean} transition
+     * @example
+     * view.hide();
+     */
 	hide: function(transition){
 		if(this.el.hasClass('ui-view-hide')){
 			return;
@@ -287,25 +445,64 @@ X.View = X.extend(X.util.Observer, {
 		}
 
 		this.fireEvent(this, 'hide', [this]);
-		return this;
 	},
-	toggle: function(){
+	/**
+     * @method 
+     * @desc View 를 화면에 toggle 시킨다. 인자로 true를 넘기면 pop 애니메이션이 동작한다.
+     * @memberof X.View.prototype
+     * @param {Boolean} transition
+     * @example
+     * view.toggle();
+     */
+	toggle: function(transition){
 		if(this.el.hasClass('ui-view-hide')){
-			this.show();
+			this.show(transition);
 		}
 		else{
-			this.hide();
+			this.hide(transition);
 		}
 	},
+	/**
+     * @method 
+     * @desc View 의 최상위 Element 를 반환한다.
+     * @memberof X.View.prototype
+     * @return {jQuery} el
+     * @example
+     * view.getEl();
+     */
 	getEl: function(){
 		return this.el;
 	},
+	/**
+     * @method 
+     * @desc View 의 id 를 반환한다.
+     * @memberof X.View.prototype
+     * @return {String} id
+     * @example
+     * view.getId();
+     */
 	getId: function(){
 		return this.el.attr('id');
 	},
+	/**
+     * @method 
+     * @desc View 의 viewController를 반환한다.
+     * @memberof X.View.prototype
+     * @return {X.util.ViewController} vc
+     * @example
+     * view.getViewController();
+     */
 	getViewController: function(){
 		return this.config.viewController;
 	},
+	/**
+     * @method 
+     * @desc View 에 viewController를 지정한다.
+     * @memberof X.View.prototype
+     * @param {X.util.ViewController | String} vc X.util.ViewController 또는 X.util.ViewController 의 id.
+     * @example
+     * view.setViewController(new X.util.RemoteViewController);
+     */
 	setViewController: function(vc){
 		if(X.type(vc) === 'string'){
 			vc = X.util.ViewController.get(vc);
@@ -318,7 +515,16 @@ X.View = X.extend(X.util.Observer, {
 		vc.init(this);
 		this.config.viewController = vc;
 	},
+	/**
+     * @method 
+     * @desc View 를 제거한다.
+     * @memberof X.View.prototype
+     * @example
+     * view.destroy();
+     */
 	destroy: function(){
+	    this.scrollDestroy();
+
 		this.el.remove();
 		X.getWindow().off(X.events.orientationchange, this.onOrientationChange);
 
@@ -329,31 +535,68 @@ X.View = X.extend(X.util.Observer, {
     	if(el.length < 1){
     		el = this.body;
     	}
-    	var comps = X.util.cm.create(el, this.config.items);
+    	var items = X.util.cm.create(el, this.config.items);
     
-    	this.config.items = comps;
+    	this.config.items = items;
     },
-	add: function(comps){
+    /**
+     * @method 
+     * @desc View 안에 새로운 컴포넌트를 자식으로 추가한다.
+     * @memberof X.View.prototype
+     * @param {Array} items
+     * @example
+     * view.addItems([new X.View(), new X.ui.ListView(), new X.ui.TextBox()]);
+     */
+	addItems: function(items){
 		var el = this.body.children('.ui-scrollview-view');
 		if(el.length < 1){
 			el = this.body;
 		}
-		comps = X.util.cm.create(el, comps);
-		this.config.items = $.unique(this.config.items.concat(comps));
+		items = X.util.cm.create(el, items);
+		this.config.items = $.unique(this.config.items.concat(items));
 		this.config.items.reverse();
 		
-		return comps;
+		return items;
 	},
-	remove: function(index){
+	/**
+     * @method 
+     * @desc View 안에 있는 컴포넌트를 삭제한다.
+     * @memberof X.View.prototype
+     * @param {Number} index
+     * @example
+     * view.removeItem(1);
+     */
+	removeItem: function(index){
 		this.config.items[index].destroy();
 		this.config.items.remove(index);
 	},
+	/**
+     * @method 
+     * @desc View 에 새로운 toolbar 를 생성한다.
+     * @memberof X.View.prototype
+     * @param {Array} toolbars
+     * @return {Array} toolbars
+     * @example
+     * view.addToolbar([
+     *      new X.ui.Toolbar()
+     * ]);
+     */
 	addToolbar: function(toolbars){
 		toolbars = X.util.cm.create(this.el, toolbars);
-		this.config.toolbars.push(toolbars);
+		
+		this.config.toolbars = $.unique(this.config.toolbars.concat(toolbars));
+		this.config.toolbars.reverse();
 
 		return toolbars;
 	},
+	/**
+     * @method 
+     * @desc View 를 팝업 형태로 화면에 띄울 수 있도록 만들거나 반대로 팝업 형태를 제거한다.
+     * @memberof X.View.prototype
+     * @param {Boolean} float true 일 경우는 팝업 형태, false 일 경우는 팝업 형태가 제거된다.
+     * @example
+     * view.setFloating(true);
+     */
 	setFloating: function(float){
 		if(float){
 			this.config.floating = float;
@@ -364,6 +607,14 @@ X.View = X.extend(X.util.Observer, {
 		}		
 		this.setOverlay(this.config.overlay);
 	},
+	/**
+     * @method 
+     * @desc View 를 팝업 형태로 화면에 띄울때 배경을 회색으로 덮을 div 를 생성한다.
+     * @memberof X.View.prototype
+     * @param {Boolean} overlay true 일 경우는 배경 생성, false 일 경우는 배경을 생성하지 않는다.
+     * @example
+     * view.setOverlay(true);
+     */
 	setOverlay: function(overlay){
 		if(overlay){
 			if(this.config.floating){
@@ -388,6 +639,28 @@ X.View = X.extend(X.util.Observer, {
 		
 		this.config.overlay = overlay;
 	},
+	/**
+     * @method 
+     * @desc View 안에 바인딩 되어 있는 html 들 중 data-role 로 기술된 컴포넌트들을 해석하여 x-ui 컴포넌트로 변경한다.
+     * @memberof X.View.prototype
+     * @example
+     * 
+     * //view content
+     * &lt;div data-role="toolbar"&gt;
+     *  &lt;h1&gt;Toolbar&lt;/h1&gt;
+     * &lt;/div&gt;
+     * &lt;div data-role="listview"&gt;
+     *  &lt;ul&gt;
+     *      &lt;li&gt;A&lt;/li&gt;
+     *      &lt;li&gt;B&lt;/li&gt;
+     *      &lt;li&gt;C&lt;/li&gt;
+     *  &lt;/ul&gt;
+     * &lt;/div&gt;
+     * &lt;div data-role="textbox"&gt;&lt;/div&gt;
+     * 
+     * //view 컴포넌트 해석
+     * view.createHtmlComponent();
+     */
 	createHtmlComponent: function(){
 		var	views = this.el.find('[data-role="view"]');
 		views.each(function(){

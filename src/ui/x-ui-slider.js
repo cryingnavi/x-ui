@@ -1,3 +1,26 @@
+/**
+ * @class 
+ * @classdesc 슬라이더바를 생성한다.
+ * @property {Number} min 슬라이더의 최소값을 지정한다. Default: 0
+ * @property {Number} max 슬라이더의 최고값을 지정한다. Default: 100
+ * @property {Number} 한번에 이동할 슬라이더의 step을 지정한다. Default: 1
+ * @property {Number} defaultValue 슬라이더의 기본값을 지정한다. Default: 50
+ * @property {String} direction 'x' 나 'y'. 슬라이더의 방향을 지정한다. Default: 'x'
+ * @property {Boolean} subhandle 두개의 핸들을 생성할지 여부를 지정한다. Default: false
+ * @example
+ * var slider = new X.ui.Slider({
+ *      min: 0,
+ *		max: 100,
+ *		step: 1,
+ *		defaultValue: 50,
+ *		direction: 'x',
+ *		subhandle: false
+ * });
+ * slider.render();
+ * <pre><code>
+ * &lt;div data-role="slider" style="width: 300px;margin:30px;" data-default-value="25"&gt;&lt;/div&gt;
+ * </code></pre>
+ */
 X.ui.Slider = X.extend(X.ui.Form, {
 	initialize: function(config){
 		this.config = {
@@ -6,12 +29,18 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			step: 1,
 			defaultValue: 50,
 			direction: 'x',
-			style: { },
 			subhandle: false
 		};
 		X.apply(this.config, config);
 		X.ui.Slider.base.initialize.call(this, this.config);
 	},
+	/**
+     * @method 
+     * @desc 슬라이더를 화면에 렌더한다.
+     * @memberof X.ui.Slider.prototype
+     * @example
+     * slider.render();
+     */
 	render: function(){
 		X.ui.Slider.base.render.call(this);
 		
@@ -89,7 +118,6 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			type: 'range',
 			'class': 'ui-slider-input',
 			required: this.config.required,
-			placeholder: this.config.placeholder,
 			min: this.config.min,
 			max: this.config.max,
 			step: this.config.step,
@@ -119,6 +147,14 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			this.formcontin.append(this.subhandle);
 		}
 	},
+	/**
+     * @method 
+     * @desc 슬라이더에 새로운 value를 업데이트한다.
+     * @memberof X.ui.Slider.prototype
+     * @param {Number} val
+     * @example
+     * slider.setValue(50);
+     */
 	setValue: function(val){
 		var percent,
 			min = this.getMin(),
@@ -133,7 +169,7 @@ X.ui.Slider = X.extend(X.ui.Form, {
 					l = this.formcontin.offset().left,
 					x = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.originalEvent.pageX;
 		
-    			if ( !this.dragging || x < l - tol || x > l + w + tol ) {
+                if ( !this.dragging || x < l - tol || x > l + w + tol ) {
 					return;
 				}
 
@@ -235,9 +271,8 @@ X.ui.Slider = X.extend(X.ui.Form, {
 	},
 	percentValue: function(val){
 		var min = this.getMin(),
-			max = this.getMax();
-
-		percent = (parseFloat(val) - min) / (max - min) * 100;
+			max = this.getMax(),
+            percent = (parseFloat(val) - min) / (max - min) * 100;
 		
 		if(isNaN(percent)){
 			return 0;
@@ -251,7 +286,14 @@ X.ui.Slider = X.extend(X.ui.Form, {
 
 		return percent;
 	},
-	//override
+	/**
+     * @method 
+     * @desc 슬라이더에 value를 반환한다.
+     * @memberof X.ui.Slider.prototype
+     * @return {Number} val
+     * @example
+     * slider.getValue();
+     */
 	getValue: function(){
 		if(this.subhandle){
 			return [this.handle.data('data'), this.subhandle.data('data')];
@@ -260,6 +302,13 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			return this.handle.data('data');
 		}
 	},
+	/**
+     * @method 
+     * @desc 슬라이더를 disabled 상태로 변환한다.
+     * @memberof X.ui.Slider.prototype
+     * @example
+     * slider.disabled();
+     */
 	disabled: function(){
 		this.el.addClass('ui-disabled');
 		this.handle.addClass('ui-disabled');
@@ -269,6 +318,13 @@ X.ui.Slider = X.extend(X.ui.Form, {
 		this.form.attr('disabled', true);
 		this.fireEvent(this, 'disabled', [this]);
 	},
+	/**
+     * @method 
+     * @desc 슬라이더를 enabled 상태로 변환한다.
+     * @memberof X.ui.Slider.prototype
+     * @example
+     * slider.enabled();
+     */
 	enabled: function(){
 		this.el.removeClass('ui-disabled');
 		this.handle.removeClass('ui-disabled');
@@ -278,15 +334,47 @@ X.ui.Slider = X.extend(X.ui.Form, {
 		this.form.attr('disabled', false);
 		this.fireEvent(this, 'enabled', [this]);
 	},
+	/**
+     * @method 
+     * @desc 프로그래스 바의 최소값을 변경한다.
+     * @memberof X.ui.Slider.prototype
+     * @param {Number} min
+     * @example
+     * slider.setMin(0);
+     */
 	setMin: function(min){
 		this.config.min = min;
 	},
+	/**
+     * @method 
+     * @desc 프로그래스 바의 최고값을 변경한다.
+     * @memberof X.ui.Slider.prototype
+     * @param {Number} max
+     * @example
+     * slider.setMax(100);
+     */
 	setMax: function(max){
 		this.config.max = max;
 	},
+	/**
+     * @method 
+     * @desc 프로그래스 바의 최소값을 반환한다.
+     * @memberof X.ui.Slider.prototype
+     * @return {Number} min
+     * @example
+     * slider.getMin();
+     */
 	getMin: function(){
 		return this.config.min;
 	},
+	/**
+     * @method 
+     * @desc 프로그래스 바의 최고값을 반환한다.
+     * @memberof X.ui.Slider.prototype
+     * @return {Number} max
+     * @example
+     * slider.getMax();
+     */
 	getMax: function(){
 		return this.config.max;
 	}

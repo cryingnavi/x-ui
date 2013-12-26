@@ -1,3 +1,37 @@
+/**
+ * @class
+ * @classdesc X.util.RemoteViewController 클래스는 원격지에 있는 화면을 불러와 화면을 전환하도록 한다.
+ * @property {String} config.initPage 초기 화면의 url 을 지정한다.
+ * @property {String} config.transition 화면 전환 animation 종류를 지정한다.
+ * <b>slide</b><br/>
+ * <b>slidefade</b><br/>
+ * <b>slideup</b><br/>
+ * <b>slidedown</b><br/>
+ * <b>pop</b><br/>
+ * <b>fade</b><br/>
+ * <b>flip</b><br/>
+ * <b>turn</b><br/>
+ * <b>flow</b><br/>
+ * <b>roll</b>
+ * @example
+ * var view = new X.View({
+ *      viewController: new X.util.RemoteViewController({
+ *          beforenextchange: function(){ },        //다음 화면으로 전환하기 직전에 호출된다.
+ *          afternextchange: function(){ },         //다음 화면으로 전환한 후에 호출된다.
+ *          beforeprevchange: function(){ },        //이전 화면으로 전환하기 진적에 호출된다.
+ *          afterprevchange: function(){ }          //이전 화면으로 전환한 후에 호출된다.
+ *      }),
+ *      items: [
+ *          new X.View(),
+ *          new X.View(),
+ *          new X.View()
+ *      ]
+ * });
+ * 
+ * var vc = view.getViewController();
+ * vc.initPage({ url: "page.html" });
+ * vc.nextPage({ url: "page-next.html" });
+ */
 X.util.RemoteViewController = X.extend(X.util.ViewController, {
 	initialize: function(config){
 		this.config = { 
@@ -18,11 +52,28 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 			this.initPage(this.config.initPage);
 		}
 	},
+	/**
+	 * @method
+     * @desc 다음 화면으로 화면을 전환한다.
+     * @memberof X.util.RemoteViewController.prototype
+     * @param {Object} config - 초기 화면을 불러오기 위한 정보이다.<br/>
+     * <b>url</b>           : 초기 페이지의 url을 넘긴다.
+     */
 	initPage: function(config){
 		this.fireEvent(this, 'beforeinit', []);
 		this.callMethod = 'initSuccess';
 		this.send(config);
 	},
+	/**
+	 * @method
+     * @desc 다음 화면으로 화면을 전환한다.
+     * @memberof X.util.RemoteViewController.prototype
+     * @param {Object} config - 다음 화면으로 전환한다.<br/>
+     * <b>url</b>           : 전환하고자 하는 page 의 url<br/>
+     * <b>history</b>       : 화면전환을 history에 저장할지 여부<br/>
+     * <b>transition</b>    : 화면전환에 사용할 애니메이션<br/>
+     * <b>reverse</b>       : 화면전환시 방향. reverse 시 역방향. 빈값을 경우는 정방향.<br/>
+     */
 	nextPage: function(config){
 		if(X.util.vcm.changing){
 			return;
@@ -41,6 +92,15 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 		
 		this.send(config);
 	},
+	/**
+     * @desc 이전 화면으로 화면을 전환한다.
+     * @memberof X.util.RemoteViewController.prototype
+     * @method nextPage
+     * @param {Object} config - 이전 화면으로 전환한다.<br/>
+     * <b>url</b>           : 전환하고자 하는 page 의 url<br/>
+     * <b>transition</b>    : 화면전환에 사용할 애니메이션<br/>
+     * <b>reverse</b>       : 화면전환시 방향. reverse 시 역방향. 빈값을 경우는 정방향.<br/>
+     */
 	prevPage: function(config){
 		if(X.util.vcm.changing){
 			return false;
@@ -139,7 +199,7 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 	
 		this.setActiveView(toView);
 		toView.setContent(data.html);
-		this.view.add([toView]);
+		this.view.addItems([toView]);
 		toView.body.append(data.script);
 
 		this.fireEvent(this, 'afterinit', [this.getActiveView()]);
@@ -156,7 +216,7 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 
 		if(!this.history.getViewInfo(config.url)){
 			toView.setContent(data.html);
-			this.view.add([toView]);
+			this.view.addItems([toView]);
 			toView.body.append(data.script);
 		}
 		this.nextMove(fromView, toView, config);

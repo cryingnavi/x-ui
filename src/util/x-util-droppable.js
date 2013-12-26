@@ -1,3 +1,21 @@
+/**
+ * @class
+ * @classdesc X.util.Droppable 클래스는 엘리먼트를 드롭 가능 엘리먼트로 생성한다.
+ * @property {String} config.accept 드롭 영역이 받아들일 드래그 객체를 지정한다. 지정할 때는 CSS 셀렉터를 사용한다.
+ * @example
+ * var drag = new X.util.Droppable({
+ *      accept: '#dragEl',
+ *      listener: {
+ *          start: function(){ //drag 객체가 드래그를 시작할 때 },
+ *          move: function(){ //drag 객체가 드래그를 지속 하고 있을 때 },
+ *          end: function(){ //drag 객체가 드래그를 끝냈을 때 },
+ *          hover: function(){ //drag 객체가 드롭 영역에 들어온 후 지속적으로 호출된다. },
+ *          enter: function(){ //drag 객체가 드롭 영역에 들어오면 한번만 호출된다. },
+ *          leave: function(){ //drag 객체가 드롭 영역에 나가면 한번만 호출된다. },
+ *          drop: function(){ //drag 객체가 드롭 영역 안에서 드롭 되면 호출된다. },
+ *      }
+ * });
+ */
 X.util.Droppable = X.extend(X.util.Observer, {
 	initialize: function(config){
 		this.config = {
