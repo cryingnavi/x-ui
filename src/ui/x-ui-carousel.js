@@ -84,6 +84,10 @@ X.ui.Carousel = X.extend(X.View, {
 			style.webkitTransform = 'translateX(' + (pos) + 'px)';
 			style.msTransform = 'translateX(' + (pos) + 'px)';
 			style.transform = 'translateX(' + (pos) + 'px)';
+			
+			views.each(function(i){
+			    this.style.left = (i * 100) + '%';
+			});
 		}
 		else{
 		    itemSize = this.getHeight();
@@ -92,6 +96,10 @@ X.ui.Carousel = X.extend(X.View, {
 			style.webkitTransform = 'translateY(' + (pos) + 'px)';
 			style.msTransform = 'translateY(' + (pos) + 'px)';
 			style.transform = 'translateY(' + (pos) + 'px)';
+			
+			views.each(function(i){
+			    this.style.top = (i * 100) + '%';
+			});
 		}
 
 		this.carouselBody.bind(X.events.start, {me: this}, this.onStart);
@@ -139,6 +147,7 @@ X.ui.Carousel = X.extend(X.View, {
 		me.startPageX = pageX;
 		me.startPageY = pageY;
 		me.dragging = true;
+		me.moveLimit = 0;
 
 		me.carouselBody.on(X.events.move, { me: me }, me.onMove);
 		me.carouselBody.on(X.events.end, { me: me }, me.onEnd);
@@ -261,9 +270,20 @@ X.ui.Carousel = X.extend(X.View, {
      * carousel.append(new X.View());
      */
 	append: function(comp){
-		var comps = X.util.cm.create(this.carouselBody, [comp]);
+		var comps = X.util.cm.create(this.carouselBody, [comp]),
+		    position;
+		
 		this.config.items.push(comps[0]);
-		comps[0].addClass('ui-carousel-views');
+		comps[0].getEl().addClass('ui-carousel-views');
+		
+		if(this.config.direction === 'x'){
+		    position = 'left';
+		}
+		else{
+		    position = 'top';
+		}
+		
+		comps[0].getEl().css(position, ((this.config.items.length-1) * 100) + '%');
 		
 		return comps[0];
 	},
@@ -293,15 +313,24 @@ X.ui.Carousel = X.extend(X.View, {
 	next: function(){
 		var index = this.activeIndex + 1,
 			style = this.carouselBody.get(0).style;
+			
+		if(index === this.config.items.length){
+		    return false;
+		}
 
-		style.webkitTransitionDuration = '200ms';
+		style.webkitTransitionDuration = this.config.duration + 'ms';
+        style.msTransitionDuration = this.config.duration + 'ms';
+		style.transitionDuration = this.config.duration + 'ms';
+
 		if(this.config.direction === 'x'){
 			style.webkitTransform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
 			style.msTransform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
+			style.transform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
 		}
 		else{
 			style.webkitTransform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
 			style.msTransform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
+			style.transform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
 		}
 
 		this.activeIndex = index;
@@ -318,14 +347,23 @@ X.ui.Carousel = X.extend(X.View, {
 		var index = this.activeIndex - 1,
 			style = this.carouselBody.get(0).style;
 
-		style.webkitTransitionDuration = '200ms';
+		if(index === -1){
+		    return false;
+		}
+
+        style.webkitTransitionDuration = this.config.duration + 'ms';
+        style.msTransitionDuration = this.config.duration + 'ms';
+		style.transitionDuration = this.config.duration + 'ms';
+
 		if(this.config.direction === 'x'){
 			style.webkitTransform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
 			style.msTransform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
+			style.transform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
 		}
 		else{
 			style.webkitTransform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
 			style.msTransform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
+			style.transform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
 		}
 
 		this.activeIndex = index;

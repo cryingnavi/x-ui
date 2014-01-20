@@ -2,14 +2,14 @@
  * x-ui Javascript UI FrameWork
  * jQuery Mobile Event Plugin, jQuery Mobile Animation used and iScroll 4 used.
  * 
- * Copyright 2013, 2013 YoungNam Heo
+ * Copyright 2013, 2014 YoungNam Heo
  * Dual licensed under the MIT or GPL Version 2 licenses
  * 
  * project: x-ui
  * version: 1.0.1
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2013-12-24 10:12 
+ * Date: 2014-01-20 12:01 
  */
 /**
  * X namespace
@@ -196,8 +196,8 @@ X = {
 	});
 
 	$.fn.animationComplete = function( callback, data ){
-		if('WebKitTransitionEvent' in window){
-			return $(this).one('webkitAnimationEnd', data, callback);
+		if(X.platform.cssAnimataion){
+			return $(this).one('webkitAnimationEnd animationend', data, callback);
 		}
 		else{
 			setTimeout(callback, 0);
@@ -236,7 +236,25 @@ X = {
 
 		var android = /android/i.test(userAgent),
 			androidVersion = parseFloat(userAgent.slice(userAgent.indexOf('android') + 8));
-
+			
+		function getCssAnimataion(){
+		    var prefixes = ['webkit', 'Moz', 'o', ''],
+		        len = prefixes.length,
+		        style = document.documentElement.style,
+		        i = 0,
+		        ret = false;
+		    
+		    for(; i<len; i++){
+		        if(style[prefixes[i]] + 'AnimationName'){
+		            ret = true;
+		            break;
+		        }
+		    }
+		    
+		    return ret;
+		}
+			
+		
 		return {
 			isIos: iOs,
 			isWindows: win,
@@ -248,7 +266,8 @@ X = {
 			iPad: iPad,
 			android: android,
 			androidVersion: androidVersion,
-			hasTouch: ('ontouchstart' in window)
+			hasTouch: ('ontouchstart' in window),
+			cssAnimataion: getCssAnimataion()
 		};
 	})();
 
@@ -693,10 +712,13 @@ X.util.ViewController = X.extend(X.util.Observer, {
 
 		function transitionHandler(fromView, toView, transition, reverse){
 			var viewIn = function(){
-				var tel = toView.getEl();
+			    var tel = null,
+			        fel = null;
+
+				tel = toView.getEl();
 				tel.addClass(transition + ' in ' + reverse + ' ui-transitioning ui-vc-active').removeClass('ui-view-hide');
 
-				var fel = fromView.getEl();
+				fel = fromView.getEl();
 				fel.addClass(transition + ' out ' + reverse + ' ui-transitioning');
 
 				if(transition !== 'none'){
@@ -707,12 +729,15 @@ X.util.ViewController = X.extend(X.util.Observer, {
 				}
 			},
 			viewOut = function(){
-				var tel = toView.getEl();
+			    var tel = null,
+			        fel = null;
+			        
+				tel = toView.getEl();
 				tel.removeClass(transition + ' in ' + reverse + ' ui-transitioning');
 
-				var fel = fromView.getEl();
+				fel = fromView.getEl();
 				fel.removeClass(transition + ' out ' + reverse + ' ui-transitioning ui-vc-active');
-				
+
 				done();
 			},
 			done = function(){
@@ -1589,7 +1614,12 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			me.dragging = true;
 			target.style.webkitTransform = null;
 			target.style.webkitTransitionDuration = null;
+			target.style.msTransform = null;
+			target.style.msTransitionDuration = null;
+			target.style.transform = null;
+			target.style.transitionDuration = null;
 		}
+		
 
 		me.fireEvent(me, 'start', [me]);
 		
@@ -1687,6 +1717,10 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			var style = target.get(0).style;
 			style.webkitTransform = 'translate3d(0px, 0px, 0px)';
 			style.webkitTransitionDuration = null;
+			style.msTransform = 'translate3d(0px, 0px, 0px)';
+			style.msTransitionDuration = null;
+			style.transform = 'translate3d(0px, 0px, 0px)';
+			style.transitionDuration = null;
 
 			if(!me.config.revert){
 				style.left = me.position.x + 'px';
@@ -1712,10 +1746,14 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			fn = function(){
 				var anim = {
 					'-webkit-transition-duration': me.config.revertDuration + 'ms',
-					'-webkit-transform': 'translate3d(0px, 0px, 0px)'
+					'-webkit-transform': 'translate3d(0px, 0px, 0px)',
+					'-ms-transition-duration': me.config.revertDuration + 'ms',
+					'-ms-transform': 'translate3d(0px, 0px, 0px)',
+					'transition-duration': me.config.revertDuration + 'ms',
+					'transform': 'translate3d(0px, 0px, 0px)'
 				};
 				
-				me.active_el.css(anim).one('webkitTransitionEnd', function(){
+				me.active_el.css(anim).one('webkitTransitionEnd transitionend', function(){
 					endFn();
 					endFn = null;
 				});
@@ -3230,6 +3268,10 @@ X.ui.Carousel = X.extend(X.View, {
 			style.webkitTransform = 'translateX(' + (pos) + 'px)';
 			style.msTransform = 'translateX(' + (pos) + 'px)';
 			style.transform = 'translateX(' + (pos) + 'px)';
+			
+			views.each(function(i){
+			    this.style.left = (i * 100) + '%';
+			});
 		}
 		else{
 		    itemSize = this.getHeight();
@@ -3238,6 +3280,10 @@ X.ui.Carousel = X.extend(X.View, {
 			style.webkitTransform = 'translateY(' + (pos) + 'px)';
 			style.msTransform = 'translateY(' + (pos) + 'px)';
 			style.transform = 'translateY(' + (pos) + 'px)';
+			
+			views.each(function(i){
+			    this.style.top = (i * 100) + '%';
+			});
 		}
 
 		this.carouselBody.bind(X.events.start, {me: this}, this.onStart);
@@ -3285,6 +3331,7 @@ X.ui.Carousel = X.extend(X.View, {
 		me.startPageX = pageX;
 		me.startPageY = pageY;
 		me.dragging = true;
+		me.moveLimit = 0;
 
 		me.carouselBody.on(X.events.move, { me: me }, me.onMove);
 		me.carouselBody.on(X.events.end, { me: me }, me.onEnd);
@@ -3407,9 +3454,20 @@ X.ui.Carousel = X.extend(X.View, {
      * carousel.append(new X.View());
      */
 	append: function(comp){
-		var comps = X.util.cm.create(this.carouselBody, [comp]);
+		var comps = X.util.cm.create(this.carouselBody, [comp]),
+		    position;
+		
 		this.config.items.push(comps[0]);
-		comps[0].addClass('ui-carousel-views');
+		comps[0].getEl().addClass('ui-carousel-views');
+		
+		if(this.config.direction === 'x'){
+		    position = 'left';
+		}
+		else{
+		    position = 'top';
+		}
+		
+		comps[0].getEl().css(position, ((this.config.items.length-1) * 100) + '%');
 		
 		return comps[0];
 	},
@@ -3439,15 +3497,24 @@ X.ui.Carousel = X.extend(X.View, {
 	next: function(){
 		var index = this.activeIndex + 1,
 			style = this.carouselBody.get(0).style;
+			
+		if(index === this.config.items.length){
+		    return false;
+		}
 
-		style.webkitTransitionDuration = '200ms';
+		style.webkitTransitionDuration = this.config.duration + 'ms';
+        style.msTransitionDuration = this.config.duration + 'ms';
+		style.transitionDuration = this.config.duration + 'ms';
+
 		if(this.config.direction === 'x'){
 			style.webkitTransform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
 			style.msTransform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
+			style.transform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
 		}
 		else{
 			style.webkitTransform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
 			style.msTransform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
+			style.transform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
 		}
 
 		this.activeIndex = index;
@@ -3464,14 +3531,23 @@ X.ui.Carousel = X.extend(X.View, {
 		var index = this.activeIndex - 1,
 			style = this.carouselBody.get(0).style;
 
-		style.webkitTransitionDuration = '200ms';
+		if(index === -1){
+		    return false;
+		}
+
+        style.webkitTransitionDuration = this.config.duration + 'ms';
+        style.msTransitionDuration = this.config.duration + 'ms';
+		style.transitionDuration = this.config.duration + 'ms';
+
 		if(this.config.direction === 'x'){
 			style.webkitTransform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
 			style.msTransform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
+			style.transform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
 		}
 		else{
 			style.webkitTransform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
 			style.msTransform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
+			style.transform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
 		}
 
 		this.activeIndex = index;
@@ -4295,7 +4371,7 @@ X.ui.LayoutView = X.extend(X.View, {
             constrain: this.el
         });
 
-        this[region].el.on('webkitTransitionEnd', {me: this}, this.animationEnd);
+        this[region].el.on('webkitTransitionEnd transitionend', {me: this}, this.animationEnd);
 	},
 	animationEnd: function(e){
         var me = e.data.me;

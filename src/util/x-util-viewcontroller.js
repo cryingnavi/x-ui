@@ -169,10 +169,13 @@ X.util.ViewController = X.extend(X.util.Observer, {
 
 		function transitionHandler(fromView, toView, transition, reverse){
 			var viewIn = function(){
-				var tel = toView.getEl();
+			    var tel = null,
+			        fel = null;
+
+				tel = toView.getEl();
 				tel.addClass(transition + ' in ' + reverse + ' ui-transitioning ui-vc-active').removeClass('ui-view-hide');
 
-				var fel = fromView.getEl();
+				fel = fromView.getEl();
 				fel.addClass(transition + ' out ' + reverse + ' ui-transitioning');
 
 				if(transition !== 'none'){
@@ -183,12 +186,15 @@ X.util.ViewController = X.extend(X.util.Observer, {
 				}
 			},
 			viewOut = function(){
-				var tel = toView.getEl();
+			    var tel = null,
+			        fel = null;
+			        
+				tel = toView.getEl();
 				tel.removeClass(transition + ' in ' + reverse + ' ui-transitioning');
 
-				var fel = fromView.getEl();
+				fel = fromView.getEl();
 				fel.removeClass(transition + ' out ' + reverse + ' ui-transitioning ui-vc-active');
-				
+
 				done();
 			},
 			done = function(){

@@ -169,7 +169,12 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			me.dragging = true;
 			target.style.webkitTransform = null;
 			target.style.webkitTransitionDuration = null;
+			target.style.msTransform = null;
+			target.style.msTransitionDuration = null;
+			target.style.transform = null;
+			target.style.transitionDuration = null;
 		}
+		
 
 		me.fireEvent(me, 'start', [me]);
 		
@@ -267,6 +272,10 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			var style = target.get(0).style;
 			style.webkitTransform = 'translate3d(0px, 0px, 0px)';
 			style.webkitTransitionDuration = null;
+			style.msTransform = 'translate3d(0px, 0px, 0px)';
+			style.msTransitionDuration = null;
+			style.transform = 'translate3d(0px, 0px, 0px)';
+			style.transitionDuration = null;
 
 			if(!me.config.revert){
 				style.left = me.position.x + 'px';
@@ -292,10 +301,14 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			fn = function(){
 				var anim = {
 					'-webkit-transition-duration': me.config.revertDuration + 'ms',
-					'-webkit-transform': 'translate3d(0px, 0px, 0px)'
+					'-webkit-transform': 'translate3d(0px, 0px, 0px)',
+					'-ms-transition-duration': me.config.revertDuration + 'ms',
+					'-ms-transform': 'translate3d(0px, 0px, 0px)',
+					'transition-duration': me.config.revertDuration + 'ms',
+					'transform': 'translate3d(0px, 0px, 0px)'
 				};
 				
-				me.active_el.css(anim).one('webkitTransitionEnd', function(){
+				me.active_el.css(anim).one('webkitTransitionEnd transitionend', function(){
 					endFn();
 					endFn = null;
 				});

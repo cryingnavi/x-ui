@@ -183,8 +183,8 @@ X = {
 	});
 
 	$.fn.animationComplete = function( callback, data ){
-		if('WebKitTransitionEvent' in window){
-			return $(this).one('webkitAnimationEnd', data, callback);
+		if(X.platform.cssAnimataion){
+			return $(this).one('webkitAnimationEnd animationend', data, callback);
 		}
 		else{
 			setTimeout(callback, 0);
@@ -223,7 +223,25 @@ X = {
 
 		var android = /android/i.test(userAgent),
 			androidVersion = parseFloat(userAgent.slice(userAgent.indexOf('android') + 8));
-
+			
+		function getCssAnimataion(){
+		    var prefixes = ['webkit', 'Moz', 'o', ''],
+		        len = prefixes.length,
+		        style = document.documentElement.style,
+		        i = 0,
+		        ret = false;
+		    
+		    for(; i<len; i++){
+		        if(style[prefixes[i]] + 'AnimationName'){
+		            ret = true;
+		            break;
+		        }
+		    }
+		    
+		    return ret;
+		}
+			
+		
 		return {
 			isIos: iOs,
 			isWindows: win,
@@ -235,7 +253,8 @@ X = {
 			iPad: iPad,
 			android: android,
 			androidVersion: androidVersion,
-			hasTouch: ('ontouchstart' in window)
+			hasTouch: ('ontouchstart' in window),
+			cssAnimataion: getCssAnimataion()
 		};
 	})();
 
