@@ -15,7 +15,7 @@ x-ui 는 크게 다음과 같이 구성되어 있습니다.
 ## core
 x-ui 를 구성하는 가장 핵심적인 static method 들이 존재한다. 예를 들어 extend 가 여기에 있다.
 
-''' javascript
+```javascript
 var Parents = X.extend(X.emptyFn, {
     initialize: function(){ }
 });
@@ -25,7 +25,7 @@ var Child = Custom.extend({
         Parents.base.initialize.call(this);
     }
 });
-'''
+```
 
 ## util
 util 에는 다음과 같은 기능이 있다.
@@ -53,18 +53,19 @@ ui controll 들이 존재한다. 가장 핵심은 view 라는 controll 이다. v
 11. Spinner
 12. SwitchBox
 13. Toolbar
+ 
 
-''' javascript
+```javascript
 var view = new X.View({
     el: "#container"
 });
-'''
+```
 
-''' html
+```html
 <div data-role="view">
     <!-- someting html -->
 </div>
-'''
+```
 
 
 #Road Map
