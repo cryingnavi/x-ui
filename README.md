@@ -1,14 +1,24 @@
 x-ui
 ====
 
-
-Webkit Browser UI Framework.
-
-## master 가 아닌 다른 브랜치인 1.x.x을 사용합니다.
-
-## 예제는 다음에서 확인 할 수 있습니다.
+# 예제는 다음에서 확인 할 수 있습니다.
 http://cryingnavi.github.io/x-ui/
 
+# x-ui
+HTML 5 기반의 작은 ui framework 입니다. 웹 어플리케이션 제작 유용하도록 설계되었으며 리치한 UI 를 구현하는데 필요한 최소한의 기능을 제공합니다.
+x-ui 는 크게 다음과 같이 구성되어 있습니다.
+
+1. core
+2. util
+3. widget
+
+## core
+
+## 1.0.3
++ grunt-jsdoc 설정 변경
++ CSS3 flex box 모델 도입
++ firefox, IE 10, IE 11 대응
++ carousel 버그 수정
 
 ## 1.0.2
 + jsdoc 를 이용한 문서화
