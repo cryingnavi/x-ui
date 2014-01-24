@@ -12,6 +12,9 @@ x-ui 는 크게 다음과 같이 구성되어 있습니다.
 2. util
 3. ui
 
+## 지원범위
+HTML 5, CSS3 를 지원하는 브라우저이 최척화되어 있다. Chrome, FireFox, 
+
 ## core
 x-ui 를 구성하는 가장 핵심적인 static method 들이 존재한다. 예를 들어 extend 가 여기에 있다.
 
