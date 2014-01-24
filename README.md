@@ -71,8 +71,10 @@ var view = new X.View({
 #Road Map
 ## 1.1.0
 + FireFox, IE10, IE11 대응
+
 ## 1.0.2
 + jsdoc 를 이용한 문서화
+
 ## 1.0.1
 + 프로젝트 첫 릴리즈
 
