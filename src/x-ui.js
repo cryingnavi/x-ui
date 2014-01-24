@@ -6,10 +6,10 @@
  * Dual licensed under the MIT or GPL Version 2 licenses
  * 
  * project: x-ui
- * version: 1.0.3
+ * version: 1.1.0
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2014-01-24 01:01 
+ * Date: 2014-01-24 04:01 
  */
 /**
  * X namespace
@@ -2033,23 +2033,23 @@ X.ui = { };
 /**
  * @class 
  * @classdesc View 를 생성한다. View란 화면의 기본 단위이며 기본적인 container 역할을 수행한다.
- * @property {String | jQuery | HtmlElement} el toolbar를 생성할 엘리먼트를 지정한다.
- * @property {Number | String} width 
- * @property {Number | String} height 
- * @property {Boolean} autoSize 
- * @property {Boolean} scroll 
- * @property {Object} scrollConfig 
- * @property {String | jQuery} content 
- * @property {Array} items 
- * @property {Array} toolbars 
- * @property {Boolean} floating 
- * @property {Boolean} overlay 
+ * @property {String | jQuery | HtmlElement} el view 를 생성할 엘리먼트를 지정한다.
+ * @property {Number | String} width view 의 가로 사이즈를 지정한다. autoSize 가 true 일 경우 무시된다.
+ * @property {Number | String} height view 의 세로 사이즈를 지정한다. autoSize 가 true 일 경우 무시된다.
+ * @property {Boolean} autoSize 자동으로 부모 요소를 가득 채울지를 결정한다. 기본값이 True 이다
+ * @property {Boolean} scroll 스크롤을 생성할지 여부를 지정한다.
+ * @property {Object} scrollConfig 스크롤 options 을 지정한다.
+ * @property {String | jQuery} content view 가 가질 content 를 지정한다. html 문자열 또는 jquery 객체를 받는다.
+ * @property {Array} items 하위에 포함할 다른 controll 들을 지정한다.
+ * @property {Array} toolbars view 가 포함할 툴바를 지정한다.
+ * @property {Boolean} floating view 를 팝업형태로 화면에 띄울지를 지정한다.
+ * @property {Boolean} overlay floating true 일때 회색 배경을 덮을지를 지정한다.
  * @property {X.util.ViewController} viewController 
- * @property {String} layout 
- * @property {Boolean} flexible 
- * @property {Object} panels 
- * @property {String} className 
- * @property {String | Object} style 
+ * @property {String} layout 하위 view 들이 가로 또는 세로로 배열되도록 한다. 기본값은 세로이다. 'x' | 'y'.
+ * @property {Boolean} flexible view 가 flexible 하게 자신의 크기를 결정할지 여부이다. false 로 지정하고 width, height 를 지정하면 해당 크기대로 view 가 결정된다.
+ * @property {Object} panels 왼쪽, 오른쪽에 숨겨진 view를 지정한다.
+ * @property {String} className view 에 지정할 클래스이름
+ * @property {String | Object} style view 에 적용할 style
  */
 X.View = X.extend(X.util.Observer, {
 	initialize: function(config){
