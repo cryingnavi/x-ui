@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Class: Tabs</title>
+	<title>Documentation Class: Form</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -147,17 +147,17 @@
 					
 
 
-	<h1 class="page-title">Class: Tabs</h1>
+	<h1 class="page-title">Class: Form</h1>
 <section>
 
 <header>
     <h2>
         <span class="ancestors"><a href="X.html">X</a><a href="X.ui.html">.ui</a>.</span>
     
-    Tabs
+    Form
     </h2>
     
-        <div class="class-description">Tab 형태의 화면을 생성한다.</div>
+        <div class="class-description">form 요소들의 Base 클래스 이다.</div>
     
 </header>
 
@@ -168,7 +168,7 @@
     
         
 <dt>
-    <h4 class="name" id="Tabs"><span class="type-signature"></span>new Tabs<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Form"><span class="type-signature"></span>new Form<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -212,7 +212,7 @@
 
         <tr>
             
-                <td class="name"><code>position</code></td>
+                <td class="name"><code>config.name</code></td>
             
 
             <td class="type">
@@ -228,19 +228,45 @@
 
             
 
-            <td class="description last">'top' 나 'bottom'. 탭바의 위치를 지정한다. Default: 'top'</td>
+            <td class="description last">넘어온 문자열을 키로 삼아 FormView에서 serialize 하게 된다. name을 넘기지 않을 경우 id 를 사용한다.</td>
         </tr>
 
 	
 
         <tr>
             
-                <td class="name"><code>activeIndex</code></td>
+                <td class="name"><code>config.disabled</code></td>
             
 
             <td class="type">
             
                 
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">폼요소의 비활성화 상태를 나타낸다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>config.defaultValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+|
+
 <span class="param-type">Number</span>
 
 
@@ -251,37 +277,14 @@
 
             
 
-            <td class="description last">on 기본으로 화면에 나타날 하위 view의 인덱스를 지정한다. Default: 0</td>
+            <td class="description last">폼요소의 초기값을 설정한다.</td>
         </tr>
 
 	
 
         <tr>
             
-                <td class="name"><code>titles</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">탭바의 각 탭 요소의 타이틀을 지정한다.</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>transition</code></td>
+                <td class="name"><code>config.label</code></td>
             
 
             <td class="type">
@@ -297,20 +300,23 @@
 
             
 
-            <td class="description last">애니메이션 종류를 지정한다. viewcontroller의 애니메이션과 종류가 같다. Default: 'slide'</td>
+            <td class="description last">폼 요소의 label을 설정한다.</td>
         </tr>
 
 	
 
         <tr>
             
-                <td class="name"><code>items</code></td>
+                <td class="name"><code>style</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">String</span>
 
 
             
@@ -320,7 +326,7 @@
 
             
 
-            <td class="description last">각 탭에 들어갈 view를 지정한다.</td>
+            <td class="description last">엘리먼트에 적용할 인라인 스타일을 지정한다.</td>
         </tr>
 
 	
@@ -371,27 +377,6 @@
     
     
     
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">var tabs = new X.ui.Tabs({
-     position: 'top',
-		activeIndex: 0,
-		titles: ['Tabs 1', 'Tabs 2', 'Tabs 3'],
-		transition: 'slide',
-		items: [
-         new X.View(), new X.View(), new X.View()
-     ]
-});
-tabs.render();
-
-&lt;div data-role="tabs"&gt;
-		&lt;div data-role="view" data-title="Tabs 1" style="background:red;"&gt;Tabs 1&lt;/div&gt;
-		&lt;div data-role="view" data-title="Tabs 2" style="background:blue;"&gt;Tabs 2&lt;/div&gt;
-		&lt;div data-role="view" data-title="Tabs 3" style="background:yellow;"&gt;Tabs 3&lt;/div&gt;
-	&lt;/div&gt;</pre>
-
-
     
 </dd>
 
@@ -416,7 +401,7 @@ tabs.render();
         <dl>
             
 <dt>
-    <h4 class="name" id="append"><span class="type-signature"></span>append<span class="signature">(view, title)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="destroy"><span class="type-signature"></span>destroy<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -424,7 +409,7 @@ tabs.render();
     
     
     <div class="description">
-        마지막에 새로운 탭을 생성한다.
+        폼 요소를 제거한다.
     </div>
     
 
@@ -433,63 +418,673 @@ tabs.render();
     
     
     
-        <h5>Parameters:</h5>
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
         
+    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
+     
+});
 
-<table class="params table table-striped">
-    <thead>
-	<tr>
+txt.destroy();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="disabled"><span class="type-signature"></span>disabled<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        폼 요소를 비활성화 상태로 변경한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
+     
+});
+
+txt.disabled();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="enabled"><span class="type-signature"></span>enabled<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        폼 요소를 활성화 상태로 변경한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
+     
+});
+
+txt.enabled();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getEl"><span class="type-signature"></span>getEl<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        폼 컴포넌트의 루트 엘리먼트(jquery)를 반환한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    el jquery 엘리먼트 반환
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
 		
-		<th>Name</th>
+<span class="param-type">Object</span>
+
+
+	</dd>
+</dl>
+
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
+     name: 'test',
+});
+
+txt.getEl();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getId"><span class="type-signature"></span>getId<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        폼 컴포넌트의 아이디를 반환한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    id
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
 		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>view</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">View</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>title</code></td>
-            
-
-            <td class="type">
-            
-                
 <span class="param-type">String</span>
 
 
+	</dd>
+</dl>
+
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
+});
+
+txt.getId();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getJSON"><span class="type-signature"></span>getJSON<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        내부에 가지고 있는 폼 컨트롤들을 문자열 형태로 직렬화한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    직렬화된 json 객체
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Object</span>
+
+
+	</dd>
+</dl>
+
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var formView = new X.ui.Form({
+     items: [
+          new X.ui.TextBox(),
+         new X.ui.ProgressBar(),
+         new X.ui.Slider(),
+         new X.ui.Switchbox(),
+         new X.ui.Spinner()
+     ]
+});
+
+formView.getJSON();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getName"><span class="type-signature"></span>getName<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        폼 요소의 name 값을 반환한다. 설정하지 않았을 경우 null 을 반환한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    name 폼요소의 name 값 또는 null
+</div>
+
+
+
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
+     name: 'test'
+});
+
+txt.getName();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue<span class="signature">(val)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        폼 요소의 value 값을 반환한다. 해당 method 는 하위 클래스의 종류에 따라 오버라이드 된다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>val</code></td>
+            
+
+            <td class="type">
             
             </td>
 
@@ -550,34 +1145,16 @@ tabs.render();
     
     
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    새롭게 추가된 view와 title
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Array</span>
-
-
-	</dd>
-</dl>
-
-
-        
     
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">tabs.append(new X.View, 'New Tab');</pre>
+    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
+     name: 'test',
+     defaultValue: 'first'
+});
+
+txt.getValue();</pre>
 
 
     
@@ -586,7 +1163,7 @@ tabs.render();
         
             
 <dt>
-    <h4 class="name" id="change"><span class="type-signature"></span>change<span class="signature">(index)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="hide"><span class="type-signature"></span>hide<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -594,7 +1171,7 @@ tabs.render();
     
     
     <div class="description">
-        인자로 받은 인덱스에 해당하는 view를 활성화 시킨다.
+        폼 요소의 화면에 hide 시킨다.
     </div>
     
 
@@ -602,55 +1179,6 @@ tabs.render();
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
     
     
     
@@ -701,7 +1229,11 @@ tabs.render();
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">tabs.change(1);</pre>
+    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
+     name: 'test',
+});
+
+txt.hide();</pre>
 
 
     
@@ -710,7 +1242,7 @@ tabs.render();
         
             
 <dt>
-    <h4 class="name" id="getActiveView"><span class="type-signature"></span>getActiveView<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="X.View.html">X.View</a>}</span></h4>
+    <h4 class="name" id="serialize"><span class="type-signature"></span>serialize<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
     
     
 </dt>
@@ -718,7 +1250,7 @@ tabs.render();
     
     
     <div class="description">
-        현재 활성화되어 있는 view 를 반환한다.
+        내부에 가지고 있는 폼 컨트롤들을 문자열 형태로 직렬화한다.
     </div>
     
 
@@ -776,7 +1308,7 @@ tabs.render();
     
             
 <div class="param-desc">
-    view
+    직렬화된 문자열
 </div>
 
 
@@ -787,375 +1319,9 @@ tabs.render();
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="X.View.html">X.View</a></span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">tabs.getActiveView();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getActiveViewIndex"><span class="type-signature"></span>getActiveViewIndex<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        view 현재 활성화되어 있는 view의 인덱스를 반환한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    index
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Number</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">tabs.getActiveViewIndex();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getView"><span class="type-signature"></span>getView<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="X.View.html">X.View</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        인자로 받은 인덱스에 해당하는 view를 반환한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    index
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="X.View.html">X.View</a></span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">tabs.getView();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="prepend"><span class="type-signature"></span>prepend<span class="signature">(view, title)</span><span class="type-signature"> &rarr; {Array}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        처음에 새로운 탭을 생성한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>view</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">View</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>title</code></td>
-            
-
-            <td class="type">
-            
-                
 <span class="param-type">String</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    새롭게 추가된 view와 title
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Array</span>
-
-
 	</dd>
 </dl>
 
@@ -1165,7 +1331,17 @@ tabs.render();
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">tabs.prepend(new X.View, 'New Tab');</pre>
+    <pre class="sunlight-highlight-javascript">var formView = new X.ui.Form({
+     items: [
+         new X.ui.TextBox(),
+         new X.ui.ProgressBar(),
+         new X.ui.Slider(),
+         new X.ui.Switchbox(),
+         new X.ui.Spinner()
+     ]
+});
+
+formView.serialize();</pre>
 
 
     
@@ -1174,7 +1350,7 @@ tabs.render();
         
             
 <dt>
-    <h4 class="name" id="remove"><span class="type-signature"></span>remove<span class="signature">(index)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue<span class="signature">(val)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1182,7 +1358,7 @@ tabs.render();
     
     
     <div class="description">
-        인자로 넘긴 해당 index에 해당하는 탭을 제거한다.
+        폼 요소의 value 값을 지정한다. 해당 method 는 하위 클래스의 종류에 따라 오버라이드 된다.
     </div>
     
 
@@ -1216,15 +1392,10 @@ tabs.render();
 
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>val</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
             
             </td>
 
@@ -1289,7 +1460,12 @@ tabs.render();
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">tabs.remove(1);</pre>
+    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
+     name: 'test',
+     defaultValue: 'first'
+});
+
+txt.setValue('second');</pre>
 
 
     
@@ -1298,7 +1474,7 @@ tabs.render();
         
             
 <dt>
-    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="show"><span class="type-signature"></span>show<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1306,7 +1482,7 @@ tabs.render();
     
     
     <div class="description">
-        Tabs을 화면에 렌더한다.
+        폼 요소의 화면에 show 시킨다.
     </div>
     
 
@@ -1364,7 +1540,90 @@ tabs.render();
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">tabs.render();</pre>
+    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
+     name: 'test',
+});
+
+txt.show();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="toggle"><span class="type-signature"></span>toggle<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        폼 요소의 화면에 hide 시킨다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var txt = new X.ui.TextBox({
+     name: 'test',
+});
+
+txt.toggle();</pre>
 
 
     
@@ -1390,8 +1649,8 @@ tabs.render();
 					
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a>
-		on Tue Dec 24 2013 10:19:23 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
+		on Fri Jan 24 2014 01:15:33 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

@@ -155,14 +155,14 @@
  * x-ui Javascript UI FrameWork
  * jQuery Mobile Event Plugin, jQuery Mobile Animation used and iScroll 4 used.
  * 
- * Copyright 2013, 2013 YoungNam Heo
+ * Copyright 2013, 2014 YoungNam Heo
  * Dual licensed under the MIT or GPL Version 2 licenses
  * 
  * project: x-ui
- * version: 1.0.1
+ * version: 1.0.3
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2013-12-24 10:12 
+ * Date: 2014-01-24 01:01 
  */
 /**
  * X namespace
@@ -349,8 +349,8 @@ X = {
 	});
 
 	$.fn.animationComplete = function( callback, data ){
-		if('WebKitTransitionEvent' in window){
-			return $(this).one('webkitAnimationEnd', data, callback);
+		if(X.platform.cssAnimataion){
+			return $(this).one('webkitAnimationEnd animationend', data, callback);
 		}
 		else{
 			setTimeout(callback, 0);
@@ -389,19 +389,38 @@ X = {
 
 		var android = /android/i.test(userAgent),
 			androidVersion = parseFloat(userAgent.slice(userAgent.indexOf('android') + 8));
-
+			
+		function getCssAnimataion(){
+		    var prefixes = ['webkit', 'Moz', 'o', ''],
+		        len = prefixes.length,
+		        style = document.documentElement.style,
+		        i = 0,
+		        ret = false;
+		    
+		    for(; i&lt;len; i++){
+		        if(style[prefixes[i]] + 'AnimationName'){
+		            ret = true;
+		            break;
+		        }
+		    }
+		    
+		    return ret;
+		}
+			
+		
 		return {
 			isIos: iOs,
 			isWindows: win,
 			isMac: mac,
 			isLinux: linux,
-			isDesktop: win || (!android &amp;&amp; linux) || mac,
+			isDesktop: win || (!android && linux) || mac,
 			iPod: iPod,
 			iPhone: iPhone,
 			iPad: iPad,
 			android: android,
 			androidVersion: androidVersion,
-			hasTouch: ('ontouchstart' in window)
+			hasTouch: ('ontouchstart' in window),
+			cssAnimataion: getCssAnimataion()
 		};
 	})();
 
@@ -846,10 +865,13 @@ X.util.ViewController = X.extend(X.util.Observer, {
 
 		function transitionHandler(fromView, toView, transition, reverse){
 			var viewIn = function(){
-				var tel = toView.getEl();
+			    var tel = null,
+			        fel = null;
+
+				tel = toView.getEl();
 				tel.addClass(transition + ' in ' + reverse + ' ui-transitioning ui-vc-active').removeClass('ui-view-hide');
 
-				var fel = fromView.getEl();
+				fel = fromView.getEl();
 				fel.addClass(transition + ' out ' + reverse + ' ui-transitioning');
 
 				if(transition !== 'none'){
@@ -860,12 +882,15 @@ X.util.ViewController = X.extend(X.util.Observer, {
 				}
 			},
 			viewOut = function(){
-				var tel = toView.getEl();
+			    var tel = null,
+			        fel = null;
+			        
+				tel = toView.getEl();
 				tel.removeClass(transition + ' in ' + reverse + ' ui-transitioning');
 
-				var fel = fromView.getEl();
+				fel = fromView.getEl();
 				fel.removeClass(transition + ' out ' + reverse + ' ui-transitioning ui-vc-active');
-				
+
 				done();
 			},
 			done = function(){
@@ -1370,7 +1395,7 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 			X.getBody().prepend(this.loading);
 			this.loading.addClass('ui-popup in');
 
-			if(this.updater &amp;&amp; config.url){
+			if(this.updater && config.url){
 				if(config.url){
 					this.updater.send(config);
 				}
@@ -1742,7 +1767,12 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			me.dragging = true;
 			target.style.webkitTransform = null;
 			target.style.webkitTransitionDuration = null;
+			target.style.msTransform = null;
+			target.style.msTransitionDuration = null;
+			target.style.transform = null;
+			target.style.transitionDuration = null;
 		}
+		
 
 		me.fireEvent(me, 'start', [me]);
 		
@@ -1840,6 +1870,10 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			var style = target.get(0).style;
 			style.webkitTransform = 'translate3d(0px, 0px, 0px)';
 			style.webkitTransitionDuration = null;
+			style.msTransform = 'translate3d(0px, 0px, 0px)';
+			style.msTransitionDuration = null;
+			style.transform = 'translate3d(0px, 0px, 0px)';
+			style.transitionDuration = null;
 
 			if(!me.config.revert){
 				style.left = me.position.x + 'px';
@@ -1865,10 +1899,14 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			fn = function(){
 				var anim = {
 					'-webkit-transition-duration': me.config.revertDuration + 'ms',
-					'-webkit-transform': 'translate3d(0px, 0px, 0px)'
+					'-webkit-transform': 'translate3d(0px, 0px, 0px)',
+					'-ms-transition-duration': me.config.revertDuration + 'ms',
+					'-ms-transform': 'translate3d(0px, 0px, 0px)',
+					'transition-duration': me.config.revertDuration + 'ms',
+					'transform': 'translate3d(0px, 0px, 0px)'
 				};
 				
-				me.active_el.css(anim).one('webkitTransitionEnd', function(){
+				me.active_el.css(anim).one('webkitTransitionEnd transitionend', function(){
 					endFn();
 					endFn = null;
 				});
@@ -1888,7 +1926,7 @@ X.util.Draggable = X.extend(X.util.Observer, {
 		this.ghost = target.clone();
 
 		this.active_el.before(this.ghost);
-		if(this.ghost.get(0) !== target.get(0) &amp;&amp; !(/(fixed|absolute)/).test(this.ghost.css('position'))){
+		if(this.ghost.get(0) !== target.get(0) && !(/(fixed|absolute)/).test(this.ghost.css('position'))){
 			var offset = target.offset();
 			this.ghost.css({
 				position: 'absolute',
@@ -2015,9 +2053,9 @@ X.util.Droppable = X.extend(X.util.Observer, {
 		var pageY = pageXY.y;
 		
 		if(pageX > this.left 
-				&amp;&amp; pageY > this.top 
-				&amp;&amp; pageX &lt; this.left + this.width 
-				&amp;&amp; pageY &lt; this.top + this.height) {
+				&& pageY > this.top 
+				&& pageX &lt; this.left + this.width 
+				&& pageY &lt; this.top + this.height) {
 			
 			return true;
 		}
@@ -2370,11 +2408,11 @@ X.View = X.extend(X.util.Observer, {
      * @memberof X.View.prototype
      * @param {String} content 
      * @example
-     * view.setContent('&amp;lt;div&amp;gt;New HTML&amp;lt;/div&amp;gt;');
+     * view.setContent('&lt;div&gt;New HTML&lt;/div&gt;');
      */
 	setContent: function(content){
 		var reg = /^#/;
-		if(X.type(content) === 'string' &amp;&amp; reg.test(content)){
+		if(X.type(content) === 'string' && reg.test(content)){
 			content = $(content);
 			if(this.body.children('.ui-scrollview-view').length > 0){
 				this.body.children('.ui-scrollview-view').html(content);
@@ -2426,12 +2464,10 @@ X.View = X.extend(X.util.Observer, {
      */
 	setFlexible: function(flex){
 		if(flex){
-			this.el.removeClass('ui-view-inflexible')
-				.addClass('ui-view-flexible');
+			this.el.addClass('ui-view-flexible');
 		}
 		else{
-			this.el.removeClass('ui-view-flexible')
-				.addClass('ui-view-inflexible');
+			this.el.removeClass('ui-view-flexible');
 		}
 	},
 	/**
@@ -2587,7 +2623,7 @@ X.View = X.extend(X.util.Observer, {
 		}
 		
 		
-		if(this.config.floating &amp;&amp; this.overlay){
+		if(this.config.floating && this.overlay){
 			this.overlay.hide();
 		}
 
@@ -2793,17 +2829,17 @@ X.View = X.extend(X.util.Observer, {
      * @example
      * 
      * //view content
-     * &amp;lt;div data-role="toolbar"&amp;gt;
-     *  &amp;lt;h1&amp;gt;Toolbar&amp;lt;/h1&amp;gt;
-     * &amp;lt;/div&amp;gt;
-     * &amp;lt;div data-role="listview"&amp;gt;
-     *  &amp;lt;ul&amp;gt;
-     *      &amp;lt;li&amp;gt;A&amp;lt;/li&amp;gt;
-     *      &amp;lt;li&amp;gt;B&amp;lt;/li&amp;gt;
-     *      &amp;lt;li&amp;gt;C&amp;lt;/li&amp;gt;
-     *  &amp;lt;/ul&amp;gt;
-     * &amp;lt;/div&amp;gt;
-     * &amp;lt;div data-role="textbox"&amp;gt;&amp;lt;/div&amp;gt;
+     * &lt;div data-role="toolbar"&gt;
+     *  &lt;h1&gt;Toolbar&lt;/h1&gt;
+     * &lt;/div&gt;
+     * &lt;div data-role="listview"&gt;
+     *  &lt;ul&gt;
+     *      &lt;li&gt;A&lt;/li&gt;
+     *      &lt;li&gt;B&lt;/li&gt;
+     *      &lt;li&gt;C&lt;/li&gt;
+     *  &lt;/ul&gt;
+     * &lt;/div&gt;
+     * &lt;div data-role="textbox"&gt;&lt;/div&gt;
      * 
      * //view 컴포넌트 해석
      * view.createHtmlComponent();
@@ -3065,18 +3101,18 @@ X.util.cm.addCString('view', X.View);
  * });
  * accordion.render();
  * &lt;pre>&lt;code>
- * &amp;lt;div data-role="accordion" data-active-index="0"&amp;gt;
- *      &amp;lt;div data-role="view" data-title="Tabs 1"&amp;gt;
- *          &amp;lt;!-- Someting Html --&amp;gt;
- *      &amp;lt;/div&amp;gt;
- *      &amp;lt;div data-role="view" data-title="Tabs 2"&amp;gt;
- *          &amp;lt;!-- Someting Html --&amp;gt;
- *      &amp;lt;/div&amp;gt;
- *      &amp;lt;div data-role="view" data-title="Tabs 3"&amp;gt;
- *          &amp;lt;!-- Someting Html --&amp;gt;
- *      &amp;lt;/div&amp;gt;
- * &amp;lt;/div&amp;gt;
- * &amp;lt;&lt;/code>&lt;/pre>
+ * &lt;div data-role="accordion" data-active-index="0"&gt;
+ *      &lt;div data-role="view" data-title="Tabs 1"&gt;
+ *          &lt;!-- Someting Html --&gt;
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-title="Tabs 2"&gt;
+ *          &lt;!-- Someting Html --&gt;
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-title="Tabs 3"&gt;
+ *          &lt;!-- Someting Html --&gt;
+ *      &lt;/div&gt;
+ * &lt;/div&gt;
+ * &lt;&lt;/code>&lt;/pre>
  */
 X.ui.Accordion = X.extend(X.View, {
 	initialize: function(config){
@@ -3314,17 +3350,17 @@ X.util.cm.addCString('accordion', X.ui.Accordion);
  * carousel.render();
  * 
  * &lt;pre>&lt;code>
- * &amp;lt;div data-role="carousel"&amp;gt;
- *		&amp;lt;div data-role="view" style="background-color: #8E8E93;" data-scroll="false"&amp;gt;
- *			&amp;lt;!-- Someting Html --&amp;gt;
- *		&amp;lt;/div&amp;gt;
- *		&amp;lt;div data-role="view" style="background-color: #34AADC;" data-scroll="false"&amp;gt;
- *			&amp;lt;!-- Someting Html --&amp;gt;
- *		&amp;lt;/div&amp;gt;
- *		&amp;lt;div data-role="view" style="background-color: #007AFF;" data-scroll="false"&amp;gt;
- *			&amp;lt;!-- Someting Html --&amp;gt;
- *		&amp;lt;/div&amp;gt;
- * &amp;lt;/div&amp;gt;
+ * &lt;div data-role="carousel"&gt;
+ *		&lt;div data-role="view" style="background-color: #8E8E93;" data-scroll="false"&gt;
+ *			&lt;!-- Someting Html --&gt;
+ *		&lt;/div&gt;
+ *		&lt;div data-role="view" style="background-color: #34AADC;" data-scroll="false"&gt;
+ *			&lt;!-- Someting Html --&gt;
+ *		&lt;/div&gt;
+ *		&lt;div data-role="view" style="background-color: #007AFF;" data-scroll="false"&gt;
+ *			&lt;!-- Someting Html --&gt;
+ *		&lt;/div&gt;
+ * &lt;/div&gt;
  * &lt;/code>&lt;/pre>
  */
 X.ui.Carousel = X.extend(X.View, {
@@ -3368,13 +3404,6 @@ X.ui.Carousel = X.extend(X.View, {
 		}
 
 		this.carouselBody = this.body.children('.ui-carousel-body');
-		
-		if(this.config.direction === 'x'){
-			this.carouselBody.addClass('ui-carousel-horizontal');
-		}
-		else{
-			this.carouselBody.addClass('ui-carousel-vertical');
-		}
 
 		if(this.config.direction === 'x'){
 		    itemSize = this.getWidth();
@@ -3383,6 +3412,10 @@ X.ui.Carousel = X.extend(X.View, {
 			style.webkitTransform = 'translateX(' + (pos) + 'px)';
 			style.msTransform = 'translateX(' + (pos) + 'px)';
 			style.transform = 'translateX(' + (pos) + 'px)';
+			
+			views.each(function(i){
+			    this.style.left = (i * 100) + '%';
+			});
 		}
 		else{
 		    itemSize = this.getHeight();
@@ -3391,6 +3424,10 @@ X.ui.Carousel = X.extend(X.View, {
 			style.webkitTransform = 'translateY(' + (pos) + 'px)';
 			style.msTransform = 'translateY(' + (pos) + 'px)';
 			style.transform = 'translateY(' + (pos) + 'px)';
+			
+			views.each(function(i){
+			    this.style.top = (i * 100) + '%';
+			});
 		}
 
 		this.carouselBody.bind(X.events.start, {me: this}, this.onStart);
@@ -3438,6 +3475,7 @@ X.ui.Carousel = X.extend(X.View, {
 		me.startPageX = pageX;
 		me.startPageY = pageY;
 		me.dragging = true;
+		me.moveLimit = 0;
 
 		me.carouselBody.on(X.events.move, { me: me }, me.onMove);
 		me.carouselBody.on(X.events.end, { me: me }, me.onEnd);
@@ -3560,9 +3598,20 @@ X.ui.Carousel = X.extend(X.View, {
      * carousel.append(new X.View());
      */
 	append: function(comp){
-		var comps = X.util.cm.create(this.carouselBody, [comp]);
+		var comps = X.util.cm.create(this.carouselBody, [comp]),
+		    position;
+		
 		this.config.items.push(comps[0]);
-		comps[0].addClass('ui-carousel-views');
+		comps[0].getEl().addClass('ui-carousel-views');
+		
+		if(this.config.direction === 'x'){
+		    position = 'left';
+		}
+		else{
+		    position = 'top';
+		}
+		
+		comps[0].getEl().css(position, ((this.config.items.length-1) * 100) + '%');
 		
 		return comps[0];
 	},
@@ -3592,15 +3641,24 @@ X.ui.Carousel = X.extend(X.View, {
 	next: function(){
 		var index = this.activeIndex + 1,
 			style = this.carouselBody.get(0).style;
+			
+		if(index === this.config.items.length){
+		    return false;
+		}
 
-		style.webkitTransitionDuration = '200ms';
+		style.webkitTransitionDuration = this.config.duration + 'ms';
+        style.msTransitionDuration = this.config.duration + 'ms';
+		style.transitionDuration = this.config.duration + 'ms';
+
 		if(this.config.direction === 'x'){
 			style.webkitTransform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
 			style.msTransform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
+			style.transform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
 		}
 		else{
 			style.webkitTransform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
 			style.msTransform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
+			style.transform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
 		}
 
 		this.activeIndex = index;
@@ -3617,14 +3675,23 @@ X.ui.Carousel = X.extend(X.View, {
 		var index = this.activeIndex - 1,
 			style = this.carouselBody.get(0).style;
 
-		style.webkitTransitionDuration = '200ms';
+		if(index === -1){
+		    return false;
+		}
+
+        style.webkitTransitionDuration = this.config.duration + 'ms';
+        style.msTransitionDuration = this.config.duration + 'ms';
+		style.transitionDuration = this.config.duration + 'ms';
+
 		if(this.config.direction === 'x'){
 			style.webkitTransform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
 			style.msTransform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
+			style.transform = 'translateX(' + ((-1 * index) * this.getWidth()) + 'px)';
 		}
 		else{
 			style.webkitTransform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
 			style.msTransform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
+			style.transform = 'translateY(' + ((-1 * index) * this.getHeight()) + 'px)';
 		}
 
 		this.activeIndex = index;
@@ -3638,40 +3705,40 @@ X.util.cm.addCString('carousel', X.ui.Carousel);
  * @classdesc 리스트 형태의 UI를 생성한다.
  * @property {Boolean} activeRow Row 을 선택할 수 있도록 할 것인지를 지정한다.
  * @example
- * var html = "&amp;lt;ul&amp;gt;";
+ * var html = "&lt;ul&gt;";
  * for (var i = 0; i&lt;100; i++) {
- *      html = html + "&amp;lt;li&amp;gt;Acura&amp;lt;/li&amp;gt;"
+ *      html = html + "&lt;li&gt;Acura&lt;/li&gt;"
  * };
- * html = html + "&amp;lt;/ul&amp;gt;"
+ * html = html + "&lt;/ul&gt;"
  * var listview = new X.ui.ListView({
  * 		content: html
  * });
  * listview.render();
  * &lt;pre>&lt;code>
- * &amp;lt;div data-role="listview"&amp;gt;
- * 		&amp;lt;ul&amp;gt;
- * 			&amp;lt;li&amp;gt;Acura&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Audi&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;BMW&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Cadillac&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Ferrari&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Acura&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Audi&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;BMW&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Cadillac&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Ferrari&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Acura&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Audi&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;BMW&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Cadillac&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Ferrari&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Acura&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Audi&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;BMW&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Cadillac&amp;lt;/li&amp;gt;
- * 			&amp;lt;li&amp;gt;Ferrari&amp;lt;/li&amp;gt;
- * 		&amp;lt;/ul&amp;gt;
- * &amp;lt;/div&amp;lt;
+ * &lt;div data-role="listview"&gt;
+ * 		&lt;ul&gt;
+ * 			&lt;li&gt;Acura&lt;/li&gt;
+ * 			&lt;li&gt;Audi&lt;/li&gt;
+ * 			&lt;li&gt;BMW&lt;/li&gt;
+ * 			&lt;li&gt;Cadillac&lt;/li&gt;
+ * 			&lt;li&gt;Ferrari&lt;/li&gt;
+ * 			&lt;li&gt;Acura&lt;/li&gt;
+ * 			&lt;li&gt;Audi&lt;/li&gt;
+ * 			&lt;li&gt;BMW&lt;/li&gt;
+ * 			&lt;li&gt;Cadillac&lt;/li&gt;
+ * 			&lt;li&gt;Ferrari&lt;/li&gt;
+ * 			&lt;li&gt;Acura&lt;/li&gt;
+ * 			&lt;li&gt;Audi&lt;/li&gt;
+ * 			&lt;li&gt;BMW&lt;/li&gt;
+ * 			&lt;li&gt;Cadillac&lt;/li&gt;
+ * 			&lt;li&gt;Ferrari&lt;/li&gt;
+ * 			&lt;li&gt;Acura&lt;/li&gt;
+ * 			&lt;li&gt;Audi&lt;/li&gt;
+ * 			&lt;li&gt;BMW&lt;/li&gt;
+ * 			&lt;li&gt;Cadillac&lt;/li&gt;
+ * 			&lt;li&gt;Ferrari&lt;/li&gt;
+ * 		&lt;/ul&gt;
+ * &lt;/div&lt;
  *  &lt;/code>&lt;/pre>
  */
 X.ui.ListView = X.extend(X.View, {
@@ -3839,11 +3906,11 @@ X.util.cm.addCString('listview', X.ui.ListView);
  * });
  * tabs.render();
  * 
- * &amp;lt;div data-role="tabs"&amp;gt;
- *		&amp;lt;div data-role="view" data-title="Tabs 1" style="background:red;"&amp;gt;Tabs 1&amp;lt;/div&amp;gt;
- *		&amp;lt;div data-role="view" data-title="Tabs 2" style="background:blue;"&amp;gt;Tabs 2&amp;lt;/div&amp;gt;
- *		&amp;lt;div data-role="view" data-title="Tabs 3" style="background:yellow;"&amp;gt;Tabs 3&amp;lt;/div&amp;gt;
- *	&amp;lt;/div&amp;gt;
+ * &lt;div data-role="tabs"&gt;
+ *		&lt;div data-role="view" data-title="Tabs 1" style="background:red;"&gt;Tabs 1&lt;/div&gt;
+ *		&lt;div data-role="view" data-title="Tabs 2" style="background:blue;"&gt;Tabs 2&lt;/div&gt;
+ *		&lt;div data-role="view" data-title="Tabs 3" style="background:yellow;"&gt;Tabs 3&lt;/div&gt;
+ *	&lt;/div&gt;
  */
 X.ui.Tabs = X.extend(X.View, {
 	initialize: function(config){
@@ -4122,9 +4189,9 @@ X.util.cm.addCString('tabs', X.ui.Tabs);
  * });
  * toolbar.render();
  * 
- * &amp;lt;div data-role="toolbar"&amp;gt;
+ * &lt;div data-role="toolbar"&gt;
  *      Title
- * &amp;lt;/div&amp;gt;
+ * &lt;/div&gt;
  */
 X.ui.Toolbar = X.extend(X.util.Observer, {
 	initialize: function(config){
@@ -4261,23 +4328,23 @@ X.util.cm.addCString('toolbar', X.ui.Toolbar);
  * });
  * layoutview.render();
  * 
- *  &amp;lt;div data-role="layoutview" data-max-size='{"west": 800, "east": 800}'&amp;gt;
- *      &amp;lt;div data-role="view" data-regions="nouth" style="background-color:green;" data-height="100"&amp;gt;
+ *  &lt;div data-role="layoutview" data-max-size='{"west": 800, "east": 800}'&gt;
+ *      &lt;div data-role="view" data-regions="nouth" style="background-color:green;" data-height="100"&gt;
  *          nouth
- *      &amp;lt;/div&amp;gt;
- *      &amp;lt;div data-role="view" data-regions="south" style="background-color:green;" data-height="100"&amp;gt;
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-regions="south" style="background-color:green;" data-height="100"&gt;
  *          south
- *      &amp;lt;/div&amp;gt;
- *      &amp;lt;div data-role="view" data-regions="west" style="background-color:red;"&amp;gt;
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-regions="west" style="background-color:red;"&gt;
  *          west
- *      &amp;lt;/div&amp;gt;
- *      &amp;lt;div data-role="view" data-regions="east" style="background-color:yellow;"&amp;gt;
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-regions="east" style="background-color:yellow;"&gt;
  *          east
- *      &amp;lt;/div&amp;gt;
- *      &amp;lt;div data-role="view" data-regions="center" style="background-color:blue;"&amp;gt;
+ *      &lt;/div&gt;
+ *      &lt;div data-role="view" data-regions="center" style="background-color:blue;"&gt;
  *          center
- *      &amp;lt;/div&amp;gt;
- *  &amp;lt;/div&amp;gt;
+ *      &lt;/div&gt;
+ *  &lt;/div&gt;
  * 
  */
 X.ui.LayoutView = X.extend(X.View, {
@@ -4448,7 +4515,7 @@ X.ui.LayoutView = X.extend(X.View, {
             constrain: this.el
         });
 
-        this[region].el.on('webkitTransitionEnd', {me: this}, this.animationEnd);
+        this[region].el.on('webkitTransitionEnd transitionend', {me: this}, this.animationEnd);
 	},
 	animationEnd: function(e){
         var me = e.data.me;
@@ -4876,13 +4943,13 @@ X.ui.Form = X.extend(X.util.Observer, {
  *      ]
  * });
  * &lt;pre>&lt;code>
- * 	&amp;lt;div data-role="formview"&amp;gt;
- * 		&amp;lt;div data-role="textbox" data-label="text" data-name="text"&amp;gt;&amp;lt;/div&amp;gt;
- * 		&amp;lt;div data-role="progress" data-label="progress"&amp;gt;&amp;lt;/div&amp;gt;
- * 		&amp;lt;div data-role="slider" data-label="slider"&amp;gt;&amp;lt;/div&amp;gt;
- * 		&amp;lt;div data-role="textbox" data-label="password" data-type="password"&amp;gt;&amp;lt;/div&amp;gt;
- * 		&amp;lt;div data-role="switchbox" data-label="switchbox" data-checked="true"&amp;gt;&amp;lt;/div&amp;gt;
- * 	&amp;lt;/div&amp;gt;
+ * 	&lt;div data-role="formview"&gt;
+ * 		&lt;div data-role="textbox" data-label="text" data-name="text"&gt;&lt;/div&gt;
+ * 		&lt;div data-role="progress" data-label="progress"&gt;&lt;/div&gt;
+ * 		&lt;div data-role="slider" data-label="slider"&gt;&lt;/div&gt;
+ * 		&lt;div data-role="textbox" data-label="password" data-type="password"&gt;&lt;/div&gt;
+ * 		&lt;div data-role="switchbox" data-label="switchbox" data-checked="true"&gt;&lt;/div&gt;
+ * 	&lt;/div&gt;
  * &lt;/code>&lt;/pre>
  */
 X.ui.FormView = X.extend(X.View, {
@@ -4957,7 +5024,7 @@ X.ui.FormView = X.extend(X.View, {
  * });
  * textbox.render();
  * 
- * &amp;lt;div data-role="textbox"&amp;gt;&amp;lt;/div&amp;gt;
+ * &lt;div data-role="textbox"&gt;&lt;/div&gt;
  */
 X.ui.TextBox = X.extend(X.ui.Form, {
 	initialize: function(config){
@@ -5049,7 +5116,7 @@ X.util.cm.addCString('textbox', X.ui.TextBox);
  * });
  * slider.render();
  * &lt;pre>&lt;code>
- * &amp;lt;div data-role="slider" style="width: 300px;margin:30px;" data-default-value="25"&amp;gt;&amp;lt;/div&amp;gt;
+ * &lt;div data-role="slider" style="width: 300px;margin:30px;" data-default-value="25"&gt;&lt;/div&gt;
  * &lt;/code>&lt;/pre>
  */
 X.ui.Slider = X.extend(X.ui.Form, {
@@ -5239,7 +5306,7 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			}
 		}
 
-		if(!this.subdragging &amp;&amp; this.subhandle){
+		if(!this.subdragging && this.subhandle){
 			var data = this.subhandle.data('data');
 			if(data){
 				data = parseInt(data);
@@ -5428,7 +5495,7 @@ X.util.cm.addCString('slider', X.ui.Slider);
  * });
  * spinner.render();
  * 
- * &amp;lt;div data-role="spinner"&amp;gt;&amp;lt;/div&amp;gt;
+ * &lt;div data-role="spinner"&gt;&lt;/div&gt;
  */
 X.ui.Spinner = X.extend(X.ui.Form, {
 	initialize: function(config){
@@ -5657,7 +5724,7 @@ X.util.cm.addCString('spinner', X.ui.Spinner);
  * progress.render();
  * 
  * &lt;pre>&lt;code>
- *      &amp;lt;div data-role="progress" data-max="100" data-default-value="0"&amp;gt;&amp;lt;/div&amp;gt;
+ *      &lt;div data-role="progress" data-max="100" data-default-value="0"&gt;&lt;/div&gt;
  * &lt;/code>&lt;/pre>
  */
 X.ui.Progressbar = X.extend(X.ui.Form, {
@@ -5775,7 +5842,7 @@ X.util.cm.addCString('progressbar', X.ui.Progressbar);
  * });
  * sb.render();
  * 
- * &amp;lt;div data-role="switchbox"&amp;gt;&amp;lt;/div&amp;gt;
+ * &lt;div data-role="switchbox"&gt;&lt;/div&gt;
  */
 X.ui.SwitchBox = X.extend(X.ui.Form, {
 	initialize: function(config){
@@ -6071,12 +6138,12 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
 					return false;
 				}
 
-				if(back &amp;&amp; href === '#'){
+				if(back && href === '#'){
 					vc.backPage();
 					return false;
 				}
 				
-				if(href !== '#' &amp;&amp; back){
+				if(href !== '#' && back){
 					vc.prevPage({ url: href });
 					return false;
 				}
@@ -6134,8 +6201,8 @@ X.util.cm.addCString('switchbox', X.ui.SwitchBox);
 					
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a>
-		on Tue Dec 24 2013 10:19:22 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
+		on Fri Jan 24 2014 01:15:20 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

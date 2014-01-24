@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Class: Observer</title>
+	<title>Documentation Class: RemoteViewController</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -147,17 +147,17 @@
 					
 
 
-	<h1 class="page-title">Class: Observer</h1>
+	<h1 class="page-title">Class: RemoteViewController</h1>
 <section>
 
 <header>
     <h2>
         <span class="ancestors"><a href="X.html">X</a><a href="X.util.html">.util</a>.</span>
     
-    Observer
+    RemoteViewController
     </h2>
     
-        <div class="class-description">X.util.Observer 클래스는 custom 이벤트를 발생시켜주며 대부분의 클래스의 최상위 클래스로 존재한다.</div>
+        <div class="class-description">X.util.RemoteViewController 클래스는 원격지에 있는 화면을 불러와 화면을 전환하도록 한다.</div>
     
 </header>
 
@@ -168,7 +168,7 @@
     
         
 <dt>
-    <h4 class="name" id="Observer"><span class="type-signature"></span>new Observer<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="RemoteViewController"><span class="type-signature"></span>new RemoteViewController<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -212,13 +212,13 @@
 
         <tr>
             
-                <td class="name"><code>config.listener</code></td>
+                <td class="name"><code>config.initPage</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">String</span>
 
 
             
@@ -228,7 +228,40 @@
 
             
 
-            <td class="description last">등록할 커스텀 이벤트</td>
+            <td class="description last">초기 화면의 url 을 지정한다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>config.transition</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">화면 전환 animation 종류를 지정한다.
+<b>slide</b><br/>
+<b>slidefade</b><br/>
+<b>slideup</b><br/>
+<b>slidedown</b><br/>
+<b>pop</b><br/>
+<b>fade</b><br/>
+<b>flip</b><br/>
+<b>turn</b><br/>
+<b>flow</b><br/>
+<b>roll</b></td>
         </tr>
 
 	
@@ -282,10 +315,23 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var observer = new X.util.Observer({
-     success: function(){ },
-     error: function(){ }
-});</pre>
+    <pre class="sunlight-highlight-javascript">var view = new X.View({
+     viewController: new X.util.RemoteViewController({
+         beforenextchange: function(){ },        //다음 화면으로 전환하기 직전에 호출된다.
+         afternextchange: function(){ },         //다음 화면으로 전환한 후에 호출된다.
+         beforeprevchange: function(){ },        //이전 화면으로 전환하기 진적에 호출된다.
+         afterprevchange: function(){ }          //이전 화면으로 전환한 후에 호출된다.
+     }),
+     items: [
+         new X.View(),
+         new X.View(),
+         new X.View()
+     ]
+});
+
+var vc = view.getViewController();
+vc.initPage({ url: "page.html" });
+vc.nextPage({ url: "page-next.html" });</pre>
 
 
     
@@ -312,7 +358,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="addEvent"><span class="type-signature"></span>addEvent<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="initPage"><span class="type-signature"></span>initPage<span class="signature">(config)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -320,7 +366,7 @@
     
     
     <div class="description">
-        custom 이벤트를 등록한다.
+        다음 화면으로 화면을 전환한다.
     </div>
     
 
@@ -354,13 +400,13 @@
 
         <tr>
             
-                <td class="name"><code>...</code></td>
+                <td class="name"><code>config</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">args</span>
+<span class="param-type">Object</span>
 
 
             
@@ -370,7 +416,8 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">초기 화면을 불러오기 위한 정보이다.<br/>
+<b>url</b>           : 초기 페이지의 url을 넘긴다.</td>
         </tr>
 
 	
@@ -425,36 +472,12 @@
     
     
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript"> 
-var observer = new X.util.Observer();
-observer.addEvent({
- success: function(){ }
- error: function(){ }
-});
-
-observer.addEvent({
- success: {
-     scope: window,
-     params: [ ].
-     fn: function(){ }
- },
- error: {
-     scope: window,
-     params: [ ].
-     fn: function(){ }
- }
-});</pre>
-
-
-    
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="clear"><span class="type-signature"></span>clear<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="nextPage"><span class="type-signature"></span>nextPage<span class="signature">(config)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -462,76 +485,7 @@ observer.addEvent({
     
     
     <div class="description">
-        등록한 custom 이벤트를 모두 삭제한다
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="fireEvent"><span class="type-signature"></span>fireEvent<span class="signature">(이벤트, type, args)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        custom 이벤트를 발생시킨다.
+        이전 화면으로 화면을 전환한다.
     </div>
     
 
@@ -565,7 +519,7 @@ observer.addEvent({
 
         <tr>
             
-                <td class="name"><code>이벤트</code></td>
+                <td class="name"><code>config</code></td>
             
 
             <td class="type">
@@ -581,53 +535,10 @@ observer.addEvent({
 
             
 
-            <td class="description last">핸들러의 scope</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">커스텀 이벤트의 이름</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">args</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">이벤트 핸들러에 전달될 argument.</td>
+            <td class="description last">이전 화면으로 전환한다.<br/>
+<b>url</b>           : 전환하고자 하는 page 의 url<br/>
+<b>transition</b>    : 화면전환에 사용할 애니메이션<br/>
+<b>reverse</b>       : 화면전환시 방향. reverse 시 역방향. 빈값을 경우는 정방향.<br/></td>
         </tr>
 
 	
@@ -680,29 +591,6 @@ observer.addEvent({
     
     
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    이벤트 핸들러가 return 한 무언가를 반환함.
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-
-        
     
     
 </dd>
@@ -710,7 +598,7 @@ observer.addEvent({
         
             
 <dt>
-    <h4 class="name" id="removeEvent"><span class="type-signature"></span>removeEvent<span class="signature">(type)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="nextPage"><span class="type-signature"></span>nextPage<span class="signature">(config)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -718,7 +606,7 @@ observer.addEvent({
     
     
     <div class="description">
-        custom 이벤트를 삭제한다
+        다음 화면으로 화면을 전환한다.
     </div>
     
 
@@ -752,13 +640,13 @@ observer.addEvent({
 
         <tr>
             
-                <td class="name"><code>type</code></td>
+                <td class="name"><code>config</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Object</span>
 
 
             
@@ -768,7 +656,11 @@ observer.addEvent({
 
             
 
-            <td class="description last"></td>
+            <td class="description last">다음 화면으로 전환한다.<br/>
+<b>url</b>           : 전환하고자 하는 page 의 url<br/>
+<b>history</b>       : 화면전환을 history에 저장할지 여부<br/>
+<b>transition</b>    : 화면전환에 사용할 애니메이션<br/>
+<b>reverse</b>       : 화면전환시 방향. reverse 시 역방향. 빈값을 경우는 정방향.<br/></td>
         </tr>
 
 	
@@ -845,8 +737,8 @@ observer.addEvent({
 					
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a>
-		on Tue Dec 24 2013 10:19:23 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
+		on Fri Jan 24 2014 01:15:47 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

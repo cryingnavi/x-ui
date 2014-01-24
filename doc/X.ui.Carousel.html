@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Class: LocalViewController</title>
+	<title>Documentation Class: Carousel</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -147,15 +147,17 @@
 					
 
 
-	<h1 class="page-title">Class: LocalViewController</h1>
+	<h1 class="page-title">Class: Carousel</h1>
 <section>
 
 <header>
     <h2>
-        <span class="ancestors"><a href="X.html">X</a><a href="X.util.html">.util</a>.</span>
+        <span class="ancestors"><a href="X.html">X</a><a href="X.ui.html">.ui</a>.</span>
     
-    LocalViewController
+    Carousel
     </h2>
+    
+        <div class="class-description">X.ui.Carousel 클래스는 Carousel ui 를 생성한다.</div>
     
 </header>
 
@@ -166,16 +168,12 @@
     
         
 <dt>
-    <h4 class="name" id="LocalViewController"><span class="type-signature"></span>new LocalViewController<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Carousel"><span class="type-signature"></span>new Carousel<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
-    
-    <div class="description">
-        X.util.LocalViewController 클래스는 생성된 X.View 의 자식 view 들에 대해서 화면전환을 제공한다.
-    </div>
     
 
     
@@ -214,7 +212,7 @@
 
         <tr>
             
-                <td class="name"><code>config.activeIndex</code></td>
+                <td class="name"><code>config.direction</code></td>
             
 
             <td class="type">
@@ -230,20 +228,20 @@
 
             
 
-            <td class="description last">처음 생성시에 활성화 될 화면의 인덱스</td>
+            <td class="description last">carousel 의 이동방향을 지정한다. x 또는 y 로 가로 세로 방향을 지정한다. Default: 'x'</td>
         </tr>
 
 	
 
         <tr>
             
-                <td class="name"><code>config.transition</code></td>
+                <td class="name"><code>config.activeIndex</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Number</span>
 
 
             
@@ -253,10 +251,53 @@
 
             
 
-            <td class="description last">화면 전환 animation 종류를 지정한다.<br/>
-<b>slide</b>, <b>slidefade</b>, <b>slideup</b>, <b>slidedown</b><br/>
-<b>pop</b>, <b>fade</b>, <b>flip</b>, <b>turn</b>, <b>flow</b><br/>
-<b>roll</b></td>
+            <td class="description last">초기 활성화될 아이템을 지정한다. Defautl: 0.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>config.duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">애니메이션 이동 속도를 지정한다. Defautl: 200.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>config.items</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">각 탭의 view를 설정한다.</td>
         </tr>
 
 	
@@ -310,22 +351,27 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var view = new X.View({
-     viewController: new X.util.LocalViewController({
-         beforenextchange: function(){ },        //다음 화면으로 전환하기 직전에 호출된다.
-         afternextchange: function(){ },         //다음 화면으로 전환한 후에 호출된다.
-         beforeprevchange: function(){ },        //이전 화면으로 전환하기 진적에 호출된다.
-         afterprevchange: function(){ }          //이전 화면으로 전환한 후에 호출된다.
-     }),
-     items: [
-         new X.View(),
-         new X.View(),
-         new X.View()
-     ]
+    <pre class="sunlight-highlight-javascript">var carousel = new X.ui.Carousel({
+     direction: "x",
+     activeIndex: 0,
+     duration: 200,
+     items: [new X.View(), new X.View(), new X.View()]
 });
+carousel.render();
 
-var vc = view.getViewController();
-vc.nextPage(1);</pre>
+<pre><code>
+&lt;div data-role="carousel"&gt;
+		&lt;div data-role="view" style="background-color: #8E8E93;" data-scroll="false"&gt;
+			&lt;!-- Someting Html --&gt;
+		&lt;/div&gt;
+		&lt;div data-role="view" style="background-color: #34AADC;" data-scroll="false"&gt;
+			&lt;!-- Someting Html --&gt;
+		&lt;/div&gt;
+		&lt;div data-role="view" style="background-color: #007AFF;" data-scroll="false"&gt;
+			&lt;!-- Someting Html --&gt;
+		&lt;/div&gt;
+&lt;/div&gt;
+</code></pre></pre>
 
 
     
@@ -352,7 +398,7 @@ vc.nextPage(1);</pre>
         <dl>
             
 <dt>
-    <h4 class="name" id="appendView"><span class="type-signature"></span>appendView<span class="signature">(view)</span><span class="type-signature"> &rarr; {<a href="X.View.html">X.View</a>}</span></h4>
+    <h4 class="name" id="append"><span class="type-signature"></span>append<span class="signature">(component)</span><span class="type-signature"> &rarr; {Component}</span></h4>
     
     
 </dt>
@@ -360,7 +406,7 @@ vc.nextPage(1);</pre>
     
     
     <div class="description">
-        새로운 view를 viewcontroller에 등록한다.
+        마지막에 새로운 요소를 추가한다.
     </div>
     
 
@@ -394,13 +440,13 @@ vc.nextPage(1);</pre>
 
         <tr>
             
-                <td class="name"><code>view</code></td>
+                <td class="name"><code>component</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="X.View.html">X.View</a></span>
+<span class="param-type">Component</span>
 
 
             
@@ -410,7 +456,7 @@ vc.nextPage(1);</pre>
 
             
 
-            <td class="description last">등록할 새로운 view</td>
+            <td class="description last"></td>
         </tr>
 
 	
@@ -467,7 +513,7 @@ vc.nextPage(1);</pre>
     
             
 <div class="param-desc">
-    view - 해당 view를 반환한다.
+    component
 </div>
 
 
@@ -478,7 +524,7 @@ vc.nextPage(1);</pre>
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="X.View.html">X.View</a></span>
+<span class="param-type">Component</span>
 
 
 	</dd>
@@ -488,12 +534,18 @@ vc.nextPage(1);</pre>
         
     
     
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">carousel.append(new X.View());</pre>
+
+
+    
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="getActiveIndex"><span class="type-signature"></span>getActiveIndex<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id="getActiveView"><span class="type-signature"></span>getActiveView<span class="signature">()</span><span class="type-signature"> &rarr; {Component}</span></h4>
     
     
 </dt>
@@ -501,7 +553,7 @@ vc.nextPage(1);</pre>
     
     
     <div class="description">
-        현재 활성화 되어 있는 view의 인덱스를 반환한다.
+        현재 활성화되어 있는 아이템을 반환한다.
     </div>
     
 
@@ -559,7 +611,7 @@ vc.nextPage(1);</pre>
     
             
 <div class="param-desc">
-    i 현재 활성화 되어있는 요소의 인덱스를 반환한다.
+    component
 </div>
 
 
@@ -570,7 +622,7 @@ vc.nextPage(1);</pre>
 	</dt>
 	<dd>
 		
-<span class="param-type">Number</span>
+<span class="param-type">Component</span>
 
 
 	</dd>
@@ -580,12 +632,25 @@ vc.nextPage(1);</pre>
         
     
     
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var car = new X.ui.Carousel({
+     direction: "x",
+     activeIndex: 0,
+     duration: 200,
+     items: [new X.View(), new X.View(), new X.View()]
+});
+
+car.getActiveView();</pre>
+
+
+    
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="getView"><span class="type-signature"></span>getView<span class="signature">(index)</span><span class="type-signature"> &rarr; {<a href="X.View.html">X.View</a>}</span></h4>
+    <h4 class="name" id="next"><span class="type-signature"></span>next<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -593,7 +658,7 @@ vc.nextPage(1);</pre>
     
     
     <div class="description">
-        view들 중 인자로 받은 index 에 해당 하는 view를 반환한다.
+        바로 다음 요소로 이동시킨다.
     </div>
     
 
@@ -601,200 +666,6 @@ vc.nextPage(1);</pre>
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">원하는 view에 해당하는 index</td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    view - X.View를 반환한다.
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="X.View.html">X.View</a></span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="nextPage"><span class="type-signature"></span>nextPage<span class="signature">(config)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        다음 화면으로 화면을 전환한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>config</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">다음 화면으로 전환한다.<br/>
-<b>index</b>         : 전환하고자 하는 view 의 인덱스<br/>
-<b>history</b>       : 화면전환을 history에 저장할지 여부<br/>
-<b>transition</b>    : 화면전환에 사용할 애니메이션<br/>
-<b>reverse</b>       : 화면전환시 방향. reverse 시 역방향. 빈값을 경우는 정방향.<br/></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
     
     
     
@@ -843,12 +714,18 @@ vc.nextPage(1);</pre>
     
     
     
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">carousel.next();</pre>
+
+
+    
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="prevPage"><span class="type-signature"></span>prevPage<span class="signature">(config)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="prev"><span class="type-signature"></span>prev<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -856,7 +733,82 @@ vc.nextPage(1);</pre>
     
     
     <div class="description">
-        이전 화면으로 전환한다.
+        바로 이전 요소로 이동시킨다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">carousel.prev();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="remove"><span class="type-signature"></span>remove<span class="signature">(component)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        지정한 인덱스에 해당하는 요소를 삭제한다.
     </div>
     
 
@@ -890,13 +842,13 @@ vc.nextPage(1);</pre>
 
         <tr>
             
-                <td class="name"><code>config</code></td>
+                <td class="name"><code>component</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Component</span>
 
 
             
@@ -906,10 +858,7 @@ vc.nextPage(1);</pre>
 
             
 
-            <td class="description last">이전 화면으로 전환한다.<br/>
-<b>index</b>         : 전환하고자 하는 view 의 인덱스<br/>
-<b>transition</b>    : 화면전환에 사용할 애니메이션<br/>
-<b>reverse</b>       : 화면전환시 방향. reverse 시 역방향. 빈값을 경우는 정방향.<br/></td>
+            <td class="description last"></td>
         </tr>
 
 	
@@ -964,12 +913,18 @@ vc.nextPage(1);</pre>
     
     
     
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">carousel.remove(0);</pre>
+
+
+    
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="removeView"><span class="type-signature"></span>removeView<span class="signature">(view)</span><span class="type-signature"> &rarr; {<a href="X.View.html">X.View</a>}</span></h4>
+    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -977,7 +932,7 @@ vc.nextPage(1);</pre>
     
     
     <div class="description">
-        등록된 view 를 viewcontroller에서 삭제 한다.
+        Carousel 을 화면에 렌더한다.
     </div>
     
 
@@ -985,55 +940,6 @@ vc.nextPage(1);</pre>
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>view</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="X.View.html">X.View</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">삭제할 view</td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
     
     
     
@@ -1080,30 +986,13 @@ vc.nextPage(1);</pre>
     
     
     
-    <h5>Returns:</h5>
     
-            
-<div class="param-desc">
-    view - 해당 view를 반환한다.
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="X.View.html">X.View</a></span>
-
-
-	</dd>
-</dl>
-
-
+    
+        <h5>Example</h5>
         
-    
+    <pre class="sunlight-highlight-javascript">carousel.render();</pre>
+
+
     
 </dd>
 
@@ -1127,8 +1016,8 @@ vc.nextPage(1);</pre>
 					
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a>
-		on Tue Dec 24 2013 10:19:23 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
+		on Fri Jan 24 2014 01:15:32 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

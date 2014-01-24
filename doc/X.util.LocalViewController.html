@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Class: Accordion</title>
+	<title>Documentation Class: LocalViewController</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -147,17 +147,15 @@
 					
 
 
-	<h1 class="page-title">Class: Accordion</h1>
+	<h1 class="page-title">Class: LocalViewController</h1>
 <section>
 
 <header>
     <h2>
-        <span class="ancestors"><a href="X.html">X</a><a href="X.ui.html">.ui</a>.</span>
+        <span class="ancestors"><a href="X.html">X</a><a href="X.util.html">.util</a>.</span>
     
-    Accordion
+    LocalViewController
     </h2>
-    
-        <div class="class-description">X.ui.Accordion 클래스는 Accordion ui 를 생성한다.</div>
     
 </header>
 
@@ -168,12 +166,16 @@
     
         
 <dt>
-    <h4 class="name" id="Accordion"><span class="type-signature"></span>new Accordion<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="LocalViewController"><span class="type-signature"></span>new LocalViewController<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
+    
+    <div class="description">
+        X.util.LocalViewController 클래스는 생성된 X.View 의 자식 view 들에 대해서 화면전환을 제공한다.
+    </div>
     
 
     
@@ -212,59 +214,13 @@
 
         <tr>
             
-                <td class="name"><code>config.titles</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">각 탭의 title 을 설정한다.</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>config.items</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">각 탭의 view를 설정한다.</td>
-        </tr>
-
-	
-
-        <tr>
-            
                 <td class="name"><code>config.activeIndex</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">String</span>
 
 
             
@@ -274,7 +230,33 @@
 
             
 
-            <td class="description last">초기 open될 탭을 설정한다. Default : 0</td>
+            <td class="description last">처음 생성시에 활성화 될 화면의 인덱스</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>config.transition</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">화면 전환 animation 종류를 지정한다.<br/>
+<b>slide</b>, <b>slidefade</b>, <b>slideup</b>, <b>slidedown</b><br/>
+<b>pop</b>, <b>fade</b>, <b>flip</b>, <b>turn</b>, <b>flow</b><br/>
+<b>roll</b></td>
         </tr>
 
 	
@@ -328,25 +310,22 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var accordion = new X.ui.Accordion({
-     titles: ["Tab 1", "Tab 2", "Tab 3"],
-     activeIndex: 0,
-     items: [new X.View(), new X.View(), new X.View()]
+    <pre class="sunlight-highlight-javascript">var view = new X.View({
+     viewController: new X.util.LocalViewController({
+         beforenextchange: function(){ },        //다음 화면으로 전환하기 직전에 호출된다.
+         afternextchange: function(){ },         //다음 화면으로 전환한 후에 호출된다.
+         beforeprevchange: function(){ },        //이전 화면으로 전환하기 진적에 호출된다.
+         afterprevchange: function(){ }          //이전 화면으로 전환한 후에 호출된다.
+     }),
+     items: [
+         new X.View(),
+         new X.View(),
+         new X.View()
+     ]
 });
-accordion.render();
-<pre><code>
-&lt;div data-role="accordion" data-active-index="0"&gt;
-     &lt;div data-role="view" data-title="Tabs 1"&gt;
-         &lt;!-- Someting Html --&gt;
-     &lt;/div&gt;
-     &lt;div data-role="view" data-title="Tabs 2"&gt;
-         &lt;!-- Someting Html --&gt;
-     &lt;/div&gt;
-     &lt;div data-role="view" data-title="Tabs 3"&gt;
-         &lt;!-- Someting Html --&gt;
-     &lt;/div&gt;
-&lt;/div&gt;
-&lt;</code></pre></pre>
+
+var vc = view.getViewController();
+vc.nextPage(1);</pre>
 
 
     
@@ -373,7 +352,7 @@ accordion.render();
         <dl>
             
 <dt>
-    <h4 class="name" id="append"><span class="type-signature"></span>append<span class="signature">(comp, title)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="appendView"><span class="type-signature"></span>appendView<span class="signature">(view)</span><span class="type-signature"> &rarr; {<a href="X.View.html">X.View</a>}</span></h4>
     
     
 </dt>
@@ -381,7 +360,7 @@ accordion.render();
     
     
     <div class="description">
-        마지막에 탭 하나를 추가한다.
+        새로운 view를 viewcontroller에 등록한다.
     </div>
     
 
@@ -415,13 +394,13 @@ accordion.render();
 
         <tr>
             
-                <td class="name"><code>comp</code></td>
+                <td class="name"><code>view</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Component</span>
+<span class="param-type"><a href="X.View.html">X.View</a></span>
 
 
             
@@ -431,30 +410,7 @@ accordion.render();
 
             
 
-            <td class="description last">X.View 등의 component를 지정한다.</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>title</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">새로 생성될 탭의 title 을 지정한다.</td>
+            <td class="description last">등록할 새로운 view</td>
         </tr>
 
 	
@@ -511,7 +467,7 @@ accordion.render();
     
             
 <div class="param-desc">
-    array 추가된 타이틀과 component를 배열로 반환한다.
+    view - 해당 view를 반환한다.
 </div>
 
 
@@ -522,7 +478,7 @@ accordion.render();
 	</dt>
 	<dd>
 		
-<span class="param-type">Array</span>
+<span class="param-type"><a href="X.View.html">X.View</a></span>
 
 
 	</dd>
@@ -532,18 +488,12 @@ accordion.render();
         
     
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">accordion.append(new X.View(), "New Tab");</pre>
-
-
-    
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="change"><span class="type-signature"></span>change<span class="signature">(index)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getActiveIndex"><span class="type-signature"></span>getActiveIndex<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
     
     
 </dt>
@@ -551,7 +501,7 @@ accordion.render();
     
     
     <div class="description">
-        주어진 인덱스에 해당하는 탭으로 전환한다.
+        현재 활성화 되어 있는 view의 인덱스를 반환한다.
     </div>
     
 
@@ -559,326 +509,6 @@ accordion.render();
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">이동할 인덱스에 해당하는 탭</td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">accordion.change(1);</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="changeTitle"><span class="type-signature"></span>changeTitle<span class="signature">(title, index)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        인자로 받은 해당 탭에 새로운 타이틀을 설정한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>title</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">새로 변경할 타이틀.</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">변경할 탭.</td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">accordion.changeTitle(0, "New Title");</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getItem"><span class="type-signature"></span>getItem<span class="signature">(index)</span><span class="type-signature"> &rarr; {Component}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        인자로 받은 해당 탭을 반환한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">반환할 탭 인덱스.</td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
     
     
     
@@ -928,6 +558,10 @@ accordion.render();
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    i 현재 활성화 되어있는 요소의 인덱스를 반환한다.
+</div>
+
 
 
 <dl>
@@ -936,7 +570,7 @@ accordion.render();
 	</dt>
 	<dd>
 		
-<span class="param-type">Component</span>
+<span class="param-type">Number</span>
 
 
 	</dd>
@@ -946,18 +580,12 @@ accordion.render();
         
     
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">accordion.getItem(0);</pre>
-
-
-    
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="prepend"><span class="type-signature"></span>prepend<span class="signature">(comp, title)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="getView"><span class="type-signature"></span>getView<span class="signature">(index)</span><span class="type-signature"> &rarr; {<a href="X.View.html">X.View</a>}</span></h4>
     
     
 </dt>
@@ -965,7 +593,7 @@ accordion.render();
     
     
     <div class="description">
-        차음에 탭 하나를 추가한다.
+        view들 중 인자로 받은 index 에 해당 하는 view를 반환한다.
     </div>
     
 
@@ -999,13 +627,13 @@ accordion.render();
 
         <tr>
             
-                <td class="name"><code>comp</code></td>
+                <td class="name"><code>index</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Component</span>
+<span class="param-type">Number</span>
 
 
             
@@ -1015,30 +643,7 @@ accordion.render();
 
             
 
-            <td class="description last">X.View 등의 component를 지정한다.</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>title</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">새로 생성될 탭의 title 을 지정한다.</td>
+            <td class="description last">원하는 view에 해당하는 index</td>
         </tr>
 
 	
@@ -1095,7 +700,7 @@ accordion.render();
     
             
 <div class="param-desc">
-    array 추가된 타이틀과 component를 배열로 반환한다.
+    view - X.View를 반환한다.
 </div>
 
 
@@ -1106,7 +711,7 @@ accordion.render();
 	</dt>
 	<dd>
 		
-<span class="param-type">Array</span>
+<span class="param-type"><a href="X.View.html">X.View</a></span>
 
 
 	</dd>
@@ -1116,18 +721,12 @@ accordion.render();
         
     
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">accordion.prepend(new X.View(), "New Tab");</pre>
-
-
-    
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="remove"><span class="type-signature"></span>remove<span class="signature">(index)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="nextPage"><span class="type-signature"></span>nextPage<span class="signature">(config)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1135,7 +734,7 @@ accordion.render();
     
     
     <div class="description">
-        인자로 받은 인덱스에 해당하는 탭을 삭제한다.
+        다음 화면으로 화면을 전환한다.
     </div>
     
 
@@ -1169,13 +768,13 @@ accordion.render();
 
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>config</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">Object</span>
 
 
             
@@ -1185,7 +784,11 @@ accordion.render();
 
             
 
-            <td class="description last">삭제할 인덱스를 넘긴다.</td>
+            <td class="description last">다음 화면으로 전환한다.<br/>
+<b>index</b>         : 전환하고자 하는 view 의 인덱스<br/>
+<b>history</b>       : 화면전환을 history에 저장할지 여부<br/>
+<b>transition</b>    : 화면전환에 사용할 애니메이션<br/>
+<b>reverse</b>       : 화면전환시 방향. reverse 시 역방향. 빈값을 경우는 정방향.<br/></td>
         </tr>
 
 	
@@ -1240,18 +843,12 @@ accordion.render();
     
     
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">accordion.remove(1);</pre>
-
-
-    
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="removeAll"><span class="type-signature"></span>removeAll<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="prevPage"><span class="type-signature"></span>prevPage<span class="signature">(config)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1259,7 +856,7 @@ accordion.render();
     
     
     <div class="description">
-        탭을 모두 삭제 한다.
+        이전 화면으로 전환한다.
     </div>
     
 
@@ -1267,6 +864,58 @@ accordion.render();
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">이전 화면으로 전환한다.<br/>
+<b>index</b>         : 전환하고자 하는 view 의 인덱스<br/>
+<b>transition</b>    : 화면전환에 사용할 애니메이션<br/>
+<b>reverse</b>       : 화면전환시 방향. reverse 시 역방향. 빈값을 경우는 정방향.<br/></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
     
     
     
@@ -1315,18 +964,12 @@ accordion.render();
     
     
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">accordion.removeAll();</pre>
-
-
-    
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="removeView"><span class="type-signature"></span>removeView<span class="signature">(view)</span><span class="type-signature"> &rarr; {<a href="X.View.html">X.View</a>}</span></h4>
     
     
 </dt>
@@ -1334,7 +977,7 @@ accordion.render();
     
     
     <div class="description">
-        Accordion 을 화면에 렌더한다.
+        등록된 view 를 viewcontroller에서 삭제 한다.
     </div>
     
 
@@ -1342,6 +985,55 @@ accordion.render();
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>view</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="X.View.html">X.View</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">삭제할 view</td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
     
     
     
@@ -1388,13 +1080,30 @@ accordion.render();
     
     
     
+    <h5>Returns:</h5>
     
-    
-        <h5>Example</h5>
+            
+<div class="param-desc">
+    view - 해당 view를 반환한다.
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="X.View.html">X.View</a></span>
+
+
+	</dd>
+</dl>
+
+
         
-    <pre class="sunlight-highlight-javascript">accordion.render();</pre>
-
-
+    
     
 </dd>
 
@@ -1418,8 +1127,8 @@ accordion.render();
 					
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a>
-		on Tue Dec 24 2013 10:19:22 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
+		on Fri Jan 24 2014 01:15:46 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

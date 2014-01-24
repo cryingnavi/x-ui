@@ -63,10 +63,20 @@ module.exports = function(grunt){
                     'build/x-scroll.min.js': 'src/plugins/x-scroll.js'
                 }
             }
-        }
+        },
+        jsdoc : {
+			dist : {
+				src: ['src/<%= pkg.name %>.js'], 
+				options: {
+					destination: 'doc',
+					template: "node_modules/ink-docstrap/template"
+				}
+			}
+		}
     });
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-jsdoc');
 
-    grunt.registerTask('default', ['concat', 'uglify']);
+    grunt.registerTask('default', ['concat', 'uglify', 'jsdoc']);
 };

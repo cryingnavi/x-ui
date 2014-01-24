@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Class: Toolbar</title>
+	<title>Documentation Class: ListView</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -147,17 +147,17 @@
 					
 
 
-	<h1 class="page-title">Class: Toolbar</h1>
+	<h1 class="page-title">Class: ListView</h1>
 <section>
 
 <header>
     <h2>
         <span class="ancestors"><a href="X.html">X</a><a href="X.ui.html">.ui</a>.</span>
     
-    Toolbar
+    ListView
     </h2>
     
-        <div class="class-description">Toolbar 를 생성한다.</div>
+        <div class="class-description">리스트 형태의 UI를 생성한다.</div>
     
 </header>
 
@@ -168,7 +168,7 @@
     
         
 <dt>
-    <h4 class="name" id="Toolbar"><span class="type-signature"></span>new Toolbar<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="ListView"><span class="type-signature"></span>new ListView<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -212,19 +212,13 @@
 
         <tr>
             
-                <td class="name"><code>el</code></td>
+                <td class="name"><code>activeRow</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
-|
-
-<span class="param-type">jQuery</span>
-|
-
-<span class="param-type">HtmlElement</span>
+<span class="param-type">Boolean</span>
 
 
             
@@ -234,53 +228,7 @@
 
             
 
-            <td class="description last">toolbar를 생성할 엘리먼트를 지정한다.</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>position</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">'top' 나 'bottom'. 툴바의 위치를 지정한다. Default: 'top'</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>title</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">텍스트박스의 타이틀을 지정한다.</td>
+            <td class="description last">Row 을 선택할 수 있도록 할 것인지를 지정한다.</td>
         </tr>
 
 	
@@ -334,15 +282,41 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var toolbar = new X.ui.Toolbar({
-     position: 'top',
-		title: 'Header'
+    <pre class="sunlight-highlight-javascript">var html = "&lt;ul&gt;";
+for (var i = 0; i<100; i++) {
+     html = html + "&lt;li&gt;Acura&lt;/li&gt;"
+};
+html = html + "&lt;/ul&gt;"
+var listview = new X.ui.ListView({
+		content: html
 });
-toolbar.render();
-
-&lt;div data-role="toolbar"&gt;
-     Title
-&lt;/div&gt;</pre>
+listview.render();
+<pre><code>
+&lt;div data-role="listview"&gt;
+		&lt;ul&gt;
+			&lt;li&gt;Acura&lt;/li&gt;
+			&lt;li&gt;Audi&lt;/li&gt;
+			&lt;li&gt;BMW&lt;/li&gt;
+			&lt;li&gt;Cadillac&lt;/li&gt;
+			&lt;li&gt;Ferrari&lt;/li&gt;
+			&lt;li&gt;Acura&lt;/li&gt;
+			&lt;li&gt;Audi&lt;/li&gt;
+			&lt;li&gt;BMW&lt;/li&gt;
+			&lt;li&gt;Cadillac&lt;/li&gt;
+			&lt;li&gt;Ferrari&lt;/li&gt;
+			&lt;li&gt;Acura&lt;/li&gt;
+			&lt;li&gt;Audi&lt;/li&gt;
+			&lt;li&gt;BMW&lt;/li&gt;
+			&lt;li&gt;Cadillac&lt;/li&gt;
+			&lt;li&gt;Ferrari&lt;/li&gt;
+			&lt;li&gt;Acura&lt;/li&gt;
+			&lt;li&gt;Audi&lt;/li&gt;
+			&lt;li&gt;BMW&lt;/li&gt;
+			&lt;li&gt;Cadillac&lt;/li&gt;
+			&lt;li&gt;Ferrari&lt;/li&gt;
+		&lt;/ul&gt;
+&lt;/div&lt;
+ </code></pre></pre>
 
 
     
@@ -369,7 +343,7 @@ toolbar.render();
         <dl>
             
 <dt>
-    <h4 class="name" id="destroy"><span class="type-signature"></span>destroy<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="append"><span class="type-signature"></span>append<span class="signature">(추가할)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -377,255 +351,7 @@ toolbar.render();
     
     
     <div class="description">
-        Toolbar 을 파괴한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">toolbar.destroy();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getTitle"><span class="type-signature"></span>getTitle<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Toolbar 의 타이틀을 반환한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    title
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">String</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">toolbar.getTitle();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Toolbar 화면에 렌더한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">toolbar.render();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setTitle"><span class="type-signature"></span>setTitle<span class="signature">(title)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Toolbar 에 새로운 타이틀을 지정한다.
+        리스트뷰의 마지막에 새로운 Row을 추가한다.
     </div>
     
 
@@ -659,13 +385,16 @@ toolbar.render();
 
         <tr>
             
-                <td class="name"><code>title</code></td>
+                <td class="name"><code>추가할</code></td>
             
 
             <td class="type">
             
                 
 <span class="param-type">String</span>
+|
+
+<span class="param-type">jQuery</span>
 
 
             
@@ -675,7 +404,7 @@ toolbar.render();
 
             
 
-            <td class="description last"></td>
+            <td class="description last">row을 문자열 또는 jquery객체로 넘긴다.</td>
         </tr>
 
 	
@@ -732,7 +461,558 @@ toolbar.render();
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">toolbar.setTitle('New Title');</pre>
+    <pre class="sunlight-highlight-javascript">listview.append('<li>Acura1</li>');</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="prepend"><span class="type-signature"></span>prepend<span class="signature">(추가할)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        리스트뷰의 제일 윗쪽에 새로운 Row을 추가한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>추가할</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+|
+
+<span class="param-type">jQuery</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">row을 문자열 또는 jquery객체로 넘긴다.</td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">listview.prepend('<li>Acura1</li>');</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="remove"><span class="type-signature"></span>remove<span class="signature">(index)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        특정 Row을 삭제한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">삭제할 Row의 인덱스</td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">listview.remove(10);</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeAll"><span class="type-signature"></span>removeAll<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        전체 Row을 삭제한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">listview.removeAll();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        리스트뷰를 화면에 render한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">listview.render();</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="replaceWith"><span class="type-signature"></span>replaceWith<span class="signature">(index, row을)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        리스트뷰의 특정 Row을 새로운 Row로 교체한다.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">교체 대상이 되는 Row 의 인덱스.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>row을</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+|
+
+<span class="param-type">jQuery</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">문자열 또는 jquery객체로 넘긴다.</td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
+    
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">listview.replaceWith('<li>Acura1</li>', 10);</pre>
 
 
     
@@ -758,8 +1038,8 @@ toolbar.render();
 					
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a>
-		on Tue Dec 24 2013 10:19:23 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
+		on Fri Jan 24 2014 01:15:37 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

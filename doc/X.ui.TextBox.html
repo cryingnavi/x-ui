@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Class: SwitchBox</title>
+	<title>Documentation Class: TextBox</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -147,17 +147,17 @@
 					
 
 
-	<h1 class="page-title">Class: SwitchBox</h1>
+	<h1 class="page-title">Class: TextBox</h1>
 <section>
 
 <header>
     <h2>
         <span class="ancestors"><a href="X.html">X</a><a href="X.ui.html">.ui</a>.</span>
     
-    SwitchBox
+    TextBox
     </h2>
     
-        <div class="class-description">SwitchBox 를 생성한다.</div>
+        <div class="class-description">TextBox 를 생성한다.</div>
     
 </header>
 
@@ -168,7 +168,7 @@
     
         
 <dt>
-    <h4 class="name" id="SwitchBox"><span class="type-signature"></span>new SwitchBox<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="TextBox"><span class="type-signature"></span>new TextBox<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -212,30 +212,7 @@
 
         <tr>
             
-                <td class="name"><code>checked</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">체크 상태를 지정한다. Default: false</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>on</code></td>
+                <td class="name"><code>placeholder</code></td>
             
 
             <td class="type">
@@ -251,14 +228,14 @@
 
             
 
-            <td class="description last">on 상태의 텍스트를 지정한다. Default: 'ON'</td>
+            <td class="description last">placeholder를 지정한다. Default: 'please..'</td>
         </tr>
 
 	
 
         <tr>
             
-                <td class="name"><code>off</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
@@ -274,7 +251,7 @@
 
             
 
-            <td class="description last">off 상태의 텍스트를 지정한다. Default: 'OFF'</td>
+            <td class="description last">텍스트박스의 type를 지정한다. Default: 'text'</td>
         </tr>
 
 	
@@ -328,14 +305,13 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var sb = new X.ui.SwitchBox({
-     checked: false,
-		on: 'ON',
-		off: 'OFF'
+    <pre class="sunlight-highlight-javascript">var textbox = new X.ui.TextBox({
+     placeholder: 'please..',
+		type: 'text'
 });
-sb.render();
+textbox.render();
 
-&lt;div data-role="switchbox"&gt;&lt;/div&gt;</pre>
+&lt;div data-role="textbox"&gt;&lt;/div&gt;</pre>
 
 
     
@@ -362,156 +338,6 @@ sb.render();
         <dl>
             
 <dt>
-    <h4 class="name" id="checked"><span class="type-signature"></span>checked<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        체크 상태로 변경한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">sb.checked();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        체크 상태 유무를 반환한다. checked 일 경우 true, 아닐경우 false.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">sb.getValue();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
     <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
@@ -520,7 +346,7 @@ sb.render();
     
     
     <div class="description">
-        SwitchBox 화면에 렌더한다.
+        TextBox를 화면에 렌더한다.
     </div>
     
 
@@ -578,7 +404,7 @@ sb.render();
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">sb.render();</pre>
+    <pre class="sunlight-highlight-javascript">textbox.render();</pre>
 
 
     
@@ -587,7 +413,7 @@ sb.render();
         
             
 <dt>
-    <h4 class="name" id="setOff"><span class="type-signature"></span>setOff<span class="signature">(off)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setPlaceholder"><span class="type-signature"></span>setPlaceholder<span class="signature">(placeholder)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -595,7 +421,7 @@ sb.render();
     
     
     <div class="description">
-        off 상태의 텍스트를 변경한다.
+        TextBox의 placeholder 를 변경한다.
     </div>
     
 
@@ -629,7 +455,7 @@ sb.render();
 
         <tr>
             
-                <td class="name"><code>off</code></td>
+                <td class="name"><code>placeholder</code></td>
             
 
             <td class="type">
@@ -702,7 +528,7 @@ sb.render();
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">sb.setOff('B');</pre>
+    <pre class="sunlight-highlight-javascript">textbox.setType('please your id..');</pre>
 
 
     
@@ -711,7 +537,7 @@ sb.render();
         
             
 <dt>
-    <h4 class="name" id="setOn"><span class="type-signature"></span>setOn<span class="signature">(on)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setType"><span class="type-signature"></span>setType<span class="signature">(type)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -719,7 +545,7 @@ sb.render();
     
     
     <div class="description">
-        on 상태의 텍스트를 변경한다.
+        TextBox의 type 를 변경한다.
     </div>
     
 
@@ -753,7 +579,7 @@ sb.render();
 
         <tr>
             
-                <td class="name"><code>on</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
@@ -826,157 +652,7 @@ sb.render();
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">sb.setOn('A');</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="toggleChecked"><span class="type-signature"></span>toggleChecked<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        체크 상태를 반전 시킨다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">sb.toggleChecked();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="unchecked"><span class="type-signature"></span>unchecked<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        체크 상태를 해제한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">sb.unchecked();</pre>
+    <pre class="sunlight-highlight-javascript">textbox.setType('password');</pre>
 
 
     
@@ -1002,8 +678,8 @@ sb.render();
 					
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a>
-		on Tue Dec 24 2013 10:19:23 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
+		on Fri Jan 24 2014 01:15:43 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

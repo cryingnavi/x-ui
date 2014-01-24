@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Class: Progressbar</title>
+	<title>Documentation Class: LayoutView</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -147,17 +147,17 @@
 					
 
 
-	<h1 class="page-title">Class: Progressbar</h1>
+	<h1 class="page-title">Class: LayoutView</h1>
 <section>
 
 <header>
     <h2>
         <span class="ancestors"><a href="X.html">X</a><a href="X.ui.html">.ui</a>.</span>
     
-    Progressbar
+    LayoutView
     </h2>
     
-        <div class="class-description">프로그레스 바를 생성한다.</div>
+        <div class="class-description">Form 컴포넌트를 묶어 하나의 View를 생성한다.</div>
     
 </header>
 
@@ -168,7 +168,7 @@
     
         
 <dt>
-    <h4 class="name" id="Progressbar"><span class="type-signature"></span>new Progressbar<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="LayoutView"><span class="type-signature"></span>new LayoutView<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -212,13 +212,13 @@
 
         <tr>
             
-                <td class="name"><code>max</code></td>
+                <td class="name"><code>minSize</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">Object</span>
 
 
             
@@ -228,20 +228,20 @@
 
             
 
-            <td class="description last">최고값을 지정한다.</td>
+            <td class="description last">각 west, east, south, nouth 의 최소 사이즈를 지정한다.</td>
         </tr>
 
 	
 
         <tr>
             
-                <td class="name"><code>defaultValue</code></td>
+                <td class="name"><code>maxSize</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">Object</span>
 
 
             
@@ -251,7 +251,53 @@
 
             
 
-            <td class="description last">기본값을 지정한다.</td>
+            <td class="description last">각 west, east, south, nouth 의 최고 사이즈를 지정한다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>size</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">각 west, east, south, nouth 의 초기 사이즈를 지정한다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>regions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">각 west, east, south, nouth 에 해당하는 view를 지정한다.</td>
         </tr>
 
 	
@@ -305,15 +351,43 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var progress = new X.ui.Progressbar({
-     max: 100,
-		defaultValue: 0
+    <pre class="sunlight-highlight-javascript">var layoutview = new X.ui.LayoutView({
+		autoSize: true,
+		maxSize: { west: 700, east: 700, south: 100, nouth: 100 },
+     minSize: { west: 200, east: 200, south: 50, nouth: 50 }, 
+     size: { west: 300, east: 300, south: 150, nouth: 150 }, 
+		regions : {
+		    south: new X.View(),
+			nouth: new X.View(),
+			west: new X.View(),
+			center: new X.View(),
+			east: new X.View()
+		},
+		listener: {
+			resize: function(){
+				
+			}
+     }
 });
-progress.render();
+layoutview.render();
 
-<pre><code>
-     &lt;div data-role="progress" data-max="100" data-default-value="0"&gt;&lt;/div&gt;
-</code></pre></pre>
+ &lt;div data-role="layoutview" data-max-size='{"west": 800, "east": 800}'&gt;
+     &lt;div data-role="view" data-regions="nouth" style="background-color:green;" data-height="100"&gt;
+         nouth
+     &lt;/div&gt;
+     &lt;div data-role="view" data-regions="south" style="background-color:green;" data-height="100"&gt;
+         south
+     &lt;/div&gt;
+     &lt;div data-role="view" data-regions="west" style="background-color:red;"&gt;
+         west
+     &lt;/div&gt;
+     &lt;div data-role="view" data-regions="east" style="background-color:yellow;"&gt;
+         east
+     &lt;/div&gt;
+     &lt;div data-role="view" data-regions="center" style="background-color:blue;"&gt;
+         center
+     &lt;/div&gt;
+ &lt;/div&gt;</pre>
 
 
     
@@ -340,7 +414,7 @@ progress.render();
         <dl>
             
 <dt>
-    <h4 class="name" id="getMax"><span class="type-signature"></span>getMax<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id="destroy"><span class="type-signature"></span>destroy<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -348,7 +422,7 @@ progress.render();
     
     
     <div class="description">
-        프로그래스 바의 최고값을 반환한다.
+        생성된 LayoutView를 파괴한다.
     </div>
     
 
@@ -402,34 +476,11 @@ progress.render();
     
     
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    max
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Number</span>
-
-
-	</dd>
-</dl>
-
-
-        
     
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">progress.getMax();</pre>
+    <pre class="sunlight-highlight-javascript">layout.destroy();</pre>
 
 
     
@@ -446,7 +497,7 @@ progress.render();
     
     
     <div class="description">
-        프로그래스 바를 화면에 렌더한다.
+        layoutview 를 화면에 렌더한다.
     </div>
     
 
@@ -504,255 +555,7 @@ progress.render();
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">progress.render();</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setMax"><span class="type-signature"></span>setMax<span class="signature">(max)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        프로그래스 바의 최고값을 변경한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>max</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">progress.setMax(100);</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue<span class="signature">(val)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        프로그래스 바의 value를 업데이트한다.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>val</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="x-ui.js.html">x-ui.js</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">progress.setValue(50);</pre>
+    <pre class="sunlight-highlight-javascript">layoutview.render();</pre>
 
 
     
@@ -778,8 +581,8 @@ progress.render();
 					
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a>
-		on Tue Dec 24 2013 10:19:23 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
+		on Fri Jan 24 2014 01:15:36 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

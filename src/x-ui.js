@@ -6,10 +6,10 @@
  * Dual licensed under the MIT or GPL Version 2 licenses
  * 
  * project: x-ui
- * version: 1.0.1
+ * version: 1.0.3
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2014-01-23 11:01 
+ * Date: 2014-01-24 01:01 
  */
 /**
  * X namespace
