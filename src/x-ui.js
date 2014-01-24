@@ -9,7 +9,7 @@
  * version: 1.0.1
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2014-01-20 03:01 
+ * Date: 2014-01-23 11:01 
  */
 /**
  * X namespace
@@ -2311,12 +2311,10 @@ X.View = X.extend(X.util.Observer, {
      */
 	setFlexible: function(flex){
 		if(flex){
-			this.el.removeClass('ui-view-inflexible')
-				.addClass('ui-view-flexible');
+			this.el.addClass('ui-view-flexible');
 		}
 		else{
-			this.el.removeClass('ui-view-flexible')
-				.addClass('ui-view-inflexible');
+			this.el.removeClass('ui-view-flexible');
 		}
 	},
 	/**
@@ -3253,13 +3251,6 @@ X.ui.Carousel = X.extend(X.View, {
 		}
 
 		this.carouselBody = this.body.children('.ui-carousel-body');
-		
-		if(this.config.direction === 'x'){
-			this.carouselBody.addClass('ui-carousel-horizontal');
-		}
-		else{
-			this.carouselBody.addClass('ui-carousel-vertical');
-		}
 
 		if(this.config.direction === 'x'){
 		    itemSize = this.getWidth();

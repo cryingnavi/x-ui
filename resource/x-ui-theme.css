@@ -1,15 +1,13 @@
 .ui-toolbar{
-	height: 2.5em;
+	height: 40px;
 	z-index: 100;
 	background-color: #000;
 	background-image: -webkit-linear-gradient(#565656, #262324);;
 	background-image: -moz-linear-gradient(#565656, #262324);
 	background-image: -ms-linear-gradient(#565656, #262324);
 	background-image: linear-gradient(#565656, #262324);
-
 	color: white;
 	font-weight: bold;
-	padding: .6em;
 }
 
 .ui-toolbar .ui-toolbar-inner .ui-toolbar-title{
@@ -128,7 +126,12 @@
 
 
 .ui-form-container .ui-progress-gauge{
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1e5799), color-stop(50%, #2989d8), color-stop(51%, #207cca), color-stop(100%, #7db9e8));
+    border-radius: .6em;
+	background-image: -o-linear-gradient(bottom, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    background-image: -moz-linear-gradient(bottom, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    background-image: -webkit-linear-gradient(bottom, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    background-image: -ms-linear-gradient(bottom, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    background-image: linear-gradient(to bottom, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
 }
 
 
@@ -137,6 +140,8 @@
 	height: 8px;
 	background: #eee;
 	-webkit-box-shadow: 0 0 0.3em #000;
+	-moz-box-shadow: 0 0 0.3em #000;
+	box-shadow: 0 0 0.3em #000;
 }
 
 .ui-spinner input{
@@ -183,7 +188,6 @@
 	line-height: 33px;
 	font-size: 1em;
 	font-weight: bold;
-	-webkit-box-flex: 0 !important;
 }
 
 .ui-switchbox .ui-form-container .ui-switchbox-handle{

@@ -69,13 +69,6 @@ X.ui.Carousel = X.extend(X.View, {
 		}
 
 		this.carouselBody = this.body.children('.ui-carousel-body');
-		
-		if(this.config.direction === 'x'){
-			this.carouselBody.addClass('ui-carousel-horizontal');
-		}
-		else{
-			this.carouselBody.addClass('ui-carousel-vertical');
-		}
 
 		if(this.config.direction === 'x'){
 		    itemSize = this.getWidth();

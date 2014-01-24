@@ -1,7 +1,6 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="../../resource/x-ui.css" />
 	<link rel="stylesheet" type="text/css" href="../../resource/x-ui-theme.css" />
 
@@ -36,53 +35,36 @@
 
 	<script src="../../src/plugins/x-event.js"></script>
 	<script src="../../src/plugins/x-scroll.js"></script>
-
 	<script>
 		X.App({
+		    viewConfig: {
+		        layout: "x"
+		    },
 			ready: function(appView){
 				appView.setContent();
-
-				appView.setViewController(new X.util.RemoteViewController({
-					
-				}));
-
-				appView.getViewController().initPage({
-					url: "./vc/view1.html"
-				});
-
-				window.setTimeout(function(){
-					appView.getViewController().nextPage({
-						url: "./vc/view2.html",
-						transition: "none"
-					});
-				}, 3000);
-				
-				window.setTimeout(function(){
-					appView.getViewController().nextPage({
-						url: "./vc/view3.html",
-						transition: "pop"
-					});
-				}, 6000);
-				window.setTimeout(function(){
-					appView.getViewController().nextPage({
-						url: "./vc/view4.html",
-						transition: "fade"
-					});
-				}, 9000);
-
-				window.setTimeout(function(){
-					appView.getViewController().nextPage({
-						url: "./vc/view5.html",
-						transition: "slideup"
-					});
-				}, 12000);
 			}
 		});
 	</script>
 </head>
 <body>
-	<div data-role="toolbar" data-scroll="true">
-		<h3>test</h3>
+    <div data-role="toolbar">
+		<a href="#" style="position: absolute;left: 10px;">left</a>
+		test
+		<a href="#" style="position: absolute;right: 10px;">right</a>
 	</div>
+	
+	<div data-role="toolbar" data-position="bottom">
+		<a href="#" style="position: absolute;left: 10px;">left</a>
+		test
+		<a href="#" style="position: absolute;right: 10px;">right</a>
+	</div>
+	
+	<div data-role="view" data-scroll="true" style="background: red;width:200px;" data-flexible="false">
+		<p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p><p>test1</p>
+	</div>
+	<div data-role="view" data-scroll="true" style="background: blue;">
+		test 2
+	</div>
+	
 </body>
 </html>
