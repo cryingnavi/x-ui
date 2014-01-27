@@ -74,7 +74,7 @@ var view = new X.View({
 ```
 
 ```html
-<div data-role="view">
+<div data-ui="view">
     <!-- someting html -->
 </div>
 ```
@@ -90,7 +90,7 @@ var view = new X.View({
 ```
 
 ```html
-<div data-role="view" data-scroll="true" data-floating="true">
+<div data-ui="view" data-scroll="true" data-floating="true">
     <!-- someting html -->
 </div>
 ```
