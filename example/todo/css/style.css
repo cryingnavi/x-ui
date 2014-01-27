@@ -9,6 +9,7 @@ body{
 .form-container form{
     text-align: center;
     margin: 40px auto;
+    width: 100%;
 }
 
 .form-container form input{

@@ -14,7 +14,7 @@
  *          beforeprevchange: function(){ },        //이전 화면으로 전환하기 진적에 호출된다.
  *          afterprevchange: function(){ }          //이전 화면으로 전환한 후에 호출된다.
  *      }),
- *      items: [
+ *      children: [
  *          new X.View(),
  *          new X.View(),
  *          new X.View()
@@ -37,7 +37,7 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 	init: function(view){
 		X.util.LocalViewController.base.init.call(this, view);
 		
-		this.views = this.view.config.items;
+		this.views = this.view.config.children;
 		this.viewsInit();
 	},
 	viewsInit: function(){

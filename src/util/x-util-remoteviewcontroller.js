@@ -21,7 +21,7 @@
  *          beforeprevchange: function(){ },        //이전 화면으로 전환하기 진적에 호출된다.
  *          afterprevchange: function(){ }          //이전 화면으로 전환한 후에 호출된다.
  *      }),
- *      items: [
+ *      children: [
  *          new X.View(),
  *          new X.View(),
  *          new X.View()
@@ -199,7 +199,7 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 	
 		this.setActiveView(toView);
 		toView.setContent(data.html);
-		this.view.addItems([toView]);
+		this.view.addChildren([toView]);
 		toView.body.append(data.script);
 
 		this.fireEvent(this, 'afterinit', [this.getActiveView()]);
@@ -216,7 +216,7 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 
 		if(!this.history.getViewInfo(config.url)){
 			toView.setContent(data.html);
-			this.view.addItems([toView]);
+			this.view.addChildren([toView]);
 			toView.body.append(data.script);
 		}
 		this.nextMove(fromView, toView, config);

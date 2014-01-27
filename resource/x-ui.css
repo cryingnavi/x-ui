@@ -1358,6 +1358,7 @@ input, textarea {
 .ui-toolbar .ui-toolbar-inner .ui-toolbar-title{
 	width: 100%;
 	height: 100%;
+	line-height: 1;
 }
 
 

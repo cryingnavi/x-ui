@@ -5,14 +5,14 @@
  * @property {Number} activeIndex on 기본으로 화면에 나타날 하위 view의 인덱스를 지정한다. Default: 0
  * @property {Array} titles 탭바의 각 탭 요소의 타이틀을 지정한다.
  * @property {String} transition 애니메이션 종류를 지정한다. viewcontroller의 애니메이션과 종류가 같다. Default: 'slide'
- * @property {Array} items 각 탭에 들어갈 view를 지정한다.
+ * @property {Array} children 각 탭에 들어갈 view를 지정한다.
  * @example
  * var tabs = new X.ui.Tabs({
  *      position: 'top',
  *		activeIndex: 0,
  *		titles: ['Tabs 1', 'Tabs 2', 'Tabs 3'],
  *		transition: 'slide',
- *		items: [
+ *		children: [
  *          new X.View(), new X.View(), new X.View()
  *      ]
  * });
@@ -31,7 +31,7 @@ X.ui.Tabs = X.extend(X.View, {
 			activeIndex: 0,
 			titles: [],
 			transition: 'slide',
-			items: []
+			children: []
 		};
 		this.config.scroll = false;
 		X.apply(this.config, config);
@@ -57,25 +57,25 @@ X.ui.Tabs = X.extend(X.View, {
 			.eq(activeIndex)
 			.addClass('ui-tabs-bar-items-active');
 		
-		this.activeView = this.config.items[activeIndex];
-		for(var i=0,len=this.config.items.length; i<len; i++){
+		this.activeView = this.config.children[activeIndex];
+		for(var i=0,len=this.config.children.length; i<len; i++){
 			if(i === activeIndex){
 				continue;
 			}
 
-			this.config.items[i].hide();
+			this.config.children[i].hide();
 		}
 	},
 	createTabBar: function(){
 		this.tabBar = X.util.em.get()
 			.addClass('ui-tabs-bar ui-tabs-bar-' + this.config.position);
 		
-		var items = this.config.items,
-			len = items.length,
+		var children = this.config.children,
+			len = children.length,
 			o, html = '';
 
 		for(var i=0; i<len; i++){
-			html += '<div class="ui-tabs-bar-items"><span>' + items[i].config.title + '</span></div>'; 
+			html += '<div class="ui-tabs-bar-items"><span>' + children[i].config.title + '</span></div>'; 
 		}
 		this.tabBar.html(html);
 		
@@ -109,7 +109,7 @@ X.ui.Tabs = X.extend(X.View, {
      */
 	change: function(index){
 		var fromView = this.getActiveView(),
-			toView = this.config.items[index];
+			toView = this.config.children[index];
 			
 		if(fromView === toView){
 			return;
@@ -186,8 +186,8 @@ X.ui.Tabs = X.extend(X.View, {
      */
 	getActiveViewIndex: function(){
 		var active = this.getActiveView();
-		for(var i=0; i<this.config.items.length; i++){
-			if(active === this.config.items[i]){
+		for(var i=0; i<this.config.children.length; i++){
+			if(active === this.config.children[i]){
 				return i;
 			}
 		}
@@ -201,7 +201,7 @@ X.ui.Tabs = X.extend(X.View, {
      * tabs.getView();
      */
 	getView: function(index){
-		return this.config.items[index];
+		return this.config.children[index];
 	},
 	right: function(fromView, toView){
 		this.fireEvent(this, 'beforechange', [this, this.getActiveView(), this.getActiveViewIndex(), toView]);
@@ -239,7 +239,7 @@ X.ui.Tabs = X.extend(X.View, {
      */
 	append: function(comp, title){
 		comp = X.util.cm.create(this.body, [comp]);
-		this.config.items.push(comp[0]);
+		this.config.children.push(comp[0]);
 		comp[0].hide();
 
 		var titleDiv = X.util.em.get()
@@ -261,7 +261,7 @@ X.ui.Tabs = X.extend(X.View, {
      */
 	prepend: function(comp, title){
 		comp = X.util.cm.create(this.body, [comp]);
-		this.config.items = comp.concat(this.config.items);
+		this.config.children = comp.concat(this.config.children);
 		comp[0].hide();
 		this.body.prepend(comp[0].el);
 
@@ -281,8 +281,8 @@ X.ui.Tabs = X.extend(X.View, {
      * tabs.remove(1);
      */
 	remove: function(index){
-		this.config.items[index].destroy();
-		this.config.items.remove(index);
+		this.config.children[index].destroy();
+		this.config.children.remove(index);
 
 		this.tabBar.children('.ui-tabs-bar-items').eq(index).remove();
 	}

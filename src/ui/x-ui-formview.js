@@ -3,7 +3,7 @@
  * @classdesc Form 컴포넌트를 묶어 하나의 View를 생성한다.
  * @example
  * var formView = new X.ui.Form({
- *      items: [
+ *      children: [
  *          new X.ui.TextBox(),
  *          new X.ui.ProgressBar(),
  *          new X.ui.Slider(),
@@ -37,7 +37,7 @@ X.ui.FormView = X.extend(X.View, {
      * @return {String} 직렬화된 문자열
      * @example
      * var formView = new X.ui.Form({
-     *      items: [
+     *      children: [
      *          new X.ui.TextBox(),
      *          new X.ui.ProgressBar(),
      *          new X.ui.Slider(),
@@ -58,7 +58,7 @@ X.ui.FormView = X.extend(X.View, {
      * @return {Object} 직렬화된 json 객체
      * @example
      * var formView = new X.ui.Form({
-     *      items: [
+     *      children: [
      *           new X.ui.TextBox(),
      *          new X.ui.ProgressBar(),
      *          new X.ui.Slider(),
@@ -71,11 +71,11 @@ X.ui.FormView = X.extend(X.View, {
      */
 	getJSON: function(){
 		var params = { },
-			items = this.config.items,
-			len = items.length;
+			children = this.config.children,
+			len = children.length;
 		
 		for(var i=0; i<len; i++){
-			params[items[i].getName() || items[i].getId()] = items[i].getValue();
+			params[children[i].getName() || children[i].getId()] = children[i].getValue();
 		}
 
 		return params;

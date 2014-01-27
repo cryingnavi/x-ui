@@ -9,7 +9,7 @@
  * version: 1.1.0
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2014-01-24 04:01 
+ * Date: 2014-01-26 08:01 
  */
 /**
  * X namespace
@@ -500,27 +500,27 @@ X.util.ElementManager = X.util.em = {
 X.util.ComponentManager = X.util.cm = {
 	map: { },
 	cString: { },
-	create: function(contain, items){
-		for(var i=0, len=items.length; i<len; i++){
-			if(!items[i].render){
-				items[i] = new this.cString[items[i].cString](items[i]);
+	create: function(contain, children){
+		for(var i=0, len=children.length; i<len; i++){
+			if(!children[i].render){
+				children[i] = new this.cString[children[i].cString](children[i]);
 			}
 
-			this.elementAdd(contain, items[i].el);
-			if(!items[i].config.autoRender){
-				items[i].render();
+			this.elementAdd(contain, children[i].el);
+			if(!children[i].config.autoRender){
+				children[i].render();
 			}
 			
-			this.set(items[i].el.attr('id'), items[i]);
+			this.set(children[i].el.attr('id'), children[i]);
 		}
 		
-		return items;
+		return children;
 	},
 	elementAdd: function(contain, el){
 		contain.append(el);
 	},
-	set: function(id, item){
-		this.map[id] = item;
+	set: function(id, children){
+		this.map[id] = children;
 	},
 	/**
      * @static
@@ -904,7 +904,7 @@ X.util.vcm = X.util.ViewControllerManager = X.apply(X.util.ViewController, {
  *          beforeprevchange: function(){ },        //이전 화면으로 전환하기 진적에 호출된다.
  *          afterprevchange: function(){ }          //이전 화면으로 전환한 후에 호출된다.
  *      }),
- *      items: [
+ *      children: [
  *          new X.View(),
  *          new X.View(),
  *          new X.View()
@@ -927,7 +927,7 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 	init: function(view){
 		X.util.LocalViewController.base.init.call(this, view);
 		
-		this.views = this.view.config.items;
+		this.views = this.view.config.children;
 		this.viewsInit();
 	},
 	viewsInit: function(){
@@ -1119,7 +1119,7 @@ X.util.cm.addCString('localviewcontroller', X.util.LocalViewController);
  *          beforeprevchange: function(){ },        //이전 화면으로 전환하기 진적에 호출된다.
  *          afterprevchange: function(){ }          //이전 화면으로 전환한 후에 호출된다.
  *      }),
- *      items: [
+ *      children: [
  *          new X.View(),
  *          new X.View(),
  *          new X.View()
@@ -1297,7 +1297,7 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 	
 		this.setActiveView(toView);
 		toView.setContent(data.html);
-		this.view.addItems([toView]);
+		this.view.addChildren([toView]);
 		toView.body.append(data.script);
 
 		this.fireEvent(this, 'afterinit', [this.getActiveView()]);
@@ -1314,7 +1314,7 @@ X.util.RemoteViewController = X.extend(X.util.ViewController, {
 
 		if(!this.history.getViewInfo(config.url)){
 			toView.setContent(data.html);
-			this.view.addItems([toView]);
+			this.view.addChildren([toView]);
 			toView.body.append(data.script);
 		}
 		this.nextMove(fromView, toView, config);
@@ -2040,7 +2040,7 @@ X.ui = { };
  * @property {Boolean} scroll 스크롤을 생성할지 여부를 지정한다.
  * @property {Object} scrollConfig 스크롤 options 을 지정한다.
  * @property {String | jQuery} content view 가 가질 content 를 지정한다. html 문자열 또는 jquery 객체를 받는다.
- * @property {Array} items 하위에 포함할 다른 controll 들을 지정한다.
+ * @property {Array} children 하위에 포함할 다른 controll 들을 지정한다.
  * @property {Array} toolbars view 가 포함할 툴바를 지정한다.
  * @property {Boolean} floating view 를 팝업형태로 화면에 띄울지를 지정한다.
  * @property {Boolean} overlay floating true 일때 회색 배경을 덮을지를 지정한다.
@@ -2061,7 +2061,7 @@ X.View = X.extend(X.util.Observer, {
 			scroll: true,
 			scrollConfig: { },
 			content: null,
-			items: [ ],
+			children: [ ],
 			toolbars: [ ],
 			floating: false,
 			overlay: false,
@@ -2127,8 +2127,8 @@ X.View = X.extend(X.util.Observer, {
 			this.setContent(this.config.content);
 		}
 		
-		if(this.config.items.length > 0){
-			this.createInitItems();
+		if(this.config.children.length > 0){
+			this.createInitChildren();
 		}
 
 		if(this.config.viewController){
@@ -2560,33 +2560,33 @@ X.View = X.extend(X.util.Observer, {
 
 		this.fireEvent(this, 'destroy', [this]);
 	},
-	createInitItems: function(){
+	createInitChildren: function(){
     	var el = this.body.children('.ui-scrollview-view');
     	if(el.length < 1){
     		el = this.body;
     	}
-    	var items = X.util.cm.create(el, this.config.items);
+    	var children = X.util.cm.create(el, this.config.children);
     
-    	this.config.items = items;
+    	this.config.children = children;
     },
     /**
      * @method 
      * @desc View 안에 새로운 컴포넌트를 자식으로 추가한다.
      * @memberof X.View.prototype
-     * @param {Array} items
+     * @param {Array} children
      * @example
-     * view.addItems([new X.View(), new X.ui.ListView(), new X.ui.TextBox()]);
+     * view.addChildren([new X.View(), new X.ui.ListView(), new X.ui.TextBox()]);
      */
-	addItems: function(items){
+	addChildren: function(children){
 		var el = this.body.children('.ui-scrollview-view');
 		if(el.length < 1){
 			el = this.body;
 		}
-		items = X.util.cm.create(el, items);
-		this.config.items = $.unique(this.config.items.concat(items));
-		this.config.items.reverse();
+		children = X.util.cm.create(el, children);
+		this.config.children = $.unique(this.config.children.concat(children));
+		this.config.children.reverse();
 		
-		return items;
+		return children;
 	},
 	/**
      * @method 
@@ -2597,8 +2597,8 @@ X.View = X.extend(X.util.Observer, {
      * view.removeItem(1);
      */
 	removeItem: function(index){
-		this.config.items[index].destroy();
-		this.config.items.remove(index);
+		this.config.children[index].destroy();
+		this.config.children.remove(index);
 	},
 	/**
      * @method 
@@ -2777,14 +2777,14 @@ X.View = X.extend(X.util.Observer, {
 
 			if(comp === 'tabs'){
 				var tabs = el.children('[data-role="view"]'),
-					items = [ ], titles = [ ];
+					children = [ ], titles = [ ];
 				
 				tabs.each(function(){
-					items.push(X.util.cm.get(this.id));
+					children.push(X.util.cm.get(this.id));
 					titles.push(this.dataset.title);
 				});
 
-				config.items = items;
+				config.children = children;
 				config.titles = titles;
 				
 				new X.ui.Tabs(config);
@@ -2792,13 +2792,13 @@ X.View = X.extend(X.util.Observer, {
 
 			if(comp === 'carousel'){
 				var views = el.children('[data-role="view"]'),
-					items = [ ];
+					children = [ ];
 				
 				views.each(function(){
-					items.push(X.util.cm.get(this.id));
+					children.push(X.util.cm.get(this.id));
 				});
 
-				config.items = items;
+				config.children = children;
 				new X.ui.Carousel(config);
 			}
 
@@ -2808,14 +2808,14 @@ X.View = X.extend(X.util.Observer, {
 
 			if(comp === 'accordion'){
 				var views = el.children('[data-role="view"]'),
-					items = [ ], titles = [ ];
+					children = [ ], titles = [ ];
 
 				views.each(function(i){
-					items.push(X.util.cm.get(this.id));
+					children.push(X.util.cm.get(this.id));
 					titles.push(this.dataset.title);
 				});
 
-				config.items = items;
+				config.children = children;
 				config.titles = titles;
 
 				new X.ui.Accordion(config);
@@ -2896,7 +2896,7 @@ X.View = X.extend(X.util.Observer, {
 		var	formView = this.el.find('[data-role="formview"]');
 		formView.each(function(){
 			var el = $(this),
-				items = [],
+				children = [],
 				selector = '[data-role="textbox"],' +
 					'[data-role="slider"],' +
 					'[data-role="spinner"],' + 
@@ -2921,11 +2921,11 @@ X.View = X.extend(X.util.Observer, {
 			}
 
 			el.children(selector).each(function(){
-				items.push(X.util.cm.get(this.id));
+				children.push(X.util.cm.get(this.id));
 			});
 
 			config.el = el;
-			config.items = items;
+			config.children = children;
 			config.autoRender = true;
 
 			new X.ui.FormView(config);
@@ -2938,13 +2938,13 @@ X.util.cm.addCString('view', X.View);
  * @class 
  * @classdesc X.ui.Accordion 클래스는 Accordion ui 를 생성한다.
  * @property {Array} config.titles 각 탭의 title 을 설정한다.
- * @property {Array} config.items 각 탭의 view를 설정한다.
+ * @property {Array} config.children 각 탭의 view를 설정한다.
  * @property {Number} config.activeIndex 초기 open될 탭을 설정한다. Default : 0
  * @example
  * var accordion = new X.ui.Accordion({
  *      titles: ["Tab 1", "Tab 2", "Tab 3"],
  *      activeIndex: 0,
- *      items: [new X.View(), new X.View(), new X.View()]
+ *      children: [new X.View(), new X.View(), new X.View()]
  * });
  * accordion.render();
  * <pre><code>
@@ -2965,7 +2965,7 @@ X.ui.Accordion = X.extend(X.View, {
 	initialize: function(config){
 		this.config = {
 			titles: [],
-			items: [],
+			children: [],
 			activeIndex: 0
 		};
 		this.config.scroll = false;
@@ -2983,7 +2983,7 @@ X.ui.Accordion = X.extend(X.View, {
 		X.ui.Accordion.base.render.call(this);
 		this.el.addClass('ui-accordion');
 		
-		this.createItems();
+		this.createChildren();
 		this.createTitle();
 
 		views = this.body.on('vclick', '.ui-accordion-views > .ui-accordion-title', { me: this }, function(e){
@@ -2994,7 +2994,7 @@ X.ui.Accordion = X.extend(X.View, {
 			return false;
 		});
 	},
-	createItems: function(){
+	createChildren: function(){
 		this.body.children('.ui-view').each(function(){
 			var div = X.util.em.get()
 				.addClass('ui-accordion-views ui-accordion-close');
@@ -3002,13 +3002,13 @@ X.ui.Accordion = X.extend(X.View, {
 			$(this).wrap(div);
 		});
 
-		var items = this.body.children('.ui-accordion-views');
-		items.eq(this.config.activeIndex)
+		var children = this.body.children('.ui-accordion-views');
+		children.eq(this.config.activeIndex)
 			.removeClass('ui-accordion-close')
 			.addClass('ui-accordion-open');
 
 		var me = this;
-		this.config.items.forEach(function(view, i){
+		this.config.children.forEach(function(view, i){
 			if(me.config.activeIndex !== i){
 				view.hide();
 			}
@@ -3049,7 +3049,7 @@ X.ui.Accordion = X.extend(X.View, {
 			.removeClass('ui-accordion-close');
 
 
-		this.config.items.forEach(function(view, i){
+		this.config.children.forEach(function(view, i){
 			if(index !== i){
 				view.hide();
 			}
@@ -3124,7 +3124,7 @@ X.ui.Accordion = X.extend(X.View, {
      */
 	remove: function(index){
 		this.body.children('.ui-accordion-views').eq(index).remove();
-		this.config.items = this.config.items.filter(function(el, i){
+		this.config.children = this.config.children.filter(function(el, i){
 			return (index !== i);
 		});
 
@@ -3167,15 +3167,15 @@ X.ui.Accordion = X.extend(X.View, {
 	/**
 	 * @method
      * @desc 인자로 받은 해당 탭을 반환한다.
-     * @function getItem
+     * @function getChild
      * @memberof X.ui.Accordion.prototype
      * @param {Number} index - 반환할 탭 인덱스.
      * @return {Component} 
      * @example
-     * accordion.getItem(0);
+     * accordion.getChild(0);
      */
-	getItem: function(index){
-		return this.config.items[index];
+	getChild: function(index){
+		return this.config.children[index];
 	}
 });
 
@@ -3186,13 +3186,13 @@ X.util.cm.addCString('accordion', X.ui.Accordion);
  * @property {String} config.direction carousel 의 이동방향을 지정한다. x 또는 y 로 가로 세로 방향을 지정한다. Default: 'x'
  * @property {Number} config.activeIndex 초기 활성화될 아이템을 지정한다. Defautl: 0.
  * @property {Number} config.duration 애니메이션 이동 속도를 지정한다. Defautl: 200.
- * @property {Array} config.items 각 탭의 view를 설정한다.
+ * @property {Array} config.children 각 탭의 view를 설정한다.
  * @example
  * var carousel = new X.ui.Carousel({
  *      direction: "x",
  *      activeIndex: 0,
  *      duration: 200,
- *      items: [new X.View(), new X.View(), new X.View()]
+ *      children: [new X.View(), new X.View(), new X.View()]
  * });
  * carousel.render();
  * 
@@ -3215,7 +3215,8 @@ X.ui.Carousel = X.extend(X.View, {
 		this.config = {
 			direction: 'x',
 			activeIndex: 0,
-			duration: 200
+			duration: 200,
+			children: []
 		};
 		this.config.scroll = false;
 		X.apply(this.config, config);
@@ -3241,7 +3242,7 @@ X.ui.Carousel = X.extend(X.View, {
 			activeIndex = this.activeIndex,
 			style = this.carouselBody.get(0).style,
 			pos = 0, 
-			itemSize = 0;
+			viewSize = 0;
 		
 		if(views.length > 0){
 			views.wrapAll(this.carouselBody);
@@ -3253,8 +3254,8 @@ X.ui.Carousel = X.extend(X.View, {
 		this.carouselBody = this.body.children('.ui-carousel-body');
 
 		if(this.config.direction === 'x'){
-		    itemSize = this.getWidth();
-		    pos = (-1 * activeIndex) * itemSize;
+		    viewSize = this.getWidth();
+		    pos = (-1 * activeIndex) * viewSize;
 		    
 			style.webkitTransform = 'translateX(' + (pos) + 'px)';
 			style.msTransform = 'translateX(' + (pos) + 'px)';
@@ -3265,8 +3266,8 @@ X.ui.Carousel = X.extend(X.View, {
 			});
 		}
 		else{
-		    itemSize = this.getHeight();
-		    pos = (-1 * activeIndex) * itemSize;
+		    viewSize = this.getHeight();
+		    pos = (-1 * activeIndex) * viewSize;
 		    
 			style.webkitTransform = 'translateY(' + (pos) + 'px)';
 			style.msTransform = 'translateY(' + (pos) + 'px)';
@@ -3372,8 +3373,8 @@ X.ui.Carousel = X.extend(X.View, {
 			else{
 				if(Math.abs(me.movePos) > Math.abs(me.endPos)){
 					me.activeIndex++;
-					if(me.activeIndex >= (me.config.items.length - 1)){
-						me.activeIndex = me.config.items.length - 1;
+					if(me.activeIndex >= (me.config.children.length - 1)){
+						me.activeIndex = me.config.children.length - 1;
 					}
 				}
 				else{
@@ -3427,13 +3428,13 @@ X.ui.Carousel = X.extend(X.View, {
      *      direction: "x",
      *      activeIndex: 0,
      *      duration: 200,
-     *      items: [new X.View(), new X.View(), new X.View()]
+     *      children: [new X.View(), new X.View(), new X.View()]
      * });
      * 
      * car.getActiveView();
      */
 	getActiveView: function(){
-		return this.config.items[this.activeIndex];
+		return this.config.children[this.activeIndex];
 	},
 	/**
 	 * @method
@@ -3448,7 +3449,7 @@ X.ui.Carousel = X.extend(X.View, {
 		var comps = X.util.cm.create(this.carouselBody, [comp]),
 		    position;
 		
-		this.config.items.push(comps[0]);
+		this.config.children.push(comps[0]);
 		comps[0].getEl().addClass('ui-carousel-views');
 		
 		if(this.config.direction === 'x'){
@@ -3458,7 +3459,7 @@ X.ui.Carousel = X.extend(X.View, {
 		    position = 'top';
 		}
 		
-		comps[0].getEl().css(position, ((this.config.items.length-1) * 100) + '%');
+		comps[0].getEl().css(position, ((this.config.children.length-1) * 100) + '%');
 		
 		return comps[0];
 	},
@@ -3471,8 +3472,8 @@ X.ui.Carousel = X.extend(X.View, {
      * carousel.remove(0);
      */
 	remove: function(index){
-		this.config.items[index].destroy();
-		this.config.items.remove(index);
+		this.config.children[index].destroy();
+		this.config.children.remove(index);
 	},
 	destroy: function(){
 		X.ui.Carousel.base.destroy.call(this);
@@ -3489,7 +3490,7 @@ X.ui.Carousel = X.extend(X.View, {
 		var index = this.activeIndex + 1,
 			style = this.carouselBody.get(0).style;
 			
-		if(index === this.config.items.length){
+		if(index === this.config.children.length){
 		    return false;
 		}
 
@@ -3740,14 +3741,14 @@ X.util.cm.addCString('listview', X.ui.ListView);
  * @property {Number} activeIndex on 기본으로 화면에 나타날 하위 view의 인덱스를 지정한다. Default: 0
  * @property {Array} titles 탭바의 각 탭 요소의 타이틀을 지정한다.
  * @property {String} transition 애니메이션 종류를 지정한다. viewcontroller의 애니메이션과 종류가 같다. Default: 'slide'
- * @property {Array} items 각 탭에 들어갈 view를 지정한다.
+ * @property {Array} children 각 탭에 들어갈 view를 지정한다.
  * @example
  * var tabs = new X.ui.Tabs({
  *      position: 'top',
  *		activeIndex: 0,
  *		titles: ['Tabs 1', 'Tabs 2', 'Tabs 3'],
  *		transition: 'slide',
- *		items: [
+ *		children: [
  *          new X.View(), new X.View(), new X.View()
  *      ]
  * });
@@ -3766,7 +3767,7 @@ X.ui.Tabs = X.extend(X.View, {
 			activeIndex: 0,
 			titles: [],
 			transition: 'slide',
-			items: []
+			children: []
 		};
 		this.config.scroll = false;
 		X.apply(this.config, config);
@@ -3792,25 +3793,25 @@ X.ui.Tabs = X.extend(X.View, {
 			.eq(activeIndex)
 			.addClass('ui-tabs-bar-items-active');
 		
-		this.activeView = this.config.items[activeIndex];
-		for(var i=0,len=this.config.items.length; i<len; i++){
+		this.activeView = this.config.children[activeIndex];
+		for(var i=0,len=this.config.children.length; i<len; i++){
 			if(i === activeIndex){
 				continue;
 			}
 
-			this.config.items[i].hide();
+			this.config.children[i].hide();
 		}
 	},
 	createTabBar: function(){
 		this.tabBar = X.util.em.get()
 			.addClass('ui-tabs-bar ui-tabs-bar-' + this.config.position);
 		
-		var items = this.config.items,
-			len = items.length,
+		var children = this.config.children,
+			len = children.length,
 			o, html = '';
 
 		for(var i=0; i<len; i++){
-			html += '<div class="ui-tabs-bar-items"><span>' + items[i].config.title + '</span></div>'; 
+			html += '<div class="ui-tabs-bar-items"><span>' + children[i].config.title + '</span></div>'; 
 		}
 		this.tabBar.html(html);
 		
@@ -3844,7 +3845,7 @@ X.ui.Tabs = X.extend(X.View, {
      */
 	change: function(index){
 		var fromView = this.getActiveView(),
-			toView = this.config.items[index];
+			toView = this.config.children[index];
 			
 		if(fromView === toView){
 			return;
@@ -3921,8 +3922,8 @@ X.ui.Tabs = X.extend(X.View, {
      */
 	getActiveViewIndex: function(){
 		var active = this.getActiveView();
-		for(var i=0; i<this.config.items.length; i++){
-			if(active === this.config.items[i]){
+		for(var i=0; i<this.config.children.length; i++){
+			if(active === this.config.children[i]){
 				return i;
 			}
 		}
@@ -3936,7 +3937,7 @@ X.ui.Tabs = X.extend(X.View, {
      * tabs.getView();
      */
 	getView: function(index){
-		return this.config.items[index];
+		return this.config.children[index];
 	},
 	right: function(fromView, toView){
 		this.fireEvent(this, 'beforechange', [this, this.getActiveView(), this.getActiveViewIndex(), toView]);
@@ -3974,7 +3975,7 @@ X.ui.Tabs = X.extend(X.View, {
      */
 	append: function(comp, title){
 		comp = X.util.cm.create(this.body, [comp]);
-		this.config.items.push(comp[0]);
+		this.config.children.push(comp[0]);
 		comp[0].hide();
 
 		var titleDiv = X.util.em.get()
@@ -3996,7 +3997,7 @@ X.ui.Tabs = X.extend(X.View, {
      */
 	prepend: function(comp, title){
 		comp = X.util.cm.create(this.body, [comp]);
-		this.config.items = comp.concat(this.config.items);
+		this.config.children = comp.concat(this.config.children);
 		comp[0].hide();
 		this.body.prepend(comp[0].el);
 
@@ -4016,8 +4017,8 @@ X.ui.Tabs = X.extend(X.View, {
      * tabs.remove(1);
      */
 	remove: function(index){
-		this.config.items[index].destroy();
-		this.config.items.remove(index);
+		this.config.children[index].destroy();
+		this.config.children.remove(index);
 
 		this.tabBar.children('.ui-tabs-bar-items').eq(index).remove();
 	}
@@ -4781,7 +4782,7 @@ X.ui.Form = X.extend(X.util.Observer, {
  * @classdesc Form 컴포넌트를 묶어 하나의 View를 생성한다.
  * @example
  * var formView = new X.ui.Form({
- *      items: [
+ *      children: [
  *          new X.ui.TextBox(),
  *          new X.ui.ProgressBar(),
  *          new X.ui.Slider(),
@@ -4815,7 +4816,7 @@ X.ui.FormView = X.extend(X.View, {
      * @return {String} 직렬화된 문자열
      * @example
      * var formView = new X.ui.Form({
-     *      items: [
+     *      children: [
      *          new X.ui.TextBox(),
      *          new X.ui.ProgressBar(),
      *          new X.ui.Slider(),
@@ -4836,7 +4837,7 @@ X.ui.FormView = X.extend(X.View, {
      * @return {Object} 직렬화된 json 객체
      * @example
      * var formView = new X.ui.Form({
-     *      items: [
+     *      children: [
      *           new X.ui.TextBox(),
      *          new X.ui.ProgressBar(),
      *          new X.ui.Slider(),
@@ -4849,11 +4850,11 @@ X.ui.FormView = X.extend(X.View, {
      */
 	getJSON: function(){
 		var params = { },
-			items = this.config.items,
-			len = items.length;
+			children = this.config.children,
+			len = children.length;
 		
 		for(var i=0; i<len; i++){
-			params[items[i].getName() || items[i].getId()] = items[i].getValue();
+			params[children[i].getName() || children[i].getId()] = children[i].getValue();
 		}
 
 		return params;

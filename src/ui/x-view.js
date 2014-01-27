@@ -8,7 +8,7 @@
  * @property {Boolean} scroll 스크롤을 생성할지 여부를 지정한다.
  * @property {Object} scrollConfig 스크롤 options 을 지정한다.
  * @property {String | jQuery} content view 가 가질 content 를 지정한다. html 문자열 또는 jquery 객체를 받는다.
- * @property {Array} items 하위에 포함할 다른 controll 들을 지정한다.
+ * @property {Array} children 하위에 포함할 다른 controll 들을 지정한다.
  * @property {Array} toolbars view 가 포함할 툴바를 지정한다.
  * @property {Boolean} floating view 를 팝업형태로 화면에 띄울지를 지정한다.
  * @property {Boolean} overlay floating true 일때 회색 배경을 덮을지를 지정한다.
@@ -29,7 +29,7 @@ X.View = X.extend(X.util.Observer, {
 			scroll: true,
 			scrollConfig: { },
 			content: null,
-			items: [ ],
+			children: [ ],
 			toolbars: [ ],
 			floating: false,
 			overlay: false,
@@ -95,8 +95,8 @@ X.View = X.extend(X.util.Observer, {
 			this.setContent(this.config.content);
 		}
 		
-		if(this.config.items.length > 0){
-			this.createInitItems();
+		if(this.config.children.length > 0){
+			this.createInitChildren();
 		}
 
 		if(this.config.viewController){
@@ -528,33 +528,33 @@ X.View = X.extend(X.util.Observer, {
 
 		this.fireEvent(this, 'destroy', [this]);
 	},
-	createInitItems: function(){
+	createInitChildren: function(){
     	var el = this.body.children('.ui-scrollview-view');
     	if(el.length < 1){
     		el = this.body;
     	}
-    	var items = X.util.cm.create(el, this.config.items);
+    	var children = X.util.cm.create(el, this.config.children);
     
-    	this.config.items = items;
+    	this.config.children = children;
     },
     /**
      * @method 
      * @desc View 안에 새로운 컴포넌트를 자식으로 추가한다.
      * @memberof X.View.prototype
-     * @param {Array} items
+     * @param {Array} children
      * @example
-     * view.addItems([new X.View(), new X.ui.ListView(), new X.ui.TextBox()]);
+     * view.addChildren([new X.View(), new X.ui.ListView(), new X.ui.TextBox()]);
      */
-	addItems: function(items){
+	addChildren: function(children){
 		var el = this.body.children('.ui-scrollview-view');
 		if(el.length < 1){
 			el = this.body;
 		}
-		items = X.util.cm.create(el, items);
-		this.config.items = $.unique(this.config.items.concat(items));
-		this.config.items.reverse();
+		children = X.util.cm.create(el, children);
+		this.config.children = $.unique(this.config.children.concat(children));
+		this.config.children.reverse();
 		
-		return items;
+		return children;
 	},
 	/**
      * @method 
@@ -565,8 +565,8 @@ X.View = X.extend(X.util.Observer, {
      * view.removeItem(1);
      */
 	removeItem: function(index){
-		this.config.items[index].destroy();
-		this.config.items.remove(index);
+		this.config.children[index].destroy();
+		this.config.children.remove(index);
 	},
 	/**
      * @method 
@@ -745,14 +745,14 @@ X.View = X.extend(X.util.Observer, {
 
 			if(comp === 'tabs'){
 				var tabs = el.children('[data-role="view"]'),
-					items = [ ], titles = [ ];
+					children = [ ], titles = [ ];
 				
 				tabs.each(function(){
-					items.push(X.util.cm.get(this.id));
+					children.push(X.util.cm.get(this.id));
 					titles.push(this.dataset.title);
 				});
 
-				config.items = items;
+				config.children = children;
 				config.titles = titles;
 				
 				new X.ui.Tabs(config);
@@ -760,13 +760,13 @@ X.View = X.extend(X.util.Observer, {
 
 			if(comp === 'carousel'){
 				var views = el.children('[data-role="view"]'),
-					items = [ ];
+					children = [ ];
 				
 				views.each(function(){
-					items.push(X.util.cm.get(this.id));
+					children.push(X.util.cm.get(this.id));
 				});
 
-				config.items = items;
+				config.children = children;
 				new X.ui.Carousel(config);
 			}
 
@@ -776,14 +776,14 @@ X.View = X.extend(X.util.Observer, {
 
 			if(comp === 'accordion'){
 				var views = el.children('[data-role="view"]'),
-					items = [ ], titles = [ ];
+					children = [ ], titles = [ ];
 
 				views.each(function(i){
-					items.push(X.util.cm.get(this.id));
+					children.push(X.util.cm.get(this.id));
 					titles.push(this.dataset.title);
 				});
 
-				config.items = items;
+				config.children = children;
 				config.titles = titles;
 
 				new X.ui.Accordion(config);
@@ -864,7 +864,7 @@ X.View = X.extend(X.util.Observer, {
 		var	formView = this.el.find('[data-role="formview"]');
 		formView.each(function(){
 			var el = $(this),
-				items = [],
+				children = [],
 				selector = '[data-role="textbox"],' +
 					'[data-role="slider"],' +
 					'[data-role="spinner"],' + 
@@ -889,11 +889,11 @@ X.View = X.extend(X.util.Observer, {
 			}
 
 			el.children(selector).each(function(){
-				items.push(X.util.cm.get(this.id));
+				children.push(X.util.cm.get(this.id));
 			});
 
 			config.el = el;
-			config.items = items;
+			config.children = children;
 			config.autoRender = true;
 
 			new X.ui.FormView(config);

@@ -4,13 +4,13 @@
  * @property {String} config.direction carousel 의 이동방향을 지정한다. x 또는 y 로 가로 세로 방향을 지정한다. Default: 'x'
  * @property {Number} config.activeIndex 초기 활성화될 아이템을 지정한다. Defautl: 0.
  * @property {Number} config.duration 애니메이션 이동 속도를 지정한다. Defautl: 200.
- * @property {Array} config.items 각 탭의 view를 설정한다.
+ * @property {Array} config.children 각 탭의 view를 설정한다.
  * @example
  * var carousel = new X.ui.Carousel({
  *      direction: "x",
  *      activeIndex: 0,
  *      duration: 200,
- *      items: [new X.View(), new X.View(), new X.View()]
+ *      children: [new X.View(), new X.View(), new X.View()]
  * });
  * carousel.render();
  * 
@@ -33,7 +33,8 @@ X.ui.Carousel = X.extend(X.View, {
 		this.config = {
 			direction: 'x',
 			activeIndex: 0,
-			duration: 200
+			duration: 200,
+			children: []
 		};
 		this.config.scroll = false;
 		X.apply(this.config, config);
@@ -59,7 +60,7 @@ X.ui.Carousel = X.extend(X.View, {
 			activeIndex = this.activeIndex,
 			style = this.carouselBody.get(0).style,
 			pos = 0, 
-			itemSize = 0;
+			viewSize = 0;
 		
 		if(views.length > 0){
 			views.wrapAll(this.carouselBody);
@@ -71,8 +72,8 @@ X.ui.Carousel = X.extend(X.View, {
 		this.carouselBody = this.body.children('.ui-carousel-body');
 
 		if(this.config.direction === 'x'){
-		    itemSize = this.getWidth();
-		    pos = (-1 * activeIndex) * itemSize;
+		    viewSize = this.getWidth();
+		    pos = (-1 * activeIndex) * viewSize;
 		    
 			style.webkitTransform = 'translateX(' + (pos) + 'px)';
 			style.msTransform = 'translateX(' + (pos) + 'px)';
@@ -83,8 +84,8 @@ X.ui.Carousel = X.extend(X.View, {
 			});
 		}
 		else{
-		    itemSize = this.getHeight();
-		    pos = (-1 * activeIndex) * itemSize;
+		    viewSize = this.getHeight();
+		    pos = (-1 * activeIndex) * viewSize;
 		    
 			style.webkitTransform = 'translateY(' + (pos) + 'px)';
 			style.msTransform = 'translateY(' + (pos) + 'px)';
@@ -190,8 +191,8 @@ X.ui.Carousel = X.extend(X.View, {
 			else{
 				if(Math.abs(me.movePos) > Math.abs(me.endPos)){
 					me.activeIndex++;
-					if(me.activeIndex >= (me.config.items.length - 1)){
-						me.activeIndex = me.config.items.length - 1;
+					if(me.activeIndex >= (me.config.children.length - 1)){
+						me.activeIndex = me.config.children.length - 1;
 					}
 				}
 				else{
@@ -245,13 +246,13 @@ X.ui.Carousel = X.extend(X.View, {
      *      direction: "x",
      *      activeIndex: 0,
      *      duration: 200,
-     *      items: [new X.View(), new X.View(), new X.View()]
+     *      children: [new X.View(), new X.View(), new X.View()]
      * });
      * 
      * car.getActiveView();
      */
 	getActiveView: function(){
-		return this.config.items[this.activeIndex];
+		return this.config.children[this.activeIndex];
 	},
 	/**
 	 * @method
@@ -266,7 +267,7 @@ X.ui.Carousel = X.extend(X.View, {
 		var comps = X.util.cm.create(this.carouselBody, [comp]),
 		    position;
 		
-		this.config.items.push(comps[0]);
+		this.config.children.push(comps[0]);
 		comps[0].getEl().addClass('ui-carousel-views');
 		
 		if(this.config.direction === 'x'){
@@ -276,7 +277,7 @@ X.ui.Carousel = X.extend(X.View, {
 		    position = 'top';
 		}
 		
-		comps[0].getEl().css(position, ((this.config.items.length-1) * 100) + '%');
+		comps[0].getEl().css(position, ((this.config.children.length-1) * 100) + '%');
 		
 		return comps[0];
 	},
@@ -289,8 +290,8 @@ X.ui.Carousel = X.extend(X.View, {
      * carousel.remove(0);
      */
 	remove: function(index){
-		this.config.items[index].destroy();
-		this.config.items.remove(index);
+		this.config.children[index].destroy();
+		this.config.children.remove(index);
 	},
 	destroy: function(){
 		X.ui.Carousel.base.destroy.call(this);
@@ -307,7 +308,7 @@ X.ui.Carousel = X.extend(X.View, {
 		var index = this.activeIndex + 1,
 			style = this.carouselBody.get(0).style;
 			
-		if(index === this.config.items.length){
+		if(index === this.config.children.length){
 		    return false;
 		}
 

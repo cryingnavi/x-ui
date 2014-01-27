@@ -6,27 +6,27 @@
 X.util.ComponentManager = X.util.cm = {
 	map: { },
 	cString: { },
-	create: function(contain, items){
-		for(var i=0, len=items.length; i<len; i++){
-			if(!items[i].render){
-				items[i] = new this.cString[items[i].cString](items[i]);
+	create: function(contain, children){
+		for(var i=0, len=children.length; i<len; i++){
+			if(!children[i].render){
+				children[i] = new this.cString[children[i].cString](children[i]);
 			}
 
-			this.elementAdd(contain, items[i].el);
-			if(!items[i].config.autoRender){
-				items[i].render();
+			this.elementAdd(contain, children[i].el);
+			if(!children[i].config.autoRender){
+				children[i].render();
 			}
 			
-			this.set(items[i].el.attr('id'), items[i]);
+			this.set(children[i].el.attr('id'), children[i]);
 		}
 		
-		return items;
+		return children;
 	},
 	elementAdd: function(contain, el){
 		contain.append(el);
 	},
-	set: function(id, item){
-		this.map[id] = item;
+	set: function(id, children){
+		this.map[id] = children;
 	},
 	/**
      * @static
