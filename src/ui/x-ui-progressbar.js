@@ -11,7 +11,7 @@
  * progress.render();
  * 
  * <pre><code>
- *      &lt;div data-role="progress" data-max="100" data-default-value="0"&gt;&lt;/div&gt;
+ *      &lt;div data-ui="progress" data-max="100" data-default-value="0"&gt;&lt;/div&gt;
  * </code></pre>
  */
 X.ui.Progressbar = X.extend(X.ui.Form, {

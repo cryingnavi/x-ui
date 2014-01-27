@@ -12,14 +12,14 @@
  * });
  * accordion.render();
  * <pre><code>
- * &lt;div data-role="accordion" data-active-index="0"&gt;
- *      &lt;div data-role="view" data-title="Tabs 1"&gt;
+ * &lt;div data-ui="accordion" data-active-index="0"&gt;
+ *      &lt;div data-ui="view" data-title="Tabs 1"&gt;
  *          &lt;!-- Someting Html --&gt;
  *      &lt;/div&gt;
- *      &lt;div data-role="view" data-title="Tabs 2"&gt;
+ *      &lt;div data-ui="view" data-title="Tabs 2"&gt;
  *          &lt;!-- Someting Html --&gt;
  *      &lt;/div&gt;
- *      &lt;div data-role="view" data-title="Tabs 3"&gt;
+ *      &lt;div data-ui="view" data-title="Tabs 3"&gt;
  *          &lt;!-- Someting Html --&gt;
  *      &lt;/div&gt;
  * &lt;/div&gt;

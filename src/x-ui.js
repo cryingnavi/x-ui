@@ -9,7 +9,7 @@
  * version: 1.1.1
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2014-01-26 09:01 
+ * Date: 2014-01-27 03:01 
  */
 /**
  * X namespace
@@ -2251,7 +2251,7 @@ X.View = X.extend(X.util.Observer, {
 	},
 	/**
      * @method 
-     * @desc View 안에 새로운 html 을 넣어 표현한다. 이때 data-role 을 해석하여 x-ui 의 컴포넌트를 생성한다.
+     * @desc View 안에 새로운 html 을 넣어 표현한다. 이때 data-ui 을 해석하여 x-ui 의 컴포넌트를 생성한다.
      * @memberof X.View.prototype
      * @param {String} content 
      * @example
@@ -2671,28 +2671,28 @@ X.View = X.extend(X.util.Observer, {
 	},
 	/**
      * @method 
-     * @desc View 안에 바인딩 되어 있는 html 들 중 data-role 로 기술된 컴포넌트들을 해석하여 x-ui 컴포넌트로 변경한다.
+     * @desc View 안에 바인딩 되어 있는 html 들 중 data-ui 로 기술된 컴포넌트들을 해석하여 x-ui 컴포넌트로 변경한다.
      * @memberof X.View.prototype
      * @example
      * 
      * //view content
-     * &lt;div data-role="toolbar"&gt;
+     * &lt;div data-ui="toolbar"&gt;
      *  &lt;h1&gt;Toolbar&lt;/h1&gt;
      * &lt;/div&gt;
-     * &lt;div data-role="listview"&gt;
+     * &lt;div data-ui="listview"&gt;
      *  &lt;ul&gt;
      *      &lt;li&gt;A&lt;/li&gt;
      *      &lt;li&gt;B&lt;/li&gt;
      *      &lt;li&gt;C&lt;/li&gt;
      *  &lt;/ul&gt;
      * &lt;/div&gt;
-     * &lt;div data-role="textbox"&gt;&lt;/div&gt;
+     * &lt;div data-ui="textbox"&gt;&lt;/div&gt;
      * 
      * //view 컴포넌트 해석
      * view.createHtmlComponent();
      */
 	createHtmlComponent: function(){
-		var	views = this.el.find('[data-role="view"]');
+		var	views = this.el.find('[data-ui="view"]');
 		views.each(function(){
 			var el = $(this);
 
@@ -2719,15 +2719,15 @@ X.View = X.extend(X.util.Observer, {
 			new X.View(config);
 		});
 
-		var panels = this.el.find('[data-role="view"][data-panels="true"]');
+		var panels = this.el.find('[data-ui="view"][data-panels="true"]');
 		panels.each(function(){
 			var id = this.id,
 				view = X.util.cm.get(id),
 				panels = { }, left, right;
 
 			if(!view.scroll){
-				left = view.body.children('[data-role="view"][data-panels="left"]');
-				right = view.body.children('[data-role="view"][data-panels="right"]');
+				left = view.body.children('[data-ui="view"][data-panels="left"]');
+				right = view.body.children('[data-ui="view"][data-panels="right"]');
 
 				if(left.length > 0){
 					panels.left = X.util.cm.get(left.get(0).id);
@@ -2741,12 +2741,12 @@ X.View = X.extend(X.util.Observer, {
 			view.panelsCreate(panels);
 		});
 
-		var	comps = this.el.find('[data-role]').not('[data-role="view"]');
+		var	comps = this.el.find('[data-ui]').not('[data-ui="view"]');
 		var charts = [];
 		
 		comps.each(function(){
 			var el = $(this),
-				comp = el.data('role');
+				comp = el.data('ui');
 
 			var dataset = this.dataset,
 				config = { }, attr, val;
@@ -2776,7 +2776,7 @@ X.View = X.extend(X.util.Observer, {
 			}
 
 			if(comp === 'tabs'){
-				var tabs = el.children('[data-role="view"]'),
+				var tabs = el.children('[data-ui="view"]'),
 					children = [ ], titles = [ ];
 				
 				tabs.each(function(){
@@ -2791,7 +2791,7 @@ X.View = X.extend(X.util.Observer, {
 			}
 
 			if(comp === 'carousel'){
-				var views = el.children('[data-role="view"]'),
+				var views = el.children('[data-ui="view"]'),
 					children = [ ];
 				
 				views.each(function(){
@@ -2807,7 +2807,7 @@ X.View = X.extend(X.util.Observer, {
 			}
 
 			if(comp === 'accordion'){
-				var views = el.children('[data-role="view"]'),
+				var views = el.children('[data-ui="view"]'),
 					children = [ ], titles = [ ];
 
 				views.each(function(i){
@@ -2893,15 +2893,15 @@ X.View = X.extend(X.util.Observer, {
 			}
 		});
 
-		var	formView = this.el.find('[data-role="formview"]');
+		var	formView = this.el.find('[data-ui="formview"]');
 		formView.each(function(){
 			var el = $(this),
 				children = [],
-				selector = '[data-role="textbox"],' +
-					'[data-role="slider"],' +
-					'[data-role="spinner"],' + 
-					'[data-role="switchbox"],' +
-					'[data-role="progress"]';
+				selector = '[data-ui="textbox"],' +
+					'[data-ui="slider"],' +
+					'[data-ui="spinner"],' + 
+					'[data-ui="switchbox"],' +
+					'[data-ui="progress"]';
 			
 			var dataset = this.dataset,
 				config = { }, val, panels = { };
@@ -2948,14 +2948,14 @@ X.util.cm.addCString('view', X.View);
  * });
  * accordion.render();
  * <pre><code>
- * &lt;div data-role="accordion" data-active-index="0"&gt;
- *      &lt;div data-role="view" data-title="Tabs 1"&gt;
+ * &lt;div data-ui="accordion" data-active-index="0"&gt;
+ *      &lt;div data-ui="view" data-title="Tabs 1"&gt;
  *          &lt;!-- Someting Html --&gt;
  *      &lt;/div&gt;
- *      &lt;div data-role="view" data-title="Tabs 2"&gt;
+ *      &lt;div data-ui="view" data-title="Tabs 2"&gt;
  *          &lt;!-- Someting Html --&gt;
  *      &lt;/div&gt;
- *      &lt;div data-role="view" data-title="Tabs 3"&gt;
+ *      &lt;div data-ui="view" data-title="Tabs 3"&gt;
  *          &lt;!-- Someting Html --&gt;
  *      &lt;/div&gt;
  * &lt;/div&gt;
@@ -3197,14 +3197,14 @@ X.util.cm.addCString('accordion', X.ui.Accordion);
  * carousel.render();
  * 
  * <pre><code>
- * &lt;div data-role="carousel"&gt;
- *		&lt;div data-role="view" style="background-color: #8E8E93;" data-scroll="false"&gt;
+ * &lt;div data-ui="carousel"&gt;
+ *		&lt;div data-ui="view" style="background-color: #8E8E93;" data-scroll="false"&gt;
  *			&lt;!-- Someting Html --&gt;
  *		&lt;/div&gt;
- *		&lt;div data-role="view" style="background-color: #34AADC;" data-scroll="false"&gt;
+ *		&lt;div data-ui="view" style="background-color: #34AADC;" data-scroll="false"&gt;
  *			&lt;!-- Someting Html --&gt;
  *		&lt;/div&gt;
- *		&lt;div data-role="view" style="background-color: #007AFF;" data-scroll="false"&gt;
+ *		&lt;div data-ui="view" style="background-color: #007AFF;" data-scroll="false"&gt;
  *			&lt;!-- Someting Html --&gt;
  *		&lt;/div&gt;
  * &lt;/div&gt;
@@ -3563,7 +3563,7 @@ X.util.cm.addCString('carousel', X.ui.Carousel);
  * });
  * listview.render();
  * <pre><code>
- * &lt;div data-role="listview"&gt;
+ * &lt;div data-ui="listview"&gt;
  * 		&lt;ul&gt;
  * 			&lt;li&gt;Acura&lt;/li&gt;
  * 			&lt;li&gt;Audi&lt;/li&gt;
@@ -3754,10 +3754,10 @@ X.util.cm.addCString('listview', X.ui.ListView);
  * });
  * tabs.render();
  * 
- * &lt;div data-role="tabs"&gt;
- *		&lt;div data-role="view" data-title="Tabs 1" style="background:red;"&gt;Tabs 1&lt;/div&gt;
- *		&lt;div data-role="view" data-title="Tabs 2" style="background:blue;"&gt;Tabs 2&lt;/div&gt;
- *		&lt;div data-role="view" data-title="Tabs 3" style="background:yellow;"&gt;Tabs 3&lt;/div&gt;
+ * &lt;div data-ui="tabs"&gt;
+ *		&lt;div data-ui="view" data-title="Tabs 1" style="background:red;"&gt;Tabs 1&lt;/div&gt;
+ *		&lt;div data-ui="view" data-title="Tabs 2" style="background:blue;"&gt;Tabs 2&lt;/div&gt;
+ *		&lt;div data-ui="view" data-title="Tabs 3" style="background:yellow;"&gt;Tabs 3&lt;/div&gt;
  *	&lt;/div&gt;
  */
 X.ui.Tabs = X.extend(X.View, {
@@ -4037,7 +4037,7 @@ X.util.cm.addCString('tabs', X.ui.Tabs);
  * });
  * toolbar.render();
  * 
- * &lt;div data-role="toolbar"&gt;
+ * &lt;div data-ui="toolbar"&gt;
  *      Title
  * &lt;/div&gt;
  */
@@ -4176,20 +4176,20 @@ X.util.cm.addCString('toolbar', X.ui.Toolbar);
  * });
  * layoutview.render();
  * 
- *  &lt;div data-role="layoutview" data-max-size='{"west": 800, "east": 800}'&gt;
- *      &lt;div data-role="view" data-regions="nouth" style="background-color:green;" data-height="100"&gt;
+ *  &lt;div data-ui="layoutview" data-max-size='{"west": 800, "east": 800}'&gt;
+ *      &lt;div data-ui="view" data-regions="nouth" style="background-color:green;" data-height="100"&gt;
  *          nouth
  *      &lt;/div&gt;
- *      &lt;div data-role="view" data-regions="south" style="background-color:green;" data-height="100"&gt;
+ *      &lt;div data-ui="view" data-regions="south" style="background-color:green;" data-height="100"&gt;
  *          south
  *      &lt;/div&gt;
- *      &lt;div data-role="view" data-regions="west" style="background-color:red;"&gt;
+ *      &lt;div data-ui="view" data-regions="west" style="background-color:red;"&gt;
  *          west
  *      &lt;/div&gt;
- *      &lt;div data-role="view" data-regions="east" style="background-color:yellow;"&gt;
+ *      &lt;div data-ui="view" data-regions="east" style="background-color:yellow;"&gt;
  *          east
  *      &lt;/div&gt;
- *      &lt;div data-role="view" data-regions="center" style="background-color:blue;"&gt;
+ *      &lt;div data-ui="view" data-regions="center" style="background-color:blue;"&gt;
  *          center
  *      &lt;/div&gt;
  *  &lt;/div&gt;
@@ -4791,12 +4791,12 @@ X.ui.Form = X.extend(X.util.Observer, {
  *      ]
  * });
  * <pre><code>
- * 	&lt;div data-role="formview"&gt;
- * 		&lt;div data-role="textbox" data-label="text" data-name="text"&gt;&lt;/div&gt;
- * 		&lt;div data-role="progress" data-label="progress"&gt;&lt;/div&gt;
- * 		&lt;div data-role="slider" data-label="slider"&gt;&lt;/div&gt;
- * 		&lt;div data-role="textbox" data-label="password" data-type="password"&gt;&lt;/div&gt;
- * 		&lt;div data-role="switchbox" data-label="switchbox" data-checked="true"&gt;&lt;/div&gt;
+ * 	&lt;div data-ui="formview"&gt;
+ * 		&lt;div data-ui="textbox" data-label="text" data-name="text"&gt;&lt;/div&gt;
+ * 		&lt;div data-ui="progress" data-label="progress"&gt;&lt;/div&gt;
+ * 		&lt;div data-ui="slider" data-label="slider"&gt;&lt;/div&gt;
+ * 		&lt;div data-ui="textbox" data-label="password" data-type="password"&gt;&lt;/div&gt;
+ * 		&lt;div data-ui="switchbox" data-label="switchbox" data-checked="true"&gt;&lt;/div&gt;
  * 	&lt;/div&gt;
  * </code></pre>
  */
@@ -4872,7 +4872,7 @@ X.ui.FormView = X.extend(X.View, {
  * });
  * textbox.render();
  * 
- * &lt;div data-role="textbox"&gt;&lt;/div&gt;
+ * &lt;div data-ui="textbox"&gt;&lt;/div&gt;
  */
 X.ui.TextBox = X.extend(X.ui.Form, {
 	initialize: function(config){
@@ -4964,7 +4964,7 @@ X.util.cm.addCString('textbox', X.ui.TextBox);
  * });
  * slider.render();
  * <pre><code>
- * &lt;div data-role="slider" style="width: 300px;margin:30px;" data-default-value="25"&gt;&lt;/div&gt;
+ * &lt;div data-ui="slider" style="width: 300px;margin:30px;" data-default-value="25"&gt;&lt;/div&gt;
  * </code></pre>
  */
 X.ui.Slider = X.extend(X.ui.Form, {
@@ -5343,7 +5343,7 @@ X.util.cm.addCString('slider', X.ui.Slider);
  * });
  * spinner.render();
  * 
- * &lt;div data-role="spinner"&gt;&lt;/div&gt;
+ * &lt;div data-ui="spinner"&gt;&lt;/div&gt;
  */
 X.ui.Spinner = X.extend(X.ui.Form, {
 	initialize: function(config){
@@ -5572,7 +5572,7 @@ X.util.cm.addCString('spinner', X.ui.Spinner);
  * progress.render();
  * 
  * <pre><code>
- *      &lt;div data-role="progress" data-max="100" data-default-value="0"&gt;&lt;/div&gt;
+ *      &lt;div data-ui="progress" data-max="100" data-default-value="0"&gt;&lt;/div&gt;
  * </code></pre>
  */
 X.ui.Progressbar = X.extend(X.ui.Form, {
@@ -5690,7 +5690,7 @@ X.util.cm.addCString('progressbar', X.ui.Progressbar);
  * });
  * sb.render();
  * 
- * &lt;div data-role="switchbox"&gt;&lt;/div&gt;
+ * &lt;div data-ui="switchbox"&gt;&lt;/div&gt;
  */
 X.ui.SwitchBox = X.extend(X.ui.Form, {
 	initialize: function(config){

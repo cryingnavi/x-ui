@@ -220,7 +220,7 @@ X.View = X.extend(X.util.Observer, {
 	},
 	/**
      * @method 
-     * @desc View 안에 새로운 html 을 넣어 표현한다. 이때 data-role 을 해석하여 x-ui 의 컴포넌트를 생성한다.
+     * @desc View 안에 새로운 html 을 넣어 표현한다. 이때 data-ui 을 해석하여 x-ui 의 컴포넌트를 생성한다.
      * @memberof X.View.prototype
      * @param {String} content 
      * @example
@@ -640,28 +640,28 @@ X.View = X.extend(X.util.Observer, {
 	},
 	/**
      * @method 
-     * @desc View 안에 바인딩 되어 있는 html 들 중 data-role 로 기술된 컴포넌트들을 해석하여 x-ui 컴포넌트로 변경한다.
+     * @desc View 안에 바인딩 되어 있는 html 들 중 data-ui 로 기술된 컴포넌트들을 해석하여 x-ui 컴포넌트로 변경한다.
      * @memberof X.View.prototype
      * @example
      * 
      * //view content
-     * &lt;div data-role="toolbar"&gt;
+     * &lt;div data-ui="toolbar"&gt;
      *  &lt;h1&gt;Toolbar&lt;/h1&gt;
      * &lt;/div&gt;
-     * &lt;div data-role="listview"&gt;
+     * &lt;div data-ui="listview"&gt;
      *  &lt;ul&gt;
      *      &lt;li&gt;A&lt;/li&gt;
      *      &lt;li&gt;B&lt;/li&gt;
      *      &lt;li&gt;C&lt;/li&gt;
      *  &lt;/ul&gt;
      * &lt;/div&gt;
-     * &lt;div data-role="textbox"&gt;&lt;/div&gt;
+     * &lt;div data-ui="textbox"&gt;&lt;/div&gt;
      * 
      * //view 컴포넌트 해석
      * view.createHtmlComponent();
      */
 	createHtmlComponent: function(){
-		var	views = this.el.find('[data-role="view"]');
+		var	views = this.el.find('[data-ui="view"]');
 		views.each(function(){
 			var el = $(this);
 
@@ -688,15 +688,15 @@ X.View = X.extend(X.util.Observer, {
 			new X.View(config);
 		});
 
-		var panels = this.el.find('[data-role="view"][data-panels="true"]');
+		var panels = this.el.find('[data-ui="view"][data-panels="true"]');
 		panels.each(function(){
 			var id = this.id,
 				view = X.util.cm.get(id),
 				panels = { }, left, right;
 
 			if(!view.scroll){
-				left = view.body.children('[data-role="view"][data-panels="left"]');
-				right = view.body.children('[data-role="view"][data-panels="right"]');
+				left = view.body.children('[data-ui="view"][data-panels="left"]');
+				right = view.body.children('[data-ui="view"][data-panels="right"]');
 
 				if(left.length > 0){
 					panels.left = X.util.cm.get(left.get(0).id);
@@ -710,12 +710,12 @@ X.View = X.extend(X.util.Observer, {
 			view.panelsCreate(panels);
 		});
 
-		var	comps = this.el.find('[data-role]').not('[data-role="view"]');
+		var	comps = this.el.find('[data-ui]').not('[data-ui="view"]');
 		var charts = [];
 		
 		comps.each(function(){
 			var el = $(this),
-				comp = el.data('role');
+				comp = el.data('ui');
 
 			var dataset = this.dataset,
 				config = { }, attr, val;
@@ -745,7 +745,7 @@ X.View = X.extend(X.util.Observer, {
 			}
 
 			if(comp === 'tabs'){
-				var tabs = el.children('[data-role="view"]'),
+				var tabs = el.children('[data-ui="view"]'),
 					children = [ ], titles = [ ];
 				
 				tabs.each(function(){
@@ -760,7 +760,7 @@ X.View = X.extend(X.util.Observer, {
 			}
 
 			if(comp === 'carousel'){
-				var views = el.children('[data-role="view"]'),
+				var views = el.children('[data-ui="view"]'),
 					children = [ ];
 				
 				views.each(function(){
@@ -776,7 +776,7 @@ X.View = X.extend(X.util.Observer, {
 			}
 
 			if(comp === 'accordion'){
-				var views = el.children('[data-role="view"]'),
+				var views = el.children('[data-ui="view"]'),
 					children = [ ], titles = [ ];
 
 				views.each(function(i){
@@ -862,15 +862,15 @@ X.View = X.extend(X.util.Observer, {
 			}
 		});
 
-		var	formView = this.el.find('[data-role="formview"]');
+		var	formView = this.el.find('[data-ui="formview"]');
 		formView.each(function(){
 			var el = $(this),
 				children = [],
-				selector = '[data-role="textbox"],' +
-					'[data-role="slider"],' +
-					'[data-role="spinner"],' + 
-					'[data-role="switchbox"],' +
-					'[data-role="progress"]';
+				selector = '[data-ui="textbox"],' +
+					'[data-ui="slider"],' +
+					'[data-ui="spinner"],' + 
+					'[data-ui="switchbox"],' +
+					'[data-ui="progress"]';
 			
 			var dataset = this.dataset,
 				config = { }, val, panels = { };

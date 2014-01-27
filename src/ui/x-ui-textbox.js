@@ -10,7 +10,7 @@
  * });
  * textbox.render();
  * 
- * &lt;div data-role="textbox"&gt;&lt;/div&gt;
+ * &lt;div data-ui="textbox"&gt;&lt;/div&gt;
  */
 X.ui.TextBox = X.extend(X.ui.Form, {
 	initialize: function(config){

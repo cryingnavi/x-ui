@@ -15,14 +15,14 @@
  * carousel.render();
  * 
  * <pre><code>
- * &lt;div data-role="carousel"&gt;
- *		&lt;div data-role="view" style="background-color: #8E8E93;" data-scroll="false"&gt;
+ * &lt;div data-ui="carousel"&gt;
+ *		&lt;div data-ui="view" style="background-color: #8E8E93;" data-scroll="false"&gt;
  *			&lt;!-- Someting Html --&gt;
  *		&lt;/div&gt;
- *		&lt;div data-role="view" style="background-color: #34AADC;" data-scroll="false"&gt;
+ *		&lt;div data-ui="view" style="background-color: #34AADC;" data-scroll="false"&gt;
  *			&lt;!-- Someting Html --&gt;
  *		&lt;/div&gt;
- *		&lt;div data-role="view" style="background-color: #007AFF;" data-scroll="false"&gt;
+ *		&lt;div data-ui="view" style="background-color: #007AFF;" data-scroll="false"&gt;
  *			&lt;!-- Someting Html --&gt;
  *		&lt;/div&gt;
  * &lt;/div&gt;

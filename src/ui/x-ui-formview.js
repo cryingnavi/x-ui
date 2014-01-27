@@ -12,12 +12,12 @@
  *      ]
  * });
  * <pre><code>
- * 	&lt;div data-role="formview"&gt;
- * 		&lt;div data-role="textbox" data-label="text" data-name="text"&gt;&lt;/div&gt;
- * 		&lt;div data-role="progress" data-label="progress"&gt;&lt;/div&gt;
- * 		&lt;div data-role="slider" data-label="slider"&gt;&lt;/div&gt;
- * 		&lt;div data-role="textbox" data-label="password" data-type="password"&gt;&lt;/div&gt;
- * 		&lt;div data-role="switchbox" data-label="switchbox" data-checked="true"&gt;&lt;/div&gt;
+ * 	&lt;div data-ui="formview"&gt;
+ * 		&lt;div data-ui="textbox" data-label="text" data-name="text"&gt;&lt;/div&gt;
+ * 		&lt;div data-ui="progress" data-label="progress"&gt;&lt;/div&gt;
+ * 		&lt;div data-ui="slider" data-label="slider"&gt;&lt;/div&gt;
+ * 		&lt;div data-ui="textbox" data-label="password" data-type="password"&gt;&lt;/div&gt;
+ * 		&lt;div data-ui="switchbox" data-label="switchbox" data-checked="true"&gt;&lt;/div&gt;
  * 	&lt;/div&gt;
  * </code></pre>
  */

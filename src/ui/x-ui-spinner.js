@@ -14,7 +14,7 @@
  * });
  * spinner.render();
  * 
- * &lt;div data-role="spinner"&gt;&lt;/div&gt;
+ * &lt;div data-ui="spinner"&gt;&lt;/div&gt;
  */
 X.ui.Spinner = X.extend(X.ui.Form, {
 	initialize: function(config){

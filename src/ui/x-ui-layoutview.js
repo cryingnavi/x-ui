@@ -27,20 +27,20 @@
  * });
  * layoutview.render();
  * 
- *  &lt;div data-role="layoutview" data-max-size='{"west": 800, "east": 800}'&gt;
- *      &lt;div data-role="view" data-regions="nouth" style="background-color:green;" data-height="100"&gt;
+ *  &lt;div data-ui="layoutview" data-max-size='{"west": 800, "east": 800}'&gt;
+ *      &lt;div data-ui="view" data-regions="nouth" style="background-color:green;" data-height="100"&gt;
  *          nouth
  *      &lt;/div&gt;
- *      &lt;div data-role="view" data-regions="south" style="background-color:green;" data-height="100"&gt;
+ *      &lt;div data-ui="view" data-regions="south" style="background-color:green;" data-height="100"&gt;
  *          south
  *      &lt;/div&gt;
- *      &lt;div data-role="view" data-regions="west" style="background-color:red;"&gt;
+ *      &lt;div data-ui="view" data-regions="west" style="background-color:red;"&gt;
  *          west
  *      &lt;/div&gt;
- *      &lt;div data-role="view" data-regions="east" style="background-color:yellow;"&gt;
+ *      &lt;div data-ui="view" data-regions="east" style="background-color:yellow;"&gt;
  *          east
  *      &lt;/div&gt;
- *      &lt;div data-role="view" data-regions="center" style="background-color:blue;"&gt;
+ *      &lt;div data-ui="view" data-regions="center" style="background-color:blue;"&gt;
  *          center
  *      &lt;/div&gt;
  *  &lt;/div&gt;

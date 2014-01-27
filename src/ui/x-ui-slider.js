@@ -18,7 +18,7 @@
  * });
  * slider.render();
  * <pre><code>
- * &lt;div data-role="slider" style="width: 300px;margin:30px;" data-default-value="25"&gt;&lt;/div&gt;
+ * &lt;div data-ui="slider" style="width: 300px;margin:30px;" data-default-value="25"&gt;&lt;/div&gt;
  * </code></pre>
  */
 X.ui.Slider = X.extend(X.ui.Form, {

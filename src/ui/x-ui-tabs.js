@@ -18,10 +18,10 @@
  * });
  * tabs.render();
  * 
- * &lt;div data-role="tabs"&gt;
- *		&lt;div data-role="view" data-title="Tabs 1" style="background:red;"&gt;Tabs 1&lt;/div&gt;
- *		&lt;div data-role="view" data-title="Tabs 2" style="background:blue;"&gt;Tabs 2&lt;/div&gt;
- *		&lt;div data-role="view" data-title="Tabs 3" style="background:yellow;"&gt;Tabs 3&lt;/div&gt;
+ * &lt;div data-ui="tabs"&gt;
+ *		&lt;div data-ui="view" data-title="Tabs 1" style="background:red;"&gt;Tabs 1&lt;/div&gt;
+ *		&lt;div data-ui="view" data-title="Tabs 2" style="background:blue;"&gt;Tabs 2&lt;/div&gt;
+ *		&lt;div data-ui="view" data-title="Tabs 3" style="background:yellow;"&gt;Tabs 3&lt;/div&gt;
  *	&lt;/div&gt;
  */
 X.ui.Tabs = X.extend(X.View, {

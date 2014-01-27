@@ -12,7 +12,7 @@
  * });
  * sb.render();
  * 
- * &lt;div data-role="switchbox"&gt;&lt;/div&gt;
+ * &lt;div data-ui="switchbox"&gt;&lt;/div&gt;
  */
 X.ui.SwitchBox = X.extend(X.ui.Form, {
 	initialize: function(config){

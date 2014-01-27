@@ -11,7 +11,7 @@
  * });
  * toolbar.render();
  * 
- * &lt;div data-role="toolbar"&gt;
+ * &lt;div data-ui="toolbar"&gt;
  *      Title
  * &lt;/div&gt;
  */

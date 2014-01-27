@@ -13,7 +13,7 @@
  * });
  * listview.render();
  * <pre><code>
- * &lt;div data-role="listview"&gt;
+ * &lt;div data-ui="listview"&gt;
  * 		&lt;ul&gt;
  * 			&lt;li&gt;Acura&lt;/li&gt;
  * 			&lt;li&gt;Audi&lt;/li&gt;
