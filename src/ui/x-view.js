@@ -1,6 +1,7 @@
 /**
  * @class 
  * @classdesc View 를 생성한다. View란 화면의 기본 단위이며 기본적인 container 역할을 수행한다.
+ * @memberof X
  * @property {String | jQuery | HtmlElement} el view 를 생성할 엘리먼트를 지정한다.
  * @property {Number | String} width view 의 가로 사이즈를 지정한다. autoSize 가 true 일 경우 무시된다.
  * @property {Number | String} height view 의 세로 사이즈를 지정한다. autoSize 가 true 일 경우 무시된다.
@@ -562,9 +563,9 @@ X.View = X.extend(X.util.Observer, {
      * @memberof X.View.prototype
      * @param {Number} index
      * @example
-     * view.removeItem(1);
+     * view.removeChildren(1);
      */
-	removeItem: function(index){
+	removeChildren: function(index){
 		this.config.children[index].destroy();
 		this.config.children.remove(index);
 	},

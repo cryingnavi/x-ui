@@ -6,10 +6,10 @@
  * Dual licensed under the MIT or GPL Version 2 licenses
  * 
  * project: x-ui
- * version: 1.1.0
+ * version: 1.1.1
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2014-01-26 08:01 
+ * Date: 2014-01-26 09:01 
  */
 /**
  * X namespace
@@ -494,8 +494,7 @@ X.util.ElementManager = X.util.em = {
 };
 /**
  * @static
- * @desc x ui 로 선언된 ui 컴포넌트에 대한 참조를 가지고 ui 의 고유한 id로 가져올 수 있다.
- * @alias X.util.cm
+ * @desc x ui 로 선언된 ui 컴포넌트에 대한 참조를 가지고 ui 의 고유한 id로 가져올 수 있다. X.util.cm 이라는 별칭을 가지고 있다.
  */
 X.util.ComponentManager = X.util.cm = {
 	map: { },
@@ -2033,6 +2032,7 @@ X.ui = { };
 /**
  * @class 
  * @classdesc View 를 생성한다. View란 화면의 기본 단위이며 기본적인 container 역할을 수행한다.
+ * @memberof X
  * @property {String | jQuery | HtmlElement} el view 를 생성할 엘리먼트를 지정한다.
  * @property {Number | String} width view 의 가로 사이즈를 지정한다. autoSize 가 true 일 경우 무시된다.
  * @property {Number | String} height view 의 세로 사이즈를 지정한다. autoSize 가 true 일 경우 무시된다.
@@ -2594,9 +2594,9 @@ X.View = X.extend(X.util.Observer, {
      * @memberof X.View.prototype
      * @param {Number} index
      * @example
-     * view.removeItem(1);
+     * view.removeChildren(1);
      */
-	removeItem: function(index){
+	removeChildren: function(index){
 		this.config.children[index].destroy();
 		this.config.children.remove(index);
 	},

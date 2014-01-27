@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Documentation Class: X.View</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	
+	<link type="text/css" rel="stylesheet" href="styles/site.simplex.css">
+	
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top ">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">Documentation</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="X.html">X</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.html">ui</a>
+						</li>
+						
+						<li>
+							<a href="X.util.html">util</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="X.ui.Accordion.html">Accordion</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.Carousel.html">Carousel</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.Form.html">Form</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.FormView.html">FormView</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.LayoutView.html">LayoutView</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.ListView.html">ListView</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.Progressbar.html">Progressbar</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.Slider.html">Slider</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.Spinner.html">Spinner</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.SwitchBox.html">SwitchBox</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.Tabs.html">Tabs</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.TextBox.html">TextBox</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.Toolbar.html">Toolbar</a>
+						</li>
+						
+						<li>
+							<a href="X.ui.X.View.html">X.View</a>
+						</li>
+						
+						<li>
+							<a href="X.util.Draggable.html">Draggable</a>
+						</li>
+						
+						<li>
+							<a href="X.util.Droppable.html">Droppable</a>
+						</li>
+						
+						<li>
+							<a href="X.util.LocalViewController.html">LocalViewController</a>
+						</li>
+						
+						<li>
+							<a href="X.util.Observer.html">Observer</a>
+						</li>
+						
+						<li>
+							<a href="X.util.RemoteViewController.html">RemoteViewController</a>
+						</li>
+						
+						<li>
+							<a href="X.util.ViewController.html">ViewController</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+		<div class="span8">
+			
+				<div id="main">
+					
+
+
+	<h1 class="page-title">Class: X.View</h1>
+<section>
+
+<header>
+    <h2>
+        <span class="ancestors"><a href="X.html">X</a><a href="X.ui.html">.ui</a>.</span>
+    
+    X.View
+    </h2>
+    
+        <div class="class-description">View 를 생성한다. View란 화면의 기본 단위이며 기본적인 container 역할을 수행한다.</div>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+
+    
+        
+<dt>
+    <h4 class="name" id="X.View"><span class="type-signature"></span>new X.View<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>el</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+|
+
+<span class="param-type">jQuery</span>
+|
+
+<span class="param-type">HtmlElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">view 를 생성할 엘리먼트를 지정한다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>width</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">view 의 가로 사이즈를 지정한다. autoSize 가 true 일 경우 무시된다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">view 의 세로 사이즈를 지정한다. autoSize 가 true 일 경우 무시된다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>autoSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">자동으로 부모 요소를 가득 채울지를 결정한다. 기본값이 True 이다</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>scroll</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">스크롤을 생성할지 여부를 지정한다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>scrollConfig</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">스크롤 options 을 지정한다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>content</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+|
+
+<span class="param-type">jQuery</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">view 가 가질 content 를 지정한다. html 문자열 또는 jquery 객체를 받는다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>children</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">하위에 포함할 다른 controll 들을 지정한다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>toolbars</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">view 가 포함할 툴바를 지정한다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>floating</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">view 를 팝업형태로 화면에 띄울지를 지정한다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>overlay</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">floating true 일때 회색 배경을 덮을지를 지정한다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>viewController</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="X.util.ViewController.html">X.util.ViewController</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>layout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">하위 view 들이 가로 또는 세로로 배열되도록 한다. 기본값은 세로이다. 'x' | 'y'.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>flexible</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">view 가 flexible 하게 자신의 크기를 결정할지 여부이다. false 로 지정하고 width, height 를 지정하면 해당 크기대로 view 가 결정된다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>panels</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">왼쪽, 오른쪽에 숨겨진 view를 지정한다.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>className</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">view 에 지정할 클래스이름</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>style</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">view 에 적용할 style</td>
+        </tr>
+
+	
+	</tbody>
+</table>
+</dl>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="x-ui.js.html">x-ui.js</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+				</div>
+
+				<div class="clearfix"></div>
+				<footer>
+					
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
+		on Sun Jan 26 2014 21:13:05 GMT-0500 (EST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
+
+			
+			<div class="span3">
+				<div id="toc"></div>
+			</div>
+			
+			<br clear="both">
+		</div>
+
+	</div>
+	<script src="scripts/sunlight.js"></script>
+	<script src="scripts/sunlight.javascript.js"></script>
+	<script src="scripts/sunlight-plugin.doclinks.js"></script>
+	<script src="scripts/sunlight-plugin.linenumbers.js"></script>
+	<script src="scripts/sunlight-plugin.menu.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/jquery.scrollTo.js"></script>
+	<script src="scripts/jquery.localScroll.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+
+	<script>  Sunlight.highlightAll({lineNumbers:,  showMenu: true, enableDoclinks :true}); </script>
+
+	<script>
+		$( function () {
+			$( "#toc" ).toc( {
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : 60
+			} );
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+
+		} );
+	</script>
+
+	
+
+</body>
+</html>

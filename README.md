@@ -54,6 +54,12 @@ ui controll 들이 존재합니다. 다음과 같은 기능을 가지고 있다.
 13. Toolbar
 
 
+## build
+```javascript
+grunt
+```
+
+
 ## 지원범위
 HTML 5, CSS3 를 지원하는 브라우저이 최척화되어 있습니다. Chrome, FireFox, IE11, Opera 를 지원합니다.
 
@@ -90,12 +96,12 @@ var view = new X.View({
 ```
 
 
-##레이아웃 만들기
-x-ui는 가장 기본이 되는 view를 조합하여 다양한 형태의 레이아웃을 만들 수 있습니다.
-
-
 
 #Road Map
+## 1.1.1
++ javascript 소스 정리
++ 일부 옵션명 변경.
+
 ## 1.1.0
 + FireFox, IE11 대응
 
