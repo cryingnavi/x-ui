@@ -1,6 +1,6 @@
 {
   "name": "x-ui",
-  "version": "1.1.1",
+  "version": "1.0.3",
   "description": "Javascript UI FrameWork",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
     "mobile",
     "html5"
   ],
-  "author": "YoungNam Heo",
+  "author": "huh young-nam",
   "author_email": "cryingnavi@gmail.com",
   "license": "Dual licensed under the MIT or GPL Version 2 licenses",
   "bugs": {
@@ -23,6 +23,7 @@
     "grunt-contrib-nodeunit": "~0.2.0",
     "grunt-contrib-uglify": "~0.2.5",
     "grunt-contrib-concat": "~0.3.0",
+    "grunt-replace": "",
     "grunt-jsdoc": "",
     "ink-docstrap": ""
   }

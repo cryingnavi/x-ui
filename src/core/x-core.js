@@ -1,10 +1,10 @@
 /**
  * X namespace
  * @namespace
- * @version 1.0.1
+ * @version @@version
  */
 X = {
-    version : '1.0.1'
+    version : '@@version'
 };
 
 (function(){

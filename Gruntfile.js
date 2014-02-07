@@ -72,11 +72,26 @@ module.exports = function(grunt){
 					template: "node_modules/ink-docstrap/template"
 				}
 			}
+		},
+		replace: {
+		    dist: {
+		        options: {
+                    variables: {
+                        'version': '<%=pkg.version%>'
+                    },
+                    prefix: '@@'
+                },
+		        files: {
+		            'src/<%= pkg.name %>.js':'src/<%= pkg.name %>.js',
+		            'build/<%= pkg.name %>.min.js': 'build/<%= pkg.name %>.min.js'
+		        }
+		    }
 		}
     });
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-jsdoc');
+    grunt.loadNpmTasks('grunt-replace');
 
-    grunt.registerTask('default', ['concat', 'uglify', 'jsdoc']);
+    grunt.registerTask('default', ['concat', 'uglify', 'replace', 'jsdoc']);
 };
