@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui-theme.css" />
+
+	<script src="../../libs/jquery-1.10.2.min.js"></script>
+	<script src="../../src/core/x-core.js"></script>
+	<script src="../../src/util/x-util-core.js"></script>
+	<script src="../../src/util/x-util-observer.js"></script>
+	<script src="../../src/util/x-util-elementmanager.js"></script>
+	<script src="../../src/util/x-util-componentmanager.js"></script>
+	<script src="../../src/util/x-util-viewcontroller.js"></script>
+	<script src="../../src/util/x-util-localviewcontroller.js"></script>
+	<script src="../../src/util/x-util-remoteviewcontroller.js"></script>
+	<script src="../../src/util/x-util-draggable.js"></script>
+	<script src="../../src/util/x-util-droppable.js"></script>
+	<script src="../../src/util/x-util-dragndropmanager.js"></script>
+	<script src="../../src/ui/x-ui-core.js"></script>
+	<script src="../../src/ui/x-view.js"></script>
+	<script src="../../src/ui/x-ui-accordion.js"></script>
+	<script src="../../src/ui/x-ui-carousel.js"></script>
+	<script src="../../src/ui/x-ui-listview.js"></script>
+	<script src="../../src/ui/x-ui-tabs.js"></script>
+	<script src="../../src/ui/x-ui-toolbar.js"></script>
+	<script src="../../src/ui/x-ui-layoutview.js"></script>
+	<script src="../../src/ui/x-ui-form.js"></script>
+	<script src="../../src/ui/x-ui-formview.js"></script>
+	<script src="../../src/ui/x-ui-textbox.js"></script>
+	<script src="../../src/ui/x-ui-slider.js"></script>
+	<script src="../../src/ui/x-ui-spinner.js"></script>
+	<script src="../../src/ui/x-ui-progressbar.js"></script>
+	<script src="../../src/ui/x-ui-switchbox.js"></script>
+	<script src="../../src/core/x-app.js"></script>
+
+	<script src="../../src/plugins/x-event.js"></script>
+	<script src="../../src/plugins/x-scroll.js"></script>
+
+	<script>
+		X.App({
+			viewConfig:{
+				toolbars:[
+					new X.ui.Toolbar({
+						position: "bottom",
+						title: '<a href="#" style="position: absolute;left: 10px;">left</a>App<a href="#" style="position: absolute;right: 10px;">right</a>'
+					})
+				]
+			},
+			ready: function(appView){
+				appView.setContent();
+				
+				$("a").click(function(){
+				    X.getApp().addToolbar([
+				        new X.ui.Toolbar({ title: "test" })
+				    ]);
+				});
+			}
+		});
+	</script>
+</head>
+<body>
+	<div data-ui="toolbar">
+		<a href="#" style="position: absolute;left: 10px;">left</a>
+		test
+		<a href="#" style="position: absolute;right: 10px;">right</a>
+	</div>
+	<div data-ui="accordion" data-active-index="1">
+		<div data-ui="view" data-title="Tabs 1" style="background-color: red;">
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+			<p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p><p>Tabs 1</p>
+		</div>
+		<div data-ui="view" data-title="Tabs 2" style="background-color: blue;">Tabs 2</div>
+		<div data-ui="view" data-title="Tabs 3" style="background-color: green;">Tabs 3</div>
+	</div>
+	<div data-ui="toolbar">
+		<h3>test1</h3>
+	</div>
+</body>
+</html>

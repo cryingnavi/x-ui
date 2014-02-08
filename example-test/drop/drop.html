@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui-theme.css" />
+
+	<script src="../../libs/jquery-1.10.2.min.js"></script>
+	<script src="../../src/core/x-core.js"></script>
+	<script src="../../src/util/x-util-core.js"></script>
+	<script src="../../src/util/x-util-observer.js"></script>
+	<script src="../../src/util/x-util-elementmanager.js"></script>
+	<script src="../../src/util/x-util-componentmanager.js"></script>
+	<script src="../../src/util/x-util-viewcontroller.js"></script>
+	<script src="../../src/util/x-util-localviewcontroller.js"></script>
+	<script src="../../src/util/x-util-remoteviewcontroller.js"></script>
+	<script src="../../src/util/x-util-draggable.js"></script>
+	<script src="../../src/util/x-util-droppable.js"></script>
+	<script src="../../src/util/x-util-dragndropmanager.js"></script>
+	<script src="../../src/ui/x-ui-core.js"></script>
+	<script src="../../src/ui/x-view.js"></script>
+	<script src="../../src/ui/x-ui-accordion.js"></script>
+	<script src="../../src/ui/x-ui-carousel.js"></script>
+	<script src="../../src/ui/x-ui-listview.js"></script>
+	<script src="../../src/ui/x-ui-tabs.js"></script>
+	<script src="../../src/ui/x-ui-toolbar.js"></script>
+	<script src="../../src/ui/x-ui-layoutview.js"></script>
+	<script src="../../src/ui/x-ui-form.js"></script>
+	<script src="../../src/ui/x-ui-formview.js"></script>
+	<script src="../../src/ui/x-ui-textbox.js"></script>
+	<script src="../../src/ui/x-ui-slider.js"></script>
+	<script src="../../src/ui/x-ui-spinner.js"></script>
+	<script src="../../src/ui/x-ui-progressbar.js"></script>
+	<script src="../../src/ui/x-ui-switchbox.js"></script>
+	<script src="../../src/core/x-app.js"></script>
+
+	<script src="../../src/plugins/x-event.js"></script>
+	<script src="../../src/plugins/x-scroll.js"></script>
+
+	<script>
+		X.App({
+			ready: function(appView){
+				new X.util.Draggable({
+					el: "#drag",
+					ghost: true,
+					revert: true,
+					revertDuration: 200
+				});
+
+				new X.util.Droppable({
+					el: "#drop",
+					accept: "*",
+					listener: {
+						enter: function(){
+							$("#drop").addClass("hover");
+						},
+						leave: function(){
+							$("#drop").removeClass("hover");
+						},
+						drop: function(){
+							alert("drop");
+						},
+						start: function(){
+							console.log(11);
+						},
+						hover: function(){
+							console.log(22);
+						}
+					}
+				});
+			}
+		});
+	</script>
+
+	<style>
+		#drag{
+			border: 1px solid red;
+			width: 100px;
+			height: 100px;
+		}
+
+		#drop{
+			background: pink;
+		}
+		.hover{
+			background: red !important;
+		}
+	</style>
+</head>
+<body>
+	<div style="height: 300px;">
+		<div id="drag">
+			Test
+		</div>
+	</div>
+	<div id="drop" style="height: 300px;">
+
+	</div>
+</body>
+</html>

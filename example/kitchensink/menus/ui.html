@@ -1,0 +1,31 @@
+<div data-ui="toolbar">
+    <a href="#" data-back="true" class="btn-back">Back</a>
+</div>
+<div data-ui="listview" id="ui-listview">
+    <ul>
+        <li><a href="#" data-url="./details/ui/view.html">View</a></li>
+        <li><a href="#" data-url="./details/ui/listview.html">ListView</a></li>
+        <li><a href="#" data-url="./details/ui/accordion.html">Accordion</a></li>
+        <li><a href="#" data-url="./details/ui/tabs.html">Tabs</a></li>
+        <li><a href="#" data-url="./details/ui/bottomTabs.html">Bottom Tabs</a></li>
+        <li><a href="#" data-url="./details/ui/toolbar.html">Toolbar</a></li>
+        <li><a href="#" data-url="./details/ui/slider.html">slider</a></li>
+        <li><a href="#" data-url="./details/ui/progress.html">progress</a></li>
+        <li><a href="#" data-url="./details/ui/switchbox.html">switchbox</a></li>
+        <li><a href="#" data-url="./details/ui/spinner.html">spinner</a></li>
+        <li><a href="#" data-url="./details/ui/carousel.html">carousel</a></li>
+        <li><a href="#" data-url="./details/ui/panels.html">panels</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    X.util.cm.get("ui-listview").on({
+        rowclick: function(listview, el){
+            var a = $(el).children("a"),
+                url = a.data("url");
+
+            X.util.cm.get("detail-container").getViewController().nextPage({
+                url: url
+            });
+        }
+    });
+</script>

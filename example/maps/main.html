@@ -1,0 +1,32 @@
+<div data-ui="toolbar">
+    <h1>목록</h1>
+</div>
+<div data-ui="listview" id="ui-listview">
+    <ul>
+        <li><a href="#" data-latlng="37.566725,126.977983">서울시청</a></li>
+        <li><a href="#" data-latlng="35.179598,129.075636">부산시청</a></li>
+        <li><a href="#" data-latlng="35.538783,129.311479">울산시청</a></li>
+        <li><a href="#" data-latlng="35.824316,127.147956">전주시청</a></li>
+        <li><a href="#" data-latlng="35.871529,128.6014397">대구시청</a></li>
+        <li><a href="#" data-latlng="37.456422,126.705203">인천시청</a></li>
+        <li><a href="#" data-latlng="36.350786,127.38454">대전시청</a></li>
+        <li><a href="#" data-latlng="33.499812,126.531202">제주시청</a></li>
+        <li><a href="#" data-latlng="36.019323,129.343475">포항시청</a></li>
+        <li><a href="#" data-latlng="36.815813,127.113913">천안시청</a></li>
+        <li><a href="#" data-latlng="37.242263,131.864288">독도</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    X.util.cm.get("ui-listview").on({
+        rowclick: function(listview, el){
+            var a = $(el).children("a"),
+                latlng = a.data("latlng");
+                
+            window.localStorage.latlng = latlng;
+
+            X.getApp().getViewController().nextPage({
+                url: "detail.html"
+            });
+        }
+    });
+</script>

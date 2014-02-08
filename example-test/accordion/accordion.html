@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui-theme.css" />
+
+	<script src="../../libs/jquery-1.10.2.min.js"></script>
+	<script src="../../src/core/x-core.js"></script>
+	<script src="../../src/util/x-util-core.js"></script>
+	<script src="../../src/util/x-util-observer.js"></script>
+	<script src="../../src/util/x-util-elementmanager.js"></script>
+	<script src="../../src/util/x-util-componentmanager.js"></script>
+	<script src="../../src/util/x-util-viewcontroller.js"></script>
+	<script src="../../src/util/x-util-localviewcontroller.js"></script>
+	<script src="../../src/util/x-util-remoteviewcontroller.js"></script>
+	<script src="../../src/util/x-util-draggable.js"></script>
+	<script src="../../src/util/x-util-droppable.js"></script>
+	<script src="../../src/util/x-util-dragndropmanager.js"></script>
+	<script src="../../src/ui/x-ui-core.js"></script>
+	<script src="../../src/ui/x-view.js"></script>
+	<script src="../../src/ui/x-ui-accordion.js"></script>
+	<script src="../../src/ui/x-ui-carousel.js"></script>
+	<script src="../../src/ui/x-ui-listview.js"></script>
+	<script src="../../src/ui/x-ui-tabs.js"></script>
+	<script src="../../src/ui/x-ui-toolbar.js"></script>
+	<script src="../../src/ui/x-ui-layoutview.js"></script>
+	<script src="../../src/ui/x-ui-form.js"></script>
+	<script src="../../src/ui/x-ui-formview.js"></script>
+	<script src="../../src/ui/x-ui-textbox.js"></script>
+	<script src="../../src/ui/x-ui-slider.js"></script>
+	<script src="../../src/ui/x-ui-spinner.js"></script>
+	<script src="../../src/ui/x-ui-progressbar.js"></script>
+	<script src="../../src/ui/x-ui-switchbox.js"></script>
+	<script src="../../src/core/x-app.js"></script>
+
+	<script src="../../src/plugins/x-event.js"></script>
+	<script src="../../src/plugins/x-scroll.js"></script>
+
+	<script>
+		X.App({
+			ready: function(appView){
+				appView.setContent();
+			}
+		});
+	</script>
+
+	<style>
+		.container{
+			padding: 20px;
+		}
+		.car-list{
+			border: 1px solid #ccc;
+			border-radius: 0.6em;
+		}
+
+		.car-list li{
+			padding: 10px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		.car-list li:nth-child(even){
+			background-color: #f7f7f7;
+		}
+
+		.car-list li:last-child{
+			border-bottom: none;
+			border-radius: 0.6em;
+		}
+	</style>
+</head>
+<body>
+	<div data-ui="toolbar" data-scroll="true">
+		<h3>test</h3>
+	</div>
+	<div data-ui="accordion" data-active-index="1">
+		<div data-ui="view" data-title="Tabs 1" data-scroll="false">
+			<div data-ui="listview">
+				<ul>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+				</ul>
+			</div>
+		</div>
+		<div data-ui="view" data-title="Tabs 2">
+			<div class="container">
+				<ul class="car-list">
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+					<li>Acura</li>
+					<li>Audi</li>
+					<li>BMW</li>
+					<li>Cadillac</li>
+					<li>Ferrari</li>
+				</ul>
+			</div>
+		</div>
+		<div data-ui="view" data-title="Tabs 3" data-scroll="false">
+			<div data-ui="view" data-scroll="true" style="background: #8E8E93;">
+				View 1
+			</div>
+			<div data-ui="view" data-scroll="true" style="background: #34AADC;">
+				View 2
+			</div>
+		</div>
+	</div>
+</body>
+</html>

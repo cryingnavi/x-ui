@@ -1,0 +1,31 @@
+<div data-ui="toolbar">
+    <a href="#" data-back="true" class="btn-back">Back</a>
+</div>
+<div data-ui="view" id="detail-view" data-scroll="false">
+    
+</div>
+<script type="text/javascript">
+    X.util.cm.get("detail-view").body.empty();
+    function initialize() {
+        var latlng = window.localStorage.latlng.split(",");
+        var myLatlng = new google.maps.LatLng(latlng[0], latlng[1]);
+        var mapOptions = {
+            center: myLatlng,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        
+
+        var map = new google.maps.Map(X.util.cm.get("detail-view").body.get(0), mapOptions);
+        
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            title:""
+        });
+        
+        marker.setMap(map);
+    }
+    window.setTimeout(function(){
+        initialize();
+    }, 100);
+</script>

@@ -1,0 +1,31 @@
+<div data-ui="toolbar">
+    <a href="#" data-back="true" class="btn-back">Back</a>
+</div>
+<div data-ui="listview" id="animation-listview">
+    <ul>
+        <li><a href="#" data-url="./details/animation/slide.html" data-transition="slide">slide</a></li>
+        <li><a href="#" data-url="./details/animation/slidefade.html" data-transition="slidefade">slidefade</a></li>
+        <li><a href="#" data-url="./details/animation/slideup.html" data-transition="slideup">slideup</a></li>
+        <li><a href="#" data-url="./details/animation/slidedown.html" data-transition="slidedown">slidedown</a></li>
+        <li><a href="#" data-url="./details/animation/pop.html" data-transition="pop">pop</a></li>
+        <li><a href="#" data-url="./details/animation/fade.html" data-transition="fade">fade</a></li>
+        <li><a href="#" data-url="./details/animation/flip.html" data-transition="flip">flip</a></li>
+        <li><a href="#" data-url="./details/animation/turn.html" data-transition="turn">turn</a></li>
+        <li><a href="#" data-url="./details/animation/flow.html" data-transition="flow">flow</a></li>
+        <li><a href="#" data-url="./details/animation/roll.html" data-transition="roll">roll</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    X.util.cm.get("animation-listview").on({
+        rowclick: function(listview, el){
+            var a = $(el).children("a"),
+                url = a.data("url"),
+                transition = a.data("transition");
+
+            X.util.cm.get("detail-container").getViewController().nextPage({
+                url: url,
+                transition: transition
+            });
+        }
+    });
+</script>

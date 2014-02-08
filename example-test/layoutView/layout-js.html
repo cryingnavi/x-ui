@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>x script test</title>
+
+<link rel="stylesheet" type="text/css" href="../../resource/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui-theme.css" />
+
+	<script src="../../libs/jquery-1.10.2.min.js"></script>
+	<script src="../../src/core/x-core.js"></script>
+	<script src="../../src/util/x-util-core.js"></script>
+	<script src="../../src/util/x-util-observer.js"></script>
+	<script src="../../src/util/x-util-elementmanager.js"></script>
+	<script src="../../src/util/x-util-componentmanager.js"></script>
+	<script src="../../src/util/x-util-viewcontroller.js"></script>
+	<script src="../../src/util/x-util-localviewcontroller.js"></script>
+	<script src="../../src/util/x-util-remoteviewcontroller.js"></script>
+	<script src="../../src/util/x-util-draggable.js"></script>
+	<script src="../../src/util/x-util-droppable.js"></script>
+	<script src="../../src/util/x-util-dragndropmanager.js"></script>
+	<script src="../../src/ui/x-ui-core.js"></script>
+	<script src="../../src/ui/x-view.js"></script>
+	<script src="../../src/ui/x-ui-accordion.js"></script>
+	<script src="../../src/ui/x-ui-carousel.js"></script>
+	<script src="../../src/ui/x-ui-listview.js"></script>
+	<script src="../../src/ui/x-ui-tabs.js"></script>
+	<script src="../../src/ui/x-ui-toolbar.js"></script>
+	<script src="../../src/ui/x-ui-layoutview.js"></script>
+	<script src="../../src/ui/x-ui-form.js"></script>
+	<script src="../../src/ui/x-ui-formview.js"></script>
+	<script src="../../src/ui/x-ui-textbox.js"></script>
+	<script src="../../src/ui/x-ui-slider.js"></script>
+	<script src="../../src/ui/x-ui-spinner.js"></script>
+	<script src="../../src/ui/x-ui-progressbar.js"></script>
+	<script src="../../src/ui/x-ui-switchbox.js"></script>
+	<script src="../../src/core/x-app.js"></script>
+
+	<script src="../../src/plugins/x-event.js"></script>
+	<script src="../../src/plugins/x-scroll.js"></script>
+<style>
+	h1{
+		font-size: 40px;
+		font-weight: bold;
+		text-align: center;
+	}
+	p{
+		font-size: 20px;
+		text-align: center;
+	}
+</style>
+<script>
+
+X.App({
+	id: 'test',
+	iconsize: 114,
+	viewport: true,
+	fullscreen: true,
+	statusbar: 'green',
+	viewConfig: {
+		scroll: false,
+		children: [
+			new X.ui.LayoutView({
+				autoSize: true,
+				maxSize: { west: 700, east: 700 }, 
+				regions : {
+				    south: new X.View({
+						autoSize: false,
+						scroll: false,
+						children: [
+							new X.View({
+								id: 'west01',
+								autoSize: true,
+								style: {background: 'red'},
+								content: '<h1>West01</h1><h1>West01</h1><h1>West01</h1><h1>West01</h1><h1>West01</h1>',
+								toolbar: [
+									new X.ui.Toolbar({
+										title: 'West01'
+									})
+								]
+							})
+						]
+					}),
+					nouth: new X.View({
+						autoSize: false,
+						scroll: false,
+						children: [
+							new X.View({
+								id: 'west01',
+								autoSize: true,
+								style: {background: 'red'},
+								content: '<h1>West01</h1><h1>West01</h1><h1>West01</h1><h1>West01</h1><h1>West01</h1>',
+								toolbar: [
+									new X.ui.Toolbar({
+										title: 'West01'
+									})
+								]
+							})
+						]
+					}),
+					west: new X.View({
+						autoSize: false,
+						scroll: false,
+						children: [
+							new X.View({
+								id: 'west01',
+								autoSize: true,
+								style: {background: 'red'},
+								content: '<h1>West01</h1><h1>West01</h1><h1>West01</h1><h1>West01</h1><h1>West01</h1>',
+								toolbar: [
+									new X.ui.Toolbar({
+										title: 'West01'
+									})
+								]
+							}),
+							new X.View({
+								id: 'west02',
+								autoSize: true,
+								style: {background: 'blue'},
+								content: '<h1>West02</h1>',
+								toolbar: [
+									new X.ui.Toolbar({
+										title: 'West02'
+									})
+								]
+							}),
+							new X.View({
+								id: 'west03',
+								autoSize: true,
+								style: {background: 'green'},
+								content: '<h1>West03</h1>',
+								toolbar: [
+									new X.ui.Toolbar({
+										title: 'West03'
+									})
+								]
+							})
+						]
+					}),
+					center: new X.View({
+						toolbar: [
+							new X.ui.Toolbar({
+								title: 'bbbbb'
+							})
+						],
+						autoSize: true,
+						content: '<h1>Center</h1><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p><p>관련 내용을 기술합니다.</p>',
+						children: [
+							
+						]
+					}),
+					east: new X.View({
+						autoSize: false,
+						scroll: false,
+						children: [
+							new X.View({
+								autoSize: true,
+								style: {background: 'red'},
+								content: '<h1>West01</h1><h1>West01</h1><h1>West01</h1><h1>West01</h1><h1>West01</h1><h1>West01</h1><h1>West01</h1><h1>West01</h1>',
+								toolbar: [
+									new X.ui.Toolbar({
+										title: 'West011'
+									})
+								]
+							}),
+							new X.View({
+								autoSize: true,
+								style: {background: 'blue'},
+								content: '<h1>West02</h1>',
+								toolbar: [
+									new X.ui.Toolbar({
+										title: 'West02'
+									})
+								]
+							}),
+							new X.View({
+								autoSize: true,
+								style: {background: 'green'},
+								content: '<h1>West03</h1>',
+								toolbar: [
+									new X.ui.Toolbar({
+										title: 'West03'
+									})
+								]
+							})
+						]
+					})
+				},
+				listener: {
+					resize: function(){
+						
+					}
+				}
+			})
+		]
+	},
+	ready: function(appView){
+		
+	}
+});
+
+
+
+</script>
+
+
+
+</head>
+<body>
+
+</body>
+</html>

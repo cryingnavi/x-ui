@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui-theme.css" />
+	<link rel="stylesheet" type="text/css" href="./css/style.css" />
+
+	<script src="../../libs/jquery-1.10.2.min.js"></script>
+	<script src="../../build/x-ui.min.js"></script>
+	<script src="../../build/x-event.min.js"></script>
+	<script src="../../build/x-scroll.min.js"></script>
+	
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeGxW7nAYHW2sr6nzg1_35iNkT9Mr9Asw&sensor=true"></script>
+	
+	<script type="text/javascript">
+        X.App({
+            ready: function(appView){
+                appView.setContent();
+                appView.setViewController(new X.util.RemoteViewController({
+                    initPage: {
+                        url: "main.html"
+                    }
+                }));
+            }
+        });
+    </script>
+	
+</head>
+<body>
+	
+</body>
+</html>

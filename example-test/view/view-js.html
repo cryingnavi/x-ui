@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../../resource/x-ui-theme.css" />
+
+	<script src="../../libs/jquery-1.10.2.min.js"></script>
+	<script src="../../src/core/x-core.js"></script>
+	<script src="../../src/util/x-util-core.js"></script>
+	<script src="../../src/util/x-util-observer.js"></script>
+	<script src="../../src/util/x-util-elementmanager.js"></script>
+	<script src="../../src/util/x-util-componentmanager.js"></script>
+	<script src="../../src/util/x-util-viewcontroller.js"></script>
+	<script src="../../src/util/x-util-localviewcontroller.js"></script>
+	<script src="../../src/util/x-util-remoteviewcontroller.js"></script>
+	<script src="../../src/util/x-util-draggable.js"></script>
+	<script src="../../src/util/x-util-droppable.js"></script>
+	<script src="../../src/util/x-util-dragndropmanager.js"></script>
+	<script src="../../src/ui/x-ui-core.js"></script>
+	<script src="../../src/ui/x-view.js"></script>
+	<script src="../../src/ui/x-ui-accordion.js"></script>
+	<script src="../../src/ui/x-ui-carousel.js"></script>
+	<script src="../../src/ui/x-ui-listview.js"></script>
+	<script src="../../src/ui/x-ui-tabs.js"></script>
+	<script src="../../src/ui/x-ui-toolbar.js"></script>
+	<script src="../../src/ui/x-ui-layoutview.js"></script>
+	<script src="../../src/ui/x-ui-form.js"></script>
+	<script src="../../src/ui/x-ui-formview.js"></script>
+	<script src="../../src/ui/x-ui-textbox.js"></script>
+	<script src="../../src/ui/x-ui-slider.js"></script>
+	<script src="../../src/ui/x-ui-spinner.js"></script>
+	<script src="../../src/ui/x-ui-progressbar.js"></script>
+	<script src="../../src/ui/x-ui-switchbox.js"></script>
+	<script src="../../src/core/x-app.js"></script>
+
+	<script src="../../src/plugins/x-event.js"></script>
+	<script src="../../src/plugins/x-scroll.js"></script>
+
+	<script>
+		X.App({
+			ready: function(appView){
+				appView.setContent();
+				var view1 = new X.View({
+					content: "Test1",
+					style: {
+						background: "red"
+					}
+				});
+
+				var view2 = new X.View({
+					content: "Test2",
+					style: {
+						background: "blue"
+					}
+				});
+
+				appView.add([view1, view2]);
+
+				var toolbar = new X.ui.Toolbar({
+					title: "new",
+					position: "bottom"
+				});
+
+				appView.addToolbar([toolbar]);
+			}
+		});
+	</script>
+</head>
+<body>
+
+</body>
+</html>

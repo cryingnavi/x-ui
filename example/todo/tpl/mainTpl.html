@@ -1,0 +1,24 @@
+<div data-ui="toolbar">
+    <h1>
+        Todos
+    </h1>
+    <button class="btn-clear" id="btn-clear">clear All</button>
+</div>
+
+<div class="form-container" data-ui="view" data-scroll="false" data-flexible="false">
+    <form>
+        <input type="text" id="new-todo" />
+    </form>
+</div>
+
+<div class="list-container" data-ui="view" data-scroll="false">
+    <div data-ui="listview" id="listview">
+        <ul style="min-height: 80px;"></ul>
+    </div>
+</div>
+
+<div data-ui="toolbar" data-position="bottom" class="bottom">
+    <div class="count-container">
+        <span>Items : </span><span class="color-blue" id="count">0</span><span> 개</span>
+    </div>
+</div>
