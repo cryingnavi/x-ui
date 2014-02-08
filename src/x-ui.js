@@ -2,22 +2,22 @@
  * x-ui Javascript UI FrameWork
  * jQuery Mobile Event Plugin, jQuery Mobile Animation used and iScroll 4 used.
  * 
- * Copyright 2013, 2014 YoungNam Heo
+ * Copyright 2013, 2014 huh young-nam
  * Dual licensed under the MIT or GPL Version 2 licenses
  * 
  * project: x-ui
- * version: 1.1.1
+ * version: 1.0.3
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2014-01-27 03:01 
+ * Date: 2014-02-06 09:02 
  */
 /**
  * X namespace
  * @namespace
- * @version 1.0.1
+ * @version 1.0.3
  */
 X = {
-    version : '1.0.1'
+    version : '1.0.3'
 };
 
 (function(){

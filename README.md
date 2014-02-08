@@ -2,7 +2,7 @@ x-ui
 ====
 
 # 예제는 다음에서 확인 할 수 있습니다.
-http://cryingnavi.github.io/x-ui/
+http://cryingnavi.github.io/x-ui-doc/
 
 # x-ui
 HTML 5 기반의 작은 ui framework 입니다. 웹 어플리케이션 제작 유용하도록 설계되었으며 리치한 UI 를 구현하는데 필요한 최소한의 기능을 제공합니다.
