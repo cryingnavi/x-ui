@@ -9,7 +9,7 @@
  * version: 1.0.3
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2014-02-09 12:02 
+ * Date: 2014-02-10 09:02 
  */
 /**
  * X namespace
@@ -433,7 +433,7 @@ X.util.Observer.prototype.fire = X.util.Observer.prototype.fireEvent;
 
 X.util.ElementManager = X.util.em = {
 	id: 'x-ui-',
-	index: 1000,
+	index: 1,
 	get: function(selector){
 		if(selector){
 			var type = X.type(selector);
