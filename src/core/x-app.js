@@ -29,7 +29,7 @@
      * @property {String} config.splash 스플래시 이미지를 지정한다. Defautl: null
      * @property {Boolean} config.viewport viewport 를 사용할지를 지정한다. Defautl: true
      * @property {String} config.statusbar statusbar 색상을 지정한다. <br/>
-     * @property {Function} config.readyapplication 생성이 준비되면 호출되는 함수를 지정한다.
+     * @property {Function} config.ready 생성이 준비되면 호출되는 함수를 지정한다.
      * @property {String} config.initialScale initialScale 을 지정한다. Default: 1
      * @property {Number} config.maximumScale maximumScale 을 지정한다. Default: 1
      * @property {Number} config.minimumScale minimumScale 을 지정한다. Default: 1
