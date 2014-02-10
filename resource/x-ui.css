@@ -1130,7 +1130,7 @@ input, textarea {
 	-webkit-animation-name: popuppout;
 	-webkit-animation-duration: 350ms;
 	-moz-animation-name: popuppout;
-	-moz-animation-duration: 350ms;;
+	-moz-animation-duration: 350ms;
 	animation-name: popuppout;
 	animation-duration: 350ms;
 	opacity: 0;
@@ -1227,6 +1227,8 @@ input, textarea {
 }
 
 .ui-vc-active{
+	display: -webkit-box;
+	display: -moz-box;
 	display: flex;
 }
 
@@ -1259,7 +1261,12 @@ input, textarea {
 	position: relative;
 	overflow: hidden;
 	background-color: inherit;
+	display: -webkit-box;
+	display: -moz-box;
 	display: flex;
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	box-orient: vertical;
 	flex-direction: column;
 	line-height: 0;
 	height: 100%;
@@ -1277,18 +1284,29 @@ input, textarea {
 	width: 100%;
 	height: 100%;
 	line-height: 1;
+	display: -webkit-box;
+	display: -moz-box;
 	display: flex;
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	box-flex: 1;
 	-webkit-flex: 1;
     flex: 1;
     outline: 0 none;
 }
 
 .ui-view .ui-view-body.ui-view-body-vertical{
+    -webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	box-orient: vertical;
     -webkit-flex-direction: column;
     flex-direction: column;
 }
 
 .ui-view .ui-view-body.ui-view-body-horizontal{
+    -webkit-box-orient: horizontal;
+	-moz-box-orient: horizontal;
+	box-orient: horizontal;
 	-webkit-flex-direction: row;
     flex-direction: row;
 }
@@ -1303,13 +1321,18 @@ input, textarea {
 
 
 .ui-view.ui-view-flexible{
+    -webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	box-flex: 1;
 	-webkit-flex: 1;
     flex: 1;
 }
 
-/* js 도 삭제 */
+
 .ui-view.ui-view-inflexible{
-	
+	-webkit-box-flex: 0;
+	-moz-box-flex: 0;
+	box-flex: 0;
 }
 
 
@@ -1485,14 +1508,22 @@ input, textarea {
 }
 
 .ui-accordion .ui-view-body-vertical .ui-accordion-views{
+    -webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	box-orient: vertical;
 	-webkit-flex-direction: column;
     flex-direction: column;
 }
 
 .ui-accordion .ui-accordion-views.ui-accordion-open{
+    display: -webkit-box;
+	display: -moz-box;
+	display: flex;
+    -webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	box-flex: 1;
 	-webkit-flex: 1;
 	flex: 1;
-	display: flex;
 }
 
 .ui-accordion .ui-view-body-vertical > .ui-accordion-views.ui-accordion-close{
@@ -1574,6 +1605,8 @@ input, textarea {
 
 
 .ui-carousel{
+    display: -webkit-box;
+	display: -moz-box;
 	display: flex;
 	overflow: hidden;
 }
@@ -1582,8 +1615,6 @@ input, textarea {
 }
 
 .ui-carousel .ui-carousel-views{
-	-webkit-flex: 1;
-	flex: 1;
 	position: absolute;
 }
 
@@ -1599,8 +1630,12 @@ input, textarea {
 	-webkit-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
 	backface-visibility: hidden;
-	display: flex;
+	display: -webkit-box;
 	display: -moz-box;
+	display: flex;
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	box-flex: 1;
 	-webkit-flex: 1;
 	flex: 1;
 	position: relative;
@@ -1747,6 +1782,8 @@ input, textarea {
 }
 
 .ui-spinner .ui-form-container{
+    display: -webkit-box;
+    display: -moz-box;
 	display: flex;
    
 }
@@ -1756,6 +1793,9 @@ input, textarea {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	box-flex: 1;
 	-webkit-flex: 1;
 	flex: 1;
 	box-flex: 1;
@@ -1793,9 +1833,17 @@ input, textarea {
 	overflow: hidden;
 	width: 100%;
 	height: 100%;
+	display: -webkit-box;
+	display: -moz-box;
 	display: flex;
+	-webkit-box-orient: horizontal;
+	-moz-box-orient: horizontal;
+	box-orient: horizontal;
 	-webkit-flex-direction: row;
 	flex-direction: row;
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	box-flex: 1;
 	-webkit-flex: 1;
 	flex: 1;
 }

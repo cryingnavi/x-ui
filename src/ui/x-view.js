@@ -280,10 +280,12 @@ X.View = X.extend(X.util.Observer, {
      */
 	setFlexible: function(flex){
 		if(flex){
-			this.el.addClass('ui-view-flexible');
+			this.el.addClass('ui-view-flexible')
+			    .removeClass('ui-view-inflexible');
 		}
 		else{
-			this.el.removeClass('ui-view-flexible');
+		    this.el.addClass('ui-view-inflexible')
+			    .removeClass('ui-view-flexible');
 		}
 	},
 	/**

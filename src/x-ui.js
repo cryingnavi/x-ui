@@ -9,7 +9,7 @@
  * version: 1.0.3
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2014-02-10 04:02 
+ * Date: 2014-02-10 11:02 
  */
 /**
  * X namespace
@@ -2326,10 +2326,12 @@ X.View = X.extend(X.util.Observer, {
      */
 	setFlexible: function(flex){
 		if(flex){
-			this.el.addClass('ui-view-flexible');
+			this.el.addClass('ui-view-flexible')
+			    .removeClass('ui-view-inflexible');
 		}
 		else{
-			this.el.removeClass('ui-view-flexible');
+		    this.el.addClass('ui-view-inflexible')
+			    .removeClass('ui-view-flexible');
 		}
 	},
 	/**
