@@ -9,7 +9,7 @@
  * version: 1.0.3
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2014-02-10 09:02 
+ * Date: 2014-02-10 01:02 
  */
 /**
  * X namespace
@@ -707,46 +707,99 @@ X.util.ViewController = X.extend(X.util.Observer, {
 		this.view = view;
 	},
 	transitionStart: function(fromView, toView, transition, reverse){
-		var deferred = new $.Deferred();
+		var deferred = new $.Deferred(),
+			transitionHandler = null;
 
-		function transitionHandler(fromView, toView, transition, reverse){
-			var viewIn = function(){
-			    var tel = null,
-			        fel = null;
+		if(transition === 'flow'){
+			transitionHandler = function (fromView, toView, transition, reverse){
+				var viewIn = function(){
+				    var fel = null;
 
-				tel = toView.getEl();
-				tel.addClass(transition + ' in ' + reverse + ' ui-transitioning ui-vc-active').removeClass('ui-view-hide');
+					fel = fromView.getEl();
+					fel.addClass(transition + ' out ' + reverse + ' ui-transitioning');
 
-				fel = fromView.getEl();
-				fel.addClass(transition + ' out ' + reverse + ' ui-transitioning');
+					if(transition !== 'none'){
+						fel.animationComplete(fromViewOut);
+					}
+					else{
+						fromViewOut();
+					}
+				},
+				fromViewOut = function(){
+				    var tel = null;
+				        
+					tel = toView.getEl();
+					tel.addClass(transition + ' in ' + reverse + ' ui-transitioning ui-vc-active').removeClass('ui-view-hide');
 
-				if(transition !== 'none'){
-					tel.animationComplete(viewOut);
-				}
-				else{
-					viewOut();
-				}
-			},
-			viewOut = function(){
-			    var tel = null,
-			        fel = null;
-			        
-				tel = toView.getEl();
-				tel.removeClass(transition + ' in ' + reverse + ' ui-transitioning');
+					if(transition !== 'none'){
+						tel.animationComplete(toViewOut);
+					}
+					else{
+						toViewOut();
+					}
+				},
+				toViewOut = function(){
+				    var tel = null,
+				        fel = null;
+				        
+					tel = toView.getEl();
+					tel.removeClass(transition + ' in ' + reverse + ' ui-transitioning');
 
-				fel = fromView.getEl();
-				fel.removeClass(transition + ' out ' + reverse + ' ui-transitioning ui-vc-active');
+					fel = fromView.getEl();
+					fel.removeClass(transition + ' out ' + reverse + ' ui-transitioning ui-vc-active');
 
-				done();
-			},
-			done = function(){
-				fromView.hide();
-				deferred.resolve(this, [fromView, toView]);
+					done();
+				},
+				done = function(){
+					fromView.hide();
+					deferred.resolve(this, [fromView, toView]);
 
-				fromView = null, toView = null, transition = null, reverse = null;
-			};
+					fromView = null, toView = null, transition = null, reverse = null;
+				};
 
-			viewIn();
+				viewIn();
+			}
+		}
+		else{
+			transitionHandler = function (fromView, toView, transition, reverse){
+				var viewIn = function(){
+				    var tel = null,
+				        fel = null;
+
+					tel = toView.getEl();
+					tel.addClass(transition + ' in ' + reverse + ' ui-transitioning ui-vc-active').removeClass('ui-view-hide');
+
+					fel = fromView.getEl();
+					fel.addClass(transition + ' out ' + reverse + ' ui-transitioning');
+
+					if(transition !== 'none'){
+						tel.animationComplete(viewOut);
+					}
+					else{
+						viewOut();
+					}
+				},
+				viewOut = function(){
+				    var tel = null,
+				        fel = null;
+				        
+					tel = toView.getEl();
+					tel.removeClass(transition + ' in ' + reverse + ' ui-transitioning');
+
+					fel = fromView.getEl();
+					fel.removeClass(transition + ' out ' + reverse + ' ui-transitioning ui-vc-active');
+
+					done();
+				},
+				done = function(){
+					fromView.hide();
+					deferred.resolve(this, [fromView, toView]);
+
+					fromView = null, toView = null, transition = null, reverse = null;
+				};
+
+				viewIn();
+			}
 		}
 
 		transitionHandler(fromView, toView, transition, reverse);
