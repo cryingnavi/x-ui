@@ -212,7 +212,7 @@ X.util.ViewController = X.extend(X.util.Observer, {
 			this.toStart(toView, transition, reverse, $.proxy(function(){
 				this.done(fromView, toView, transition, reverse, deferred);
 
-				fromView = null, toView = null, transition = null, reverse = null, deferred = null;
+				fromView = null, toView = null, transition = null, reverse = null;
 			}, this));
 		}
 		else{
@@ -220,7 +220,7 @@ X.util.ViewController = X.extend(X.util.Observer, {
 				this.toStart(toView, transition, reverse, $.proxy(function(){
 					this.done(fromView, toView, transition, reverse, deferred);
 
-					fromView = null, toView = null, transition = null, reverse = null, deferred = null;
+					fromView = null, toView = null, transition = null, reverse = null;
 				}, this));
 			}, this));
 		}

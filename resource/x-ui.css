@@ -1095,6 +1095,138 @@ input, textarea {
 	}
 }
 
+
+
+.puff.in{
+	-webkit-transform: scale(1);
+	-webkit-animation-name: puffin;
+	-webkit-animation-duration: 350ms;
+	-moz-transform: scale(1);
+	-moz-animation-name: puffin;
+	-moz-animation-duration: 350ms;
+	transform: scale(1);
+	animation-name: puffin;
+	animation-duration: 350ms;
+    opacity: 1;
+}
+.puff.out {
+	-webkit-animation-name: fadeout;
+	-webkit-animation-duration: 100ms;
+	-moz-animation-name: fadeout;
+	-moz-animation-duration: 100ms;
+	animation-name: fadeout;
+	animation-duration: 100ms;
+	opacity: 0;
+}
+
+.puff.in.reverse{
+	-webkit-animation-name: fadein;
+	-moz-animation-name: fadein;
+	animation-name: fadein;
+}
+
+.puff.out.reverse{
+	-webkit-transform: scale(1.2);
+	-webkit-animation-name: puffout;
+	-moz-transform: scale(1.2);
+	-moz-animation-name: puffout;
+	transform: scale(1.2);
+	animation-name: puffout;
+}
+
+
+@-webkit-keyframes puffin {
+	from {
+		-webkit-transform: scale(1.2);
+		-moz-transform: scale(1.2);
+		transform: scale(1.2);
+		opacity: 0.5;
+	}
+	to {
+		-webkit-transform: scale(1);
+		-moz-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@-moz-keyframes puffin {
+	from {
+		-webkit-transform: scale(1.2);
+		-moz-transform: scale(1.2);
+		transform: scale(1.2);
+		opacity: 0.7;
+	}
+	to {
+		-webkit-transform: scale(1);
+		-moz-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes puffin {
+	from {
+		-webkit-transform: scale(1.2);
+		-moz-transform: scale(1.2);
+		transform: scale(1.2);
+		opacity: 0.7;
+	}
+	to {
+		-webkit-transform: scale(1);
+		-moz-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+
+@-webkit-keyframes puffout {
+	from {
+		-webkit-transform: scale(1);
+		-moz-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: scale(1.2);
+		-moz-transform: scale(1.2);
+		transform: scale(1.2);
+		opacity: 0.5;
+	}
+}
+
+@-moz-keyframes puffout {
+	from {
+		-webkit-transform: scale(1);
+		-moz-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: scale(1.2);
+		-moz-transform: scale(1.2);
+		transform: scale(1.2);
+		opacity: 0.5;
+	}
+}
+
+@keyframes puffout {
+	from {
+		-webkit-transform: scale(1);
+		-moz-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: scale(1.2);
+		-moz-transform: scale(1.2);
+		transform: scale(1.2);
+		opacity: 0.5;
+	}
+}
+
+
 .ui-overlay{
 	z-index: 9999;
 	min-width: 100%;
