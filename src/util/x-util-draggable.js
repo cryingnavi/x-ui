@@ -308,7 +308,7 @@ X.util.Draggable = X.extend(X.util.Observer, {
 					'transform': 'translate3d(0px, 0px, 0px)'
 				};
 				
-				me.active_el.css(anim).one('webkitTransitionEnd transitionend', function(){
+				me.active_el.css(anim).one('transitionend', function(){
 					endFn();
 					endFn = null;
 				});

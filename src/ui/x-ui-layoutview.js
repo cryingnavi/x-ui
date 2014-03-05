@@ -214,7 +214,7 @@ X.ui.LayoutView = X.extend(X.View, {
             constrain: this.el
         });
 
-        this[region].el.on('webkitTransitionEnd transitionend', {me: this}, this.animationEnd);
+        this[region].el.on('transitionend', {me: this}, this.animationEnd);
 	},
 	animationEnd: function(e){
         var me = e.data.me;

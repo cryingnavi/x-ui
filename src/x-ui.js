@@ -9,7 +9,7 @@
  * version: 1.0.3
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2014-02-10 11:02 
+ * Date: 2014-03-05 05:03 
  */
 /**
  * X namespace
@@ -754,7 +754,7 @@ X.util.ViewController = X.extend(X.util.Observer, {
 			this.toStart(toView, transition, reverse, $.proxy(function(){
 				this.done(fromView, toView, transition, reverse, deferred);
 
-				fromView = null, toView = null, transition = null, reverse = null, deferred = null;
+				fromView = null, toView = null, transition = null, reverse = null;
 			}, this));
 		}
 		else{
@@ -762,7 +762,7 @@ X.util.ViewController = X.extend(X.util.Observer, {
 				this.toStart(toView, transition, reverse, $.proxy(function(){
 					this.done(fromView, toView, transition, reverse, deferred);
 
-					fromView = null, toView = null, transition = null, reverse = null, deferred = null;
+					fromView = null, toView = null, transition = null, reverse = null;
 				}, this));
 			}, this));
 		}
@@ -1767,7 +1767,7 @@ X.util.Draggable = X.extend(X.util.Observer, {
 					'transform': 'translate3d(0px, 0px, 0px)'
 				};
 				
-				me.active_el.css(anim).one('webkitTransitionEnd transitionend', function(){
+				me.active_el.css(anim).one('transitionend', function(){
 					endFn();
 					endFn = null;
 				});
@@ -4403,7 +4403,7 @@ X.ui.LayoutView = X.extend(X.View, {
             constrain: this.el
         });
 
-        this[region].el.on('webkitTransitionEnd transitionend', {me: this}, this.animationEnd);
+        this[region].el.on('transitionend', {me: this}, this.animationEnd);
 	},
 	animationEnd: function(e){
         var me = e.data.me;
