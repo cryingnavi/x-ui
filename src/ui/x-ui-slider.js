@@ -27,11 +27,16 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			min: 0,
 			max: 100,
 			step: 1,
-			defaultValue: 50,
+			defaultValue: 0,
 			direction: 'x',
 			subhandle: false
 		};
 		X.apply(this.config, config);
+
+		this.config.min = parseInt(this.config.min);
+		this.config.max = parseInt(this.config.max);
+		this.config.step = parseInt(this.config.step);
+		this.config.defaultValue = parseInt(this.config.defaultValue);
 		X.ui.Slider.base.initialize.call(this, this.config);
 	},
 	/**
@@ -56,7 +61,9 @@ X.ui.Slider = X.extend(X.ui.Form, {
 		this.dragging = false;
 		this.handle.bind( X.events.start, {me: this}, function(e){
 			var me = e.data.me,
-				el = me.el;
+				el = me.el,
+				val = me.getValue(),
+				percent = me.getPercent();
 			
 			if(el.hasClass('ui-disabled')){
 				return false;
@@ -64,10 +71,11 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			
 			me.dragging = true;
 			me.subdragging = false;
-			
 
 			X.getDoc().on(X.events.move, {me: me}, me.onMove);
 			X.getDoc().on(X.events.end, {me: me}, me.onEnd);
+
+			me.fireEvent(me, 'start', [me, percent, val]);
 			return false;
 		});
 
@@ -104,8 +112,10 @@ X.ui.Slider = X.extend(X.ui.Form, {
 		var me = e.data.me;
 		if ( me.dragging ) {
 			me.dragging = false;
-			var val = me.getValue();
-			me.fireEvent(me, 'change', [val]);
+			var val = me.getValue(),
+				percent = me.getPercent();
+
+			me.fireEvent(me, 'end', [me, percent, val]);
 			return false;
 		}
 
@@ -187,8 +197,7 @@ X.ui.Slider = X.extend(X.ui.Form, {
 				percent = Math.round(((y - t) / h ) * 100);
 			}
 		}
-
-		if(X.type(val) === 'number'){
+		else if(X.type(val) === 'number'){
 			percent = this.percentValue(val);
 		}
 		
@@ -221,20 +230,20 @@ X.ui.Slider = X.extend(X.ui.Form, {
 				
 
 				if(this.config.direction === 'x'){
-					this.subhandle.css("left", subPercent + "%").data('data', subNewVal);
+					this.subhandle.css("left", subPercent + "%").data('data', subNewVal).data('percent', subPercent);
 				}
 				else{
-					this.subhandle.css("top", subPercent + "%").data('data', subNewVal);
+					this.subhandle.css("top", subPercent + "%").data('data', subNewVal).data('percent', subPercent);
 				}
 			}
 		}
 		
 		if(this.config.direction === 'x'){
 			if(this.subdragging){
-				this.subhandle.css("left", percent + "%").data('data', newval);
+				this.subhandle.css("left", percent + "%").data('data', newval).data('percent', percent);
 			}
 			else{
-				this.handle.css("left", percent + "%").data('data', newval);
+				this.handle.css("left", percent + "%").data('data', newval).data('percent', percent);
 			}
 		}
 
@@ -296,10 +305,18 @@ X.ui.Slider = X.extend(X.ui.Form, {
      */
 	getValue: function(){
 		if(this.subhandle){
-			return [this.handle.data('data'), this.subhandle.data('data')];
+			return [this.handle.data('data') || this.config.defaultValue, this.subhandle.data('data') || this.config.subhandle];
 		}
 		else{
-			return this.handle.data('data');
+			return this.handle.data('data') || this.config.defaultValue;
+		}
+	},
+	getPercent: function(){
+		if(this.subhandle){
+			return [this.handle.data('percent'), this.subhandle.data('percent')];
+		}
+		else{
+			return this.handle.data('percent');
 		}
 	},
 	/**

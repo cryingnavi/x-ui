@@ -9,7 +9,7 @@
  * version: 1.0.3
  * repository: git://github.com/cryingnavi/x-ui.git
  * contact: cryingnavi@gmail.com
- * Date: 2014-03-05 05:03 
+ * Date: 2014-03-07 02:03 
  */
 /**
  * X namespace
@@ -995,12 +995,28 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
      * @param {Number} index - 원하는 view에 해당하는 index
      * @return {X.View} view - X.View를 반환한다.
      */
-	getView: function(index){
+	getView: function(key){
 		if(this.views.length < 1){
 			return null;
 		}
 		
-		var view = this.views[index];
+		var view = null,
+			views = this.views,
+			len = views.length,
+			i = 0;
+		
+		if(X.type(key) === 'number'){
+			view = this.views[key];
+		}
+		else{
+			for(;i<len; i++){
+				if(views[i].el.attr('id') === key){
+					view = views[i];
+					break;
+				}
+			}
+		}
+		
 		if(!view){
 			return null;
 		}
@@ -1025,9 +1041,11 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 		if(!config){
 			return false;
 		}
+
+		var key = config.hasOwnProperty('index') ? config.index : config.id;
 		
 		var fromView = this.getActiveView(),
-			toView = this.getView(config.index);
+			toView = this.getView(key);
 		
 		if(this.valid(fromView, toView)){
 			return false;
@@ -1078,8 +1096,11 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
      * @return {X.View} view - 해당 view를 반환한다.
      */
 	appendView: function(view){
-		view.el.addClass('ui-vc-active');
+		view.el.addClass('ui-vc-views');
 		this.views.push(view);
+		if(this.views.length === 1){
+			this.setActiveView(view);
+		}
 
 		return view;
 	},
@@ -1087,23 +1108,42 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
      * @desc 등록된 view 를 viewcontroller에서 삭제 한다.
      * @memberof X.util.LocalViewController.prototype
      * @method removeView
-     * @param {X.View} view - 삭제할 view
+     * @param {X.View} view - 삭제할 view index or id
      * @return {X.View} view - 해당 view를 반환한다.
      */
-	removeView: function(view){
+	removeView: function(key){
 		var i=0,
 			views = this.views,
 			len = views.length,
-			array = [];
-		
-		for(; i<len; i++){
-			if(views[i] !== view){
-				array.push(views[i]);
+			array = [],
+			view = null,
+			id = null;
+
+		if(X.type(key) === 'number'){
+			view = views[key];
+			for(; i<len; i++){
+				if(views[i] !== view){
+					array.push(views[i]);
+				}
 			}
+			id = view.el.attr('id');
 		}
+		else{
+			for(; i<len; i++){
+				if(views[i].el.attr('id') !== key){
+					array.push(views[i]);
+				}
+				else{
+					view = views[i];
+				}
+			}
+			
+			id = view.el.attr('id');
+		}
+		
 		this.views = array;
 
-		this.history.removeMap(id);
+		this.history.removeViewMap(id);
 		this.history.removeStack(id);
 
 		return view;
@@ -1596,7 +1636,6 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			target = me.active_el.get(0),
 			style = target.style,
 			translate = 'translate3d(' + x + 'px, ' + y + 'px' + ', 0px)';
-		
 
 		style.webkitTransform = translate;
 		style.msTransform = translate;
@@ -1615,7 +1654,13 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			return;
 		}
 
-		me.active_el = $(e.target);
+		if(me.config.handle){
+			me.active_el = me.el;
+		}
+		else{
+			me.active_el = $(e.target);
+		}
+		
 		me.active_el.addClass('ui-dragging');
 		var target = me.active_el.get(0);
 
@@ -2609,11 +2654,27 @@ X.View = X.extend(X.util.Observer, {
      * @method 
      * @desc View 안에 있는 컴포넌트를 삭제한다.
      * @memberof X.View.prototype
-     * @param {Number} index
+     * @param {Number|String} index or id
      * @example
      * view.removeChildren(1);
      */
-	removeChildren: function(index){
+	removeChildren: function(key){
+		var index = null,
+			childrens = this.config.children,
+			len = childrens.length,
+			i = 0;
+
+		if(X.type(key) === 'number'){
+			index = key;
+		}
+		else{
+			for(; i<len; i++){
+				if(childrens[i].el.attr('id') === key){
+					index = i;
+					break;
+				}
+			}
+		}
 		this.config.children[index].destroy();
 		this.config.children.remove(index);
 	},
@@ -5013,11 +5074,16 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			min: 0,
 			max: 100,
 			step: 1,
-			defaultValue: 50,
+			defaultValue: 0,
 			direction: 'x',
 			subhandle: false
 		};
 		X.apply(this.config, config);
+
+		this.config.min = parseInt(this.config.min);
+		this.config.max = parseInt(this.config.max);
+		this.config.step = parseInt(this.config.step);
+		this.config.defaultValue = parseInt(this.config.defaultValue);
 		X.ui.Slider.base.initialize.call(this, this.config);
 	},
 	/**
@@ -5042,7 +5108,9 @@ X.ui.Slider = X.extend(X.ui.Form, {
 		this.dragging = false;
 		this.handle.bind( X.events.start, {me: this}, function(e){
 			var me = e.data.me,
-				el = me.el;
+				el = me.el,
+				val = me.getValue(),
+				percent = me.getPercent();
 			
 			if(el.hasClass('ui-disabled')){
 				return false;
@@ -5050,10 +5118,11 @@ X.ui.Slider = X.extend(X.ui.Form, {
 			
 			me.dragging = true;
 			me.subdragging = false;
-			
 
 			X.getDoc().on(X.events.move, {me: me}, me.onMove);
 			X.getDoc().on(X.events.end, {me: me}, me.onEnd);
+
+			me.fireEvent(me, 'start', [me, percent, val]);
 			return false;
 		});
 
@@ -5090,8 +5159,10 @@ X.ui.Slider = X.extend(X.ui.Form, {
 		var me = e.data.me;
 		if ( me.dragging ) {
 			me.dragging = false;
-			var val = me.getValue();
-			me.fireEvent(me, 'change', [val]);
+			var val = me.getValue(),
+				percent = me.getPercent();
+
+			me.fireEvent(me, 'end', [me, percent, val]);
 			return false;
 		}
 
@@ -5173,8 +5244,7 @@ X.ui.Slider = X.extend(X.ui.Form, {
 				percent = Math.round(((y - t) / h ) * 100);
 			}
 		}
-
-		if(X.type(val) === 'number'){
+		else if(X.type(val) === 'number'){
 			percent = this.percentValue(val);
 		}
 		
@@ -5207,20 +5277,20 @@ X.ui.Slider = X.extend(X.ui.Form, {
 				
 
 				if(this.config.direction === 'x'){
-					this.subhandle.css("left", subPercent + "%").data('data', subNewVal);
+					this.subhandle.css("left", subPercent + "%").data('data', subNewVal).data('percent', subPercent);
 				}
 				else{
-					this.subhandle.css("top", subPercent + "%").data('data', subNewVal);
+					this.subhandle.css("top", subPercent + "%").data('data', subNewVal).data('percent', subPercent);
 				}
 			}
 		}
 		
 		if(this.config.direction === 'x'){
 			if(this.subdragging){
-				this.subhandle.css("left", percent + "%").data('data', newval);
+				this.subhandle.css("left", percent + "%").data('data', newval).data('percent', percent);
 			}
 			else{
-				this.handle.css("left", percent + "%").data('data', newval);
+				this.handle.css("left", percent + "%").data('data', newval).data('percent', percent);
 			}
 		}
 
@@ -5282,10 +5352,18 @@ X.ui.Slider = X.extend(X.ui.Form, {
      */
 	getValue: function(){
 		if(this.subhandle){
-			return [this.handle.data('data'), this.subhandle.data('data')];
+			return [this.handle.data('data') || this.config.defaultValue, this.subhandle.data('data') || this.config.subhandle];
 		}
 		else{
-			return this.handle.data('data');
+			return this.handle.data('data') || this.config.defaultValue;
+		}
+	},
+	getPercent: function(){
+		if(this.subhandle){
+			return [this.handle.data('percent'), this.subhandle.data('percent')];
+		}
+		else{
+			return this.handle.data('percent');
 		}
 	},
 	/**

@@ -137,7 +137,6 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			target = me.active_el.get(0),
 			style = target.style,
 			translate = 'translate3d(' + x + 'px, ' + y + 'px' + ', 0px)';
-		
 
 		style.webkitTransform = translate;
 		style.msTransform = translate;
@@ -156,7 +155,13 @@ X.util.Draggable = X.extend(X.util.Observer, {
 			return;
 		}
 
-		me.active_el = $(e.target);
+		if(me.config.handle){
+			me.active_el = me.el;
+		}
+		else{
+			me.active_el = $(e.target);
+		}
+		
 		me.active_el.addClass('ui-dragging');
 		var target = me.active_el.get(0);
 

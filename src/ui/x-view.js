@@ -563,11 +563,27 @@ X.View = X.extend(X.util.Observer, {
      * @method 
      * @desc View 안에 있는 컴포넌트를 삭제한다.
      * @memberof X.View.prototype
-     * @param {Number} index
+     * @param {Number|String} index or id
      * @example
      * view.removeChildren(1);
      */
-	removeChildren: function(index){
+	removeChildren: function(key){
+		var index = null,
+			childrens = this.config.children,
+			len = childrens.length,
+			i = 0;
+
+		if(X.type(key) === 'number'){
+			index = key;
+		}
+		else{
+			for(; i<len; i++){
+				if(childrens[i].el.attr('id') === key){
+					index = i;
+					break;
+				}
+			}
+		}
 		this.config.children[index].destroy();
 		this.config.children.remove(index);
 	},

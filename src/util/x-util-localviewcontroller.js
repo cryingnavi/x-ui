@@ -91,12 +91,28 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
      * @param {Number} index - 원하는 view에 해당하는 index
      * @return {X.View} view - X.View를 반환한다.
      */
-	getView: function(index){
+	getView: function(key){
 		if(this.views.length < 1){
 			return null;
 		}
 		
-		var view = this.views[index];
+		var view = null,
+			views = this.views,
+			len = views.length,
+			i = 0;
+		
+		if(X.type(key) === 'number'){
+			view = this.views[key];
+		}
+		else{
+			for(;i<len; i++){
+				if(views[i].el.attr('id') === key){
+					view = views[i];
+					break;
+				}
+			}
+		}
+		
 		if(!view){
 			return null;
 		}
@@ -121,9 +137,11 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
 		if(!config){
 			return false;
 		}
+
+		var key = config.hasOwnProperty('index') ? config.index : config.id;
 		
 		var fromView = this.getActiveView(),
-			toView = this.getView(config.index);
+			toView = this.getView(key);
 		
 		if(this.valid(fromView, toView)){
 			return false;
@@ -174,8 +192,11 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
      * @return {X.View} view - 해당 view를 반환한다.
      */
 	appendView: function(view){
-		view.el.addClass('ui-vc-active');
+		view.el.addClass('ui-vc-views');
 		this.views.push(view);
+		if(this.views.length === 1){
+			this.setActiveView(view);
+		}
 
 		return view;
 	},
@@ -183,23 +204,42 @@ X.util.LocalViewController = X.extend(X.util.ViewController, {
      * @desc 등록된 view 를 viewcontroller에서 삭제 한다.
      * @memberof X.util.LocalViewController.prototype
      * @method removeView
-     * @param {X.View} view - 삭제할 view
+     * @param {X.View} view - 삭제할 view index or id
      * @return {X.View} view - 해당 view를 반환한다.
      */
-	removeView: function(view){
+	removeView: function(key){
 		var i=0,
 			views = this.views,
 			len = views.length,
-			array = [];
-		
-		for(; i<len; i++){
-			if(views[i] !== view){
-				array.push(views[i]);
+			array = [],
+			view = null,
+			id = null;
+
+		if(X.type(key) === 'number'){
+			view = views[key];
+			for(; i<len; i++){
+				if(views[i] !== view){
+					array.push(views[i]);
+				}
 			}
+			id = view.el.attr('id');
 		}
+		else{
+			for(; i<len; i++){
+				if(views[i].el.attr('id') !== key){
+					array.push(views[i]);
+				}
+				else{
+					view = views[i];
+				}
+			}
+			
+			id = view.el.attr('id');
+		}
+		
 		this.views = array;
 
-		this.history.removeMap(id);
+		this.history.removeViewMap(id);
 		this.history.removeStack(id);
 
 		return view;
