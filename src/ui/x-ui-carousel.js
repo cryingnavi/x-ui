@@ -229,11 +229,13 @@ X.ui.Carousel = X.extend(X.View, {
 			style.transform = 'translateY(' + endPos + 'px)';
 		}
 
-		me.fireEvent(me, 'change', [me, me.activeIndex, me.getActiveView()]);
+		if(me.moveLimit > 30){
+			me.fireEvent(me, 'change', [me, me.activeIndex, me.getActiveView()]);
+		}
 
 		me.carouselBody.off(X.events.move, me.onMove);
 		me.carouselBody.off(X.events.end, me.onEnd);
-		
+
 		me.dragging = false;
 	},
 	/**
